@@ -153,6 +153,10 @@ def team_summaries(teams, ratings, preseason, week_ago, results, stats, season_s
         info[team]["sos"] = float(np.mean([net[o] for o in played if o in net])) if played else None
         left = sched[~sched.done & ((sched.home == team) | (sched.away == team))]
         to_play = [a if h == team else h for h, a in zip(left.home, left.away)]
+        regular_left = left[~left.finals]
+        info[team]["left_home"] = int(((regular_left.home == team) & ~regular_left.neutral).sum())
+        info[team]["left_away"] = int(((regular_left.away == team) & ~regular_left.neutral).sum())
+        info[team]["left_neutral"] = int(regular_left.neutral.sum())
         info[team]["rsos"] = float(np.mean([net[o] for o in to_play if o in net])) if to_play else None
 
     rank_keys = (("net", True), ("o", True), ("d", False), ("t", True), ("sos", True), ("rsos", True),

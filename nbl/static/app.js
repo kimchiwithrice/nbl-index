@@ -94,6 +94,8 @@
     "Wins above an average team (résumé)": "How many more wins than an average team would have against the same schedule.",
     "Raw efficiency (off / def)": "Points scored and allowed per 100 possessions, before adjusting for opponents.",
     "Proj W": "Average wins across the simulated seasons.",
+    "Left H/A": "Regular-season games left at home and away. The simulation plays each one at its real venue.",
+    "Games left at home / away": "Regular-season games left at home and away. The simulation plays each one at its real venue.",
     "Proj. record": "Average wins and losses across the simulated seasons.",
     "7d": "Change in rank over the last week.",
     "eFG%": "Field-goal % with threes counted as 1.5 makes.",

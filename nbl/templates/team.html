@@ -63,11 +63,12 @@
   <div class="tw"><table class="dense"><tbody>
     <tr><td class="l">Opponents played (avg {{ rating }})</td><td>{{ x.sos | sgn }}{{ m.rk(x.rk.sos, N) }}</td></tr>
     <tr><td class="l">Opponents still to play</td><td>{{ x.rsos | sgn }}{{ m.rk(x.rk.rsos, N) }}</td></tr>
+    <tr><td class="l">Games left at home / away</td><td>{{ x.left_home }} / {{ x.left_away }}{% if x.left_neutral %} <small class="mut">+{{ x.left_neutral }} neutral</small>{% endif %}</td></tr>
     <tr><td class="l">Raw efficiency (off / def)</td><td>{% if x.stats %}{{ x.stats.raw_o | f1 }} / {{ x.stats.raw_d | f1 }}{% else %}–{% endif %}</td></tr>
     <tr><td class="l">Wins vs expected (luck)</td><td class="sp">{{ x.luck | sgn }}{{ m.rk(x.rk.luck, N) }}</td></tr>
     <tr><td class="l">Wins above an average team (résumé)</td><td class="sp">{{ x.waa | sgn }}{{ m.rk(x.rk.waa, N) }}</td></tr>
   </tbody></table></div>
-  <p class="note">Luck is wins minus what the ratings expected from those games. Close games decide most of it and it tends to even out. Résumé is how many more wins than an average team would have managed against the same opponents, home and away.</p>
+  <p class="note">Home and away games left are already built into the projections: every remaining game is simulated where it's actually played. Luck is wins minus what the ratings expected from those games. Close games decide most of it and it tends to even out. Résumé is how many more wins than an average team would have managed against the same opponents, home and away.</p>
 
   <h2>Where they'll finish</h2>
   <div class="dist" style="--c:{{ x.colours[0] }};--cd:{{ x.colours[1] }}">

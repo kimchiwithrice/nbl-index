@@ -8,12 +8,12 @@
 
 <h2>Projected final ladder</h2>
 {{ m.early(S, root) }}
-<p class="note" style="margin:0 0 8px">The last {{ S.games_left }} games and the finals, played out {{ "{:,}".format(S.n) }} times. Sorted by projected wins.</p>
+<p class="note" style="margin:0 0 8px">The last {{ S.games_left }} games and the finals, played out {{ "{:,}".format(S.n) }} times, each one where it's actually scheduled. Sorted by projected wins.</p>
 <div class="tw"><table class="dense ladder">
   <thead>
-    <tr class="grp"><th colspan="3"></th><th colspan="3" class="sep">Chance of finishing</th><th colspan="3" class="sep">Chance of reaching</th><th class="sep"></th></tr>
+    <tr class="grp"><th colspan="4"></th><th colspan="3" class="sep">Chance of finishing</th><th colspan="3" class="sep">Chance of reaching</th><th class="sep"></th></tr>
     <tr>
-      <th class="num">#</th><th class="l">Team</th><th title="Projected wins-losses over the {{ n_games }}-game season">Proj. record</th>
+      <th class="num">#</th><th class="l">Team</th><th title="Projected wins-losses over the {{ n_games }}-game season">Proj. record</th><th title="Regular-season games left at home and away">Left H/A</th>
       <th class="sep" title="Finish first: minor premiership">1st</th>
       <th title="Finish top two: straight to the semi-finals">Top 2</th>
       <th title="Finish top six: make the finals">Top 6</th>
@@ -29,6 +29,7 @@
       <td class="num mut">{{ loop.index }}</td>
       <td class="l">{{ m.team(info, t, root) }}</td>
       <td class="b">{{ x.proj_rec }}</td>
+      <td class="mut">{{ x.left_home }}/{{ x.left_away }}</td>
       <td class="sep">{{ x.sim.p1 | odds }}</td>
       <td>{{ x.sim.top2 | odds }}</td>
       <td class="b">{{ x.sim.top6 | odds }}</td>
@@ -39,7 +40,7 @@
     </tr>
   {% endfor %}
   </tbody>
-  <tfoot><tr><td colspan="9"></td><td class="sep l"><div class="fp lab">{% for i in range(1, N + 1) %}<span>{{ i }}</span>{% endfor %}</div></td></tr></tfoot>
+  <tfoot><tr><td colspan="10"></td><td class="sep l"><div class="fp lab">{% for i in range(1, N + 1) %}<span>{{ i }}</span>{% endfor %}</div></td></tr></tfoot>
 </table></div>
 <p class="note">Each square is a ladder spot, 1st on the left. The darker it is, the more likely; the number is the % chance (only shown from 10% up). The outlined square is the most likely finish. The lines mark the top-two and top-six cut-offs.</p>
 {{ m.ad(cfg) }}
