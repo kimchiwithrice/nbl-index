@@ -84,7 +84,7 @@
 <section>
   <h2>Schedule &amp; predictions</h2>
   <div class="tw"><table class="dense">
-    <thead><tr><th class="l">Date</th><th class="l">Opponent</th><th>Win %</th><th>Proj</th><th class="sp-col">Result</th><th title="Watchability, spoiler-free">Watch</th></tr></thead>
+    <thead><tr><th class="l">Date</th><th class="l">Opponent</th><th>Win %</th><th>Proj</th><th class="sp-col">Result</th><th>Hype</th><th>Drama</th></tr></thead>
     <tbody>
     {% for g in games %}{% set home = g.home == t %}{% set opp = g.away if home else g.home %}
       {% set p = g.pred.p_home if home else 1 - g.pred.p_home %}
@@ -95,14 +95,14 @@
         <td>{{ (g.pred.h_pts if home else g.pred.a_pts) | round | int }}–{{ (g.pred.a_pts if home else g.pred.h_pts) | round | int }}</td>
         {% if g.done %}{% set mine = g.hs if home else g.as %}{% set theirs = g.as if home else g.hs %}
         <td class="sp {{ 'pos' if mine > theirs else 'neg' }}">{{ 'W' if mine > theirs else 'L' }} {{ mine }}–{{ theirs }}{{ ' OT' if g.ot else '' }}</td>
-        <td class="stars">{{ g.stars | stars }}</td>
-        {% elif g.pending %}<td class="mut">awaiting result</td><td class="mut">–</td>
-        {% else %}<td class="sp mut">–</td><td class="mut">{{ g.thrill }}</td>{% endif %}
+        <td class="mut">–</td><td class="thr">{{ g.drama }}</td>
+        {% elif g.pending %}<td class="mut">awaiting result</td><td class="mut">–</td><td class="mut">–</td>
+        {% else %}<td class="sp mut">–</td><td>{{ g.hype }}</td><td class="mut">–</td>{% endif %}
       </tr>
     {% endfor %}
     </tbody>
   </table></div>
-  <p class="note">For games already played, the win % and score are what the model said before tip-off. Watch is a spoiler-free star rating once a game's done, and a 0–100 thrill score before it.</p>
+  <p class="note">For games already played, the win % and score are what the model said before tip-off. Hype is for games still to come: how watchable it should be. Drama is for games already played: how close and tense it ended up, without giving away who won.</p>
 </section>
 
 <section>

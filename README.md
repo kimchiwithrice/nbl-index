@@ -29,8 +29,8 @@ forces a fresh download.
 |---|---|
 | Ratings (home) | AdjEM, AdjO, AdjD and AdjT with ranks, schedule strength, luck, projected wins, finals and title odds, 7-day movers |
 | Team pages | Rating cards, rating-through-the-season chart, Four Factors, shooting, luck and résumé, finish-position odds, full schedule with predictions, roster with advanced stats |
-| Game pages | Prediction (win %, projected score, margin, total), matchup comparison; for played games, the result and watchability stars |
-| Schedule | Every upcoming game with predictions and a thrill score; played games with what the model said |
+| Game pages | Prediction (win %, projected score, margin, total), matchup comparison; for played games, the result and a spoiler-free Drama score |
+| Schedule | Every upcoming game with predictions and a Hype score; played games get a Drama score; played games with what the model said |
 | Ladder odds | Simulated ladder: 1st, top 2, finals, semis, grand final and title odds, finish-position heatmap |
 | Team stats | Four Factors (offense and defense), shooting, style, with ranks |
 | Players | Leaderboard with TS%, usage, assist, rebound, steal and turnover rates; a career page for every player since 2015-16 |

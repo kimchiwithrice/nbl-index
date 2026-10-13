@@ -68,12 +68,8 @@ def position(code):
     return POSITIONS.get(str(code).strip().upper(), str(code))
 
 
-def stars(n):
-    return "★" * n + "☆" * (5 - n)
-
-
 FILTERS = {"position": position, "f1": f1, "sgn": signed, "pct": pct, "odds": chance, "fair_ml": fair_moneyline,
-           "syd": sydney_time, "stars": stars}
+           "syd": sydney_time}
 
 
 class Site:
@@ -105,17 +101,25 @@ class Site:
 
 # Spoiler-free game ratings
 
-def watchability(margin, overtimes, total):
-    """1-5 stars for a played game: closer, overtime and higher scoring rate higher."""
-    score = 2.2 if margin <= 3 else 1.7 if margin <= 6 else 1.1 if margin <= 10 else 0.5 if margin <= 16 else 0
-    score += 1.6 * min(overtimes, 2) / (1 + 0.3 * max(overtimes - 1, 0))
-    score += 0.9 if total >= 200 else 0.6 if total >= 185 else 0.3 if total >= 170 else 0
-    return int(min(5, max(1, round(score + 0.6))))
+def drama(margin, overtimes, total, quality):
+    """0-100 after the game: how close it finished, overtime, how good the teams were, and scoring.
+
+    Deliberately says nothing about who won, so it's safe to show with scores hidden.
+    """
+    closeness = min(1, max(0, 1 - (margin - 1) / 24))
+    scoring = min(1, max(0, (total - 150) / 60))
+    score = 0.62 * closeness + 0.18 * quality + 0.10 * scoring + 0.18 * min(overtimes, 2)
+    return round(100 * min(1, score))
 
 
-def thrill(net_home, net_away, p_home, total, net_sd):
-    """0-100 pre-game score from team quality, how close the game should be, and expected points."""
-    quality = min(1, max(0, ((net_home + net_away) / 2) / (2 * net_sd + 1e-9) + 0.5))
+def team_quality(net_home, net_away, net_sd):
+    """0-1: how good the two teams are together, relative to the league's spread."""
+    return min(1, max(0, ((net_home + net_away) / 2) / (2 * net_sd + 1e-9) + 0.5))
+
+
+def hype(net_home, net_away, p_home, total, net_sd):
+    """0-100 before the game: team quality, how close it should be, and expected points."""
+    quality = team_quality(net_home, net_away, net_sd)
     closeness = 1 - abs(p_home - 0.5) * 2
     scoring = min(1, max(0, (total - 165) / 40 + 0.5))
     return round(100 * (0.45 * quality + 0.40 * closeness + 0.15 * scoring))
@@ -186,12 +190,16 @@ def game_list(sched, games, info, ratings, cal, cur, teams, now):
             pregame_ratings = fits_by_day[local_day] or ratings
             game["pred"] = model.predict(pregame_ratings, cal, row.home, row.away, row.neutral)
             game["hs"], game["as"], game["ot"] = int(row.h_pts), int(row.a_pts), int(row.ot or 0)
-            game["stars"] = watchability(abs(game["hs"] - game["as"]), game["ot"], game["hs"] + game["as"])
+            pre_net = {t: pregame_ratings["off"][pregame_ratings["idx"][t]] - pregame_ratings["def"][pregame_ratings["idx"][t]]
+                       for t in (row.home, row.away) if t in pregame_ratings["idx"]}
+            h_net, a_net = pre_net.get(row.home, net[row.home]), pre_net.get(row.away, net[row.away])
+            game["drama"] = drama(abs(game["hs"] - game["as"]), game["ot"], game["hs"] + game["as"],
+                                  team_quality(h_net, a_net, net_sd))
             game["correct"] = (game["pred"]["p_home"] >= 0.5) == (game["hs"] > game["as"])
         else:
             game["pred"] = model.predict(ratings, cal, row.home, row.away, row.neutral)
-            game["thrill"] = thrill(net[row.home], net[row.away], game["pred"]["p_home"],
-                                    game["pred"]["total"], net_sd)
+            game["hype"] = hype(net[row.home], net[row.away], game["pred"]["p_home"],
+                                game["pred"]["total"], net_sd)
         # Started but not yet in the data (results arrive with the next morning's update).
         game["pending"] = not game["done"] and game["utc"] < now + pd.Timedelta(minutes=10)
         out.append(game)

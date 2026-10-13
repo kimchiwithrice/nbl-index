@@ -17,7 +17,7 @@
   <div class="mid">Final{{ ' (OT)' if g.ot else '' }}</div>
   <div><b>{{ h.short }}</b><span>{{ g.hs }}</span></div>
 </div>
-<p class="note center">Watchability: <span class="stars">{{ g.stars | stars }}</span> (based on how close it was, overtime and scoring, without giving the result away)</p>
+<p class="note center">Drama <b class="thr">{{ g.drama }}</b> / 100: how close it finished, overtime and the quality of the teams, without saying who won.</p>
 {% endif %}
 
 <div class="grid2">
@@ -32,6 +32,7 @@
     <tr><td class="l">Projected total</td><td>{{ p.total | f1 }}</td></tr>
     {% if cfg.show_betting_tools %}<tr><td class="l">Fair moneyline</td><td>{{ a.code }} {{ (1 - p.p_home) | fair_ml }} / {{ h.code }} {{ p.p_home | fair_ml }}</td></tr>{% endif %}
     <tr><td class="l">Expected possessions</td><td>{{ p.poss | f1 }}</td></tr>
+    {% if not g.done %}<tr><td class="l">Hype</td><td>{{ g.hype }} / 100</td></tr>{% endif %}
   </tbody></table></div>
   <p class="note">{% if g.done %}What the model said before tip-off.{% else %}Updated every day until tip-off. Try it on a neutral court in the <a href="{{ root }}matchup/#{{ h.code }}-{{ a.code }}">matchup tool</a>.{% endif %}</p>
 </section>
