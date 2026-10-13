@@ -51,7 +51,7 @@
   </tbody>
 </table>
 </div>
-<p class="note">Small numbers are league ranks. Ratings blend this season with last season early on, and last season fades as games are played. Hover a column for a quick definition, or see the <a href="{{ root }}glossary/">glossary</a>.</p>
+<p class="note">Small numbers are league ranks. Ratings blend this season with last season early on, and last season fades as games are played. Hover a column for a quick definition, or see the <a href="{{ root }}glossary/">glossary</a>.{% if S.share_played < 0.4 %} The simulated-season odds are rough this early in the season and will move a lot; <a href="{{ root }}ladder/">more on the ladder page</a>.{% endif %}</p>
 {{ m.ad(cfg) }}
 
 <div class="grid2">

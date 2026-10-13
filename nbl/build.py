@@ -268,7 +268,7 @@ def build(cfg, data_dir, out_dir, refresh=False, n_sims=sim.N_SIMS, log=print, l
     site = Site(cfg, out_dir, common)
 
     em_max = max(abs(info[t]["net"]) for t in teams) or 1
-    site.page("", "index.html", upcoming=upcoming[:6], em_max=em_max, title=None, desc=None)
+    site.page("", "index.html", upcoming=upcoming[:6], em_max=em_max, S=season_sim, title=None, desc=None)
     site.page("schedule/", "schedule.html", upcoming=upcoming, completed=completed[::-1], pending=pending,
               net_sd=net_sd)
     site.page("ladder/", "ladder.html", S=season_sim, standings=standings, projected=projected, n_games=n_games)

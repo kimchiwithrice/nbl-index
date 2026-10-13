@@ -23,3 +23,8 @@
 {%- if bar %}{{ wp(p if hf else 1 - p) }}{% endif -%}
 {{ info[home].code if hf else info[away].code }} {{ (p if hf else 1 - p) | pct(0) }}
 {%- endmacro %}
+
+{# Shown on simulation output while the season is young. #}
+{% macro early(S, root) -%}
+{% if S.share_played < 0.4 %}<p class="early"><b>Early-season odds are rough.</b> Only {{ S.games - S.games_left }} of {{ S.games }} regular-season games have been played, so each team's rating rests on a handful of games plus a fading carry-over from last season. The model doesn't know about roster changes, imports or injuries. Expect these percentages to move a lot over the next few weeks.</p>{% endif %}
+{%- endmacro %}

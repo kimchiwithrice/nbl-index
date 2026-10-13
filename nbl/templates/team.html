@@ -75,6 +75,7 @@
     <div class="col"><div class="bar" style="height:{{ (p * 100) | round(1) }}%" title="{{ loop.index }}: {{ p | pct(1) }}"></div><span>{{ loop.index }}</span></div>
   {% endfor %}
   </div>
+  {{ m.early(S, root) }}
   <p class="note">Ladder position across {{ "{:,}".format(S.n) }} simulated seasons. Top two go straight to the semis; 3rd to 6th play in. Minor premiership {{ x.sim.p1 | odds }}, top two {{ x.sim.top2 | odds }}, semis {{ x.sim.semis | odds }}.</p>
 </section>
 </div>

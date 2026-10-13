@@ -85,7 +85,8 @@ def simulate(ratings, cal, sched, teams, n=N_SIMS, seed=7):
         simulate_finals(ratings, cal, teams, order, shift, rng, out)
     for team in teams:
         out[team]["pos_dist"] = [count / n for count in out[team]["pos_dist"]]
-    return {"teams": out, "n": n, "games_left": int(len(remaining)), "sd": shift_sd}
+    return {"teams": out, "n": n, "games_left": int(len(remaining)), "games": int(len(regular)),
+            "share_played": share_played, "sd": shift_sd}
 
 
 def play_series(ratings, cal, shift_row, high_seed, low_seed, best_of, rng):
