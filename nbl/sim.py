@@ -15,6 +15,7 @@ import numpy as np
 from .model import expected
 
 N_SIMS = 10000
+SHIFT_SD = 6.5  # preseason uncertainty in a team's rating, points per 100 possessions (fitted on past seasons)
 
 
 def normal_cdf(x):
@@ -42,7 +43,7 @@ def simulate(ratings, cal, sched, teams, n=N_SIMS, seed=7):
     remaining = regular[~regular.done & regular.home.isin(index) & regular.away.isin(index)]
 
     share_played = len(played) / max(len(regular), 1)
-    shift_sd = 3.5 * (1 - 0.6 * share_played)  # points per 100 possessions
+    shift_sd = SHIFT_SD * (1 - 0.6 * share_played)  # points per 100 possessions
     shift = rng.normal(0, shift_sd, size=(n, n_teams))
 
     wins = np.zeros((n, n_teams))
