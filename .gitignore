@@ -1,0 +1,5 @@
+public/
+data/*.csv
+data/*.part
+__pycache__/
+*.pyc

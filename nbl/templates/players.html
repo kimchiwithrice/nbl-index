@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% import "macros.html" as m %}
+{% set title = "NBL Player Stats " ~ season ~ " – Advanced Stats, True Shooting, Usage" %}
+{% set desc = "Advanced NBL player stats for " ~ season ~ ": true shooting, usage rate, assist and rebound rates, per-40 numbers and plus-minus for every player." %}
+{% block main %}
+<h1>Player stats</h1>
+<p class="lede">Every player this season with possession-based advanced stats. Rates are adjusted for how long the player was on court. Click a column to sort, a player for their career page.</p>
+<div class="bar"><input id="pq" placeholder="Search players or teams" aria-label="Search players"> <label class="chk"><input type="checkbox" id="pmin" checked> 10+ minutes per game</label></div>
+<div class="tw"><table class="dense sortable" id="ptable">
+  <thead>
+    <tr class="grp"><th colspan="4"></th><th colspan="4">Per game</th><th colspan="4" class="sep">Shooting</th><th colspan="7" class="sep">Advanced</th></tr>
+    <tr><th class="l" data-sort="text">Player</th><th class="l" data-sort="text">Team</th><th data-sort="num">GP</th><th data-sort="num">MPG</th>
+      <th data-sort="num">PTS</th><th data-sort="num">REB</th><th data-sort="num">AST</th><th data-sort="num" title="Points per 40 minutes">P/40</th>
+      <th data-sort="num" class="sep" title="True shooting %">TS%</th><th data-sort="num" title="Effective FG%">eFG%</th><th data-sort="num">3P%</th><th data-sort="num">FT%</th>
+      <th data-sort="num" class="sep" title="Usage: share of team possessions used on court">USG%</th><th data-sort="num" title="Share of teammates' made shots assisted on court">AST%</th>
+      <th data-sort="num" title="Share of available offensive rebounds">ORB%</th><th data-sort="num" title="Share of available defensive rebounds">DRB%</th>
+      <th data-sort="num" title="Steals per opponent possession on court">STL%</th><th data-sort="num" title="Turnovers per possession used">TOV%</th>
+      <th data-sort="num" title="Points per 100 possessions used">ORtg</th></tr>
+  </thead>
+  <tbody>
+  {% for p in players %}
+    <tr data-mpg="{{ p.mpg }}" data-q="{{ (p.player ~ ' ' ~ p.team) | lower }}">
+      <td class="l"><a href="{{ root }}players/{{ p.slug }}/">{{ p.player }}</a></td>
+      <td class="l">{{ m.team(info, p.team, root, False) if p.team in info else p.team }}</td>
+      <td>{{ p.gp }}</td><td>{{ p.mpg | f1 }}</td>
+      <td>{{ p.ppg | f1 }}</td><td>{{ p.rpg | f1 }}</td><td>{{ p.apg | f1 }}</td><td>{{ p.p40 | f1 }}</td>
+      <td class="sep" data-v="{{ p.ts if p.ts == p.ts else '' }}">{{ p.ts | pct }}</td><td data-v="{{ p.efg if p.efg == p.efg else '' }}">{{ p.efg | pct }}</td>
+      <td data-v="{{ p.fg3 if p.fg3 == p.fg3 else '' }}">{{ p.fg3 | pct }} <small class="mut">{{ p.fg3a | int }}</small></td><td data-v="{{ p.ft if p.ft == p.ft else '' }}">{{ p.ft | pct }}</td>
+      <td class="sep">{{ p.usg | pct }}</td><td>{{ p.ast_pct | pct }}</td><td>{{ p.orb_pct | pct }}</td><td>{{ p.drb_pct | pct }}</td>
+      <td>{{ p.stl_pct | pct }}</td><td>{{ p.tov_pct | pct }}</td><td>{{ p.ortg | f1 }}</td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table></div>
+<p class="note">Definitions for every column are in the <a href="{{ root }}glossary/#players">glossary</a>. Small number next to 3P% = attempts. ORtg here is simple scoring efficiency (points per 100 possessions used), not Dean Oliver's full version.</p>
+{{ m.ad(cfg) }}
+{% endblock %}

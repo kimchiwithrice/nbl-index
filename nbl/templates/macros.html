@@ -1,0 +1,25 @@
+{% macro rk(r, N=10) -%}
+{%- if r -%}<span class="rk {{ 't' if r <= 3 else ('b' if r > N - 3 else '') }}">{{ r }}</span>{%- endif -%}
+{%- endmacro %}
+
+{% macro team(info, t, root, full=True) -%}
+<a class="tm" href="{{ root }}teams/{{ info[t].slug }}/">{% if full %}<span class="nm-full">{{ info[t].name }}</span><span class="nm-short">{{ info[t].short }}</span>{% else %}{{ info[t].short }}{% endif %}</a>
+{%- endmacro %}
+
+{% macro when(utc) -%}
+<span class="t" data-utc="{{ utc.isoformat() if utc else '' }}">{{ utc | syd }}</span>
+{%- endmacro %}
+
+{% macro ad(cfg) -%}
+{% if cfg.ad_html %}<div class="ad">{{ cfg.ad_html | safe }}</div>{% endif %}
+{%- endmacro %}
+
+{% macro wp(p) -%}
+<span class="wp"><i style="width:{{ (p * 100) | round | int }}%"></i></span>
+{%- endmacro %}
+
+{% macro fav(info, home, away, p, bar=False) -%}
+{%- set hf = p >= 0.5 -%}
+{%- if bar %}{{ wp(p if hf else 1 - p) }}{% endif -%}
+{{ info[home].code if hf else info[away].code }} {{ (p if hf else 1 - p) | pct(0) }}
+{%- endmacro %}

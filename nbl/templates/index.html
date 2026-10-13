@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+{% import "macros.html" as m %}
+{% set title = "NBL Team Ratings " ~ season ~ " – Adjusted Efficiency & Predictions" %}
+{% block main %}
+<section class="hero">
+  <h1>NBL team ratings {{ season }}</h1>
+  <p class="lede">Every team's offense, defense and tempo, adjusted for who they've played and where. <b>{{ rating }}</b> is points per 100 possessions better than an average NBL team on a neutral court. Click any team for its full profile, or any column to sort.</p>
+</section>
+
+<div class="tw">
+<table class="sortable dense" id="ratings">
+  <thead>
+    <tr class="grp"><th colspan="3"></th><th colspan="4">Adjusted, per 100 possessions</th><th colspan="3" class="sep">Schedule and luck</th><th colspan="3" class="sep">Simulated season</th><th></th></tr>
+    <tr>
+      <th data-sort="num" class="num">Rk</th>
+      <th data-sort="text" class="l">Team</th>
+      <th data-sort="rec" class="sp-col" title="Wins-losses this regular season">W-L</th>
+      <th data-sort="num" title="{{ rating }}: adjusted offense minus adjusted defense. The headline rating.">{{ rating }}</th>
+      <th data-sort="num" title="Points scored per 100 possessions vs an average defense">AdjO</th>
+      <th data-sort="num-asc" title="Points allowed per 100 possessions vs an average offense (lower is better)">AdjD</th>
+      <th data-sort="num" title="Possessions per 40 minutes vs an average opponent">AdjT</th>
+      <th data-sort="num" class="sep" title="Average {{ rating }} of opponents played so far">SOS</th>
+      <th data-sort="num" title="Average {{ rating }} of opponents still to play">Left SOS</th>
+      <th data-sort="num" class="sp-col" title="Wins above what the model expected, given the games played">Luck</th>
+      <th data-sort="num" class="sep" title="Average wins across 10,000 simulated seasons">Proj W</th>
+      <th data-sort="num" title="Chance of finishing top six (finals)">Finals</th>
+      <th data-sort="num" title="Chance of winning the championship">Title</th>
+      <th data-sort="num" title="Rank change over the last 7 days">7d</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for t in order %}{% set x = info[t] %}
+    <tr>
+      <td class="num">{{ x.rk.net }}</td>
+      <td class="l">{{ m.team(info, t, root) }}</td>
+      <td class="sp" data-v="{{ x.w }}">{{ x.w }}-{{ x.l }}</td>
+      {% set w = [((x.net | abs) / em_max * 50), 50] | min %}
+      <td class="em {{ 'pos' if x.net >= 0 else 'neg' }}" data-v="{{ x.net }}"><span class="track" aria-hidden="true"><i class="{{ 'up' if x.net >= 0 else 'dn' }}" style="width:{{ w | round(1) }}%"></i></span><span class="v">{{ x.net | sgn }}</span></td>
+      <td data-v="{{ x.o }}">{{ x.o | f1 }}{{ m.rk(x.rk.o, N) }}</td>
+      <td data-v="{{ x.d }}">{{ x.d | f1 }}{{ m.rk(x.rk.d, N) }}</td>
+      <td data-v="{{ x.t }}">{{ x.t | f1 }}{{ m.rk(x.rk.t, N) }}</td>
+      <td class="sep" data-v="{{ x.sos if x.sos is not none else -99 }}">{{ x.sos | sgn }}{{ m.rk(x.rk.sos, N) }}</td>
+      <td data-v="{{ x.rsos if x.rsos is not none else -99 }}">{{ x.rsos | sgn }}{{ m.rk(x.rk.rsos, N) }}</td>
+      <td class="sp" data-v="{{ x.luck }}">{{ x.luck | sgn }}</td>
+      <td class="sep" data-v="{{ x.sim.wins }}">{{ x.sim.wins | f1 }}</td>
+      <td data-v="{{ x.sim.top6 }}">{{ x.sim.top6 | odds }}</td>
+      <td data-v="{{ x.sim.champ }}">{{ x.sim.champ | odds }}</td>
+      <td data-v="{{ x.move }}" class="mv {{ 'up' if x.move > 0 else ('dn' if x.move < 0 else '') }}">{{ ('▲' ~ x.move) if x.move > 0 else (('▼' ~ (-x.move)) if x.move < 0 else '–') }}</td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+</div>
+<p class="note">Small numbers are league ranks. Ratings blend this season with last season early on, and last season fades as games are played. Hover a column for a quick definition, or see the <a href="{{ root }}glossary/">glossary</a>.</p>
+{{ m.ad(cfg) }}
+
+<div class="grid2">
+<section>
+  <h2>Next games</h2>
+  {% if upcoming %}
+  <div class="tw"><table class="dense">
+    <thead><tr><th class="l">When</th><th class="l">Game</th><th title="The favourite and their chance of winning">Favourite</th><th>Proj</th></tr></thead>
+    <tbody>
+    {% for g in upcoming %}
+      <tr class="link" data-href="{{ root }}games/{{ g.slug }}/">
+        <td class="l">{{ m.when(g.utc) }}</td>
+        <td class="l"><a href="{{ root }}games/{{ g.slug }}/">{{ info[g.away].short }} @ {{ info[g.home].short }}</a></td>
+        <td>{{ m.fav(info, g.home, g.away, g.pred.p_home, True) }}</td>
+        <td>{{ g.pred.a_pts | round | int }}–{{ g.pred.h_pts | round | int }}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table></div>
+  <p class="note"><a href="{{ root }}schedule/">Full schedule and predictions</a></p>
+  {% else %}<p>No upcoming games.</p>{% endif %}
+</section>
+<section>
+  <h2>Title race</h2>
+  <div class="tw"><table class="dense">
+    <thead><tr><th class="l">Team</th><th>Finals</th><th>Grand final</th><th>Title</th></tr></thead>
+    <tbody>
+    {% for item in info.items() | sort(attribute='1.sim.champ', reverse=True) %}{% if loop.index <= 6 %}{% set x = item[1] %}
+      <tr><td class="l">{{ m.team(info, item[0], root) }}</td><td>{{ x.sim.top6 | odds }}</td><td>{{ x.sim.gf | odds }}</td><td class="b">{{ x.sim.champ | odds }}</td></tr>
+    {% endif %}{% endfor %}
+    </tbody>
+  </table></div>
+  <p class="note"><a href="{{ root }}ladder/">Projected ladder and every team's chances</a></p>
+</section>
+</div>
+{% endblock %}

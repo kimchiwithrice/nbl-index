@@ -1,0 +1,198 @@
+"""Downloads and cleans the NBL data.
+
+The data comes from the nblR project's daily releases (github.com/JaseZiv/nblr_data), which
+are collected from the NBL's official stats feed (FIBA LiveStats).
+"""
+import os
+import time
+
+import numpy as np
+import pandas as pd
+import requests
+
+RELEASE_URL = "https://github.com/JaseZiv/nblr_data/releases/download/{}"
+FILES = {
+    "results": "match_results/results_wide.csv",
+    "box_team": "box_team/box_team.csv",
+    "box_player": "box_player/box_player.csv",
+}
+MAX_AGE_HOURS = 3  # reuse downloaded files younger than this
+
+# The feed uses a couple of different names for the same club.
+NAME_FIXES = {"NZ Breakers": "New Zealand Breakers", "The Hawks": "Illawarra Hawks"}
+
+# Full name: (code, URL slug, short name)
+TEAMS = {
+    "Adelaide 36ers": ("ADL", "adelaide-36ers", "Adelaide"),
+    "Brisbane Bullets": ("BRI", "brisbane-bullets", "Brisbane"),
+    "Cairns Taipans": ("CNS", "cairns-taipans", "Cairns"),
+    "Illawarra Hawks": ("ILL", "illawarra-hawks", "Illawarra"),
+    "Melbourne United": ("MEL", "melbourne-united", "Melbourne"),
+    "New Zealand Breakers": ("NZB", "new-zealand-breakers", "NZ Breakers"),
+    "Perth Wildcats": ("PER", "perth-wildcats", "Perth"),
+    "South East Melbourne Phoenix": ("SEM", "south-east-melbourne-phoenix", "SE Melbourne"),
+    "Sydney Kings": ("SYD", "sydney-kings", "Sydney"),
+    "Tasmania JackJumpers": ("TAS", "tasmania-jackjumpers", "Tasmania"),
+    "Townsville Crocodiles": ("TSV", "townsville-crocodiles", "Townsville"),
+}
+
+# Short column names used in the games table -> column names in the box score file.
+BOX_COLUMNS = {
+    "pts": "points", "fgm": "field_goals_made", "fga": "field_goals_attempted",
+    "fg3m": "three_pointers_made", "fg3a": "three_pointers_attempted",
+    "fg2m": "two_pointers_made", "fg2a": "two_pointers_attempted",
+    "ftm": "free_throws_made", "fta": "free_throws_attempted",
+    "orb": "rebounds_offensive", "drb": "rebounds_defensive", "ast": "assists",
+    "tov": "turnovers", "stl": "steals", "blk": "blocks", "pf": "fouls_personal",
+    "paint": "points_in_the_paint", "fbp": "points_fast_break", "scp": "points_second_chance",
+    "pot": "points_from_turnovers", "bench": "bench_points",
+    "lead": "biggest_lead", "lchg": "lead_changes",
+}
+
+
+def clean_name(name):
+    name = str(name).strip()
+    return NAME_FIXES.get(name, name)
+
+
+def season_start(season):
+    """'2026-2027' -> 2026"""
+    return int(str(season)[:4])
+
+
+def download(url, path, log, attempts=4):
+    for attempt in range(attempts):
+        try:
+            with requests.get(url, stream=True, timeout=300) as r:
+                r.raise_for_status()
+                tmp = path + ".part"
+                with open(tmp, "wb") as f:
+                    for chunk in r.iter_content(1 << 20):
+                        f.write(chunk)
+                os.replace(tmp, path)
+            return
+        except Exception:
+            if attempt == attempts - 1:
+                raise
+            log("  retrying ...")
+            time.sleep(10 * (attempt + 1))
+
+
+def fetch(data_dir, refresh=False, log=print):
+    """Download the data files unless recent copies exist. Returns {name: local path}."""
+    os.makedirs(data_dir, exist_ok=True)
+    paths = {}
+    for key, release_path in FILES.items():
+        path = os.path.join(data_dir, os.path.basename(release_path))
+        paths[key] = path
+        is_recent = os.path.exists(path) and (time.time() - os.path.getmtime(path)) / 3600 < MAX_AGE_HOURS
+        if is_recent and not refresh:
+            continue
+        log(f"Downloading {os.path.basename(release_path)} ...")
+        try:
+            download(RELEASE_URL.format(release_path), path, log)
+        except Exception as e:
+            if not os.path.exists(path):
+                raise
+            log(f"  download failed ({e}); using the previous copy")
+    return paths
+
+
+def load(paths):
+    """Returns (games, schedule).
+
+    games:    one row per completed game, with both teams' box totals (h_* and a_* columns)
+    schedule: every game of the latest season, played or not
+    """
+    results = pd.read_csv(paths["results"], low_memory=False)
+    results["home"] = results.home_team_name.map(clean_name)
+    results["away"] = results.away_team_name.map(clean_name)
+    results["utc"] = pd.to_datetime(results.match_time_utc.astype(str).str.replace("T", " ").str[:19],
+                                    errors="coerce", utc=True, format="%Y-%m-%d %H:%M:%S")
+    results["neutral"] = results.at_neutral_venue.fillna(0).astype(float) > 0
+    results["ot"] = results.extra_periods_used.fillna(0).astype(int)
+    results["finals"] = results.match_type.astype(str).str.upper().eq("FINALS")
+    results["start"] = results.season.map(season_start)
+
+    box = pd.read_csv(paths["box_team"], low_memory=False)
+    box["team"] = box.name.map(clean_name)
+    box = box[["match_id", "home_away", "team", "score"] + list(BOX_COLUMNS.values())].copy()
+    for col in BOX_COLUMNS.values():
+        box[col] = pd.to_numeric(box[col], errors="coerce")
+    # Recent seasons leave some team totals blank: points come from "score", and bench points
+    # are rebuilt from the player box scores.
+    box["points"] = box.points.fillna(pd.to_numeric(box.score, errors="coerce"))
+    if os.path.exists(paths.get("box_player", "")):
+        players = pd.read_csv(paths["box_player"], low_memory=False,
+                              usecols=["match_id", "team_name", "starter", "points"])
+        players["team"] = players.team_name.map(clean_name)
+        players["points"] = pd.to_numeric(players.points, errors="coerce").fillna(0)
+        bench = (players[pd.to_numeric(players.starter, errors="coerce").fillna(1) == 0]
+                 .groupby(["match_id", "team"]).points.sum().rename("bench_from_players").reset_index())
+        bench["match_id"] = bench.match_id.astype(str)
+        box["match_id"] = box.match_id.astype(str)
+        box = box.merge(bench, on=["match_id", "team"], how="left")
+        box["bench_points"] = box.bench_points.fillna(box.bench_from_players)
+        box = box.drop(columns="bench_from_players")
+    box = box.drop(columns=["team", "score"])
+
+    home = box[box.home_away == "home"].drop(columns="home_away").rename(
+        columns={v: "h_" + k for k, v in BOX_COLUMNS.items()})
+    away = box[box.home_away == "away"].drop(columns="home_away").rename(
+        columns={v: "a_" + k for k, v in BOX_COLUMNS.items()})
+    # The files occasionally contain the same game twice.
+    home = home.drop_duplicates("match_id", keep="last")
+    away = away.drop_duplicates("match_id", keep="last")
+    both = home.merge(away, on="match_id")
+    both["match_id"] = both.match_id.astype(str)
+    results["match_id"] = results.match_id.astype(str)
+    results = results.drop_duplicates("match_id", keep="last")
+
+    completed = results[results.match_status.astype(str).str.upper() == "COMPLETE"]
+    games = completed.merge(both, on="match_id", how="inner")
+    games = games[(games.h_fga > 20) & (games.a_fga > 20)].copy()
+    games["minutes"] = 40 + 5 * games.ot
+    # Possessions estimated from the box score, averaged over both teams.
+    for side in ("h", "a"):
+        games[f"{side}_poss"] = (games[f"{side}_fga"] - games[f"{side}_orb"] + games[f"{side}_tov"]
+                                 + 0.44 * games[f"{side}_fta"])
+    games["poss"] = (games.h_poss + games.a_poss) / 2
+    games = games.sort_values("utc").reset_index(drop=True)
+
+    latest = results.start.max()
+    schedule = results[results.start == latest].copy().sort_values("utc").reset_index(drop=True)
+    schedule["done"] = schedule.match_id.isin(set(games.match_id))
+    schedule = schedule.merge(games[["match_id", "h_pts", "a_pts"]], on="match_id", how="left")
+    cols = ["match_id", "season", "start", "utc", "home", "away", "neutral", "finals", "round_number",
+            "venue_name", "done", "h_pts", "a_pts", "ot"]
+    return games, schedule[cols]
+
+
+def load_players(paths):
+    """Player box scores, one row per player per game they played in."""
+    players = pd.read_csv(paths["box_player"], low_memory=False)
+    players["team"] = players.team_name.map(clean_name)
+    players["opp"] = players.opp_name.map(clean_name)
+    players["match_id"] = players.match_id.astype(str)
+    players["start"] = players.season.map(season_start)
+
+    # Minutes are in "seconds" in recent seasons and "MM:SS" in older ones.
+    seconds = pd.to_numeric(players.seconds, errors="coerce")
+    mm_ss = players.minutes.astype(str).str.split(":", expand=True)
+    from_mm_ss = (pd.to_numeric(mm_ss[0], errors="coerce")
+                  + pd.to_numeric(mm_ss.get(1), errors="coerce").fillna(0) / 60)
+    players["min"] = np.where(seconds.notna() & (seconds > 0), seconds / 60, from_mm_ss).astype(float)
+    players["min"] = players["min"].fillna(0)
+    players["player"] = (players.first_name.fillna("").astype(str).str.strip() + " "
+                         + players.family_name.fillna("").astype(str).str.strip()).str.strip()
+
+    # Plus-minus moved to a different column in recent seasons.
+    pm = pd.to_numeric(players.plus_minus_points, errors="coerce")
+    players["plus_minus_points"] = pm.where(pm.notna() & (pm != 0),
+                                            pd.to_numeric(players.plus_minus, errors="coerce"))
+    for col in ("points", "field_goals_made", "field_goals_attempted", "three_pointers_made",
+                "three_pointers_attempted", "free_throws_made", "free_throws_attempted",
+                "rebounds_offensive", "rebounds_defensive", "assists", "turnovers", "steals", "blocks",
+                "fouls_personal", "plus_minus_points"):
+        players[col] = pd.to_numeric(players[col], errors="coerce").fillna(0)
+    return players[players["min"] > 0].copy()

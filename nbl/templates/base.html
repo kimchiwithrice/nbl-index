@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en-AU" data-sp="show">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+{% set full_title = (title ~ " | " ~ cfg.site_name) if title else (cfg.site_name ~ " – " ~ cfg.tagline) %}
+<title>{{ full_title }}</title>
+<meta name="description" content="{{ desc or ('Advanced NBL ratings for ' ~ season ~ ': adjusted offense, defense and tempo for every team, game predictions, finals odds and player stats.') }}">
+<link rel="canonical" href="{{ cfg.base_url | trim('/') }}{{ root }}{{ path }}">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="{{ cfg.site_name }}">
+<meta property="og:title" content="{{ full_title }}">
+<meta property="og:description" content="{{ desc or cfg.tagline }}">
+<meta property="og:url" content="{{ cfg.base_url | trim('/') }}{{ root }}{{ path }}">
+<meta name="twitter:card" content="summary">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='4' fill='%2317191c'/%3E%3Ctext x='16' y='23' font-family='Arial,sans-serif' font-weight='800' font-size='19' text-anchor='middle' fill='%23fff'%3EN%3C/text%3E%3C/svg%3E">
+<link rel="preload" href="{{ root }}assets/fonts/archivo-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="{{ root }}assets/style.css">
+<script>try{var s=localStorage.getItem("nbl-sp");if(s)document.documentElement.dataset.sp=s;var th=localStorage.getItem("nbl-theme");if(th)document.documentElement.dataset.theme=th;}catch(e){}</script>
+{% if cfg.head_html %}{{ cfg.head_html | safe }}{% endif %}
+{% block head %}{% endblock %}
+</head>
+<body>
+<header class="top"><div class="in">
+  <a class="brand" href="{{ root }}">{{ cfg.site_name }}</a>
+  <nav>
+    {% for href, label in [("", "Ratings"), ("schedule/", "Schedule"), ("ladder/", "Ladder"), ("stats/", "Team stats"), ("players/", "Players"), ("matchup/", "Matchup"), ("model/", "Model"), ("glossary/", "Glossary")] %}
+    <a href="{{ root }}{{ href }}" class="{{ 'on' if path == href or (href and path.startswith(href)) or (href == 'stats/' and path.startswith('teams/')) else '' }}">{{ label }}</a>
+    {% endfor %}
+  </nav>
+  <div class="tools">
+    <button type="button" id="sp-btn" title="Hide or show scores and results">Hide scores</button>
+    <button type="button" id="th-btn" title="Switch between light and dark">Dark mode</button>
+  </div>
+</div></header>
+<main>
+{% block main %}{% endblock %}
+</main>
+<footer>
+  <div class="in">
+    {% if cfg.newsletter_url %}<p class="news"><b>Get the weekly ratings, ladder projections and game predictions by email.</b> <a href="{{ cfg.newsletter_url }}" rel="noopener">Subscribe free</a></p>{% endif %}
+    {% if cfg.kofi_url %}<p>{{ cfg.site_name }} is free and independent. If it helps you, <a href="{{ cfg.kofi_url }}" rel="noopener">chip in for the hosting</a>.</p>{% endif %}
+    <p>Updated {{ updated }}. Data: the NBL's official stats feed via the <a href="https://github.com/JaseZiv/nblR" rel="noopener">nblR</a> project. Not affiliated with the NBL. Ratings and predictions are estimates, not betting advice.
+    <a href="{{ root }}about/">About</a>, <a href="{{ root }}model/">how it works</a>, <a href="{{ root }}glossary/">glossary</a>.</p>
+  </div>
+</footer>
+<script src="{{ root }}assets/app.js" defer></script>
+{% block scripts %}{% endblock %}
+</body>
+</html>

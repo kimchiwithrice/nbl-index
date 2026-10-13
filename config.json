@@ -1,0 +1,13 @@
+{
+  "site_name": "NBL Index",
+  "rating_name": "AdjEM",
+  "tagline": "NBL analytics: ratings, predictions and advanced stats",
+  "base_url": "https://nblindex.com",
+  "base_path": "/",
+  "kofi_url": "",
+  "newsletter_url": "",
+  "contact": "",
+  "ad_html": "",
+  "head_html": "",
+  "show_betting_tools": false
+}

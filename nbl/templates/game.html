@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% import "macros.html" as m %}
+{% set p = g.pred %}
+{% set title = a.name ~ " vs " ~ h.name ~ " Prediction & Stats – " ~ (g.utc | syd("%d %b %Y")) %}
+{% set desc = a.name ~ " at " ~ h.name ~ ", " ~ (g.utc | syd("%d %B %Y")) ~ ". Model prediction: " ~ (h.short if p.p_home >= 0.5 else a.short) ~ " " ~ ((p.p_home if p.p_home >= 0.5 else 1 - p.p_home) | pct(0)) ~ " to win, projected " ~ (p.a_pts | round | int) ~ "-" ~ (p.h_pts | round | int) ~ ", total " ~ (p.total | round | int) ~ ". Ratings, four factors and matchup breakdown." %}
+{% block head %}
+<script type="application/ld+json">{{ {"@context": "https://schema.org", "@type": "SportsEvent", "name": a.name ~ " vs " ~ h.name, "startDate": g.utc.isoformat(), "sport": "Basketball", "location": {"@type": "Place", "name": g.venue or h.name}, "homeTeam": {"@type": "SportsTeam", "name": h.name}, "awayTeam": {"@type": "SportsTeam", "name": a.name}} | tojson }}</script>
+{% endblock %}
+{% block main %}
+<p class="crumb"><a href="{{ root }}schedule/">Schedule</a> › Round {{ g.round }}</p>
+<h1>{{ a.name }} <span class="mut">@</span> {{ h.name }}</h1>
+<p class="sub">{{ m.when(g.utc) }}{% if g.venue %}, {{ g.venue }}{% endif %}. Round {{ g.round }}.</p>
+
+{% if g.done %}
+<div class="final sp">
+  <div><b>{{ a.short }}</b><span>{{ g.as }}</span></div>
+  <div class="mid">Final{{ ' (OT)' if g.ot else '' }}</div>
+  <div><b>{{ h.short }}</b><span>{{ g.hs }}</span></div>
+</div>
+<p class="note center">Watchability: <span class="stars">{{ g.stars | stars }}</span> (spoiler-free: closeness, overtime and scoring)</p>
+{% endif %}
+
+<div class="grid2">
+<section>
+  <h2>{{ "Pre-game prediction" if g.done or g.pending else "Prediction" }}</h2>
+  {% if g.pending %}<p class="note">This game has been played; the result arrives with the next data update.</p>{% endif %}
+  <div class="score">{{ a.short }} {{ p.a_pts | f1 }} <small>–</small> {{ p.h_pts | f1 }} {{ h.short }}</div>
+  <div class="wlab"><span>{{ a.short }} {{ (1 - p.p_home) | pct(0) }}</span><span>{{ h.short }} {{ p.p_home | pct(0) }}</span></div>
+  <div class="wbar"><div class="a" style="width:{{ ((1 - p.p_home) * 100) | round | int }}%"></div><div class="h" style="width:{{ (p.p_home * 100) | round | int }}%"></div></div>
+  <div class="tw"><table class="dense"><tbody>
+    <tr><td class="l">Projected margin</td><td>{{ (h.short if p.margin >= 0 else a.short) }} by {{ (p.margin | abs) | f1 }}</td></tr>
+    <tr><td class="l">Projected total</td><td>{{ p.total | f1 }}</td></tr>
+    {% if cfg.show_betting_tools %}<tr><td class="l">Fair moneyline</td><td>{{ a.code }} {{ (1 - p.p_home) | fair_ml }} / {{ h.code }} {{ p.p_home | fair_ml }}</td></tr>{% endif %}
+    <tr><td class="l">Expected possessions</td><td>{{ p.poss | f1 }}</td></tr>
+  </tbody></table></div>
+  <p class="note">{% if g.done %}Made using only games before tip-off.{% else %}Updates daily until tip-off. <a href="{{ root }}matchup/#{{ h.code }}-{{ a.code }}">Explore this matchup</a>.{% endif %}</p>
+</section>
+
+<section>
+  <h2>Matchup</h2>
+  <div class="tw"><table class="dense">
+    <thead><tr><th class="l"></th><th>{{ a.code }}</th><th>{{ h.code }}</th></tr></thead>
+    <tbody>
+      {% for key, label, d in [("net", rating, 1), ("o", "Adj. offense", 1), ("d", "Adj. defense", 1), ("t", "Adj. tempo", 1), ("sos", "Schedule strength", 1)] %}
+      <tr><td class="l">{{ label }}</td>
+        <td class="{{ 'adv' if a.rk[key] < h.rk[key] else '' }}">{{ (a[key] | sgn) if key in ('net','sos') else (a[key] | f1) }}{{ m.rk(a.rk[key], N) }}</td>
+        <td class="{{ 'adv' if h.rk[key] < a.rk[key] else '' }}">{{ (h[key] | sgn) if key in ('net','sos') else (h[key] | f1) }}{{ m.rk(h.rk[key], N) }}</td></tr>
+      {% endfor %}
+      {% if a.stats and h.stats %}
+      {% for key, label in [("efg", "eFG%"), ("tov", "Turnover %"), ("orb", "Off. rebound %"), ("ftr", "FT rate"), ("fg3r", "3PA share")] %}
+      <tr><td class="l">{{ label }}</td><td>{{ a.stats[key] | pct }}{{ m.rk(a.srk[key], N) }}</td><td>{{ h.stats[key] | pct }}{{ m.rk(h.srk[key], N) }}</td></tr>
+      {% endfor %}
+      {% endif %}
+    </tbody>
+  </table></div>
+  <p class="note">Bold marks the better rank. Team pages: <a href="{{ root }}teams/{{ a.slug }}/">{{ a.name }}</a>, <a href="{{ root }}teams/{{ h.slug }}/">{{ h.name }}</a>.</p>
+</section>
+</div>
+{{ m.ad(cfg) }}
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% import "macros.html" as m %}
+{% set title = "NBL Team Stats " ~ season ~ " – Four Factors, Shooting & Advanced" %}
+{% set desc = "NBL " ~ season ~ " advanced team stats: Dean Oliver's four factors on offense and defense, 3-point and 2-point shooting, assist, steal and block rates, with league ranks." %}
+{% block main %}
+<h1>Team stats</h1>
+<p class="lede">Season-to-date regular season stats with league ranks. These are raw (not opponent-adjusted); the adjusted numbers live on the <a href="{{ root }}">ratings</a> page.</p>
+{% set groups = [("o4", "Four Factors – offense"), ("d4", "Four Factors – defense"), ("sh", "Shooting"), ("st", "Style & other")] %}
+{% for gk, gl in groups %}
+{% set cols = defs | selectattr(3, 'equalto', gk) | list %}
+{% set cols = cols | rejectattr(0, 'in', missing) | list %}
+<h2>{{ gl }}</h2>
+<div class="tw"><table class="dense sortable">
+  <thead><tr><th class="l" data-sort="text">Team</th>
+    {% for k, label, hib, g, fmt in cols %}<th data-sort="{{ 'num' if hib != false else 'num-asc' }}">{{ label }}</th>{% endfor %}</tr></thead>
+  <tbody>
+  {% for t in order %}{% set x = info[t] %}{% if x.stats %}
+    <tr><td class="l">{{ m.team(info, t, root) }}</td>
+    {% for k, label, hib, g, fmt in cols %}{% set v = x.stats[k] %}
+      <td data-v="{{ v if v is not none else '' }}">{{ (v | pct) if fmt == 'pct' else (v | f1) }}{{ m.rk(x.srk[k], N) if hib is not none else '' }}</td>
+    {% endfor %}</tr>
+  {% endif %}{% endfor %}
+  </tbody>
+</table></div>
+{% endfor %}
+<p class="note">Full definitions are in the <a href="{{ root }}glossary/">glossary</a>. eFG% counts a three as 1.5 makes. TO% = turnovers per possession. OR% = share of available offensive rebounds grabbed. FTRate = free-throw attempts per field-goal attempt. Some scoring splits (paint, fast-break) aren't in the NBL feed this season, so they're left out.</p>
+{{ m.ad(cfg) }}
+{% endblock %}
