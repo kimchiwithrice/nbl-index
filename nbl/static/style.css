@@ -122,12 +122,25 @@ svg.chart{width:100%;height:auto;display:block;font-family:var(--font)}
 svg .grid{stroke:var(--rule);stroke-width:1}
 svg .zero{stroke:var(--faint);stroke-width:1}
 svg .ax{fill:var(--faint);font-size:11px}
-svg .other{fill:none;stroke:var(--faint);stroke-opacity:.35;stroke-width:1.1}
-svg .me{fill:none;stroke:var(--accent);stroke-width:2.6}
-svg .me-dot{fill:var(--accent)}
-.dist{display:flex;gap:6px;align-items:flex-end;height:110px;border-bottom:1px solid var(--rule-strong)}
+svg.chart g{--tc:var(--c)}
+:root[data-theme="dark"] svg.chart g{--tc:var(--cd);--fade:.42}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) svg.chart g{--tc:var(--cd);--fade:.42}}
+svg .other polyline{fill:none;stroke:var(--tc);stroke-opacity:var(--fade,.3);stroke-width:1.2;transition:stroke-opacity .15s}
+svg .other .lab{fill:var(--tc);fill-opacity:.55;font-size:10.5px}
+svg .other:hover polyline{stroke-opacity:1;stroke-width:2}
+svg .other:hover .lab{fill-opacity:1}
+svg .me polyline{fill:none;stroke:var(--tc);stroke-width:2.8}
+svg .me circle{fill:var(--tc)}
+svg .me .lab{fill:var(--tc);font-size:11px;font-weight:700}
+.dist{display:flex;gap:6px;align-items:flex-end;height:140px;border-bottom:1px solid var(--rule-strong)}
 .dist .col{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;height:100%}
-.dist .bar{width:100%;background:var(--ink);opacity:.8;min-height:1px}
+.dist{--tc:var(--c)}
+:root[data-theme="dark"] .dist{--tc:var(--cd)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .dist{--tc:var(--cd)}}
+.dist{padding-top:18px}
+.dist .bw{flex:1;width:100%;display:flex;align-items:flex-end}
+.dist .fbar{position:relative;width:100%;background:var(--tc);min-height:1px}
+.dist .fbar em{position:absolute;bottom:100%;left:-4px;right:-4px;margin-bottom:3px;text-align:center;font-style:normal;font-size:11px;color:var(--soft)}
 .dist span{font-size:12px;color:var(--faint);margin-top:4px}
 
 /* Game page */
@@ -210,3 +223,11 @@ html[data-sp="hide"] .spblock.open .sp{filter:none}
 .gloss dt a{color:var(--ink)}
 .gloss dt:target a{box-shadow:inset 0 -3px 0 color-mix(in srgb,var(--accent) 45%,transparent)}
 .gloss dd{margin:0;color:var(--soft)}
+
+/* Stat tooltips */
+.has-tip{cursor:help}
+th.has-tip,.card b.has-tip,td.l.has-tip{text-decoration:underline dotted var(--rule-strong);text-decoration-thickness:1px;text-underline-offset:3px}
+th[data-sort].has-tip{cursor:pointer}
+.has-tip:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.tipbox{position:absolute;z-index:20;max-width:260px;padding:7px 10px;border-radius:4px;background:var(--ink);color:var(--paper);
+  font-size:12.5px;line-height:1.4;font-weight:400;text-align:left;white-space:normal;pointer-events:none;box-shadow:0 2px 8px rgb(0 0 0 / .15)}

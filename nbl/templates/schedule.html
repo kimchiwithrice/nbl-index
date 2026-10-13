@@ -4,7 +4,7 @@
 {% set desc = "Every upcoming NBL game this season with win probability, projected score, margin and total. Spoiler-free watchability ratings for games already played." %}
 {% block main %}
 <h1>Schedule &amp; predictions</h1>
-<p class="lede">Win probability, projected score, margin and total for every upcoming game. Times are shown in your time zone. <b>Thrill</b> rates how watchable a game should be (team quality and closeness); played games get spoiler-free stars instead.</p>
+<p class="lede">Every game left this season, with who's favoured and by how much. Times are in your time zone. <b>Thrill</b> is a rough guide to which games are worth watching, from how good both teams are and how close it should be. Played games get spoiler-free stars instead.</p>
 
 <h2>Upcoming</h2>
 {% if upcoming %}
@@ -32,14 +32,14 @@
 
 {% if pending %}
 <h2>Awaiting results</h2>
-<p class="note">Played, but not yet in the overnight data update.</p>
+<p class="note">Played, but not in the data yet. These usually turn up overnight.</p>
 <div class="tw"><table class="dense"><tbody>
 {% for g in pending %}<tr><td class="l">{{ m.when(g.utc) }}</td><td class="l"><a href="{{ root }}games/{{ g.slug }}/">{{ info[g.away].short }} @ {{ info[g.home].short }}</a></td><td>Model favoured {{ m.fav(info, g.home, g.away, g.pred.p_home) }}</td></tr>{% endfor %}
 </tbody></table></div>
 {% endif %}
 
 <h2>Played</h2>
-<p class="note">Spoilers are on by default here; switch them off with the <b>Hide scores</b> link at the top to see only the watchability stars. Win % is what the model said before tip-off.</p>
+<p class="note">Scores show by default. Hit <b>Hide scores</b> at the top if you're catching up on replays, and you'll just get the watchability stars. The favourite is who the model picked before tip-off.</p>
 <div class="tw"><table class="dense">
   <thead><tr><th class="l">When</th><th class="l">Game</th><th>Watch</th><th class="sp-col">Score</th><th>Model favoured</th><th class="sp-col">Right?</th></tr></thead>
   <tbody>

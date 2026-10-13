@@ -4,7 +4,7 @@
 {% set desc = "Advanced NBL player stats for " ~ season ~ ": true shooting, usage rate, assist and rebound rates, per-40 numbers and plus-minus for every player." %}
 {% block main %}
 <h1>Player stats</h1>
-<p class="lede">Every player this season with possession-based advanced stats. Rates are adjusted for how long the player was on court. Click a column to sort, a player for their career page.</p>
+<p class="lede">Everyone who's played this season. The rate stats only count the time a player was actually on court, so bench players aren't penalised. Click a column to sort, or a name for their career page.</p>
 <div class="bar"><input id="pq" placeholder="Search players or teams" aria-label="Search players"> <label class="chk"><input type="checkbox" id="pmin" checked> 10+ minutes per game</label></div>
 <div class="tw"><table class="dense sortable" id="ptable">
   <thead>
@@ -32,6 +32,6 @@
   {% endfor %}
   </tbody>
 </table></div>
-<p class="note">Definitions for every column are in the <a href="{{ root }}glossary/#players">glossary</a>. Small number next to 3P% = attempts. ORtg here is simple scoring efficiency (points per 100 possessions used), not Dean Oliver's full version.</p>
+<p class="note">The small number next to 3P% is attempts. ORtg here is a simple points-per-possession number, not Dean Oliver's full offensive rating. More in the <a href="{{ root }}glossary/#players">glossary</a>.</p>
 {{ m.ad(cfg) }}
 {% endblock %}

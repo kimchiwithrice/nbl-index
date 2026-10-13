@@ -4,11 +4,11 @@
 {% set desc = "Projected NBL ladder for " ~ season ~ " from " ~ "{:,}".format(S.n) ~ " simulated seasons: each team's projected record and chances of finishing top two, making finals, reaching the grand final and winning the championship." %}
 {% block main %}
 <h1>Ladder predictor</h1>
-<p class="lede">The current ladder, then where the model thinks every team will finish. The top two go straight to the semi-finals; 3rd to 6th play in for the other two spots.</p>
+<p class="lede">Where the model thinks everyone finishes, with the current ladder underneath. Top two go straight to the semis; 3rd to 6th fight it out in the play-in for the other two spots.</p>
 
 <h2>Projected final ladder</h2>
 {{ m.early(S, root) }}
-<p class="note" style="margin:0 0 8px">The remaining {{ S.games_left }} games and the finals simulated {{ "{:,}".format(S.n) }} times. Teams are ordered by projected wins.</p>
+<p class="note" style="margin:0 0 8px">The last {{ S.games_left }} games and the finals, played out {{ "{:,}".format(S.n) }} times. Sorted by projected wins.</p>
 <div class="tw"><table class="dense ladder">
   <thead>
     <tr class="grp"><th colspan="3"></th><th colspan="3" class="sep">Chance of finishing</th><th colspan="3" class="sep">Chance of reaching</th><th class="sep"></th></tr>
@@ -41,12 +41,12 @@
   </tbody>
   <tfoot><tr><td colspan="9"></td><td class="sep l"><div class="fp lab">{% for i in range(1, N + 1) %}<span>{{ i }}</span>{% endfor %}</div></td></tr></tfoot>
 </table></div>
-<p class="note">Finish position: each square is a ladder position (1st on the left). Darker = more likely; numbers are the % chance (shown when 10% or more). The outlined square is the most likely finish. Lines mark the top-two and top-six cut-offs.</p>
+<p class="note">Each square is a ladder spot, 1st on the left. The darker it is, the more likely; the number is the % chance (only shown from 10% up). The outlined square is the most likely finish. The lines mark the top-two and top-six cut-offs.</p>
 {{ m.ad(cfg) }}
 
 <h2>Current ladder</h2>
 <div class="spblock">
-<button type="button" class="sp-reveal">Spoilers are hidden. Show the current ladder</button>
+<button type="button" class="sp-reveal">Scores are hidden. Show the current ladder</button>
 <div class="tw"><table class="dense ladder">
   <thead><tr><th class="num">#</th><th class="l">Team</th><th>Played</th><th>W</th><th>L</th><th>Win %</th><th>For</th><th>Against</th><th>Diff</th><th class="sep" title="The team's rank in the {{ rating }} ratings">Rating rank</th></tr></thead>
   <tbody>
@@ -65,5 +65,5 @@
   </tbody>
 </table></div>
 </div>
-<p class="note">Ordered by wins, then points difference (the official tie-breakers can differ). Assumed for the simulation: the higher seed hosts single finals games and games 1, 3 and 5 of a series.</p>
+<p class="note">Sorted by wins, then points difference, so ties might not match the official ladder. In the simulation the higher seed hosts one-off finals and games 1, 3 and 5 of a series.</p>
 {% endblock %}

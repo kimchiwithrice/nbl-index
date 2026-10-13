@@ -1,4 +1,5 @@
-// Site-wide behaviour: spoiler toggle, theme, local times, row links, table sorting, player filter.
+// Site-wide behaviour: spoiler toggle, theme, local times, row links, table sorting, stat tooltips,
+// player filter.
 (function(){
   "use strict";
   var root = document.documentElement;
@@ -73,6 +74,105 @@
       });
     });
   });
+
+  // Short explanations for the less obvious stats. Shown on hover, keyboard focus or tap.
+  var TIPS = {
+    "AdjEM": "Points per 100 possessions better than an average team, on a neutral court. Adjusted for opponents.",
+    "AdjO": "Points scored per 100 possessions against an average defense.",
+    "Adj. offense": "Points scored per 100 possessions against an average defense.",
+    "AdjD": "Points allowed per 100 possessions against an average offense. Lower is better.",
+    "Adj. defense": "Points allowed per 100 possessions against an average offense. Lower is better.",
+    "AdjT": "Possessions per 40 minutes against an average opponent. Pace, not quality.",
+    "Adj. tempo": "Possessions per 40 minutes against an average opponent. Pace, not quality.",
+    "SOS": "Average AdjEM of the teams played so far. Higher = tougher schedule.",
+    "Schedule strength": "Average AdjEM of the teams played so far. Higher = tougher schedule.",
+    "Opponents played (avg AdjEM)": "Average AdjEM of the teams played so far. Higher = tougher schedule.",
+    "Left SOS": "Average AdjEM of the teams still to play.",
+    "Opponents still to play": "Average AdjEM of the teams still to play.",
+    "Luck": "Actual wins minus the wins the ratings expected. Usually evens out.",
+    "Wins vs expected (luck)": "Actual wins minus the wins the ratings expected. Usually evens out.",
+    "Wins above an average team (résumé)": "How many more wins than an average team would have against the same schedule.",
+    "Raw efficiency (off / def)": "Points scored and allowed per 100 possessions, before adjusting for opponents.",
+    "Proj W": "Average wins across the simulated seasons.",
+    "Proj. record": "Average wins and losses across the simulated seasons.",
+    "7d": "Change in rank over the last week.",
+    "eFG%": "Field-goal % with threes counted as 1.5 makes.",
+    "Effective FG%": "Field-goal % with threes counted as 1.5 makes.",
+    "TO%": "Turnovers per possession. On defense: turnovers forced.",
+    "Turnover %": "Turnovers per possession. On defense: turnovers forced.",
+    "OR%": "Share of missed shots the offense rebounds. On defense: what opponents grab.",
+    "Off. rebound %": "Share of missed shots the offense rebounds. On defense: what opponents grab.",
+    "FTRate": "Free-throw attempts per field-goal attempt. How often a team gets to the line.",
+    "FT rate": "Free-throw attempts per field-goal attempt. How often a team gets to the line.",
+    "Free-throw rate": "Free-throw attempts per field-goal attempt. How often a team gets to the line.",
+    "3PA rate": "Share of shots that are threes.",
+    "3PA share": "Share of shots that are threes.",
+    "3PA share of shots": "Share of shots that are threes.",
+    "Opp 3PA rate": "Share of opponents' shots that are threes.",
+    "Ast/FGM": "Share of made shots that were assisted.",
+    "Opp Ast/FGM": "Share of opponents' made shots that were assisted.",
+    "Assists per made FG": "Share of made shots that were assisted.",
+    "Steal%": "Steals per opponent possession.",
+    "Block%": "Share of opponents' two-point attempts blocked.",
+    "Steal % / Block %": "Steals per opponent possession / share of opponents' twos blocked.",
+    "Bench pts share": "Share of points scored by players who didn't start.",
+    "Bench share of points": "Share of points scored by players who didn't start.",
+    "TS%": "Shooting efficiency counting twos, threes and free throws together.",
+    "True shooting": "Shooting efficiency counting twos, threes and free throws together.",
+    "USG%": "Share of team possessions a player finishes (shot, free throws or turnover) while on court.",
+    "Usage": "Share of team possessions a player finishes (shot, free throws or turnover) while on court.",
+    "AST%": "Share of teammates' baskets he assisted while on court.",
+    "ORB%": "Share of available offensive rebounds he grabbed while on court.",
+    "DRB%": "Share of available defensive rebounds he grabbed while on court.",
+    "REB%": "Share of available rebounds he grabbed while on court.",
+    "STL%": "Steals per opponent possession while on court.",
+    "BLK%": "Share of opponents' two-point attempts he blocked while on court.",
+    "TOV%": "Turnovers per possession he used.",
+    "ORtg": "Points per 100 possessions he used. A simple scoring-efficiency number.",
+    "P/40": "Points per 40 minutes.",
+    "+/- 40": "Team point margin while he was on court, per 40 minutes.",
+    "Thrill": "How watchable the game should be, 0-100, from team quality and how close it projects.",
+    "Watch": "Spoiler-free watchability for played games: closeness, overtime and scoring.",
+    "Expected possessions": "How many possessions each team should get, from both teams' pace.",
+    "Log loss": "Scores the win probabilities. Lower is better; a coin flip scores 0.693.",
+    "Margin error": "Average points between the predicted and actual margin.",
+    "Total error": "Average points between the predicted and actual combined score."
+  };
+  var tipBox = document.createElement("div");
+  tipBox.className = "tipbox"; tipBox.setAttribute("role", "tooltip"); tipBox.hidden = true;
+  document.body.appendChild(tipBox);
+  var TIP_TARGETS = "th, .card b, td.l, .tw td.l";
+  function tipFor(el){
+    return TIPS[el.textContent.trim()] || el.dataset.tip || null;
+  }
+  function markTips(scope){
+    (scope || document).querySelectorAll(TIP_TARGETS).forEach(function(el){
+      if(el.title){ el.dataset.tip = el.title; el.removeAttribute("title"); }
+      if(tipFor(el) && !el.classList.contains("has-tip")){ el.classList.add("has-tip"); el.tabIndex = 0; }
+    });
+  }
+  function showTip(el){
+    var text = tipFor(el); if(!text) return;
+    tipBox.textContent = text; tipBox.hidden = false;
+    var r = el.getBoundingClientRect(), w = tipBox.offsetWidth;
+    var left = Math.min(Math.max(8, r.left + r.width / 2 - w / 2), document.documentElement.clientWidth - w - 8);
+    var top = r.top - tipBox.offsetHeight - 8;
+    if(top < 8) top = r.bottom + 8;
+    tipBox.style.left = left + window.scrollX + "px";
+    tipBox.style.top = top + window.scrollY + "px";
+  }
+  function hideTip(){ tipBox.hidden = true; }
+  document.addEventListener("mouseover", function(e){
+    var el = e.target.closest && e.target.closest(".has-tip"); if(el) showTip(el);
+  });
+  document.addEventListener("mouseout", function(e){
+    if(e.target.closest && e.target.closest(".has-tip")) hideTip();
+  });
+  document.addEventListener("focusin", function(e){ if(e.target.classList && e.target.classList.contains("has-tip")) showTip(e.target); });
+  document.addEventListener("focusout", hideTip);
+  window.addEventListener("scroll", hideTip, {passive: true});
+  markTips();
+  window.markTips = markTips;  // the matchup page redraws its tables and calls this again
 
   // Player search and minutes filter
   var pq = document.getElementById("pq"), pmin = document.getElementById("pmin");

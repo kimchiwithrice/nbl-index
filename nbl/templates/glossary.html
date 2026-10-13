@@ -1,54 +1,53 @@
 {% extends "base.html" %}
 {% set title = "NBL Advanced Stats Glossary – AdjEM, Four Factors, True Shooting, Usage and More" %}
-{% set desc = "Plain-English definitions and formulas for every stat on " ~ cfg.site_name ~ ": adjusted efficiency, tempo, the four factors, true shooting, usage rate, win probability, fair odds and more." %}
+{% set desc = "Plain-English definitions and formulas for every stat on " ~ cfg.site_name ~ ": adjusted efficiency, tempo, the four factors, true shooting, usage rate, win probability and more." %}
 {% set groups = [
   ("ratings", "Team ratings", [
-    ("possession", "Possession", "One trip down the court that ends in a shot that isn't rebounded by the offense, a turnover or free throws. Every rating here is measured per possession, so fast and slow teams can be compared fairly. Estimated from the box score as field-goal attempts − offensive rebounds + turnovers + 0.44 × free-throw attempts, averaged over both teams."),
-    ("adjem", rating, "Adjusted efficiency margin: how many points per 100 possessions better a team is than an average NBL team on a neutral court. AdjO minus AdjD. The headline rating; teams are ranked by it."),
+    ("possession", "Possession", "One trip down the floor, ending in a shot the offense doesn't rebound, a turnover or free throws. Nearly everything here is per possession, so a run-and-gun team and a grind-it-out team can be compared fairly. Estimated from the box score as field-goal attempts − offensive rebounds + turnovers + 0.44 × free-throw attempts, averaged over both teams."),
+    ("adjem", rating, "Adjusted efficiency margin. How many points per 100 possessions better than an average NBL team a side is, on a neutral court. It's AdjO minus AdjD, and it's the number the rankings use."),
     ("adjo", "AdjO", "Adjusted offense: points scored per 100 possessions against an average defense on a neutral court. Higher is better."),
     ("adjd", "AdjD", "Adjusted defense: points allowed per 100 possessions against an average offense on a neutral court. Lower is better."),
     ("adjt", "AdjT", "Adjusted tempo: possessions per 40 minutes against an average opponent. Higher means a faster pace. Pace isn't good or bad on its own."),
-    ("adjusted", "Adjusted", "Solved for every team at once so that the strength of each opponent, and home court, are taken into account. Beating good teams counts for more than beating weak ones by the same margin."),
-    ("rank", "Rank (small numbers)", "The team's league rank for that stat, 1 being best. Ranks already account for direction, so the best defense is ranked 1 even though its number is the lowest."),
+    ("adjusted", "Adjusted", "Worked out for every team at once, so opponent strength and home court are baked in. Beating a good team by ten counts for more than beating a bad one by ten."),
+    ("rank", "Rank (small numbers)", "League rank for that stat, 1 being best. For stats where lower is better, like AdjD, the lowest number ranks 1."),
     ("sos", "SOS", "Strength of schedule: the average " ~ rating ~ " of the opponents a team has played this season. Higher means a tougher schedule."),
     ("left-sos", "Left SOS", "The average " ~ rating ~ " of the opponents a team still has to play."),
-    ("luck", "Luck", "Actual wins minus the wins the ratings expected for the games played. Positive means a team has won more close games than its play deserved; it tends to even out."),
-    ("resume", "Résumé", "Wins above what an average team would be expected to win against the same schedule, home and away. Credits wins by how hard they were to get."),
-    ("trend", "Trend", "Recent form: how a team's last few weeks of play compare with its season rating, in points per 100 possessions."),
+    ("luck", "Luck", "Actual wins minus the wins the ratings expected. A positive number usually means a team has been winning the close ones, and that rarely lasts."),
+    ("resume", "Résumé", "How many more games a team has won than an average side would have against the same opponents, home and away. A road win over the top team counts for a lot more than a home win over the bottom one."),
     ("7d", "7d", "How many places a team has moved in the ratings over the last 7 days."),
-    ("preseason", "Preseason rating", "The rating before the season's first game, built from last season. Early in the year ratings lean on it; it fades as games are played."),
+    ("preseason", "Preseason rating", "Where a team starts before the first game, built from last season. It matters a lot in the first few weeks and less every week after."),
   ]),
   ("four-factors", "Four Factors", [
-    ("efg", "eFG%", "Effective field-goal percentage: (FGM + 0.5 × 3PM) ÷ FGA. Counts a three as one and a half makes, because it's worth 50% more."),
+    ("efg", "eFG%", "Effective field-goal percentage, (FGM + 0.5 × 3PM) ÷ FGA. A three counts as one and a half makes, since it's worth 50% more."),
     ("tov", "TO%", "Turnover percentage: turnovers ÷ possessions. On offense lower is better; on defense (turnovers forced) higher is better."),
     ("orb", "OR%", "Offensive rebound percentage: offensive rebounds ÷ (offensive rebounds + opponent defensive rebounds). The share of a team's misses it gets back."),
     ("ftr", "FTRate", "Free-throw rate: free-throw attempts ÷ field-goal attempts. How often a team gets to the line."),
-    ("four-factors-def", "Defensive four factors", "The same four numbers for opponents: the eFG%, turnover rate, offensive rebounding and free-throw rate a team allows. Dean Oliver's four factors explain most of the difference between good and bad teams."),
+    ("four-factors-def", "Defensive four factors", "The same four numbers, but for what a team gives up. Dean Oliver's point was that shooting, turnovers, rebounding and free throws explain most of the gap between good and bad teams, on both ends."),
   ]),
   ("shooting", "Shooting and style", [
     ("3p", "3P%", "Three-point field goals made ÷ attempted."),
     ("2p", "2P%", "Two-point field goals made ÷ attempted."),
     ("ft", "FT%", "Free throws made ÷ attempted."),
-    ("3pa-rate", "3PA rate", "Three-point attempts ÷ all field-goal attempts: how much a team lives behind the arc."),
-    ("ast-fgm", "Ast/FGM", "Assists ÷ made field goals: how much of a team's scoring comes from passing."),
+    ("3pa-rate", "3PA rate", "Three-point attempts ÷ all field-goal attempts. How much a team lives behind the arc."),
+    ("ast-fgm", "Ast/FGM", "Assists ÷ made field goals. How much of a team's scoring comes off a pass."),
     ("stl-pct", "Steal%", "Steals ÷ opponent possessions."),
     ("blk-pct", "Block%", "Blocks ÷ opponent two-point attempts."),
     ("bench", "Bench share", "The share of a team's points scored by players who didn't start."),
     ("raw-eff", "Raw efficiency", "Points scored and allowed per 100 possessions, before any adjustment for opponents."),
   ]),
   ("players", "Player stats", [
-    ("per-40", "Per 40 (P/40)", "A stat scaled to 40 minutes, a full NBL game, so bench players and starters can be compared."),
-    ("ts", "TS%", "True shooting percentage: points ÷ (2 × (FGA + 0.44 × FTA)). Scoring efficiency that counts threes and free throws."),
-    ("usg", "USG%", "Usage rate: the share of the team's possessions a player uses (shots, free-throw trips and turnovers) while on court."),
+    ("per-40", "Per 40 (P/40)", "A stat scaled up to 40 minutes, a full NBL game, so a bench player and a starter can be compared."),
+    ("ts", "TS%", "True shooting percentage, points ÷ (2 × (FGA + 0.44 × FTA)). The best single number for how efficiently someone scores, since it counts threes and free throws too."),
+    ("usg", "USG%", "Usage rate. The share of the team's possessions a player finishes (with a shot, a trip to the line or a turnover) while he's on court. Around 20% is average; 30% is a go-to scorer."),
     ("ast-pct", "AST%", "Assist percentage: the share of teammates' made shots a player assisted while on court."),
     ("orb-pct", "ORB% / DRB%", "Rebound percentages: the share of available offensive or defensive rebounds a player grabbed while on court."),
     ("stl-blk-pct", "STL% / BLK%", "Steals per opponent possession, and blocks per opponent two-point attempt, while the player was on court."),
     ("tov-pct", "TOV%", "Turnovers ÷ (FGA + 0.44 × FTA + turnovers): how often a player's possessions end in a turnover."),
     ("ortg", "ORtg", "Points produced per 100 possessions used: 100 × points ÷ (FGA + 0.44 × FTA + turnovers). A simple scoring-efficiency measure, not Dean Oliver's full offensive rating."),
-    ("plus-minus", "+/- per 40", "The team's scoring margin while the player was on court, scaled to 40 minutes. Noisy over small samples and affected by teammates."),
+    ("plus-minus", "+/- per 40", "The team's scoring margin while the player was on court, scaled to 40 minutes. Very noisy over a few games, and it depends a lot on who he plays with."),
   ]),
   ("predictions", "Predictions", [
-    ("win-prob", "Win probability", "How often the model expects a team to win this game. Built from the two teams' ratings and home court, then calibrated against how far past predictions have missed."),
+    ("win-prob", "Win probability", "How often the model expects a team to win this game, from the two ratings and home court, checked against how far off past predictions have been."),
     ("proj-score", "Projected score", "The expected score from both teams' adjusted offense, defense and tempo."),
     ("margin", "Projected margin", "How many points the model expects the winner to win by."),
     ("total", "Total", "The projected combined points of both teams."),
@@ -56,7 +55,7 @@
     ("stars", "Watchability stars", "1 to 5 stars for a played game, from how close it finished, overtime and scoring, without showing the score."),
   ]),
   ("ladder", "Ladder and finals", [
-    ("simulation", "Simulated season", "The rest of the regular season and the finals played out 10,000 times using the ratings, with a little random variation in team strength each time because ratings are estimates."),
+    ("simulation", "Simulated season", "The rest of the regular season and the finals played out 10,000 times from the ratings. Each run nudges every team's strength a bit at random, because the ratings are estimates, not facts."),
     ("proj-record", "Projected record", "Average wins and losses across all the simulated seasons."),
     ("top-2", "Top 2", "Chance of finishing first or second, which goes straight to the semi-finals."),
     ("top-6", "Top 6", "Chance of making the finals."),
@@ -64,10 +63,10 @@
     ("finish-grid", "Finish position", "The share of simulated seasons a team finished in each ladder position, 1st on the left. The outlined square is the most likely finish."),
   ]),
   ("model", "Model accuracy", [
-    ("backtest", "Backtest", "A test on past seasons where the model only ever sees games played before each prediction, refitting every week. It shows how the model would really have done."),
+    ("backtest", "Backtest", "Replaying past seasons with the model only ever seeing games played before each prediction. It's the honest way to see how it would have done."),
     ("log-loss", "Log loss", "A score for probability predictions that punishes confident misses hard. Lower is better; a coin flip scores 0.693."),
     ("calibration", "Calibration", "Whether the probabilities mean what they say: teams given a 65% chance should win about 65% of the time."),
-    ("ledger", "Prediction ledger", "Every prediction published before tip-off, kept and graded afterwards, so the track record can't be rewritten."),
+    ("ledger", "Prediction ledger", "Every prediction saved before tip-off and marked afterwards, so the track record can't be quietly rewritten."),
   ]),
 ] %}
 {% block head %}
@@ -80,7 +79,7 @@
 {% block main %}
 <div class="prose">
 <h1>Glossary</h1>
-<p class="lede">What every number on {{ cfg.site_name }} means and how it's calculated. Box-score abbreviations: FGM/FGA field goals made/attempted, 3PM three-pointers made, FTA free throws attempted, ORB/DRB offensive/defensive rebounds, TOV turnovers.</p>
+<p class="lede">What every number on the site means and how it's worked out. In the formulas, FGM/FGA are field goals made/attempted, 3PM is threes made, FTA is free-throw attempts, ORB/DRB are offensive/defensive rebounds and TOV is turnovers.</p>
 <p class="jump">{% for gid, gname, items in groups %}<a href="#{{ gid }}">{{ gname }}</a>{% endfor %}</p>
 {% for gid, gname, items in groups %}
 <h2 id="{{ gid }}">{{ gname }}</h2>

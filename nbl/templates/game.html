@@ -17,13 +17,13 @@
   <div class="mid">Final{{ ' (OT)' if g.ot else '' }}</div>
   <div><b>{{ h.short }}</b><span>{{ g.hs }}</span></div>
 </div>
-<p class="note center">Watchability: <span class="stars">{{ g.stars | stars }}</span> (spoiler-free: closeness, overtime and scoring)</p>
+<p class="note center">Watchability: <span class="stars">{{ g.stars | stars }}</span> (based on how close it was, overtime and scoring, without giving the result away)</p>
 {% endif %}
 
 <div class="grid2">
 <section>
   <h2>{{ "Pre-game prediction" if g.done or g.pending else "Prediction" }}</h2>
-  {% if g.pending %}<p class="note">This game has been played; the result arrives with the next data update.</p>{% endif %}
+  {% if g.pending %}<p class="note">This one has been played. The result shows up after the next data update.</p>{% endif %}
   <div class="score">{{ a.short }} {{ p.a_pts | f1 }} <small>–</small> {{ p.h_pts | f1 }} {{ h.short }}</div>
   <div class="wlab"><span>{{ a.short }} {{ (1 - p.p_home) | pct(0) }}</span><span>{{ h.short }} {{ p.p_home | pct(0) }}</span></div>
   <div class="wbar"><div class="a" style="width:{{ ((1 - p.p_home) * 100) | round | int }}%"></div><div class="h" style="width:{{ (p.p_home * 100) | round | int }}%"></div></div>
@@ -33,7 +33,7 @@
     {% if cfg.show_betting_tools %}<tr><td class="l">Fair moneyline</td><td>{{ a.code }} {{ (1 - p.p_home) | fair_ml }} / {{ h.code }} {{ p.p_home | fair_ml }}</td></tr>{% endif %}
     <tr><td class="l">Expected possessions</td><td>{{ p.poss | f1 }}</td></tr>
   </tbody></table></div>
-  <p class="note">{% if g.done %}Made using only games before tip-off.{% else %}Updates daily until tip-off. <a href="{{ root }}matchup/#{{ h.code }}-{{ a.code }}">Explore this matchup</a>.{% endif %}</p>
+  <p class="note">{% if g.done %}What the model said before tip-off.{% else %}Updated every day until tip-off. Try it on a neutral court in the <a href="{{ root }}matchup/#{{ h.code }}-{{ a.code }}">matchup tool</a>.{% endif %}</p>
 </section>
 
 <section>
@@ -53,7 +53,7 @@
       {% endif %}
     </tbody>
   </table></div>
-  <p class="note">Bold marks the better rank. Team pages: <a href="{{ root }}teams/{{ a.slug }}/">{{ a.name }}</a>, <a href="{{ root }}teams/{{ h.slug }}/">{{ h.name }}</a>.</p>
+  <p class="note">Bold is the better of the two. Team pages: <a href="{{ root }}teams/{{ a.slug }}/">{{ a.name }}</a>, <a href="{{ root }}teams/{{ h.slug }}/">{{ h.name }}</a>.</p>
 </section>
 </div>
 {{ m.ad(cfg) }}

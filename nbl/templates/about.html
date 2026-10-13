@@ -4,13 +4,13 @@
 {% block main %}
 <div class="prose">
 <h1>About {{ cfg.site_name }}</h1>
-<p>{{ cfg.site_name }} is a free, independent stats site for the NBL, in the spirit of KenPom and Bart Torvik's T-Rank in US college basketball. It rates every team on adjusted offense, defense and tempo, predicts every game, simulates the season, and tracks its own accuracy in public.</p>
-<p>It's built and run by one fan. It's not affiliated with the NBL or any club.</p>
-{% if cfg.kofi_url %}<p>The site has no paywall. If you find it useful, you can <a href="{{ cfg.kofi_url }}" rel="noopener">chip in for the hosting</a>.</p>{% endif %}
+<p>{{ cfg.site_name }} is a free stats site for the NBL. If you know KenPom or Bart Torvik's T-Rank from US college hoops, it's that idea pointed at our league: team ratings adjusted for schedule, a prediction for every game, the season simulated, and a public record of how the model's actually going.</p>
+<p>It's a one-person side project, built because I wanted NBL numbers like this in one place. It isn't connected to the NBL or any club.</p>
+{% if cfg.kofi_url %}<p>There's no paywall and there won't be. If you get some use out of it, you can <a href="{{ cfg.kofi_url }}" rel="noopener">chip in for the hosting</a>.</p>{% endif %}
 {% if cfg.contact %}<p>Questions, ideas or corrections: {{ cfg.contact }}</p>{% endif %}
 <h2>Spoiler-free mode</h2>
-<p>Watching on delay? Press <b>Hide scores</b> at the top of any page to hide scores, records and results everywhere. Played games then show only a watchability rating. Your choice is remembered on this device.</p>
+<p>Watching on replay? Hit <b>Hide scores</b> at the top of any page and scores, records and results disappear across the whole site. Played games just get a watchability rating instead. It remembers your choice on that device.</p>
 <h2>Credits</h2>
-<p>Data from the NBL's official stats feed via the open-source <a href="https://github.com/JaseZiv/nblR" rel="noopener">nblR</a> project by Jason Zivkovic. Method inspired by Ken Pomeroy and Dean Oliver.</p>
+<p>The data comes from the NBL's official stats feed through Jason Zivkovic's open-source <a href="https://github.com/JaseZiv/nblR" rel="noopener">nblR</a> project. The method borrows heavily from Ken Pomeroy and Dean Oliver.</p>
 </div>
 {% endblock %}

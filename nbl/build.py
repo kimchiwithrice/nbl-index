@@ -130,6 +130,7 @@ def team_summaries(teams, ratings, preseason, week_ago, results, stats, season_s
         code, slug, short = data.TEAMS.get(team, (team[:3].upper(), slugify(team), team))
         info[team] = {
             "name": team, "code": code, "slug": slug, "short": short,
+            "colours": data.TEAM_COLOURS.get(team, data.DEFAULT_COLOURS),
             "o": ratings["mu"] + ratings["off"][i],
             "d": ratings["mu"] + ratings["def"][i],
             "net": ratings["off"][i] - ratings["def"][i],
@@ -321,11 +322,15 @@ def write_data_js(out_dir, ratings, cal, info, teams, season, betting=False):
         f.write("window.NBL=" + json.dumps(payload, separators=(",", ":"), default=float) + ";")
 
 
-def history_svg(history, team, teams, width=680, height=230):
-    """Line chart of every team's rating through the season, with `team` highlighted."""
+def history_svg(history, team, teams, width=680, height=250):
+    """Line chart of every team's rating through the season.
+
+    The page's team is drawn bold in its club colour; everyone else is a faint line in their own
+    colour with a short label at the end, so you can still tell who's who.
+    """
     if len(history) < 2:
         return ""
-    left, right, top, bottom = 34, 30, 10, 26
+    left, right, top, bottom = 34, 44, 10, 26
     values = [point["net"][t] for point in history for t in teams]
     lo = math.floor(min(values + [-1]) / 5) * 5
     hi = math.ceil(max(values + [1]) / 5) * 5
@@ -337,20 +342,43 @@ def history_svg(history, team, teams, width=680, height=230):
     def y(v):
         return top + (height - top - bottom) * (hi - v) / (hi - lo)
 
-    svg = [f'<svg viewBox="0 0 {width} {height}" class="chart" role="img" aria-label="Net rating through the season">']
+    def colours(t):
+        light, dark = data.TEAM_COLOURS.get(t, data.DEFAULT_COLOURS)
+        return f"--c:{light};--cd:{dark}"
+
+    def short(t):
+        return data.TEAMS.get(t, (t[:3].upper(),))[0]
+
+    # End labels: start at each line's last value, then push apart so they don't overlap.
+    order = sorted(teams, key=lambda t: -history[-1]["net"][t])
+    label_y, last = {}, None
+    for t in order:
+        ly = y(history[-1]["net"][t]) + 4
+        if last is not None and ly < last + 11:
+            ly = last + 11
+        label_y[t] = last = ly
+    overflow = last - (height - bottom + 4)
+    if overflow > 0:
+        for t in order:
+            label_y[t] -= overflow * (order.index(t) + 1) / len(order)
+
+    svg = [f'<svg viewBox="0 0 {width} {height}" class="chart" role="img" '
+           f'aria-label="AdjEM through the season, every team">']
     for v in range(int(lo), int(hi) + 1, 5):
         svg.append(f'<line x1="{left}" x2="{width - right}" y1="{y(v):.1f}" y2="{y(v):.1f}" '
                    f'class="{"zero" if v == 0 else "grid"}"/>'
                    f'<text x="{left - 6}" y="{y(v) + 4:.1f}" class="ax" text-anchor="end">{v:+d}</text>')
     for i in range(0, n, max(1, n // 6)):
         svg.append(f'<text x="{x(i):.1f}" y="{height - 6}" class="ax" text-anchor="middle">{history[i]["label"]}</text>')
-    for other in teams:
-        if other != team:
-            points = " ".join(f"{x(i):.1f},{y(p['net'][other]):.1f}" for i, p in enumerate(history))
-            svg.append(f'<polyline points="{points}" class="other"/>')
-    points = " ".join(f"{x(i):.1f},{y(p['net'][team]):.1f}" for i, p in enumerate(history))
-    svg.append(f'<polyline points="{points}" class="me"/>')
-    svg.append(f'<circle cx="{x(n - 1):.1f}" cy="{y(history[-1]["net"][team]):.1f}" r="4" class="me-dot"/>')
+    for t in [t for t in teams if t != team] + [team]:
+        points = " ".join(f"{x(i):.1f},{y(p['net'][t]):.1f}" for i, p in enumerate(history))
+        cls = "me" if t == team else "other"
+        svg.append(f'<g class="{cls}" style="{colours(t)}"><title>{t}: {history[-1]["net"][t]:+.1f}</title>'
+                   f'<polyline points="{points}"/>'
+                   f'<text x="{width - right + 8}" y="{label_y[t]:.1f}" class="lab">{short(t)}</text>')
+        if t == team:
+            svg.append(f'<circle cx="{x(n - 1):.1f}" cy="{y(history[-1]["net"][t]):.1f}" r="4"/>')
+        svg.append("</g>")
     svg.append("</svg>")
     return "".join(svg)
 

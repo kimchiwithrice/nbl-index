@@ -36,6 +36,22 @@ TEAMS = {
     "Townsville Crocodiles": ("TSV", "townsville-crocodiles", "Townsville"),
 }
 
+# Club colours for charts: (light background, dark background). Taken from each club's palette,
+# with a lighter shade for dark mode where the main colour is too dark to see.
+TEAM_COLOURS = {
+    "Adelaide 36ers": ("#16307a", "#7f97e8"),
+    "Brisbane Bullets": ("#064590", "#5d9be6"),
+    "Cairns Taipans": ("#e0701b", "#f79239"),
+    "Illawarra Hawks": ("#c81e25", "#f2554e"),
+    "Melbourne United": ("#0054ff", "#5a90ff"),
+    "New Zealand Breakers": ("#111111", "#e6e6e6"),
+    "Perth Wildcats": ("#d40000", "#ff5a5a"),
+    "South East Melbourne Phoenix": ("#4e9a1b", "#69be29"),
+    "Sydney Kings": ("#5b4099", "#a88ce8"),
+    "Tasmania JackJumpers": ("#008c46", "#37b44b"),
+}
+DEFAULT_COLOURS = ("#555555", "#bbbbbb")
+
 # Short column names used in the games table -> column names in the box score file.
 BOX_COLUMNS = {
     "pts": "points", "fgm": "field_goals_made", "fga": "field_goals_attempted",

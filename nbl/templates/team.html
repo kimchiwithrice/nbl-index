@@ -23,7 +23,7 @@
 <section>
   <h2>{{ rating }} through the season</h2>
   <div class="chartbox">{{ chart | safe }}</div>
-  <p class="note">{{ x.short }} in colour, the rest of the league in grey. The first point is the preseason rating, built from last season.{% if x.pre is not none %} Preseason: {{ x.pre | sgn }} (#{{ x.rk.pre }}).{% endif %}</p>
+  <p class="note">{{ x.short }} in bold, the rest of the league faded. Hover a line to see who it is. The first point is the preseason rating, which comes from last season.{% if x.pre is not none %} Preseason: {{ x.pre | sgn }} (#{{ x.rk.pre }}).{% endif %}</p>
 </section>
 {% endif %}
 
@@ -42,7 +42,7 @@
     {% endfor %}
     </tbody>
   </table></div>
-  <p class="note">Offensive rebound % on defense = the opponent's. Turnover % on defense = turnovers forced per possession (higher is better there). Not opponent-adjusted.</p>
+  <p class="note">In the defense column, rebound % is what opponents grab and turnover % is what this team forces. Raw numbers, not adjusted for opponents.</p>
   <div class="tw"><table class="dense">
     <thead><tr><th class="l">Shooting</th><th>Team</th><th>Opponents</th></tr></thead>
     <tbody>
@@ -67,16 +67,17 @@
     <tr><td class="l">Wins vs expected (luck)</td><td class="sp">{{ x.luck | sgn }}{{ m.rk(x.rk.luck, N) }}</td></tr>
     <tr><td class="l">Wins above an average team (résumé)</td><td class="sp">{{ x.waa | sgn }}{{ m.rk(x.rk.waa, N) }}</td></tr>
   </tbody></table></div>
-  <p class="note">Luck compares the record with what the ratings expected for those games. Résumé credits wins by how hard they'd be for an average team (opponent and venue).</p>
+  <p class="note">Luck is wins minus what the ratings expected from those games. Close games decide most of it and it tends to even out. Résumé is how many more wins than an average team would have managed against the same opponents, home and away.</p>
 
   <h2>Where they'll finish</h2>
-  <div class="dist">
+  <div class="dist" style="--c:{{ x.colours[0] }};--cd:{{ x.colours[1] }}">
+  {% set top = x.sim.pos_dist | max %}
   {% for p in x.sim.pos_dist %}
-    <div class="col"><div class="bar" style="height:{{ (p * 100) | round(1) }}%" title="{{ loop.index }}: {{ p | pct(1) }}"></div><span>{{ loop.index }}</span></div>
+    <div class="col"><div class="bw"><div class="fbar" style="height:{{ (p / top * 100) | round(1) if top else 0 }}%" title="{{ loop.index }}: {{ p | pct(1) }}">{% if p >= 0.05 %}<em>{{ (p * 100) | round | int }}%</em>{% endif %}</div></div><span>{{ loop.index }}</span></div>
   {% endfor %}
   </div>
   {{ m.early(S, root) }}
-  <p class="note">Ladder position across {{ "{:,}".format(S.n) }} simulated seasons. Top two go straight to the semis; 3rd to 6th play in. Minor premiership {{ x.sim.p1 | odds }}, top two {{ x.sim.top2 | odds }}, semis {{ x.sim.semis | odds }}.</p>
+  <p class="note">Where they ended up across {{ "{:,}".format(S.n) }} simulated seasons. Minor premiership {{ x.sim.p1 | odds }}, top two {{ x.sim.top2 | odds }}, semi-finals {{ x.sim.semis | odds }}.</p>
 </section>
 </div>
 
@@ -101,7 +102,7 @@
     {% endfor %}
     </tbody>
   </table></div>
-  <p class="note">Win % and projected score for played games are what the model said before tip-off, using only earlier games. Watch: stars for played games, a 0–100 pre-game thrill score for upcoming ones.</p>
+  <p class="note">For games already played, the win % and score are what the model said before tip-off. Watch is a spoiler-free star rating once a game's done, and a 0–100 thrill score before it.</p>
 </section>
 
 <section>

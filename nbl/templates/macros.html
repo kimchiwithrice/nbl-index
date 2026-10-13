@@ -26,5 +26,5 @@
 
 {# Shown on simulation output while the season is young. #}
 {% macro early(S, root) -%}
-{% if S.share_played < 0.4 %}<p class="early"><b>Early-season odds are rough.</b> Only {{ S.games - S.games_left }} of {{ S.games }} regular-season games have been played, so each team's rating rests on a handful of games plus a fading carry-over from last season. The model doesn't know about roster changes, imports or injuries. Expect these percentages to move a lot over the next few weeks.</p>{% endif %}
+{% if S.share_played < 0.4 %}<p class="early"><b>Take these with a grain of salt this early.</b> Only {{ S.games - S.games_left }} of {{ S.games }} games have been played, so the ratings are a handful of results plus a lot of last season. The model knows nothing about new imports, injuries or roster changes. These numbers will move a lot over the next few weeks.</p>{% endif %}
 {%- endmacro %}

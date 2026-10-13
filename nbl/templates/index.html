@@ -4,7 +4,7 @@
 {% block main %}
 <section class="hero">
   <h1>NBL team ratings {{ season }}</h1>
-  <p class="lede">Every team's offense, defense and tempo, adjusted for who they've played and where. <b>{{ rating }}</b> is points per 100 possessions better than an average NBL team on a neutral court. Click any team for its full profile, or any column to sort.</p>
+  <p class="lede">How good each team really is once you account for who they've played and where. <b>{{ rating }}</b> is roughly how many points per 100 possessions a team would beat an average NBL side by on a neutral floor. Click a team for the full breakdown, or a column to sort.</p>
 </section>
 
 <div class="tw">
@@ -51,7 +51,7 @@
   </tbody>
 </table>
 </div>
-<p class="note">Small numbers are league ranks. Ratings blend this season with last season early on, and last season fades as games are played. Hover a column for a quick definition, or see the <a href="{{ root }}glossary/">glossary</a>.{% if S.share_played < 0.4 %} The simulated-season odds are rough this early in the season and will move a lot; <a href="{{ root }}ladder/">more on the ladder page</a>.{% endif %}</p>
+<p class="note">Small numbers are league ranks. Early on the ratings still lean on last season; that wears off as games are played. Hover a column header for what it means, or check the <a href="{{ root }}glossary/">glossary</a>.{% if S.share_played < 0.4 %} The season odds are rough this early and will move around a lot (<a href="{{ root }}ladder/">more on that</a>).{% endif %}</p>
 {{ m.ad(cfg) }}
 
 <div class="grid2">
@@ -71,7 +71,7 @@
     {% endfor %}
     </tbody>
   </table></div>
-  <p class="note"><a href="{{ root }}schedule/">Full schedule and predictions</a></p>
+  <p class="note"><a href="{{ root }}schedule/">All upcoming games</a></p>
   {% else %}<p>No upcoming games.</p>{% endif %}
 </section>
 <section>
@@ -84,7 +84,7 @@
     {% endif %}{% endfor %}
     </tbody>
   </table></div>
-  <p class="note"><a href="{{ root }}ladder/">Projected ladder and every team's chances</a></p>
+  <p class="note"><a href="{{ root }}ladder/">Full ladder predictor</a></p>
 </section>
 </div>
 {% endblock %}

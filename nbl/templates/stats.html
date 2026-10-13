@@ -4,7 +4,7 @@
 {% set desc = "NBL " ~ season ~ " advanced team stats: Dean Oliver's four factors on offense and defense, 3-point and 2-point shooting, assist, steal and block rates, with league ranks." %}
 {% block main %}
 <h1>Team stats</h1>
-<p class="lede">Season-to-date regular season stats with league ranks. These are raw (not opponent-adjusted); the adjusted numbers live on the <a href="{{ root }}">ratings</a> page.</p>
+<p class="lede">This season's team numbers with league ranks. These are raw, not adjusted for opponents. For the adjusted version, see the <a href="{{ root }}">ratings</a>.</p>
 {% set groups = [("o4", "Four Factors – offense"), ("d4", "Four Factors – defense"), ("sh", "Shooting"), ("st", "Style & other")] %}
 {% for gk, gl in groups %}
 {% set cols = defs | selectattr(3, 'equalto', gk) | list %}
@@ -23,6 +23,6 @@
   </tbody>
 </table></div>
 {% endfor %}
-<p class="note">Full definitions are in the <a href="{{ root }}glossary/">glossary</a>. eFG% counts a three as 1.5 makes. TO% = turnovers per possession. OR% = share of available offensive rebounds grabbed. FTRate = free-throw attempts per field-goal attempt. Some scoring splits (paint, fast-break) aren't in the NBL feed this season, so they're left out.</p>
+<p class="note">Hover any column for a quick definition, or see the <a href="{{ root }}glossary/">glossary</a>. Points in the paint and fast-break points aren't in this season's NBL feed, so they're missing for now.</p>
 {{ m.ad(cfg) }}
 {% endblock %}

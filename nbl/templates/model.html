@@ -5,9 +5,9 @@
 {% block main %}
 <div class="prose">
 <h1>How it works</h1>
-<p><b>{{ rating }}</b> follows the KenPom approach. For every game we count possessions (field-goal attempts minus offensive rebounds plus turnovers plus 0.44 × free-throw attempts) and points per 100 possessions for each side. Then every team's offense and defense, plus home-court advantage, are solved together with ridge regression. Because they're solved at once, a team that piled up points against bad defenses gets marked down, and one that held up against good offenses gets credit. Tempo (possessions per 40 minutes) is solved the same way.</p>
-<p>Recent games count more: a game's weight halves every {{ bt.half_life if bt else 120 }} days. Last season's games count as a prior that fades as this season's games come in, so early-season ratings lean on last year. Ratings are pulled gently toward average until there's enough evidence, which stops a team that's played three games from looking like a champion.</p>
-<p>Predictions combine the two teams' offense, defense and tempo into an expected score. The win probability comes from how big the model's misses have historically been: games swing about ±{{ cal.sigma | f1 }} points around the prediction. The season simulator plays out the remaining schedule and the finals 10,000 times. In each run every team's rating is also nudged up or down by a random amount, because the ratings are only estimates. The size of that nudge was set by replaying past seasons, and it shrinks as the season goes on.</p>
+<p><b>{{ rating }}</b> works the same way as Ken Pomeroy's college ratings. For every game I count possessions (field-goal attempts, minus offensive rebounds, plus turnovers, plus 0.44 × free-throw attempts) and work out each side's points per 100 possessions. Then every team's offense and defense, and home court, are fitted together in one ridge regression. Doing it all at once is the point: running up 110 against the worst defense in the league counts for less than 100 against the best. Tempo gets the same treatment.</p>
+<p>Recent games count for more. A game's weight halves every {{ bt.half_life if bt else 120 }} days, and last season's games carry a little less again because rosters change. So in October the ratings still lean on last year, and by Christmas it's mostly this season. Everything is also pulled slightly toward average until there's enough evidence, so a team that's won its first three isn't suddenly rated a champion. I tried other weightings against past seasons and these predicted best.</p>
+<p>A prediction combines both teams' offense, defense and tempo into an expected score. Win probability comes from how wrong the model has usually been: real results land within about ±{{ cal.sigma | f1 }} points of the prediction two times in three. The season simulator then plays out the rest of the schedule and the finals 10,000 times. In each run every team's rating gets a random nudge up or down, because the ratings are estimates, not facts. How big that nudge should be came from replaying past seasons, and it gets smaller as the season goes on.</p>
 
 <h2>League right now</h2>
 <div class="tw"><table class="dense"><tbody>
@@ -19,7 +19,7 @@
 
 {% if bt %}
 <h2>Backtest</h2>
-<p>Walk-forward test from {{ bt.from }} to {{ bt.to }}: every week the model was refit using only earlier games, then predicted the next week. That's {{ "{:,}".format(bt.games) }} games the model had never seen.</p>
+<p>To check it honestly I replayed every season from {{ bt.from }} to {{ bt.to }} a week at a time. Each week the model only knew about games already played, then predicted the next week. That's {{ "{:,}".format(bt.games) }} predictions made blind.</p>
 <div class="cards">
   <div class="card"><b>Picked the winner</b><span>{{ bt.acc | pct }}</span><em>home teams won {{ bt.home_rate | pct }}</em></div>
   <div class="card"><b>Log loss</b><span>{{ "%.3f" % bt.logloss }}</span><em>always-home baseline {{ "%.3f" % bt.base_logloss }}</em></div>
@@ -35,24 +35,24 @@
 <div class="tw"><table class="dense"><thead><tr><th class="l">Season</th><th>Games</th><th>Winner %</th><th>Log loss</th></tr></thead><tbody>
 {% for s in bt.by_season %}<tr><td class="l">{{ s.season }}</td><td>{{ s.n }}</td><td>{{ s.acc | pct }}</td><td>{{ "%.3f" % s.logloss }}</td></tr>{% endfor %}
 </tbody></table></div>
-<p class="note">Log loss rewards confident correct calls and punishes confident misses; lower is better. A coin flip scores 0.693.</p>
+<p class="note">Log loss punishes being confidently wrong. Lower is better, and a coin flip scores 0.693.</p>
 {% endif %}
 
 <h2>Prediction ledger</h2>
 {% if ledger and ledger.n %}
-<p>Every prediction is logged before tip-off and graded afterwards. Tracking since {{ ledger.since }}: {{ ledger.n }} games graded, winner picked {{ ledger.acc | pct }}, log loss {{ "%.3f" % ledger.logloss }}, average margin error {{ ledger.mae | f1 }} points. {{ ledger.pending }} predictions waiting on games.</p>
+<p>Every prediction gets saved before tip-off and marked afterwards, so there's no quietly fixing the record later. Tracking since {{ ledger.since }}: {{ ledger.n }} games graded, winner picked {{ ledger.acc | pct }}, log loss {{ "%.3f" % ledger.logloss }}, average margin error {{ ledger.mae | f1 }} points. {{ ledger.pending }} predictions waiting on games.</p>
 <div class="tw"><table class="dense"><thead><tr><th class="l">Game</th><th>Predicted</th><th class="sp-col">Result</th></tr></thead><tbody>
 {% for e in ledger.rows %}<tr><td class="l"><a href="{{ root }}games/{{ e.slug }}/">{{ info[e.away].short }} @ {{ info[e.home].short }}</a> <small class="mut">{{ e.utc[:10] }}</small></td>
 <td>{{ m.fav(info, e.home, e.away, e.p_home) }}, by {{ (e.margin | abs) | f1 }}</td><td class="sp">{{ e["as"] }}–{{ e.hs }}</td></tr>{% endfor %}
 </tbody></table></div>
 {% elif ledger %}
-<p>The public ledger has started: {{ ledger.pending }} predictions are logged and will be graded as the games are played.</p>
+<p>The ledger is up and running: {{ ledger.pending }} predictions saved so far, to be marked as the games are played.</p>
 {% endif %}
 {% if replay %}
-<p class="note">This season so far (predictions rebuilt using only earlier games): {{ replay.n }} games, winner {{ replay.acc | pct }}, log loss {{ "%.3f" % replay.logloss }}, margin error {{ replay.mae | f1 }}.</p>
+<p class="note">This season so far, replayed the same blind way: {{ replay.n }} games, winner {{ replay.acc | pct }}, log loss {{ "%.3f" % replay.logloss }}, margin error {{ replay.mae | f1 }}.</p>
 {% endif %}
 
 <h2>Data</h2>
-<p>Box scores and schedules come from the NBL's official stats feed (FIBA LiveStats), collected daily by Jason Zivkovic's open-source <a href="https://github.com/JaseZiv/nblR" rel="noopener">nblR</a> project. Some splits (points in the paint, fast-break points) aren't in this season's feed, so they're not shown.</p>
+<p>Box scores and schedules come from the NBL's official stats feed (FIBA LiveStats), collected every day by Jason Zivkovic's open-source <a href="https://github.com/JaseZiv/nblR" rel="noopener">nblR</a> project. Without it this site wouldn't exist. Points in the paint and fast-break points aren't in this season's feed, so they're not shown.</p>
 </div>
 {% endblock %}

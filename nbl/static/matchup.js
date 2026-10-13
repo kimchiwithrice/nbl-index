@@ -155,6 +155,7 @@
     el("mres").innerHTML = summaryHtml(home, away, r) +
       (data.betting ? oddsHtml(home, away, r) : projectionHtml(home, away, r));
     el("mcmp").innerHTML = comparisonHtml(home, away);
+    if (window.markTips) window.markTips();
   }
 
   document.querySelectorAll("#ma, #mh, #mn, .ctl input").forEach(function (input) {
