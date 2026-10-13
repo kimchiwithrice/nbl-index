@@ -31,6 +31,7 @@
   <div class="tools">
     <button type="button" id="sp-btn" title="Hide or show scores and results">Hide scores</button>
     <button type="button" id="th-btn" title="Switch between light and dark">Dark mode</button>
+    {% if cfg.kofi_url %}<a href="{{ cfg.kofi_url }}" rel="noopener" title="Help cover the hosting">Chip in</a>{% endif %}
   </div>
 </div></header>
 <main>
