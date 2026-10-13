@@ -9,7 +9,8 @@
 {% block main %}
 <p class="crumb"><a href="{{ root }}players/">Players</a> › {{ p.name }}</p>
 <h1>{{ p.name }}</h1>
-<p class="sub">{{ m.team(info, p.team, root) if p.team in info else p.team }}{% if p.pos %}, {{ p.pos }}{% endif %}. {{ p.rows | length }} NBL season{{ 's' if p.rows | length != 1 else '' }} on record.</p>
+{% set last_row = p.rows[-1] %}{% set team_link = m.team(info, p.team, root) if p.team in info else p.team %}
+<p class="sub">{% if p.pos %}{{ p.pos | position }}. {% endif %}{% if p.current %}Plays for {{ team_link }}.{% else %}Last played for {{ team_link }} in {{ last_row.start }}-{{ '%02d' % ((last_row.start + 1) % 100) }}.{% endif %} {{ p.rows | length }} NBL season{{ 's' if p.rows | length != 1 else '' }} on record.</p>
 {% if p.current %}
 <div class="cards">
   <div class="card"><b>Points</b><span>{{ last.ppg | f1 }}</span><em>{{ last.p40 | f1 }} per 40</em></div>

@@ -33,8 +33,13 @@
   // Show game times in the visitor's time zone
   document.querySelectorAll(".t[data-utc]").forEach(function(el){
     var d = new Date(el.dataset.utc); if(isNaN(d)) return;
-    el.textContent = d.toLocaleDateString(undefined, {weekday:"short", day:"numeric", month:"short"}) + ", " +
-                     d.toLocaleTimeString(undefined, {hour:"numeric", minute:"2-digit"});
+    var day = document.createElement("span"), time = document.createElement("span");
+    var narrow = window.matchMedia("(max-width:600px)").matches;
+    day.textContent = d.toLocaleDateString(undefined, narrow ? {day:"numeric", month:"short"} :
+                                           {weekday:"short", day:"numeric", month:"short"}) + ", ";
+    time.className = "h";
+    time.textContent = d.toLocaleTimeString(undefined, {hour:"numeric", minute:"2-digit"});
+    el.replaceChildren(day, time);
     el.title = "Your local time";
   });
 

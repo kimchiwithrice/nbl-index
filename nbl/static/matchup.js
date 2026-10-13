@@ -85,8 +85,8 @@
     return '<div class="tw"><table class="dense"><tbody>' +
       '<tr><td class="l">Projected margin</td><td>' + leader + " by " + Math.abs(r.margin).toFixed(1) + "</td></tr>" +
       '<tr><td class="l">Likely margin (8 in 10 games)</td><td>' + byPoints(low) + " to " + byPoints(high) + "</td></tr>" +
-      '<tr><td class="l">' + teams[home].name + " wins by 10+</td><td>" + pct(homeBy10) + "</td></tr>" +
-      '<tr><td class="l">' + teams[away].name + " wins by 10+</td><td>" + pct(awayBy10) + "</td></tr>" +
+      '<tr><td class="l">' + teams[home].name + " by 10 or more</td><td>" + pct(homeBy10) + "</td></tr>" +
+      '<tr><td class="l">' + teams[away].name + " by 10 or more</td><td>" + pct(awayBy10) + "</td></tr>" +
       '<tr><td class="l">Projected total</td><td>' + r.total.toFixed(1) + " (" + totalLow.toFixed(0) + "–" +
       totalHigh.toFixed(0) + ")</td></tr>" +
       '<tr><td class="l">Possessions</td><td>' + r.poss.toFixed(1) + "</td></tr>" +
@@ -139,7 +139,7 @@
     return '<h2 style="margin-top:0">Ratings</h2><div class="tw"><table class="dense"><thead><tr><th class="l"></th>' +
       '<th><a href="../teams/' + teams[away].slug + '/">' + teams[away].code + "</a></th>" +
       '<th><a href="../teams/' + teams[home].slug + '/">' + teams[home].code + "</a></th></tr></thead><tbody>" +
-      row("Net rating", "net") + row("Adj. offense", "o") + row("Adj. defense", "d") + row("Adj. tempo", "t") +
+      row("AdjEM", "net") + row("Adj. offense", "o") + row("Adj. defense", "d") + row("Adj. tempo", "t") +
       "</tbody></table></div>";
   }
 

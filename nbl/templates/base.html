@@ -25,7 +25,7 @@
   <a class="brand" href="{{ root }}">{{ cfg.site_name }}</a>
   <nav>
     {% for href, label in [("", "Ratings"), ("schedule/", "Schedule"), ("ladder/", "Ladder"), ("stats/", "Team stats"), ("players/", "Players"), ("matchup/", "Matchup"), ("model/", "Model"), ("glossary/", "Glossary")] %}
-    <a href="{{ root }}{{ href }}" class="{{ 'on' if path == href or (href and path.startswith(href)) or (href == 'stats/' and path.startswith('teams/')) else '' }}">{{ label }}</a>
+    <a href="{{ root }}{{ href }}" class="{{ 'on' if path == href or (href and path.startswith(href)) or (href == '' and path.startswith('teams/')) else '' }}">{{ label }}</a>
     {% endfor %}
   </nav>
   <div class="tools">

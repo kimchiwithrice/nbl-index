@@ -59,11 +59,20 @@ def sydney_time(ts, fmt="%a %d %b, %I:%M%p"):
     return re.sub(r"(^|[ ,])0(\d:\d\d)", r"\1\2", text)
 
 
+POSITIONS = {"G": "Guard", "GRD": "Guard", "PG": "Point guard", "SG": "Shooting guard", "GF": "Guard/forward",
+             "F": "Forward", "FWD": "Forward", "SF": "Small forward", "PF": "Power forward",
+             "FC": "Forward/centre", "C": "Centre", "CEN": "Centre"}
+
+
+def position(code):
+    return POSITIONS.get(str(code).strip().upper(), str(code))
+
+
 def stars(n):
     return "★" * n + "☆" * (5 - n)
 
 
-FILTERS = {"f1": f1, "sgn": signed, "pct": pct, "odds": chance, "fair_ml": fair_moneyline,
+FILTERS = {"position": position, "f1": f1, "sgn": signed, "pct": pct, "odds": chance, "fair_ml": fair_moneyline,
            "syd": sydney_time, "stars": stars}
 
 
@@ -262,7 +271,7 @@ def build(cfg, data_dir, out_dir, refresh=False, n_sims=sim.N_SIMS, log=print, l
     os.makedirs(out_dir)
     shutil.copytree(os.path.join(HERE, "static"), os.path.join(out_dir, "assets"))
     write_data_js(out_dir, ratings, cal, info, teams, season, bool(cfg.get("show_betting_tools")))
-    common = {"season": season, "updated": sydney_time(now, "%d %b %Y, %I:%M%p") + " AEST/AEDT",
+    common = {"season": season, "updated": sydney_time(now, "%d %b %Y, %I:%M%p %Z"),
               "info": info, "order": order, "teams": teams, "rating": cfg.get("rating_name", "Rating"),
               "N": len(teams)}
     site = Site(cfg, out_dir, common)
