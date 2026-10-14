@@ -4,7 +4,7 @@
 {% set title = a.name ~ " vs " ~ h.name ~ " Prediction & Stats – " ~ (g.utc | syd("%d %b %Y")) %}
 {% set desc = a.name ~ " at " ~ h.name ~ ", " ~ (g.utc | syd("%d %B %Y")) ~ ". Model prediction: " ~ (h.short if p.p_home >= 0.5 else a.short) ~ " " ~ ((p.p_home if p.p_home >= 0.5 else 1 - p.p_home) | pct(0)) ~ " to win, projected " ~ (p.a_pts | round | int) ~ "-" ~ (p.h_pts | round | int) ~ ", total " ~ (p.total | round | int) ~ ". Ratings, four factors and matchup breakdown." %}
 {% block head %}
-<script type="application/ld+json">{{ {"@context": "https://schema.org", "@type": "SportsEvent", "name": a.name ~ " vs " ~ h.name, "startDate": g.utc.isoformat(), "sport": "Basketball", "location": {"@type": "Place", "name": g.venue or h.name}, "homeTeam": {"@type": "SportsTeam", "name": h.name}, "awayTeam": {"@type": "SportsTeam", "name": a.name}} | tojson }}</script>
+<script type="application/ld+json">{{ ld | tojson }}</script>
 {% endblock %}
 {% block main %}
 <p class="crumb"><a href="{{ root }}schedule/">Schedule</a> › Round {{ g.round }}</p>

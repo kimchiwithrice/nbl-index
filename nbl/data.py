@@ -36,6 +36,27 @@ TEAMS = {
     "Townsville Crocodiles": ("TSV", "townsville-crocodiles", "Townsville"),
 }
 
+# Where games are played: venue -> (city, region, country code). Used for the event details
+# search engines read on game pages. Unknown venues fall back to the home club's city.
+VENUE_PLACES = {
+    "John Cain Arena": ("Melbourne", "VIC", "AU"), "Melbourne Arena": ("Melbourne", "VIC", "AU"),
+    "State Basketball Centre": ("Melbourne", "VIC", "AU"), "RAC Arena": ("Perth", "WA", "AU"),
+    "WIN Entertainment Centre": ("Wollongong", "NSW", "AU"), "Qudos Bank Arena": ("Sydney", "NSW", "AU"),
+    "Cairns Convention Centre": ("Cairns", "QLD", "AU"), "Adelaide Entertainment Centre": ("Adelaide", "SA", "AU"),
+    "Titanium Security Arena": ("Adelaide", "SA", "AU"), "MyState Bank Arena": ("Hobart", "TAS", "AU"),
+    "Silverdome": ("Launceston", "TAS", "AU"), "Spark Arena": ("Auckland", "", "NZ"),
+    "Nissan Arena": ("Brisbane", "QLD", "AU"), "Brisbane Entertainment Centre": ("Brisbane", "QLD", "AU"),
+    "Wolfbrook Arena": ("Christchurch", "", "NZ"), "AIS Arena": ("Canberra", "ACT", "AU"),
+    "Gold Coast Convention Centre": ("Gold Coast", "QLD", "AU"), "Townsville Entertainment Centre": ("Townsville", "QLD", "AU"),
+}
+HOME_PLACES = {
+    "Adelaide 36ers": ("Adelaide", "SA", "AU"), "Brisbane Bullets": ("Brisbane", "QLD", "AU"),
+    "Cairns Taipans": ("Cairns", "QLD", "AU"), "Illawarra Hawks": ("Wollongong", "NSW", "AU"),
+    "Melbourne United": ("Melbourne", "VIC", "AU"), "New Zealand Breakers": ("Auckland", "", "NZ"),
+    "Perth Wildcats": ("Perth", "WA", "AU"), "South East Melbourne Phoenix": ("Melbourne", "VIC", "AU"),
+    "Sydney Kings": ("Sydney", "NSW", "AU"), "Tasmania JackJumpers": ("Hobart", "TAS", "AU"),
+}
+
 # Club colours for charts: (light background, dark background). Taken from each club's palette,
 # with a lighter shade for dark mode where the main colour is too dark to see.
 TEAM_COLOURS = {

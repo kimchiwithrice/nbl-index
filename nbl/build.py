@@ -308,7 +308,7 @@ def build(cfg, data_dir, out_dir, refresh=False, n_sims=sim.N_SIMS, log=print, l
                   chart=history_svg(history, team, teams), defs=model.STAT_DEFS, S=season_sim)
     for game in all_games:
         site.page(f"games/{game['slug']}/", "game.html", g=game, h=info[game["home"]], a=info[game["away"]],
-                  defs=model.STAT_DEFS)
+                  defs=model.STAT_DEFS, ld=event_ld(game, info[game["home"]], info[game["away"]], cfg, cfg.get("base_path", "/")))
     for page in player_pages(seasons, cur).values():
         site.page(f"players/{page['slug']}/", "player.html", p=page)
     site.page("404.html", "404.html")
@@ -332,6 +332,31 @@ def write_data_js(out_dir, ratings, cal, info, teams, season, betting=False):
     }
     with open(os.path.join(out_dir, "assets", "data.js"), "w", encoding="utf-8") as f:
         f.write("window.NBL=" + json.dumps(payload, separators=(",", ":"), default=float) + ";")
+
+
+def event_ld(game, home, away, cfg, root):
+    """schema.org SportsEvent for a game page, with the fields Google asks for."""
+    city, region, country = data.VENUE_PLACES.get(game["venue"]) or data.HOME_PLACES.get(game["home"], ("", "", "AU"))
+    address = {"@type": "PostalAddress", "addressLocality": city, "addressCountry": country}
+    if region:
+        address["addressRegion"] = region
+    base = cfg["base_url"].rstrip("/") + root
+    return {
+        "@context": "https://schema.org", "@type": "SportsEvent",
+        "name": f"{away['name']} vs {home['name']}",
+        "startDate": game["utc"].isoformat(),
+        "endDate": (game["utc"] + pd.Timedelta(hours=2, minutes=15)).isoformat(),
+        "eventStatus": "https://schema.org/EventScheduled",
+        "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+        "sport": "Basketball",
+        "image": [base + "assets/share.png"],
+        "description": f"{away['name']} at {home['name']}, NBL. Prediction and matchup stats.",
+        "location": {"@type": "Place", "name": game["venue"] or home["name"], "address": address},
+        "organizer": {"@type": "SportsOrganization", "name": "National Basketball League", "url": "https://nbl.com.au"},
+        "homeTeam": {"@type": "SportsTeam", "name": home["name"]},
+        "awayTeam": {"@type": "SportsTeam", "name": away["name"]},
+        "competitor": [{"@type": "SportsTeam", "name": home["name"]}, {"@type": "SportsTeam", "name": away["name"]}],
+    }
 
 
 def history_svg(history, team, teams, width=680, height=250):
