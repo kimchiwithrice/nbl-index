@@ -36,6 +36,7 @@ a:hover{text-decoration:underline;text-underline-offset:2px}
 .top .in{max-width:1180px;margin:0 auto;padding:16px 20px 0;display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 28px}
 .brand{color:var(--ink);font-size:24px;font-weight:800;letter-spacing:-.03em;font-variation-settings:"wdth" 112;line-height:1;padding-bottom:12px}
 .brand:hover{text-decoration:none}
+.brand img{width:.92em;height:.92em;margin-right:.32em;vertical-align:-.1em}
 .brand .star{display:none}
 nav{display:flex;flex-wrap:wrap;gap:0 18px;order:3;flex-basis:100%}
 nav a{color:var(--soft);font-size:14px;font-weight:500;padding:8px 0 10px;border-bottom:2px solid transparent;margin-bottom:-1px}
