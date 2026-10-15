@@ -1,12 +1,11 @@
-"""Player impact and the availability adjustment.
+"""Player Impact rating and the availability adjustment.
 
-Impact is a box-score estimate of how many points per 100 possessions a player adds compared with
-an average NBL player. The weights come from how box-score stats related to players' on-court
-plus-minus from 2016-17 to 2020-21. Small samples are pulled toward a bench-level player.
+Impact: points per 100 possessions a player adds vs an average player, estimated from his box
+score. The stat weights are fitted to on-court plus-minus from 2016-17 to 2020-21; small samples
+are pulled toward bench level.
 
-The availability adjustment uses the same numbers: a regular who missed his team's last game is
-assumed to miss the next one too, and the prediction moves by what he's worth. Both the rule and
-its size were tested on 2023-24 onward (seasons the weights never saw) before going live.
+Availability: a regular who missed his team's last game is assumed out for the next one, and that
+prediction moves by his value. ADJ_SCALE was tuned on 2021-22 and tested on 2023-24 onward.
 """
 import numpy as np
 import pandas as pd

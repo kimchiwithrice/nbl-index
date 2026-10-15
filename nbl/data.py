@@ -11,6 +11,8 @@ import numpy as np
 import pandas as pd
 import requests
 
+from . import feed
+
 RELEASE_URL = "https://github.com/JaseZiv/nblr_data/releases/download/{}"
 FILES = {
     "results": "match_results/results_wide.csv",
@@ -133,7 +135,6 @@ def fetch(data_dir, refresh=False, log=print, fallback=True):
             if not os.path.exists(path):
                 raise
             log(f"  download failed ({e}); using the previous copy")
-    from . import feed  # here to avoid a circular import
     if fallback:
         added = feed.fill_missing(data_dir, paths, log)
         if added:

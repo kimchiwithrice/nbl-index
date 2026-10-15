@@ -1,11 +1,7 @@
-"""Fallback for games nblR hasn't picked up yet.
+"""Fetches finished games that nblR hasn't added yet, straight from the NBL match centre feed.
 
-nblR's release files are updated by hand every few days. When a game has finished but isn't in
-them, we fetch it from the NBL's match centre feed (the same source nblR uses) and write it out in
-nblR's column format, to extra_*.csv files that data.load() reads alongside the main files.
-
-Everything here is best-effort: if the feed is down or its format changes, we log it and the
-build carries on with whatever nblR has.
+Rows are written in nblR's column format to extra_*.csv, which data.load() merges in. If the feed
+fails or looks wrong, the game is skipped and the build carries on with nblR's data.
 """
 import os
 
@@ -20,7 +16,7 @@ HEADERS = {
     "user-agent": "Mozilla/5.0 (compatible; nblindex.com stats site)",
 }
 EXTRA_FILES = {"results": "extra_results.csv", "box_team": "extra_box_team.csv", "box_player": "extra_box_player.csv"}
-MAX_GAMES = 30          # per build, so a long outage can't make the build crawl
+MAX_GAMES = 30          # per build, so a long nblR outage doesn't slow the build down
 WAIT_HOURS = 2.5        # don't ask for a game until it should be over
 
 
@@ -191,6 +187,7 @@ def fill_missing(data_dir, paths, log=print):
     shown_shape = False
     session = requests.Session()
     for row in todo.itertuples():
+        data = None
         try:
             resp = session.get(MATCH_URL.format(row.match_id), headers=HEADERS, timeout=30)
             resp.raise_for_status()
@@ -205,7 +202,7 @@ def fill_missing(data_dir, paths, log=print):
             result, teams, players = parse(data, latest)
         except Exception as e:  # noqa: BLE001
             log(f"    {row.match_id}: skipped ({e})")
-            if not shown_shape and "data" in locals() and isinstance(data, dict):
+            if not shown_shape and isinstance(data, dict):
                 log("    feed layout (keys only):\n" + shape(data))
                 shown_shape = True
             continue

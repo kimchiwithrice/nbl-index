@@ -204,7 +204,7 @@ def game_list(sched, games, info, ratings, cal, cur, teams, now):
             game["pred"] = model.predict(ratings, cal, row.home, row.away, row.neutral)
             game["hype"] = hype(net[row.home], net[row.away], game["pred"]["p_home"],
                                 game["pred"]["total"], net_sd)
-        # Started but not yet in the data (results arrive with the next morning's update).
+        # Started, but the result isn't in the data yet.
         game["pending"] = not game["done"] and game["utc"] < now + pd.Timedelta(minutes=10)
         out.append(game)
     return out, net_sd
