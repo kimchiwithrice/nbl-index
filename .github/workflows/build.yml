@@ -1,10 +1,10 @@
-# Builds the site twice a day and publishes it to GitHub Pages.
-# The data source updates at about 22:45 UTC, so the 23:40 run picks up the previous night's games.
+# Builds the site every hour and publishes it to GitHub Pages. Finished games are picked up
+# from nblR or, if it's behind, straight from the NBL feed, so results usually appear within an
+# hour or two of the final buzzer. (Minute 17 avoids the top-of-the-hour queue on GitHub.)
 name: Build and publish site
 on:
   schedule:
-    - cron: "40 23 * * *"
-    - cron: "40 11 * * *"
+    - cron: "17 * * * *"
   workflow_dispatch:
 permissions:
   contents: write
