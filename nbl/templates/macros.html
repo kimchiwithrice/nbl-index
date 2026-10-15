@@ -25,6 +25,8 @@
 {%- endmacro %}
 
 {# Shown on simulation output while the season is young. #}
-{% macro early(S, root) -%}
-{% if S.share_played < 0.4 %}<p class="early"><b>Take these with a grain of salt this early.</b> Only {{ S.games - S.games_left }} of {{ S.games }} games have been played, so the ratings are a handful of results plus a lot of last season. The model knows nothing about new imports, injuries or roster changes. These numbers will move a lot over the next few weeks.</p>{% endif %}
+{# Shown until `until_games` games have been played, or 40% of the season if not given. #}
+{% macro early(S, root, until_games=None) -%}
+{% set show = (S.games - S.games_left < until_games) if until_games else (S.share_played < 0.4) %}
+{% if show %}<p class="early"><b>Take these with a grain of salt this early.</b> Only {{ S.games - S.games_left }} of {{ S.games }} games have been played, so the ratings are a handful of results plus a lot of last season. The model knows nothing about new imports, injuries or roster changes. These numbers will move a lot over the next few weeks.</p>{% endif %}
 {%- endmacro %}

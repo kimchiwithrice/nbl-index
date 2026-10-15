@@ -77,7 +77,7 @@
     <div class="col"><div class="bw"><div class="fbar" style="height:{{ (p / top * 100) | round(1) if top else 0 }}%" title="{{ loop.index }}: {{ p | pct(1) }}">{% if p >= 0.05 %}<em>{{ (p * 100) | round | int }}%</em>{% endif %}</div></div><span>{{ loop.index }}</span></div>
   {% endfor %}
   </div>
-  {{ m.early(S, root) }}
+  {{ m.early(S, root, 50) }}
   <p class="note">Where they ended up across {{ "{:,}".format(S.n) }} simulated seasons. Minor premiership {{ x.sim.p1 | odds }}, top two {{ x.sim.top2 | odds }}, semi-finals {{ x.sim.semis | odds }}.</p>
 </section>
 </div>
