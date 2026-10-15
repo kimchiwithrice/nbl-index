@@ -1,7 +1,8 @@
 """Downloads and cleans the NBL data.
 
-The data comes from the nblR project's daily releases (github.com/JaseZiv/nblr_data), which
-are collected from the NBL's official stats feed (FIBA LiveStats).
+The data comes from the nblR project's releases (github.com/JaseZiv/nblr_data), which are
+collected from the NBL's official stats feed. Finished games nblR hasn't caught up on yet are
+fetched straight from the NBL feed by feed.py.
 """
 import os
 import time
@@ -115,7 +116,7 @@ def download(url, path, log, attempts=4):
             time.sleep(10 * (attempt + 1))
 
 
-def fetch(data_dir, refresh=False, log=print):
+def fetch(data_dir, refresh=False, log=print, fallback=True):
     """Download the data files unless recent copies exist. Returns {name: local path}."""
     os.makedirs(data_dir, exist_ok=True)
     paths = {}
@@ -132,7 +133,28 @@ def fetch(data_dir, refresh=False, log=print):
             if not os.path.exists(path):
                 raise
             log(f"  download failed ({e}); using the previous copy")
+    from . import feed  # here to avoid a circular import
+    if fallback:
+        added = feed.fill_missing(data_dir, paths, log)
+        if added:
+            log(f"  added {added} game(s) from the NBL feed")
+    for key, name in feed.EXTRA_FILES.items():
+        extra = os.path.join(data_dir, name)
+        if os.path.exists(extra):
+            paths["extra_" + key] = extra
     return paths
+
+
+def _with_extra(df, paths, key):
+    """Append rows the fallback fetched for games nblR doesn't have yet."""
+    extra = paths.get("extra_" + key)
+    if not extra or not os.path.exists(extra):
+        return df
+    rows = pd.read_csv(extra, low_memory=False)
+    rows["match_id"] = rows.match_id.astype(str)
+    df["match_id"] = df.match_id.astype(str)
+    rows = rows[~rows.match_id.isin(set(df.match_id))]
+    return pd.concat([df, rows], ignore_index=True)
 
 
 def load(paths):
@@ -142,6 +164,14 @@ def load(paths):
     schedule: every game of the latest season, played or not
     """
     results = pd.read_csv(paths["results"], low_memory=False)
+    if paths.get("extra_results") and os.path.exists(paths["extra_results"]):
+        done = pd.read_csv(paths["extra_results"], dtype={"match_id": str}).set_index("match_id")
+        results["match_id"] = results.match_id.astype(str)
+        hit = results.match_id.isin(done.index)
+        for col in done.columns:
+            if col in results.columns:
+                results[col] = results[col].astype(object)
+            results.loc[hit, col] = results.loc[hit, "match_id"].map(done[col])
     results["home"] = results.home_team_name.map(clean_name)
     results["away"] = results.away_team_name.map(clean_name)
     results["utc"] = pd.to_datetime(results.match_time_utc.astype(str).str.replace("T", " ").str[:19],
@@ -151,7 +181,7 @@ def load(paths):
     results["finals"] = results.match_type.astype(str).str.upper().eq("FINALS")
     results["start"] = results.season.map(season_start)
 
-    box = pd.read_csv(paths["box_team"], low_memory=False)
+    box = _with_extra(pd.read_csv(paths["box_team"], low_memory=False), paths, "box_team")
     box["team"] = box.name.map(clean_name)
     box = box[["match_id", "home_away", "team", "score"] + list(BOX_COLUMNS.values())].copy()
     for col in BOX_COLUMNS.values():
@@ -160,8 +190,9 @@ def load(paths):
     # are rebuilt from the player box scores.
     box["points"] = box.points.fillna(pd.to_numeric(box.score, errors="coerce"))
     if os.path.exists(paths.get("box_player", "")):
-        players = pd.read_csv(paths["box_player"], low_memory=False,
-                              usecols=["match_id", "team_name", "starter", "points"])
+        players = _with_extra(pd.read_csv(paths["box_player"], low_memory=False,
+                                          usecols=["match_id", "team_name", "starter", "points"]), paths, "box_player")
+        players = players[["match_id", "team_name", "starter", "points"]]
         players["team"] = players.team_name.map(clean_name)
         players["points"] = pd.to_numeric(players.points, errors="coerce").fillna(0)
         bench = (players[pd.to_numeric(players.starter, errors="coerce").fillna(1) == 0]
@@ -207,7 +238,7 @@ def load(paths):
 
 def load_players(paths):
     """Player box scores, one row per player per game they played in."""
-    players = pd.read_csv(paths["box_player"], low_memory=False)
+    players = _with_extra(pd.read_csv(paths["box_player"], low_memory=False), paths, "box_player")
     players["team"] = players.team_name.map(clean_name)
     players["opp"] = players.opp_name.map(clean_name)
     players["match_id"] = players.match_id.astype(str)
