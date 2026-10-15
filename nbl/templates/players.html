@@ -8,11 +8,11 @@
 <div class="bar"><input id="pq" placeholder="Search players or teams" aria-label="Search players"> <label class="chk"><input type="checkbox" id="pmin" checked> 10+ minutes per game</label></div>
 <div class="tw"><table class="dense sortable" id="ptable">
   <thead>
-    <tr class="grp"><th colspan="4"></th><th colspan="4">Per game</th><th colspan="4" class="sep">Shooting</th><th colspan="7" class="sep">Advanced</th></tr>
+    <tr class="grp"><th colspan="4"></th><th colspan="4">Per game</th><th colspan="4" class="sep">Shooting</th><th colspan="8" class="sep">Advanced</th></tr>
     <tr><th class="l" data-sort="text">Player</th><th class="l" data-sort="text">Team</th><th data-sort="num">GP</th><th data-sort="num">MPG</th>
       <th data-sort="num">PTS</th><th data-sort="num">REB</th><th data-sort="num">AST</th><th data-sort="num" title="Points per 40 minutes">P/40</th>
       <th data-sort="num" class="sep" title="True shooting %">TS%</th><th data-sort="num" title="Effective FG%">eFG%</th><th data-sort="num">3P%</th><th data-sort="num">FT%</th>
-      <th data-sort="num" class="sep" title="Usage: share of team possessions used on court">USG%</th><th data-sort="num" title="Share of teammates' made shots assisted on court">AST%</th>
+      <th data-sort="num" class="sep">Impact</th><th data-sort="num" title="Usage: share of team possessions used on court">USG%</th><th data-sort="num" title="Share of teammates' made shots assisted on court">AST%</th>
       <th data-sort="num" title="Share of available offensive rebounds">ORB%</th><th data-sort="num" title="Share of available defensive rebounds">DRB%</th>
       <th data-sort="num" title="Steals per opponent possession on court">STL%</th><th data-sort="num" title="Turnovers per possession used">TOV%</th>
       <th data-sort="num" title="Points per 100 possessions used">ORtg</th></tr>
@@ -26,7 +26,7 @@
       <td>{{ p.ppg | f1 }}</td><td>{{ p.rpg | f1 }}</td><td>{{ p.apg | f1 }}</td><td>{{ p.p40 | f1 }}</td>
       <td class="sep" data-v="{{ p.ts if p.ts == p.ts else '' }}">{{ p.ts | pct }}</td><td data-v="{{ p.efg if p.efg == p.efg else '' }}">{{ p.efg | pct }}</td>
       <td data-v="{{ p.fg3 if p.fg3 == p.fg3 else '' }}">{{ p.fg3 | pct }} <small class="mut">{{ p.fg3a | int }}</small></td><td data-v="{{ p.ft if p.ft == p.ft else '' }}">{{ p.ft | pct }}</td>
-      <td class="sep">{{ p.usg | pct }}</td><td>{{ p.ast_pct | pct }}</td><td>{{ p.orb_pct | pct }}</td><td>{{ p.drb_pct | pct }}</td>
+      <td class="sep b" data-v="{{ p.impact if p.impact == p.impact else '' }}">{{ p.impact | sgn if p.impact == p.impact else '–' }}</td><td>{{ p.usg | pct }}</td><td>{{ p.ast_pct | pct }}</td><td>{{ p.orb_pct | pct }}</td><td>{{ p.drb_pct | pct }}</td>
       <td>{{ p.stl_pct | pct }}</td><td>{{ p.tov_pct | pct }}</td><td>{{ p.ortg | f1 }}</td>
     </tr>
   {% endfor %}

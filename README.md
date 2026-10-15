@@ -1,6 +1,6 @@
 # NBL Index
 
-The code behind [nblindex.com](https://nblindex.com). KenPom-style ratings for the NBL, plus game predictions and a season simulator. It updates itself twice a day.
+The code behind [nblindex.com](https://nblindex.com). KenPom-style ratings for the NBL, plus game predictions and a season simulator. It updates itself every hour.
 
 To run it locally:
 

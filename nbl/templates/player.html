@@ -13,27 +13,45 @@
 <p class="sub">{% if p.pos %}{{ p.pos | position }}. {% endif %}{% if p.current %}Plays for {{ team_link }}.{% else %}Last played for {{ team_link }} in {{ last_row.start }}-{{ '%02d' % ((last_row.start + 1) % 100) }}.{% endif %} {{ p.rows | length }} NBL season{{ 's' if p.rows | length != 1 else '' }} on record.</p>
 {% if p.current %}
 <div class="cards">
+  <div class="card"><b>Impact</b><span class="{{ 'pos' if last.impact >= 0 else 'neg' }}">{{ last.impact | sgn if last.impact == last.impact else '–' }}</span><em>{% if p.impact_rank %}#{{ p.impact_rank }} of {{ p.pool_n }} regulars{% else %}per 100 possessions{% endif %}</em></div>
   <div class="card"><b>Points</b><span>{{ last.ppg | f1 }}</span><em>{{ last.p40 | f1 }} per 40</em></div>
   <div class="card"><b>Rebounds</b><span>{{ last.rpg | f1 }}</span><em>{{ last.drb_pct | pct(0) }} DRB%</em></div>
   <div class="card"><b>Assists</b><span>{{ last.apg | f1 }}</span><em>{{ last.ast_pct | pct(0) }} AST%</em></div>
   <div class="card"><b>True shooting</b><span>{{ last.ts | pct }}</span><em>eFG {{ last.efg | pct }}</em></div>
-  <div class="card"><b>Usage</b><span>{{ last.usg | pct }}</span><em>TOV {{ last.tov_pct | pct }}</em></div>
   <div class="card"><b>Minutes</b><span>{{ last.mpg | f1 }}</span><em>{{ last.gp }} games</em></div>
 </div>
+{% if p.log_svg %}
+<div class="grid2">
+<section>
+  <h2>Game by game</h2>
+  <div class="chartbox">{{ p.log_svg | safe }}</div>
+  <p class="note">Points in each game this season, with minutes played as the lighter bar behind (full height = 40 minutes). Hover a bar for details.</p>
+</section>
+<section>
+  <h2>Compared with the league</h2>
+  <div class="pctl">
+  {% for s in p.percentiles %}
+    <div class="row"><span class="lab">{{ s.label }}</span><span class="track"><i style="width:{{ [s.pct, 2] | max }}%"></i></span><span class="num">{{ (s.value | sgn) if s.fmt == 'sgn' else ((s.value | pct) if s.fmt == 'pct' else (s.value | f1)) }}</span><span class="rank">{{ s.pct }}<small>th</small></span></div>
+  {% endfor %}
+  </div>
+  <p class="note">Percentile among the {{ p.pool_n }} players averaging 10+ minutes this season. For turnovers, a high percentile means fewer.</p>
+</section>
+</div>
+{% endif %}
 {% endif %}
 <h2>Season by season</h2>
 <div class="tw"><table class="dense">
-  <thead><tr><th class="l">Season</th><th class="l">Team</th><th>GP</th><th>MPG</th><th>PTS</th><th>REB</th><th>AST</th><th>TS%</th><th>eFG%</th><th>3P%</th><th>3PA</th><th>FT%</th><th>USG%</th><th>AST%</th><th>ORB%</th><th>DRB%</th><th>STL%</th><th>BLK%</th><th>TOV%</th><th>ORtg</th></tr></thead>
+  <thead><tr><th class="l">Season</th><th class="l">Team</th><th>GP</th><th>MPG</th><th>PTS</th><th>REB</th><th>AST</th><th>Impact</th><th>TS%</th><th>eFG%</th><th>3P%</th><th>3PA</th><th>FT%</th><th>USG%</th><th>AST%</th><th>ORB%</th><th>DRB%</th><th>STL%</th><th>BLK%</th><th>TOV%</th><th>ORtg</th></tr></thead>
   <tbody>
   {% for r in p.rows %}
     <tr><td class="l">{{ r.start }}-{{ '%02d' % ((r.start + 1) % 100) }}</td>
       <td class="l">{{ m.team(info, r.team, root, False) if r.team in info else r.team }}</td>
-      <td>{{ r.gp }}</td><td>{{ r.mpg | f1 }}</td><td>{{ r.ppg | f1 }}</td><td>{{ r.rpg | f1 }}</td><td>{{ r.apg | f1 }}</td>
+      <td>{{ r.gp }}</td><td>{{ r.mpg | f1 }}</td><td>{{ r.ppg | f1 }}</td><td>{{ r.rpg | f1 }}</td><td>{{ r.apg | f1 }}</td><td class="b">{{ r.impact | sgn if r.impact == r.impact else '–' }}</td>
       <td>{{ r.ts | pct }}</td><td>{{ r.efg | pct }}</td><td>{{ r.fg3 | pct }}</td><td>{{ r.fg3a | int }}</td><td>{{ r.ft | pct }}</td>
       <td>{{ r.usg | pct }}</td><td>{{ r.ast_pct | pct }}</td><td>{{ r.orb_pct | pct }}</td><td>{{ r.drb_pct | pct }}</td><td>{{ r.stl_pct | pct }}</td><td>{{ r.blk_pct | pct }}</td><td>{{ r.tov_pct | pct }}</td><td>{{ r.ortg | f1 }}</td></tr>
   {% endfor %}
   </tbody>
 </table></div>
-<p class="note">Regular season and finals combined.</p>
+<p class="note">Regular season and finals combined. Impact is estimated points per 100 possessions above an average NBL player that season; see the <a href="{{ root }}glossary/#impact">glossary</a>.</p>
 {{ m.ad(cfg) }}
 {% endblock %}

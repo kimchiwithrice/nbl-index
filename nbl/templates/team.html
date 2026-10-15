@@ -111,12 +111,12 @@
   {% if roster %}
   <div class="tw"><table class="dense sortable">
     <thead><tr><th class="l" data-sort="text">Player</th><th data-sort="num">GP</th><th data-sort="num">MPG</th><th data-sort="num">PPG</th><th data-sort="num">RPG</th><th data-sort="num">APG</th>
-      <th data-sort="num" title="True shooting %">TS%</th><th data-sort="num" title="Share of team possessions used while on court">USG%</th><th data-sort="num">AST%</th><th data-sort="num">REB%</th><th data-sort="num" title="Points per 100 possessions used">ORtg</th><th data-sort="num" title="Plus-minus per 40 minutes">+/- 40</th></tr></thead>
+      <th data-sort="num">Impact</th><th data-sort="num" title="True shooting %">TS%</th><th data-sort="num" title="Share of team possessions used while on court">USG%</th><th data-sort="num">AST%</th><th data-sort="num">REB%</th><th data-sort="num" title="Points per 100 possessions used">ORtg</th><th data-sort="num" title="Plus-minus per 40 minutes">+/- 40</th></tr></thead>
     <tbody>
     {% for p in roster %}
       <tr><td class="l"><a href="{{ root }}players/{{ p.slug }}/">{{ p.player }}</a> <small class="mut">{{ p.pos }}</small></td>
         <td>{{ p.gp }}</td><td>{{ p.mpg | f1 }}</td><td>{{ p.ppg | f1 }}</td><td>{{ p.rpg | f1 }}</td><td>{{ p.apg | f1 }}</td>
-        <td>{{ p.ts | pct }}</td><td>{{ p.usg | pct }}</td><td>{{ p.ast_pct | pct }}</td><td>{{ ((p.orb_pct + p.drb_pct) / 2) | pct }}</td><td>{{ p.ortg | f1 }}</td><td class="sp">{{ p.pm40 | sgn }}</td></tr>
+        <td class="b" data-v="{{ p.impact if p.impact == p.impact else '' }}">{{ p.impact | sgn if p.impact == p.impact else '–' }}</td><td>{{ p.ts | pct }}</td><td>{{ p.usg | pct }}</td><td>{{ p.ast_pct | pct }}</td><td>{{ ((p.orb_pct + p.drb_pct) / 2) | pct }}</td><td>{{ p.ortg | f1 }}</td><td class="sp">{{ p.pm40 | sgn }}</td></tr>
     {% endfor %}
     </tbody>
   </table></div>

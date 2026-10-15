@@ -9,7 +9,7 @@ import numpy as np
 import pandas as pd
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
-from . import data, model, players, sim
+from . import data, impact, model, players, sim
 from .players import slugify
 
 HERE = os.path.dirname(__file__)
@@ -222,14 +222,73 @@ def season_record(completed):
             "mae": float(np.mean([abs((g["hs"] - g["as"]) - g["pred"]["margin"]) for g in completed]))}
 
 
-def player_pages(seasons, cur):
+# Percentile bars on player pages: (label, column, higher is better, format)
+PERCENTILE_STATS = [("Impact", "impact", True, "sgn"), ("Points per 40", "p40", True, "f1"),
+                    ("True shooting", "ts", True, "pct"), ("Usage", "usg", True, "pct"),
+                    ("Assist %", "ast_pct", True, "pct"), ("Rebound %", "reb_pct", True, "pct"),
+                    ("Steal %", "stl_pct", True, "pct"), ("Block %", "blk_pct", True, "pct"),
+                    ("Turnover %", "tov_pct", False, "pct")]
+
+
+def player_pages(seasons, cur, pb, info):
     pages = {}
+    current = seasons[seasons.start == cur].copy()
+    current["reb_pct"] = (current.orb_pct + current.drb_pct) / 2
+    pool = current[(current.mpg >= 10) & (current.gp >= 3)]
     for slug, rows in seasons.groupby("slug"):
         rows = rows.sort_values(["start", "min"])
         latest = rows.iloc[-1]
-        pages[slug] = {"name": latest.player, "slug": slug, "team": latest.team, "pos": latest.pos,
-                       "rows": rows.to_dict("records"), "current": bool((rows.start == cur).any())}
+        page = {"name": latest.player, "slug": slug, "team": latest.team, "pos": latest.pos,
+                "rows": rows.to_dict("records"), "current": bool((rows.start == cur).any())}
+        if page["current"]:
+            me = current[current.slug == slug].sort_values("min").iloc[-1]
+            page["impact_rank"] = int((pool.impact > me.impact).sum() + 1) if me.impact == me.impact else None
+            page["pool_n"] = len(pool)
+            page["percentiles"] = []
+            for label, col, higher, fmt in PERCENTILE_STATS:
+                value, others = me[col], pool[col].dropna()
+                if value != value or others.empty:
+                    continue
+                share = (others < value).mean() if higher else (others > value).mean()
+                page["percentiles"].append({"label": label, "value": value, "fmt": fmt, "pct": round(100 * share)})
+            page["log_svg"] = game_log_svg(pb[(pb.player == latest.player) & (pb.start == cur)], latest.team, info)
+        pages[slug] = page
     return pages
+
+
+def game_log_svg(log, team, info, width=680, height=200):
+    """Points in every game this season, with minutes as a faint bar behind."""
+    log = log.sort_values("utc")
+    if log.empty:
+        return ""
+    n = len(log)
+    left, right, top, bottom = 30, 8, 18, 34
+    top_pts = max(10, math.ceil(log.pts.max() / 10) * 10)
+    slot = (width - left - right) / max(n, 8)
+    bar = min(26, slot * 0.7)
+    colour = info[team]["colours"] if team in info else data.DEFAULT_COLOURS
+
+    def y(v, top_v):
+        return top + (height - top - bottom) * (1 - v / top_v)
+
+    svg = [f'<svg viewBox="0 0 {width} {height}" class="chart glog" role="img" '
+           f'aria-label="Points in each game this season" style="--c:{colour[0]};--cd:{colour[1]}"><g>']
+    for v in range(0, top_pts + 1, 10):
+        svg.append(f'<line x1="{left}" x2="{width - right}" y1="{y(v, top_pts):.1f}" y2="{y(v, top_pts):.1f}" class="grid"/>'
+                   f'<text x="{left - 6}" y="{y(v, top_pts) + 4:.1f}" class="ax" text-anchor="end">{v}</text>')
+    for i, r in enumerate(log.itertuples()):
+        x = left + slot * i + (slot - bar) / 2
+        opp = r.away if r.team == r.home else r.home
+        code = info[opp]["code"] if opp in info else str(opp)[:3].upper()
+        where = "v" if r.team == r.home else "@"
+        mins = y(min(r.min, 40) / 40 * top_pts, top_pts)
+        svg.append(f'<rect x="{x - 2:.1f}" y="{mins:.1f}" width="{bar + 4:.1f}" height="{height - bottom - mins:.1f}" class="min"/>')
+        svg.append(f'<rect x="{x:.1f}" y="{y(r.pts, top_pts):.1f}" width="{bar:.1f}" '
+                   f'height="{height - bottom - y(r.pts, top_pts):.1f}" class="pts"><title>{where} {code}: {int(r.pts)} pts in {r.min:.0f} min</title></rect>')
+        svg.append(f'<text x="{x + bar / 2:.1f}" y="{y(r.pts, top_pts) - 4:.1f}" class="val" text-anchor="middle">{int(r.pts)}</text>')
+        svg.append(f'<text x="{x + bar / 2:.1f}" y="{height - bottom + 14:.1f}" class="ax" text-anchor="middle">{code}</text>')
+    svg.append("</g></svg>")
+    return "".join(svg)
 
 
 def build(cfg, data_dir, out_dir, refresh=False, n_sims=sim.N_SIMS, log=print, ledger_path=None):
@@ -258,13 +317,26 @@ def build(cfg, data_dir, out_dir, refresh=False, n_sims=sim.N_SIMS, log=print, l
     order = sorted(teams, key=lambda t: info[t]["rk"]["net"])
 
     all_games, net_sd = game_list(sched, games, info, ratings, cal, cur, teams, now)
+
+    log("Player impact and availability ...")
+    player_box = data.load_players(paths)
+    pb = impact.prepare(player_box, games)
+    weights = impact.fit_weights(pb)
+    values_now = impact.current_values(pb, weights, cur)
+    absences = {t: impact.missing_regulars(pb, t, cur, values_now) for t in teams}
+    adjust_for_absences(all_games, absences, cal)
+
     upcoming = [g for g in all_games if not g["done"] and not g["pending"]]
     pending = [g for g in all_games if g["pending"]]
     completed = [g for g in all_games if g["done"]]
     ledger = update_ledger(ledger_path, upcoming, completed, now) if ledger_path else None
 
     log("Player stats ...")
-    seasons = players.assign_slugs(players.player_seasons(data.load_players(paths), games))
+    seasons = players.assign_slugs(players.player_seasons(player_box, games))
+    by_season = impact.season_values(pb, weights)
+    averages = {s: impact.league_average(by_season, pb, s) for s in seasons.start.unique()}
+    keys = list(zip(seasons.player, seasons.team, seasons.start))
+    seasons["impact"] = [by_season.get(k, np.nan) - averages.get(k[2], 0.0) for k in keys]
     current = seasons[seasons.start == cur]
     rosters = {t: current[current.team == t].sort_values("min", ascending=False).to_dict("records") for t in teams}
 
@@ -309,7 +381,7 @@ def build(cfg, data_dir, out_dir, refresh=False, n_sims=sim.N_SIMS, log=print, l
     for game in all_games:
         site.page(f"games/{game['slug']}/", "game.html", g=game, h=info[game["home"]], a=info[game["away"]],
                   defs=model.STAT_DEFS, ld=event_ld(game, info[game["home"]], info[game["away"]], cfg, cfg.get("base_path", "/")))
-    for page in player_pages(seasons, cur).values():
+    for page in player_pages(seasons, cur, pb, info).values():
         site.page(f"players/{page['slug']}/", "player.html", p=page)
     site.page("404.html", "404.html")
     write_sitemap(site, cfg, now)
@@ -332,6 +404,31 @@ def write_data_js(out_dir, ratings, cal, info, teams, season, betting=False):
     }
     with open(os.path.join(out_dir, "assets", "data.js"), "w", encoding="utf-8") as f:
         f.write("window.NBL=" + json.dumps(payload, separators=(",", ":"), default=float) + ";")
+
+
+def adjust_for_absences(all_games, absences, cal):
+    """Move each team's next prediction for regulars who missed its last game."""
+    next_game = {}
+    for g in all_games:
+        if not g["done"] and not g["pending"]:
+            for t in (g["home"], g["away"]):
+                next_game.setdefault(t, g["id"])
+    for g in all_games:
+        out = {side: (absences.get(g[side], []) if next_game.get(g[side]) == g["id"] else [])
+               for side in ("home", "away")}
+        loss_h = sum(a["per100"] for a in out["home"])
+        loss_a = sum(a["per100"] for a in out["away"])
+        if not out["home"] and not out["away"]:
+            continue
+        p = g["pred"]
+        shift = (loss_a - loss_h) * p["poss"] / 100 * cal["k"]
+        p["margin"] += shift
+        p["h_pts"], p["a_pts"] = p["total"] / 2 + p["margin"] / 2, p["total"] / 2 - p["margin"] / 2
+        p["p_home"] = model.normal_cdf(p["margin"] / cal["sigma"])
+        for side, loss in (("home", loss_h), ("away", loss_a)):
+            for a in out[side]:
+                a["pts"] = a["per100"] * p["poss"] / 100 * cal["k"]
+        g["adjust"] = {"home": out["home"], "away": out["away"], "shift": shift}
 
 
 def event_ld(game, home, away, cfg, root):

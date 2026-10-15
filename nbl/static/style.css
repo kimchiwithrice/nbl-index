@@ -231,3 +231,20 @@ th[data-sort].has-tip{cursor:pointer}
 .has-tip:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .tipbox{position:absolute;z-index:20;max-width:260px;padding:7px 10px;border-radius:4px;background:var(--ink);color:var(--paper);
   font-size:12.5px;line-height:1.4;font-weight:400;text-align:left;white-space:normal;pointer-events:none;box-shadow:0 2px 8px rgb(0 0 0 / .15)}
+
+/* Player pages: game log and percentile bars */
+svg.glog g{--tc:var(--c)}
+:root[data-theme="dark"] svg.glog g{--tc:var(--cd)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) svg.glog g{--tc:var(--cd)}}
+svg.glog .pts{fill:var(--tc)}
+svg.glog .min{fill:var(--rule)}
+svg.glog .val{fill:var(--soft);font-size:10px}
+.pctl{border-top:1px solid var(--rule-strong);padding-top:6px}
+.pctl .row{display:grid;grid-template-columns:110px 1fr 54px 38px;gap:10px;align-items:center;padding:5px 0;border-bottom:1px solid var(--rule);font-size:14px}
+.pctl .lab{color:var(--soft)}
+.pctl .track{height:8px;background:var(--wash);border-radius:4px;overflow:hidden}
+.pctl .track i{display:block;height:100%;background:var(--ink);opacity:.75;border-radius:4px}
+.pctl .num{text-align:right}
+.pctl .rank{text-align:right;font-weight:600}
+.pctl .rank small{font-weight:400;color:var(--faint);font-size:10px}
+.adjmark{color:var(--accent);font-weight:700;cursor:help;margin-left:2px}

@@ -9,6 +9,8 @@
 <p>Recent games count for more. A game's weight halves every {{ bt.half_life if bt else 120 }} days, and last season's games carry a little less again because rosters change. So in October the ratings still lean on last year, and by Christmas it's mostly this season. Everything is also pulled slightly toward average until there's enough evidence, so a team that's won its first three isn't suddenly rated a champion. I tried other weightings against past seasons and these predicted best.</p>
 <p>A prediction combines both teams' offense, defense and tempo into an expected score. Win probability comes from how wrong the model has usually been: real results land within about ±{{ cal.sigma | f1 }} points of the prediction two times in three. The season simulator then plays out the rest of the schedule and the finals 10,000 times. In each run every team's rating gets a random nudge up or down, because the ratings are estimates, not facts. How big that nudge should be came from replaying past seasons, and it gets smaller as the season goes on.</p>
 
+<p>Predictions for each team's next game also account for players likely to be out. If a regular didn't play his team's last game, the model assumes he'll miss the next one and moves the prediction by his Impact rating and usual minutes. Tested on 2023-24 onward, that made the model noticeably better when a key player was missing. It only knows what the box scores show, so a brand-new injury isn't picked up until a game has been missed.</p>
+
 <h2>League right now</h2>
 <div class="tw"><table class="dense"><tbody>
   <tr><td class="l">Average points per 100 possessions</td><td>{{ R.mu | f1 }}</td></tr>
@@ -53,6 +55,6 @@
 {% endif %}
 
 <h2>Data</h2>
-<p>Box scores and schedules come from the NBL's official stats feed (FIBA LiveStats), collected every day by Jason Zivkovic's open-source <a href="https://github.com/JaseZiv/nblR" rel="noopener">nblR</a> project. Without it this site wouldn't exist. Points in the paint and fast-break points aren't in this season's feed, so they're not shown.</p>
+<p>Box scores and schedules come from the NBL's official stats feed, mostly through Jason Zivkovic's open-source <a href="https://github.com/JaseZiv/nblR" rel="noopener">nblR</a> project. Without it this site wouldn't exist. Games nblR hasn't picked up yet are read from the same NBL feed directly, and the site rebuilds every hour. Points in the paint and fast-break points aren't in this season's feed, so they're not shown.</p>
 </div>
 {% endblock %}

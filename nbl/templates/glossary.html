@@ -44,6 +44,7 @@
     ("stl-blk-pct", "STL% / BLK%", "Steals per opponent possession, and blocks per opponent two-point attempt, while the player was on court."),
     ("tov-pct", "TOV%", "Turnovers ÷ (FGA + 0.44 × FTA + turnovers): how often a player's possessions end in a turnover."),
     ("ortg", "ORtg", "Points produced per 100 possessions used: 100 × points ÷ (FGA + 0.44 × FTA + turnovers). A simple scoring-efficiency measure, not Dean Oliver's full offensive rating."),
+    ("impact", "Impact", "Estimated points per 100 possessions a player adds compared with an average NBL player that season. It weighs his box score (scoring efficiency, assists, rebounds, steals, blocks, turnovers and so on) by how much each of those has gone with winning minutes in the NBL since 2016, using on-court plus-minus. Players with few minutes are pulled toward bench level until there's enough to go on. It's an estimate from the box score, so it misses things like defensive positioning."),
     ("plus-minus", "+/- per 40", "The team's scoring margin while the player was on court, scaled to 40 minutes. Very noisy over a few games, and it depends a lot on who he plays with."),
   ]),
   ("predictions", "Predictions", [
@@ -51,6 +52,7 @@
     ("proj-score", "Projected score", "The expected score from both teams' adjusted offense, defense and tempo."),
     ("margin", "Projected margin", "How many points the model expects the winner to win by."),
     ("total", "Total", "The projected combined points of both teams."),
+    ("availability", "Players likely out", "If a regular (3 of the team's last 5 games, 12+ minutes) didn't play the team's most recent game, the model assumes he'll miss the next one too and moves that prediction by his Impact and minutes. It only uses the box scores, so it can't know about a brand-new injury until a game has been missed. Tested on past seasons, it made predictions noticeably better when a key player was out."),
     ("hype", "Hype", "A 0–100 guide to how watchable a game should be, worked out before tip-off: how good both teams are, how close it projects, and how many points are expected. Top-of-the-table games that look like coin flips score highest."),
     ("drama", "Drama", "A 0–100 score for how a game actually played out: mostly how close the final margin was, plus a bump for overtime, the quality of both teams and the scoring. It never hints at who won, so it's safe with scores hidden. A one-possession finish lands around 70, overtime games 90 or more, a 25-point blowout under 20."),
   ]),
