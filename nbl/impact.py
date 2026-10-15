@@ -19,6 +19,7 @@ RIDGE = 2000.0
 REPLACEMENT = -2.0    # a bench-level player, per 100 possessions on court
 PRIOR_POSS = 300      # possessions' worth of pull toward REPLACEMENT
 ADJ_SCALE = 12.0      # how much the raw values move a game margin (fitted on 2021-22, tested 2023+)
+MAX_TEAM_PTS = 4.0    # cap per team per game: we're assuming who's out, and big swings had little evidence
 
 
 def prepare(player_box, games):

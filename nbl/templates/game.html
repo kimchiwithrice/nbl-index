@@ -39,7 +39,7 @@
   {% for side, team in (("away", a), ("home", h)) %}{% for x in g.adjust[side] %}
     {% set poss = team.short ~ ("'" if team.short.endswith('s') else "'s") %}{{ x.player }} ({{ team.code }}) missed {{ poss }} last game, worth {{ x.pts | f1 }} pts to them.
   {% endfor %}{% endfor %}
-  The model assumes a regular who sat out the last game will miss this one too, and moves the prediction by what he's worth. If he's already missed games, those results are partly in the team's rating too. Discounting for that overlap didn't improve past predictions, so the full adjustment is used. Net effect on the margin: {{ g.adjust.shift | abs | f1 }} pts {{ 'toward ' ~ (h.short if g.adjust.shift > 0 else a.short) }}.</div>
+  The model assumes a regular who sat out the last game will miss this one too, and moves the prediction by what he's worth. If he's already missed games, those results are partly in the team's rating too. The adjustment is capped at {{ impact_cap | int }} points per team, because the model is assuming who's out rather than knowing. Net effect on the margin: {{ g.adjust.shift | abs | f1 }} pts {{ 'toward ' ~ (h.short if g.adjust.shift > 0 else a.short) }}.</div>
   {% endif %}
   <p class="note">{% if g.done %}What the model said before tip-off.{% else %}Updated every hour until tip-off. Try it on a neutral court in the <a href="{{ root }}matchup/#{{ h.code }}-{{ a.code }}">matchup tool</a>.{% endif %}</p>
 </section>

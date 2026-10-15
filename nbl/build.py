@@ -380,7 +380,8 @@ def build(cfg, data_dir, out_dir, refresh=False, n_sims=sim.N_SIMS, log=print, l
                   chart=history_svg(history, team, teams), defs=model.STAT_DEFS, S=season_sim)
     for game in all_games:
         site.page(f"games/{game['slug']}/", "game.html", g=game, h=info[game["home"]], a=info[game["away"]],
-                  defs=model.STAT_DEFS, ld=event_ld(game, info[game["home"]], info[game["away"]], cfg, cfg.get("base_path", "/")))
+                  defs=model.STAT_DEFS, ld=event_ld(game, info[game["home"]], info[game["away"]], cfg, cfg.get("base_path", "/")),
+                  impact_cap=impact.MAX_TEAM_PTS)
     for page in player_pages(seasons, cur, pb, info).values():
         site.page(f"players/{page['slug']}/", "player.html", p=page)
     site.page("404.html", "404.html")
@@ -416,19 +417,21 @@ def adjust_for_absences(all_games, absences, cal):
     for g in all_games:
         out = {side: (absences.get(g[side], []) if next_game.get(g[side]) == g["id"] else [])
                for side in ("home", "away")}
-        loss_h = sum(a["per100"] for a in out["home"])
-        loss_a = sum(a["per100"] for a in out["away"])
         if not out["home"] and not out["away"]:
             continue
         p = g["pred"]
-        shift = (loss_a - loss_h) * p["poss"] / 100 * cal["k"]
+        to_pts = p["poss"] / 100 * cal["k"]
+        raw = {side: sum(a["per100"] for a in out[side]) * to_pts for side in out}
+        lost = {side: min(raw[side], impact.MAX_TEAM_PTS) for side in out}
+        shift = lost["away"] - lost["home"]
         p["margin"] += shift
         p["h_pts"], p["a_pts"] = p["total"] / 2 + p["margin"] / 2, p["total"] / 2 - p["margin"] / 2
         p["p_home"] = model.normal_cdf(p["margin"] / cal["sigma"])
-        for side, loss in (("home", loss_h), ("away", loss_a)):
+        for side in out:
             for a in out[side]:
-                a["pts"] = a["per100"] * p["poss"] / 100 * cal["k"]
-        g["adjust"] = {"home": out["home"], "away": out["away"], "shift": shift}
+                a["pts"] = a["per100"] * to_pts * (lost[side] / raw[side] if raw[side] else 0)
+        g["adjust"] = {"home": out["home"], "away": out["away"], "shift": shift,
+                       "capped": any(raw[s] > impact.MAX_TEAM_PTS for s in out)}
 
 
 def event_ld(game, home, away, cfg, root):
