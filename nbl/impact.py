@@ -4,8 +4,9 @@ Impact: points per 100 possessions a player adds vs an average player, estimated
 score. The stat weights are fitted to on-court plus-minus from 2016-17 to 2020-21; small samples
 are pulled toward bench level.
 
-Availability: a regular who missed his team's last game is assumed out for the next one, and that
-prediction moves by his value. ADJ_SCALE was tuned on 2021-22 and tested on 2023-24 onward.
+Availability: a regular who missed his team's last game is assumed out for the next one. The
+prediction moves by how much worse the teammates who took his minutes in that game are. ADJ_SCALE
+was tuned on 2021-22 and tested on 2023-24 onward.
 """
 import numpy as np
 import pandas as pd
@@ -18,7 +19,7 @@ COEF_SEASONS = (2016, 2017, 2018, 2019, 2020)
 RIDGE = 2000.0
 REPLACEMENT = -2.0    # a bench-level player, per 100 possessions on court
 PRIOR_POSS = 300      # possessions' worth of pull toward REPLACEMENT
-ADJ_SCALE = 12.0      # how much the raw values move a game margin (fitted on 2021-22, tested 2023+)
+ADJ_SCALE = 16.0      # how much the raw values move a game margin (fitted on 2021-22, tested 2023+)
 MAX_TEAM_PTS = 4.0    # cap per team per game: we're assuming who's out, and big swings had little evidence
 
 
@@ -95,14 +96,25 @@ def missing_regulars(pb, team, cur, values):
     recent = season[season.match_id.isin(recent_ids)]
     stats = recent.groupby("player")["min"].agg(["count", "mean"])
     regulars = stats[(stats["count"] >= 3) & (stats["mean"] >= 12)]
-    last_game = set(season[season.match_id == recent_ids.iloc[-1]].player)
+    last_mins = season[season.match_id == recent_ids.iloc[-1]].set_index("player")["min"]
+    missing = [p for p in regulars.index if p not in last_mins.index]
+    if not missing:
+        return []
+
+    # Who covered: teammates who played more than usual in the last game, weighted by the extra minutes.
+    usual = recent[recent.match_id != recent_ids.iloc[-1]].groupby("player")["min"].mean()
+    extra = (last_mins - usual.reindex(last_mins.index).fillna(0)).clip(lower=0)
+    extra = extra[extra > 0.5]
+    if extra.sum() >= 5:
+        cover = float(np.average([values.get(p, REPLACEMENT) for p in extra.index], weights=extra.values))
+    else:
+        cover = REPLACEMENT
+
     out = []
-    for player in regulars.index:
-        if player in last_game:
-            continue
-        # Missing someone no better than a bench player doesn't count (tested: slightly more accurate).
+    for player in missing:
         value = float(values.get(player, REPLACEMENT))
-        per100 = ADJ_SCALE * max(value - REPLACEMENT, 0) * regulars.loc[player, "mean"] / 200
+        per100 = ADJ_SCALE * max(value - cover, 0) * regulars.loc[player, "mean"] / 200
         if per100 >= 0.2:
-            out.append({"player": player, "mpg": float(regulars.loc[player, "mean"]), "per100": per100})
+            out.append({"player": player, "mpg": float(regulars.loc[player, "mean"]), "per100": per100,
+                        "covered_by": list(extra.sort_values(ascending=False).index[:3])})
     return sorted(out, key=lambda r: -r["per100"])
