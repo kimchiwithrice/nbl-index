@@ -115,6 +115,8 @@ def missing_regulars(pb, team, cur, values):
         value = float(values.get(player, REPLACEMENT))
         per100 = ADJ_SCALE * max(value - cover, 0) * regulars.loc[player, "mean"] / 200
         if per100 >= 0.2:
+            streak = 2 if len(recent_ids) > 1 and player not in set(season[season.match_id == recent_ids.iloc[-2]].player) else 1
             out.append({"player": player, "mpg": float(regulars.loc[player, "mean"]), "per100": per100,
+                        "missed": streak,
                         "covered_by": list(extra.sort_values(ascending=False).index[:3])})
     return sorted(out, key=lambda r: -r["per100"])

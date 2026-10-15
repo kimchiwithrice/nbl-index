@@ -35,11 +35,11 @@
     {% if not g.done %}<tr><td class="l">Hype</td><td>{{ g.hype }} / 100</td></tr>{% endif %}
   </tbody></table></div>
   {% if g.adjust %}
-  <div class="early"><b>Adjusted for players likely out.</b>
+  <div class="early"><b>Likely out</b>
   {% for side, team in (("away", a), ("home", h)) %}{% for x in g.adjust[side] %}
-    {% set poss = team.short ~ ("'" if team.short.endswith('s') else "'s") %}{{ x.player }} missed {{ poss }} last game{% if x.covered_by %}, and most of his minutes went to {{ x.covered_by | join(', ') }}{% endif %}. Assuming he's out again, that's worth {{ x.pts | f1 }} pts to {{ team.short }}.
+    <br>{{ x.player }} ({{ team.code }}) missed the last {{ 'game' if x.missed == 1 else '2 games' }}: {{ (-x.pts) | sgn }} pts
   {% endfor %}{% endfor %}
-  The size depends on how much better he is than the players who covered for him, and it's capped at {{ impact_cap | int }} points per team because the model is assuming who's out, not knowing.</div>
+  <br><small class="mut">Assumed out until he plays again. Capped at {{ impact_cap | int }} pts per team. <a href="{{ root }}glossary/#availability">How this works</a></small></div>
   {% endif %}
   <p class="note">{% if g.done %}What the model said before tip-off.{% else %}Updated every hour until tip-off. Try it on a neutral court in the <a href="{{ root }}matchup/#{{ h.code }}-{{ a.code }}">matchup tool</a>.{% endif %}</p>
 </section>
