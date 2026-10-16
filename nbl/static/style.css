@@ -45,6 +45,9 @@ nav a.on{color:var(--ink);border-bottom-color:var(--ink)}
 .tools{margin-left:auto;display:flex;gap:16px}
 .tools button,.tools a{font:inherit;font-size:13px;color:var(--soft);background:none;border:0;padding:0;cursor:pointer}
 .tools button:hover,.tools a:hover{color:var(--ink);text-decoration:underline;text-underline-offset:2px}
+.tools{align-items:center}
+.tools a.chip{color:var(--paper);background:var(--accent);font-weight:600;padding:5px 12px;border-radius:999px;line-height:1.2}
+.tools a.chip:hover{color:var(--paper);text-decoration:none;filter:brightness(1.1)}
 html[data-sp="hide"] #sp-btn{color:var(--ink);font-weight:600}
 
 main{max-width:1180px;margin:0 auto;padding:28px 20px 56px}
