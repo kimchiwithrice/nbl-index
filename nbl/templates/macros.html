@@ -28,5 +28,5 @@
 {# Shown until 30% of the regular season (about 50 games). Backtest: predictions are worse than
    average before that and normal after; ratings have done most of their settling by then. #}
 {% macro early(S, root) -%}
-{% if S.share_played < 0.3 %}<p class="early"><b>Take these with a grain of salt this early.</b> Only {{ S.games - S.games_left }} of {{ S.games }} games have been played, so the ratings are a handful of results plus a lot of last season. The model knows nothing about new imports, injuries or roster changes. These numbers will move a lot over the next few weeks.</p>{% endif %}
+{% if S.share_played < 0.3 %}<p class="early"><b>Early days.</b> Only {{ S.games - S.games_left }} of {{ S.games }} games played, so these ratings are mostly last season plus a few results. New signings and injuries aren't in yet, so expect things to move.</p>{% endif %}
 {%- endmacro %}

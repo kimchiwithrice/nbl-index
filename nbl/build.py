@@ -381,7 +381,7 @@ def build(cfg, data_dir, out_dir, refresh=False, n_sims=sim.N_SIMS, log=print, l
     for game in all_games:
         site.page(f"games/{game['slug']}/", "game.html", g=game, h=info[game["home"]], a=info[game["away"]],
                   defs=model.STAT_DEFS, ld=event_ld(game, info[game["home"]], info[game["away"]], cfg, cfg.get("base_path", "/")),
-                  impact_cap=impact.MAX_TEAM_PTS)
+                  impact_cap=impact.MAX_TEAM_PTS, S=season_sim)
     for page in player_pages(seasons, cur, pb, info).values():
         site.page(f"players/{page['slug']}/", "player.html", p=page)
     site.page("404.html", "404.html")
