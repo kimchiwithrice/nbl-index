@@ -533,6 +533,8 @@ def update_ledger(path, upcoming, completed, now):
                                   "slug": game["slug"], "p_home": round(p["p_home"], 4),
                                   "margin": round(p["margin"], 2), "total": round(p["total"], 1),
                                   "logged": now.isoformat()}
+            if game.get("adjust"):  # how far the injury adjustment moved the margin, to check it later
+                ledger[game["id"]]["adj"] = round(game["adjust"]["shift"], 2)
     for game in completed:
         entry = ledger.get(game["id"])
         if entry and "hs" not in entry:
