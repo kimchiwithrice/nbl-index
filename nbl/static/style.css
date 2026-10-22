@@ -199,8 +199,7 @@ td.em .v{display:inline-block;min-width:38px}
 
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:40px}
 .grid2>*{min-width:0}
-.grid2>.tw{margin-top:0;align-self:start}
-.note+.grid2{margin-top:10px}
+.note+.tw{margin-top:10px}
 @media (max-width:860px){.grid2{grid-template-columns:1fr;gap:0}}
 
 /* Key figures on team and player pages */

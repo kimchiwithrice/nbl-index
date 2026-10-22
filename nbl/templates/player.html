@@ -20,34 +20,20 @@
   <div class="card"><b>True shooting</b><span>{{ last.ts | pct }}</span><em>eFG {{ last.efg | pct }}</em></div>
   <div class="card"><b>Minutes</b><span>{{ last.mpg | f1 }}</span><em>{{ last.gp }} games</em></div>
 </div>
-{% if p.log_svg %}
+{% set d = p.deep %}
+{% set sn = p.name | surname %}{% set tm = info[p.team].short if p.team in info else p.team %}
 <div class="grid2">
+<div>
+{% if p.log_svg %}
 <section>
   <h2>Game by game</h2>
   <div class="chartbox">{{ p.log_svg | safe }}</div>
   <p class="note">Points per game, with minutes as the lighter bar behind (full height = 40). Hover a bar for details.</p>
 </section>
-<section>
-  <h2>Compared with the league</h2>
-  <div class="pctl">
-    <div class="row head"><span></span><span></span><span class="scale"><em>Below avg</em><em>Above avg</em></span><span class="rank">Pctl</span></div>
-  {% for s in p.percentiles %}
-    <div class="row"><span class="lab"><span data-explain="{{ s.tip }}">{{ s.label }}</span>{% if s.higher is false %}<small>lower is better</small>{% endif %}</span><span class="num">{{ (s.value | sgn) if s.fmt == 'sgn' else ((s.value | pct) if s.fmt == 'pct' else (s.value | f1)) }}</span><span class="track">{% if s.pct >= 50 %}<i class="{{ 'nt' if s.higher is none else 'up' }}" style="left:50%;width:{{ [s.pct - 50, 1] | max }}%"></i>{% else %}<i class="{{ 'nt' if s.higher is none else 'dn' }}" style="right:50%;width:{{ 50 - s.pct }}%"></i>{% endif %}</span><span class="rank">{{ s.pct }}<small>{{ s.pct | suffix }}</small></span></div>
-  {% endfor %}
-  </div>
-  <details class="how"><summary>How to read this</summary>
-    <p>Percentile among the {{ p.pool_n }} players averaging 10+ minutes this season. The centre line is the league middle (50th): bars go right in blue when better than most, left in red when worse. For turnovers, fewer counts as better. Usage stays grey: it measures role, not quality.</p>
-  </details>
-</section>
-</div>
 {% endif %}
-{% set d = p.deep %}
-{% if d or p.comps %}
-{% set sn = p.name | surname %}{% set tm = info[p.team].short if p.team in info else p.team %}
-<div class="grid2">
 {% if d and d.onoff %}
 <section>
-  <h2>With and without {{ sn }}</h2>
+  <h2>On/off</h2>
   <div class="cards three">
     <div class="card"><b data-explain="{{ tm }}'s points scored minus points allowed per 100 possessions while {{ sn }} was on the court this season.">On court</b><span class="sp">{{ d.onoff.on.net | sgn }}</span><em>{{ d.onoff.on.min | round | int }} min</em></div>
     <div class="card"><b data-explain="The same margin while {{ sn }} sat on the bench, including any games missed.">On bench</b><span class="sp">{{ (d.onoff.off.net | sgn) if d.onoff.off else '–' }}</span><em>per 100 poss</em></div>
@@ -76,10 +62,25 @@
 </section>
 {% endif %}
 </div>
+<div>
+{% if p.log_svg %}
+<section>
+  <h2>Compared with the league</h2>
+  <div class="pctl">
+    <div class="row head"><span></span><span></span><span class="scale"><em>Below avg</em><em>Above avg</em></span><span class="rank">Pctl</span></div>
+  {% for s in p.percentiles %}
+    <div class="row"><span class="lab"><span data-explain="{{ s.tip }}">{{ s.label }}</span>{% if s.higher is false %}<small>lower is better</small>{% endif %}</span><span class="num">{{ (s.value | sgn) if s.fmt == 'sgn' else ((s.value | pct) if s.fmt == 'pct' else (s.value | f1)) }}</span><span class="track">{% if s.pct >= 50 %}<i class="{{ 'nt' if s.higher is none else 'up' }}" style="left:50%;width:{{ [s.pct - 50, 1] | max }}%"></i>{% else %}<i class="{{ 'nt' if s.higher is none else 'dn' }}" style="right:50%;width:{{ 50 - s.pct }}%"></i>{% endif %}</span><span class="rank">{{ s.pct }}<small>{{ s.pct | suffix }}</small></span></div>
+  {% endfor %}
+  </div>
+  <details class="how"><summary>How to read this</summary>
+    <p>Percentile among the {{ p.pool_n }} players averaging 10+ minutes this season. The centre line is the league middle (50th): bars go right in blue when better than most, left in red when worse. For turnovers, fewer counts as better. Usage stays grey: it measures role, not quality.</p>
+  </details>
+</section>
+{% endif %}
 {% if d and d.fga %}
-<h2>{{ sn }}'s shots</h2>
-{% if d.astd is not none %}<p class="note"><span data-explain="Share of made baskets that came straight off a teammate's pass. The rest the player created alone.">Assisted</span>: {{ d.astd | pct(0) }} of made baskets{% if d.astd3 is not none %}, {{ d.astd3 | pct(0) }} of made threes{% endif %}.</p>{% endif %}
-<div class="grid2">
+<section>
+  <h2>{{ sn }}'s shots</h2>
+  {% if d.astd is not none %}<p class="note"><span data-explain="Share of made baskets that came straight off a teammate's pass. The rest the player created alone.">Assisted</span>: {{ d.astd | pct(0) }} of made baskets{% if d.astd3 is not none %}, {{ d.astd3 | pct(0) }} of made threes{% endif %}.</p>{% endif %}
   <div class="tw"><table class="dense">
     <thead><tr><th class="l" data-explain="How the official scorers logged the shot.">Type of shot</th><th data-explain="Shots taken this season (free throws not included).">Shots</th><th data-explain="Share of all {{ sn }}'s shots.">% of shots</th><th data-explain="How many of those shots went in.">Made %</th></tr></thead>
     <tbody>
@@ -94,9 +95,10 @@
     </tbody>
   </table></div>
   {% endif %}
+</section>
+{% endif %}
 </div>
-{% endif %}
-{% endif %}
+</div>
 {% endif %}
 <h2>Season by season</h2>
 <div class="tw"><table class="dense">
