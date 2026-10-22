@@ -5,6 +5,7 @@
 {% block main %}
 <h1>Schedule &amp; predictions</h1>
 <p class="lede">Every game left this season, with who's favoured and by how much. Times are in your time zone. <b>Hype</b> (0–100) is a rough guide to which games are worth watching, mostly from how evenly matched the teams are, with a little extra for how good they are. Once a game's played it gets a <b>Drama</b> score instead, for how it actually turned out, without giving away who won.</p>
+{{ m.stamp(updated) }}
 
 <h2>Upcoming</h2>
 {% if upcoming %}

@@ -117,7 +117,7 @@ class Site:
 
 
 H2 = re.compile(r"<h2>(.*?)</h2>", re.S)
-INTRO = re.compile(r"</h1>\s*<p class=\"(?:sub|lede)\">.*?</p>", re.S)
+INTRO = re.compile(r"</h1>\s*<p class=\"(?:sub|lede)\">.*?</p>(?:\s*<p class=\"stamp\">.*?</p>)?", re.S)
 
 
 def add_jump_links(html, min_sections=3):

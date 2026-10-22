@@ -5,6 +5,7 @@
 {% block main %}
 <h1>Ladder predictor</h1>
 <p class="lede">Where the model thinks everyone finishes, with the current ladder underneath. Top two go straight to the semis; 3rd to 6th fight it out in the play-in for the other two spots.</p>
+{{ m.stamp(updated) }}
 
 <h2>Projected final ladder</h2>
 {{ m.early(S, root) }}
