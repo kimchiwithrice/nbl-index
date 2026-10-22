@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% import "macros.html" as m %}
+{% set title = "Past NBL Ratings – Any Date This Season and Every Past Season" %}
+{% set desc = "NBL adjusted ratings as they stood on any match day of " ~ season ~ ", and final ratings for every past season since 2015-16." %}
+{% block main %}
+<h1>Past ratings</h1>
+<p class="lede">The ratings as they stood after any match day this season, or at the end of any past season. Pick a date to see the table.</p>
+{% if views %}
+<p><label for="when">Ratings as of </label><select id="when">
+  {% for v in views %}<option value="{{ v.id }}">{{ v.label }}</option>{% endfor %}
+</select></p>
+{% for v in views %}
+<div class="tw past" id="{{ v.id }}"{% if not loop.first %} hidden{% endif %}><table class="dense">
+  <thead><tr><th>#</th><th class="l">Team</th><th>AdjEM</th><th>AdjO</th><th>AdjD</th><th>AdjT</th></tr></thead>
+  <tbody>
+  {% for r in v.rows %}
+    <tr><td>{{ loop.index }}</td><td class="l">{% if r.team in info %}{{ m.team(info, r.team, root) }}{% else %}{{ r.team }}{% endif %}</td>
+      <td class="b {{ 'pos' if r.net >= 0 else 'neg' }}">{{ r.net | sgn }}</td><td>{{ r.o | f1 }}</td><td>{{ r.d | f1 }}</td><td>{{ r.t | f1 }}</td></tr>
+  {% endfor %}
+  </tbody>
+</table></div>
+{% endfor %}
+<p class="note">Each table is what the model would have said at that point, using only games played by then. Season-end tables are taken after the last game, finals included. Ratings carry over some of the previous season, so early-season tables lean on last year.</p>
+{% else %}<p>No ratings yet.</p>{% endif %}
+{{ m.ad(cfg) }}
+{% endblock %}
+{% block scripts %}
+<script>
+(function(){
+  var sel = document.getElementById("when");
+  if (!sel) return;
+  sel.addEventListener("change", function(){
+    document.querySelectorAll(".past").forEach(function(el){ el.hidden = el.id !== sel.value; });
+  });
+})();
+</script>
+{% endblock %}

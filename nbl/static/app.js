@@ -185,7 +185,19 @@
     "Expected possessions": "How many possessions each team should get, from both teams' pace.",
     "Log loss": "Scores the win probabilities. Lower is better; a coin flip scores 0.693.",
     "Margin error": "Average points between the predicted and actual margin.",
-    "Total error": "Average points between the predicted and actual combined score."
+    "Total error": "Average points between the predicted and actual combined score.",
+    "Layups": "Share of shots that were layups, dunks or tip-ins (as logged by the scorers).",
+    "Layup FG%": "Field-goal % on layups, dunks and tip-ins.",
+    "Floaters": "Share of shots that were floaters or hook shots.",
+    "2pt jumpers": "Share of shots that were two-point jump shots.",
+    "Jumper FG%": "Field-goal % on two-point jump shots.",
+    "Assisted": "Share of made field goals that were assisted.",
+    "Opp layups": "Share of opponents' shots that were layups, dunks or tip-ins.",
+    "Opp layup FG%": "Opponents' field-goal % on layups, dunks and tip-ins.",
+    "Clutch minutes": "Minutes played in the last 5 minutes of the 4th quarter or overtime with the score within 5.",
+    "Clutch net/100": "Point margin per 100 possessions in clutch time.",
+    "Adj net": "Offense minus defense in that game, after taking out the opponent's strength and home court.",
+    "On − off": "Team net rating with the player on court minus with them off."
   };
   var tipBox = document.createElement("div");
   tipBox.className = "tipbox"; tipBox.setAttribute("role", "tooltip"); tipBox.hidden = true;

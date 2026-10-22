@@ -39,6 +39,56 @@
 </section>
 </div>
 {% endif %}
+{% set d = p.deep %}
+{% if d or p.comps %}
+<div class="grid2">
+{% if d %}
+<section>
+  <h2>On/off and shots</h2>
+  <div class="tw"><table class="dense"><tbody>
+    {% if d.onoff %}
+    <tr><td class="l">Team net rating with {{ p.name | surname }} on</td><td><span class="sp">{{ d.onoff.on.net | sgn }}</span> <small class="mut">in {{ d.onoff.on.min | round | int }} min</small></td></tr>
+    <tr><td class="l">With {{ p.name | surname }} off</td><td class="sp">{{ (d.onoff.off.net | sgn) if d.onoff.off else '–' }}</td></tr>
+    <tr><td class="l">On − off</td><td class="sp b">{{ (d.onoff.diff | sgn) if d.onoff.diff is not none else '–' }}</td></tr>
+    {% endif %}
+    {% if d.astd is not none %}<tr><td class="l">Made baskets assisted</td><td>{{ d.astd | pct(0) }}{% if d.astd3 is not none %} <small class="mut">threes {{ d.astd3 | pct(0) }}</small>{% endif %}</td></tr>{% endif %}
+  </tbody></table></div>
+  {% if d.fga %}
+  <div class="tw"><table class="dense">
+    <thead><tr><th class="l">Shot type</th><th>FGA</th><th>Share</th><th>FG%</th></tr></thead>
+    <tbody>
+    {% for r in d.kinds if r.fga %}<tr><td class="l">{{ r.label }}</td><td>{{ r.fga }}</td><td>{{ r.share | pct(0) }}</td><td>{{ r.pct | pct }}</td></tr>{% endfor %}
+    </tbody>
+  </table></div>
+  {% if d.zones %}
+  <div class="tw"><table class="dense">
+    <thead><tr><th class="l">Where from</th><th>FGA</th><th>Share</th><th>FG%</th></tr></thead>
+    <tbody>
+    {% for r in d.zones if r.fga %}<tr><td class="l">{{ r.label }}</td><td>{{ r.fga }}</td><td>{{ r.share | pct(0) }}</td><td>{{ r.pct | pct }}</td></tr>{% endfor %}
+    </tbody>
+  </table></div>
+  {% endif %}
+  {% endif %}
+  <p class="note">This season, from the play-by-play. Net rating is points scored minus allowed per 100 possessions, and only counts games whose lineups check out against the box score. On/off swings a lot over small samples. See the <a href="{{ root }}glossary/#on-off">glossary</a>.</p>
+</section>
+{% endif %}
+{% if p.comps %}
+<section>
+  <h2>Similar past seasons</h2>
+  <div class="tw"><table class="dense">
+    <thead><tr><th class="l">Player</th><th class="l">Season</th><th>PPG</th></tr></thead>
+    <tbody>
+    {% for c in p.comps %}
+      <tr><td class="l"><a href="{{ root }}players/{{ c.slug }}/">{{ c.player }}</a></td>
+        <td class="l">{{ c.start }}-{{ '%02d' % ((c.start + 1) % 100) }} {{ m.team(info, c.team, root, False) if c.team in info else c.team }}</td><td>{{ c.ppg | f1 }}</td></tr>
+    {% endfor %}
+    </tbody>
+  </table></div>
+  <p class="note">NBL seasons since 2015-16 closest in playing style to this one: usage, shooting mix and efficiency, passing, rebounding, steals, blocks and turnovers. It's about how they play, not how good they are.</p>
+</section>
+{% endif %}
+</div>
+{% endif %}
 {% endif %}
 <h2>Season by season</h2>
 <div class="tw"><table class="dense">
