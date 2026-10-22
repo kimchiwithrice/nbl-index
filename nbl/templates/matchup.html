@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% set title = "NBL Matchup Predictor – Win Probability & Projected Score" %}
+{% set desc = "Pick any two NBL teams to see how a game between them projects: win probability, projected score, margin, total and pace, from adjusted efficiency ratings." %}
+{% block main %}
+<h1>Matchup predictor</h1>
+<p class="lede">Pick any two teams to see how a game between them would project, home or neutral court.{% if cfg.show_betting_tools %} You can also enter a price to compare it with the model.{% endif %}</p>
+<div class="grid2">
+<section class="panel">
+  <div class="ctl">
+    <div><label for="ma">Away</label><select id="ma"></select></div>
+    <div><label for="mh">Home</label><select id="mh"></select></div>
+    <div class="full"><label class="chk"><input type="checkbox" id="mn"> Neutral court</label></div>
+    {% if cfg.show_betting_tools %}
+    <div><label for="o_ma">Away win odds</label><input id="o_ma" inputmode="decimal" placeholder="e.g. 2.40"></div>
+    <div><label for="o_mh">Home win odds</label><input id="o_mh" inputmode="decimal" placeholder="e.g. 1.60"></div>
+    <div><label for="o_sl">Home spread (line)</label><input id="o_sl" inputmode="decimal" placeholder="e.g. -4.5"></div>
+    <div><label for="o_so">Home spread odds</label><input id="o_so" inputmode="decimal" placeholder="1.91"></div>
+    <div><label for="o_tl">Total line</label><input id="o_tl" inputmode="decimal" placeholder="e.g. 178.5"></div>
+    <div><label for="o_to">Over / under odds</label><div class="pair"><input id="o_to" inputmode="decimal" placeholder="1.91"><input id="o_tu" inputmode="decimal" placeholder="1.91"></div></div>
+    {% endif %}
+  </div>
+  <div id="mres"></div>
+</section>
+<section id="mcmp"></section>
+</div>
+<p class="note">The ranges come from how far off past predictions have been. The model doesn't know about injuries, imports, rest or travel, so treat it as a starting point.</p>
+{% endblock %}
+{% block scripts %}
+<script src="{{ root }}assets/data.js"></script>
+<script src="{{ root }}assets/matchup.js"></script>
+{% endblock %}

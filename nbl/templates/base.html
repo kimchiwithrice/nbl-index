@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en-AU" data-sp="show">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+{% set full_title = (title ~ " | " ~ cfg.site_name) if title else (cfg.site_name ~ " – " ~ cfg.tagline) %}
+<title>{{ full_title }}</title>
+<meta name="description" content="{{ desc or ('Advanced NBL ratings for ' ~ season ~ ': adjusted offense, defense and tempo for every team, game predictions, finals odds and player stats.') }}">
+<link rel="canonical" href="{{ cfg.base_url | trim('/') }}{{ root }}{{ path }}">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="{{ cfg.site_name }}">
+<meta property="og:title" content="{{ full_title }}">
+<meta property="og:description" content="{{ desc or cfg.tagline }}">
+<meta property="og:url" content="{{ cfg.base_url | trim('/') }}{{ root }}{{ path }}">
+<meta property="og:image" content="{{ cfg.base_url | trim('/') }}{{ root }}assets/share.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="{{ root }}assets/ball.svg" type="image/svg+xml">
+<link rel="preload" href="{{ root }}assets/fonts/archivo-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="{{ root }}assets/style.css">
+<script>try{var s=localStorage.getItem("nbl-sp");if(s)document.documentElement.dataset.sp=s;var th=localStorage.getItem("nbl-theme");if(th)document.documentElement.dataset.theme=th;if(localStorage.getItem("nbl-nav")==="mini")document.documentElement.dataset.nav="mini";}catch(e){}</script>
+{% if cfg.head_html %}{{ cfg.head_html | safe }}{% endif %}
+{% block head %}{% endblock %}
+</head>
+<body>
+<div class="shell">
+{# Side menu: (group, [(path, label, icon)]). To add a page, add a line here and an icon below. #}
+{% set menu = [
+  ("League", [("", "Ratings", "ratings"), ("ladder/", "Ladder", "ladder"), ("schedule/", "Schedule", "schedule")]),
+  ("Stats", [("stats/", "Team stats", "stats"), ("players/", "Players", "players"), ("matchup/", "Matchup", "matchup")]),
+  ("How it works", [("model/", "Model", "model"), ("glossary/", "Glossary", "glossary"), ("about/", "About", "about")])] %}
+{# Menu icons: simple 24x24 line drawings #}
+{% set icons = {
+  "menu": "M4 6h16M4 12h16M4 18h16",
+  "ratings": "M4 20h16M6 16v-4M10 16V6M14 16v-7M18 16v-2",
+  "ladder": "M9 6h11M9 12h11M9 18h11M4 6h1M4 12h1M4 18h1",
+  "schedule": "M4 6h16v14H4zM4 10h16M8 3v4M16 3v4",
+  "stats": "M4 5h16v14H4zM4 10h16M4 15h16M10 5v14",
+  "players": "M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM4 21c0-4 4-6 8-6s8 2 8 6",
+  "matchup": "M7 4 3 8l4 4M3 8h14M17 12l4 4-4 4M21 16H7",
+  "model": "M3 20l5-7 4 4 8-11M15 6h5v5",
+  "glossary": "M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3zM5 17a3 3 0 0 1 3-3h11",
+  "about": "M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18zM12 11v6M12 7.5v.5",
+  "eye": "M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12zM12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6z",
+  "moon": "M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z",
+  "cup": "M4 8h13v6a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5zM17 10h1.5a2.5 2.5 0 0 1 0 5H17M8 2.5v2.5M12 2.5v2.5"} %}
+{% macro icon(name) %}<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="{{ icons[name] }}"/></svg>{% endmacro %}
+<aside class="side">
+  <div class="sidetop">
+    <button type="button" id="nav-btn" class="navbtn" title="Collapse or expand the menu" aria-label="Collapse or expand the menu">{{ icon("menu") }}</button>
+    <a class="brand" href="{{ root }}" title="{{ cfg.site_name }}"><img src="{{ root }}assets/ball.svg" alt="" width="22" height="22"><span class="tx">{{ cfg.site_name }}</span></a>
+  </div>
+  <div class="tools">
+    <button type="button" id="sp-btn" title="Hide or show scores and results">{{ icon("eye") }}<span class="tx">Hide scores</span></button>
+    <button type="button" id="th-btn" title="Switch between light and dark">{{ icon("moon") }}<span class="tx">Dark mode</span></button>
+  </div>
+  <nav>
+    {% for group, links in menu %}
+    <div class="ngrp"><span class="cap">{{ group }}</span>
+      {% for href, label, ic in links %}
+      <a href="{{ root }}{{ href }}" title="{{ label }}" class="{{ 'on' if path == href or (href and path.startswith(href)) else '' }}">{{ icon(ic if ic in icons else "stats") }}<span class="tx">{{ label }}</span></a>
+      {% endfor %}
+    </div>
+    {% endfor %}
+    <div class="ngrp teams"><span class="cap">Teams</span>
+      {% for t in teams | sort %}
+      <a href="{{ root }}teams/{{ info[t].slug }}/" title="{{ t }}" class="{{ 'on' if path == 'teams/' ~ info[t].slug ~ '/' else '' }}" style="--c:{{ info[t].colours[0] }};--cd:{{ info[t].colours[1] }}"><i></i><span class="tx">{{ info[t].short }}</span><span class="code">{{ info[t].code }}</span></a>
+      {% endfor %}
+    </div>
+  </nav>
+  {% if cfg.kofi_url %}<div class="kofi"><a class="chip" href="{{ cfg.kofi_url }}" rel="noopener" title="Chip in for the hosting">{{ icon("cup") }}<span class="tx">Chip in</span></a></div>{% endif %}
+</aside>
+<div class="page">
+<main>
+{% block main %}{% endblock %}
+</main>
+<footer>
+  <div class="in">
+    {% if cfg.newsletter_url %}<p class="news"><b>Get the weekly ratings, ladder projections and game predictions by email.</b> <a href="{{ cfg.newsletter_url }}" rel="noopener">Subscribe free</a></p>{% endif %}
+    {% if cfg.kofi_url %}<p>{{ cfg.site_name }} is free and run by one person. If you get something out of it, you can <a href="{{ cfg.kofi_url }}" rel="noopener">chip in for the hosting</a>.</p>{% endif %}
+    <p>Updated {{ updated }}. Data: the NBL's official stats feed via the <a href="https://github.com/JaseZiv/nblR" rel="noopener">nblR</a> project. Not affiliated with the NBL. The predictions are a model's best guess, not betting advice.
+    <a href="{{ root }}about/">About</a>, <a href="{{ root }}model/">how it works</a>, <a href="{{ root }}glossary/">glossary</a>.</p>
+  </div>
+</footer>
+</div>
+</div>
+<script src="{{ root }}assets/app.js" defer></script>
+{% block scripts %}{% endblock %}
+</body>
+</html>

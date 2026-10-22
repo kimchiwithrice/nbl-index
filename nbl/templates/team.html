@@ -1,0 +1,149 @@
+{% extends "base.html" %}
+{% import "macros.html" as m %}
+{% set title = t ~ " Advanced Stats & Ratings " ~ season %}
+{% set desc = t ~ " " ~ season ~ ": ranked #" ~ x.rk.net ~ " of " ~ N ~ " by " ~ rating ~ " (" ~ (x.net | sgn) ~ " per 100 possessions). Adjusted offense, defense, tempo, four factors, finals odds, schedule predictions and player stats." %}
+{% block head %}
+<script type="application/ld+json">{{ {"@context": "https://schema.org", "@type": "SportsTeam", "name": t, "sport": "Basketball", "memberOf": {"@type": "SportsOrganization", "name": "National Basketball League"}} | tojson }}</script>
+{% endblock %}
+{% block main %}
+<p class="crumb"><a href="{{ root }}">Ratings</a> › {{ t }}</p>
+<h1>{{ t }}</h1>
+<p class="sub">Ranked {{ x.rk.net }} of {{ N }} in {{ season }}, record <span class="sp">{{ x.w }}-{{ x.l }}</span> after {{ (x.stats.gp if x.stats else 0) | int }} games.</p>
+
+<div class="cards">
+  <div class="card"><b>{{ rating }}</b><span class="{{ 'pos' if x.net >= 0 else 'neg' }}">{{ x.net | sgn }}</span><em>#{{ x.rk.net }}</em></div>
+  <div class="card"><b>Adj. offense</b><span>{{ x.o | f1 }}</span><em>#{{ x.rk.o }}</em></div>
+  <div class="card"><b>Adj. defense</b><span>{{ x.d | f1 }}</span><em>#{{ x.rk.d }}</em></div>
+  <div class="card"><b>Adj. tempo</b><span>{{ x.t | f1 }}</span><em>#{{ x.rk.t }}</em></div>
+  <div class="card"><b>Finals chance</b><span>{{ x.sim.top6 | odds }}</span><em>{{ x.sim.wins | f1 }} proj. wins</em></div>
+  <div class="card"><b>Title chance</b><span>{{ x.sim.champ | odds }}</span><em>GF {{ x.sim.gf | odds }}</em></div>
+</div>
+
+{% if chart %}
+<section>
+  <h2>{{ rating }} through the season</h2>
+  <div class="chartbox">{{ chart | safe }}</div>
+  <p class="note">{{ x.short }} in bold, the rest of the league faded. Hover a line to see who it is. The first point is the preseason rating, which comes from last season.{% if x.pre is not none %} Preseason: {{ x.pre | sgn }} (#{{ x.rk.pre }}).{% endif %}</p>
+</section>
+{% endif %}
+
+<div class="grid2">
+<section>
+  <h2>Scouting report</h2>
+  {% if x.stats %}
+  <div class="tw"><table class="dense">
+    <thead><tr><th class="l">Four Factors</th><th>Offense</th><th>Defense</th><th>League avg</th></tr></thead>
+    <tbody>
+    {% for o, d, label in [("efg", "d_efg", "Effective FG%"), ("tov", "d_tov", "Turnover %"), ("orb", "d_orb", "Off. rebound %"), ("ftr", "d_ftr", "Free-throw rate")] %}
+      <tr><td class="l">{{ label }}</td>
+        <td>{{ x.stats[o] | pct }}{{ m.rk(x.srk[o], N) }}</td>
+        <td>{{ x.stats[d] | pct }}{{ m.rk(x.srk[d], N) }}</td>
+        <td class="mut">{{ (info.values() | map(attribute='stats') | select | map(attribute=o) | sum / N) | pct }}</td></tr>
+    {% endfor %}
+    </tbody>
+  </table></div>
+  <p class="note">In the defense column, rebound % is what opponents grab and turnover % is what this team forces. Raw numbers, not adjusted for opponents.</p>
+  <div class="tw"><table class="dense">
+    <thead><tr><th class="l">Shooting</th><th>Team</th><th>Opponents</th></tr></thead>
+    <tbody>
+      <tr><td class="l">3-point %</td><td>{{ x.stats.fg3 | pct }}{{ m.rk(x.srk.fg3, N) }}</td><td>{{ x.stats.d_fg3 | pct }}{{ m.rk(x.srk.d_fg3, N) }}</td></tr>
+      <tr><td class="l">2-point %</td><td>{{ x.stats.fg2 | pct }}{{ m.rk(x.srk.fg2, N) }}</td><td>{{ x.stats.d_fg2 | pct }}{{ m.rk(x.srk.d_fg2, N) }}</td></tr>
+      <tr><td class="l">3PA share of shots</td><td>{{ x.stats.fg3r | pct }}{{ m.rk(x.srk.fg3r, N) }}</td><td>{{ x.stats.d_fg3r | pct }}{{ m.rk(x.srk.d_fg3r, N) }}</td></tr>
+      <tr><td class="l">Free-throw %</td><td>{{ x.stats.ft | pct }}{{ m.rk(x.srk.ft, N) }}</td><td class="mut">–</td></tr>
+      <tr><td class="l">Assists per made FG</td><td>{{ x.stats.ast | pct }}{{ m.rk(x.srk.ast, N) }}</td><td>{{ x.stats.d_ast | pct }}{{ m.rk(x.srk.d_ast, N) }}</td></tr>
+      <tr><td class="l">Steal % / Block %</td><td>{{ x.stats.stl | pct }}{{ m.rk(x.srk.stl, N) }}</td><td>{{ x.stats.blk | pct }}{{ m.rk(x.srk.blk, N) }}</td></tr>
+      <tr><td class="l">Bench share of points</td><td>{{ x.stats.bench | pct }}{{ m.rk(x.srk.bench, N) }}</td><td class="mut">–</td></tr>
+    </tbody>
+  </table></div>
+  {% else %}<p>No games yet this season.</p>{% endif %}
+</section>
+
+<section>
+  <h2>Schedule strength &amp; luck</h2>
+  <div class="tw"><table class="dense"><tbody>
+    <tr><td class="l">Opponents played (avg {{ rating }})</td><td>{{ x.sos | sgn }}{{ m.rk(x.rk.sos, N) }}</td></tr>
+    <tr><td class="l">Opponents still to play</td><td>{{ x.rsos | sgn }}{{ m.rk(x.rk.rsos, N) }}</td></tr>
+    <tr><td class="l">Games left at home / away</td><td>{{ x.left_home }} / {{ x.left_away }}{% if x.left_neutral %} <small class="mut">+{{ x.left_neutral }} neutral</small>{% endif %}</td></tr>
+    <tr><td class="l">Raw efficiency (off / def)</td><td>{% if x.stats %}{{ x.stats.raw_o | f1 }} / {{ x.stats.raw_d | f1 }}{% else %}–{% endif %}</td></tr>
+    <tr><td class="l">Wins vs expected (luck)</td><td class="sp">{{ x.luck | sgn }}{{ m.rk(x.rk.luck, N) }}</td></tr>
+    <tr><td class="l">Wins above an average team (résumé)</td><td class="sp">{{ x.waa | sgn }}{{ m.rk(x.rk.waa, N) }}</td></tr>
+  </tbody></table></div>
+  <p class="note">Home and away games left are already built into the projections: every remaining game is simulated where it's actually played. Luck is wins minus what the ratings expected from those games. Close games decide most of it and it tends to even out. Résumé is how many more wins than an average team would have managed against the same opponents, home and away.</p>
+
+  <h2>Where they'll finish</h2>
+  <div class="dist" style="--c:{{ x.colours[0] }};--cd:{{ x.colours[1] }}">
+  {% set top = x.sim.pos_dist | max %}
+  {% for p in x.sim.pos_dist %}
+    <div class="col"><div class="bw"><div class="fbar" style="height:{{ (p / top * 100) | round(1) if top else 0 }}%" title="{{ loop.index }}: {{ p | pct(1) }}">{% if p >= 0.05 %}<em>{{ (p * 100) | round | int }}%</em>{% endif %}</div></div><span>{{ loop.index }}</span></div>
+  {% endfor %}
+  </div>
+  {{ m.early(S, root) }}
+  <p class="note">Where they ended up across {{ "{:,}".format(S.n) }} simulated seasons. Minor premiership {{ x.sim.p1 | odds }}, top two {{ x.sim.top2 | odds }}, semi-finals {{ x.sim.semis | odds }}.</p>
+</section>
+</div>
+
+<section>
+  <h2>Schedule &amp; predictions</h2>
+  {% set played = games | selectattr('done') | list + games | selectattr('pending') | list %}
+  {% set upcoming = games | rejectattr('done') | rejectattr('pending') | list %}
+  {% if played %}
+  <h3>Played</h3>
+  <div class="tw snug"><table class="dense">
+    <thead><tr><th class="l">Date</th><th class="l">Opponent</th><th>Win %</th><th>Proj</th><th class="sp-col">Result</th><th>Drama</th></tr></thead>
+    <tbody>
+    {% for g in played | sort(attribute='utc') %}{% set home = g.home == t %}{% set opp = g.away if home else g.home %}
+      {% set p = g.pred.p_home if home else 1 - g.pred.p_home %}
+      <tr class="link" data-href="{{ root }}games/{{ g.slug }}/">
+        <td class="l">{{ m.when(g.utc) }}</td>
+        <td class="l">{{ 'vs' if home else '@' }} <a href="{{ root }}games/{{ g.slug }}/">{{ info[opp].short }}</a>{{ m.rk(info[opp].rk.net, N) }}</td>
+        <td>{{ p | pct(0) }}</td>
+        <td>{{ (g.pred.h_pts if home else g.pred.a_pts) | round | int }}–{{ (g.pred.a_pts if home else g.pred.h_pts) | round | int }}</td>
+        {% if g.done %}{% set mine = g.hs if home else g.as %}{% set theirs = g.as if home else g.hs %}
+        <td class="sp {{ 'pos' if mine > theirs else 'neg' }}">{{ 'W' if mine > theirs else 'L' }} {{ mine }}–{{ theirs }}{{ ' OT' if g.ot else '' }}</td>
+        <td class="thr">{{ g.drama }}</td>
+        {% else %}<td class="mut">awaiting result</td><td class="mut">–</td>{% endif %}
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table></div>
+  <p class="note">Win % and score are what the model said before tip-off. Drama is how close and tense the game ended up, without giving away who won.</p>
+  {% endif %}
+  {% if upcoming %}
+  <h3>Upcoming</h3>
+  <div class="tw snug"><table class="dense">
+    <thead><tr><th class="l">Date</th><th class="l">Opponent</th><th>Win %</th><th>Proj</th><th>Hype</th></tr></thead>
+    <tbody>
+    {% for g in upcoming %}{% set home = g.home == t %}{% set opp = g.away if home else g.home %}
+      {% set p = g.pred.p_home if home else 1 - g.pred.p_home %}
+      <tr class="link" data-href="{{ root }}games/{{ g.slug }}/">
+        <td class="l">{{ m.when(g.utc) }}</td>
+        <td class="l">{{ 'vs' if home else '@' }} <a href="{{ root }}games/{{ g.slug }}/">{{ info[opp].short }}</a>{{ m.rk(info[opp].rk.net, N) }}</td>
+        <td>{{ p | pct(0) }}</td>
+        <td>{{ (g.pred.h_pts if home else g.pred.a_pts) | round | int }}–{{ (g.pred.a_pts if home else g.pred.h_pts) | round | int }}</td>
+        <td>{{ g.hype }}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table></div>
+  <p class="note">Hype is how watchable the game should be.</p>
+  {% endif %}
+</section>
+
+<section>
+  <h2>Roster ({{ season }})</h2>
+  {% if roster %}
+  <div class="tw"><table class="dense sortable">
+    <thead><tr><th class="l" data-sort="text">Player</th><th data-sort="num">GP</th><th data-sort="num">MPG</th><th data-sort="num">PPG</th><th data-sort="num">RPG</th><th data-sort="num">APG</th>
+      <th data-sort="num">Impact</th><th data-sort="num" title="True shooting %">TS%</th><th data-sort="num" title="Share of team possessions used while on court">USG%</th><th data-sort="num">AST%</th><th data-sort="num">REB%</th><th data-sort="num" title="Points per 100 possessions used">ORtg</th><th data-sort="num" title="Plus-minus per 40 minutes">+/- 40</th></tr></thead>
+    <tbody>
+    {% for p in roster %}
+      <tr><td class="l"><a href="{{ root }}players/{{ p.slug }}/">{{ p.player }}</a> <small class="mut">{{ p.pos }}</small></td>
+        <td>{{ p.gp }}</td><td>{{ p.mpg | f1 }}</td><td>{{ p.ppg | f1 }}</td><td>{{ p.rpg | f1 }}</td><td>{{ p.apg | f1 }}</td>
+        <td class="b" data-v="{{ p.impact if p.impact == p.impact else '' }}">{{ p.impact | sgn if p.impact == p.impact else '–' }}</td><td>{{ p.ts | pct }}</td><td>{{ p.usg | pct }}</td><td>{{ p.ast_pct | pct }}</td><td>{{ ((p.orb_pct + p.drb_pct) / 2) | pct }}</td><td>{{ p.ortg | f1 }}</td><td class="sp">{{ p.pm40 | sgn }}</td></tr>
+    {% endfor %}
+    </tbody>
+  </table></div>
+  {% else %}<p>No player data yet this season.</p>{% endif %}
+</section>
+{{ m.ad(cfg) }}
+{% endblock %}

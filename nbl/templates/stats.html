@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% import "macros.html" as m %}
+{% set title = "NBL Team Stats " ~ season ~ " – Four Factors, Shooting & Advanced" %}
+{% set desc = "NBL " ~ season ~ " advanced team stats: Dean Oliver's four factors on offense and defense, 3-point and 2-point shooting, assist, steal and block rates, with league ranks." %}
+{% block main %}
+<h1>Team stats</h1>
+<p class="lede">This season's team numbers with league ranks. These are raw, not adjusted for opponents. For the adjusted version, see the <a href="{{ root }}">ratings</a>.</p>
+{% set groups = [("o4", "Four Factors – offense"), ("d4", "Four Factors – defense"), ("sh", "Shooting"), ("st", "Style & other"), ("gf", "Game flow")] %}
+{% for gk, gl in groups %}
+{% set cols = defs | selectattr(3, 'equalto', gk) | list %}
+{% set cols = cols | rejectattr(0, 'in', missing) | list %}
+{% if cols %}
+<h2>{{ gl }}</h2>
+<div class="tw"><table class="dense sortable">
+  <thead><tr><th class="l" data-sort="text">Team</th>
+    {% for k, label, hib, g, fmt in cols %}<th data-sort="{{ 'num' if hib != false else 'num-asc' }}">{{ label }}</th>{% endfor %}</tr></thead>
+  <tbody>
+  {% for t in order %}{% set x = info[t] %}{% if x.stats %}
+    <tr><td class="l">{{ m.team(info, t, root) }}</td>
+    {% for k, label, hib, g, fmt in cols %}{% set v = x.stats[k] %}
+      <td data-v="{{ v if v is not none else '' }}">{{ (v | pct) if fmt == 'pct' else (v | f1) }}{{ m.rk(x.srk[k], N) if hib is not none else '' }}</td>
+    {% endfor %}</tr>
+  {% endif %}{% endfor %}
+  </tbody>
+</table></div>
+{% endif %}
+{% endfor %}
+{% if 'ahead' not in missing and flow[0] < flow[1] %}<p class="note">Game flow comes from the play-by-play, which covers {{ flow[0] }} of this season's {{ flow[1] }} games so far. The rest are left out until it's available.</p>{% endif %}
+<p class="note">Hover any column for a quick definition, or see the <a href="{{ root }}glossary/">glossary</a>. Points in the paint and fast-break points aren't in this season's NBL feed, so they're missing for now.</p>
+{{ m.ad(cfg) }}
+{% endblock %}

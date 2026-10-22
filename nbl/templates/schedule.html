@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% import "macros.html" as m %}
+{% set title = "NBL Schedule & Predictions " ~ season ~ " – Win Probabilities & Projected Scores" %}
+{% set desc = "Every upcoming NBL game this season with win probability, projected score, margin and total. Spoiler-free Hype and Drama scores to help pick what to watch." %}
+{% block main %}
+<h1>Schedule &amp; predictions</h1>
+<p class="lede">Every game left this season, with who's favoured and by how much. Times are in your time zone. <b>Hype</b> (0–100) is a rough guide to which games are worth watching, from how good both teams are and how close it should be. Once a game's played it gets a <b>Drama</b> score instead, for how it actually turned out, without giving away who won.</p>
+
+<h2>Upcoming</h2>
+{% if upcoming %}
+<div class="tw snug"><table class="dense">
+  <thead><tr><th class="l">When</th><th class="l">Game</th><th title="The favourite and their chance of winning">Favourite</th><th>Proj</th><th>Margin</th><th>Total</th>{% if cfg.show_betting_tools %}<th>Fair ML</th>{% endif %}<th>Hype</th></tr></thead>
+  <tbody>
+  {% set ns = namespace(r=None) %}
+  {% for g in upcoming %}
+    {% if g.round != ns.r %}{% set ns.r = g.round %}<tr class="dayh"><td colspan="{{ 8 if cfg.show_betting_tools else 7 }}">Round {{ g.round }}</td></tr>{% endif %}
+    <tr class="link" data-href="{{ root }}games/{{ g.slug }}/">
+      <td class="l">{{ m.when(g.utc) }}</td>
+      <td class="l"><a href="{{ root }}games/{{ g.slug }}/">{{ info[g.away].short }}{{ m.rk(info[g.away].rk.net, N) }} @ {{ info[g.home].short }}{{ m.rk(info[g.home].rk.net, N) }}</a></td>
+      <td>{{ m.fav(info, g.home, g.away, g.pred.p_home, True) }}{% if g.adjust %}<span class="adjmark" title="Adjusted for players who missed their team's last game">*</span>{% endif %}</td>
+      <td>{{ g.pred.a_pts | round | int }}–{{ g.pred.h_pts | round | int }}</td>
+      <td>{{ (info[g.home].code if g.pred.margin >= 0 else info[g.away].code) }} by {{ (g.pred.margin | abs) | f1 }}</td>
+      <td>{{ g.pred.total | f1 }}</td>
+      {% if cfg.show_betting_tools %}<td>{{ info[g.away].code }} {{ (1 - g.pred.p_home) | fair_ml }} / {{ info[g.home].code }} {{ g.pred.p_home | fair_ml }}</td>{% endif %}
+      <td class="thr">{{ g.hype }}</td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table></div>
+{% if upcoming | selectattr('adjust') | list %}<p class="note">* Adjusted for regulars who missed their team's last game. Details on the game page.</p>{% endif %}
+{% else %}<p>No upcoming games.</p>{% endif %}
+{{ m.ad(cfg) }}
+
+{% if pending %}
+<h2>Awaiting results</h2>
+<p class="note">Played, but not in the data yet. These usually turn up overnight.</p>
+<div class="tw snug"><table class="dense"><tbody>
+{% for g in pending %}<tr><td class="l">{{ m.when(g.utc) }}</td><td class="l"><a href="{{ root }}games/{{ g.slug }}/">{{ info[g.away].short }} @ {{ info[g.home].short }}</a></td><td>Model favoured {{ m.fav(info, g.home, g.away, g.pred.p_home) }}</td></tr>{% endfor %}
+</tbody></table></div>
+{% endif %}
+
+<h2>Played</h2>
+<p class="note">Scores show by default. Hit <b>Hide scores</b> at the top if you're catching up on replays, and you'll just see the Drama scores. The favourite is who the model picked before tip-off.</p>
+<div class="tw snug"><table class="dense">
+  <thead><tr><th class="l">When</th><th class="l">Game</th><th>Drama</th><th class="sp-col">Score</th><th>Model favoured</th><th class="sp-col">Right?</th></tr></thead>
+  <tbody>
+  {% for g in completed %}
+    <tr class="link" data-href="{{ root }}games/{{ g.slug }}/">
+      <td class="l">{{ m.when(g.utc) }}</td>
+      <td class="l"><a href="{{ root }}games/{{ g.slug }}/">{{ info[g.away].short }} @ {{ info[g.home].short }}</a></td>
+      <td class="thr">{{ g.drama }}</td>
+      <td class="sp">{{ g.as }}–{{ g.hs }}{{ ' OT' if g.ot else '' }}</td>
+      <td>{{ m.fav(info, g.home, g.away, g.pred.p_home) }}</td>
+      <td class="sp {{ 'pos' if g.correct else 'neg' }}">{{ '✓' if g.correct else '✗' }}</td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table></div>
+{% endblock %}

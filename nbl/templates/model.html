@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% import "macros.html" as m %}
+{% set title = "How the " ~ rating ~ " NBL Ratings Work – Method & Track Record" %}
+{% set desc = "How the NBL ratings and predictions are built, and how accurate they've been: walk-forward backtest since 2016-17, calibration and a public prediction ledger." %}
+{% block main %}
+<div class="prose">
+<h1>How it works</h1>
+<p><b>{{ rating }}</b> works the same way as Ken Pomeroy's college ratings. For every game I count possessions (field-goal attempts, minus offensive rebounds, plus turnovers, plus 0.44 × free-throw attempts) and work out each side's points per 100 possessions. Then every team's offense and defense, and home court, are fitted together in one ridge regression. Doing it all at once is the point: running up 110 against the worst defense in the league counts for less than 100 against the best. Tempo gets the same treatment.</p>
+<p>Recent games count for more. A game's weight halves every {{ bt.half_life if bt else 120 }} days, and last season's games carry a little less again because rosters change. So in October the ratings still lean on last year, and by Christmas it's mostly this season. Everything is also pulled slightly toward average until there's enough evidence, so a team that's won its first three isn't suddenly rated a champion. I tried other weightings against past seasons and these predicted best.</p>
+<p>A prediction combines both teams' offense, defense and tempo into an expected score. Win probability comes from how wrong the model has usually been: real results land within about ±{{ cal.sigma | f1 }} points of the prediction two times in three. The season simulator then plays out the rest of the schedule and the finals 10,000 times. In each run every team's rating gets a random nudge up or down, because the ratings are estimates, not facts. How big that nudge should be came from replaying past seasons, and it gets smaller as the season goes on.</p>
+
+<p>Predictions for each team's next game also account for players likely to be out. If a regular didn't play his team's last game, the model assumes he'll miss the next one too. It looks at who took his minutes in that game and moves the prediction by how much better he is than them, using Impact and his usual minutes. Tested on 2023-24 onward, that made the model noticeably better when a key player was missing. It only knows what the box scores show, so a brand-new injury isn't picked up until a game has been missed. If a player has already missed a game or two, the team's results without him are partly in its rating as well. I tested scaling the adjustment down for that and it made no difference to accuracy. The adjustment is capped at 4 points per team per game: the model is assuming who's out, not knowing, and on past seasons the cap gave up very little accuracy while ruling out wild swings.</p>
+
+<h2>League right now</h2>
+<div class="tw"><table class="dense"><tbody>
+  <tr><td class="l">Average points per 100 possessions</td><td>{{ R.mu | f1 }}</td></tr>
+  <tr><td class="l">Average possessions per 40 minutes</td><td>{{ R.t_mu | f1 }}</td></tr>
+  <tr><td class="l">Home-court advantage</td><td>{{ (2 * R.hfa * R.t_mu / 100) | sgn }} points per game</td></tr>
+  <tr><td class="l">Typical prediction error (1 standard deviation)</td><td>{{ cal.sigma | f1 }} points</td></tr>
+</tbody></table></div>
+
+{% if bt %}
+<h2>Backtest</h2>
+<p>To check it honestly I replayed every season from {{ bt.from }} to {{ bt.to }} a week at a time. Each week the model only knew about games already played, then predicted the next week. That's {{ "{:,}".format(bt.games) }} predictions made blind.</p>
+<div class="cards">
+  <div class="card"><b>Picked the winner</b><span>{{ bt.acc | pct }}</span><em>home teams won {{ bt.home_rate | pct }}</em></div>
+  <div class="card"><b>Log loss</b><span>{{ "%.3f" % bt.logloss }}</span><em>always-home baseline {{ "%.3f" % bt.base_logloss }}</em></div>
+  <div class="card"><b>Margin error</b><span>{{ bt.mae_margin | f1 }}</span><em>avg points off</em></div>
+  <div class="card"><b>Total error</b><span>{{ bt.mae_total | f1 }}</span><em>avg points off</em></div>
+</div>
+<h2>Calibration</h2>
+<p>When the model says a team is a 65% favourite, does it win about 65% of the time?</p>
+<div class="tw"><table class="dense"><thead><tr><th class="l">Favourite's chance</th><th>Games</th><th>Predicted</th><th>Actual</th></tr></thead><tbody>
+{% for c in bt.calib %}<tr><td class="l">{{ c.bin }}</td><td>{{ c.n }}</td><td>{{ c.pred | pct }}</td><td>{{ c.act | pct }}</td></tr>{% endfor %}
+</tbody></table></div>
+<h2>By season</h2>
+<div class="tw"><table class="dense"><thead><tr><th class="l">Season</th><th>Games</th><th>Winner %</th><th>Log loss</th></tr></thead><tbody>
+{% for s in bt.by_season %}<tr><td class="l">{{ s.season }}</td><td>{{ s.n }}</td><td>{{ s.acc | pct }}</td><td>{{ "%.3f" % s.logloss }}</td></tr>{% endfor %}
+</tbody></table></div>
+<p class="note">Log loss punishes being confidently wrong. Lower is better, and a coin flip scores 0.693.</p>
+{% endif %}
+
+<h2>Prediction ledger</h2>
+{% if ledger and ledger.n %}
+<p>Every prediction gets saved before tip-off and marked afterwards, so there's no quietly fixing the record later. Tracking since {{ ledger.since }}: {{ ledger.n }} games graded, winner picked {{ ledger.acc | pct }}, log loss {{ "%.3f" % ledger.logloss }}, average margin error {{ ledger.mae | f1 }} points. {{ ledger.pending }} predictions waiting on games.</p>
+<div class="tw"><table class="dense"><thead><tr><th class="l">Game</th><th>Predicted</th><th class="sp-col">Result</th></tr></thead><tbody>
+{% for e in ledger.rows %}<tr><td class="l"><a href="{{ root }}games/{{ e.slug }}/">{{ info[e.away].short }} @ {{ info[e.home].short }}</a> <small class="mut">{{ e.utc[:10] }}</small></td>
+<td>{{ m.fav(info, e.home, e.away, e.p_home) }}, by {{ (e.margin | abs) | f1 }}</td><td class="sp">{{ e["as"] }}–{{ e.hs }}</td></tr>{% endfor %}
+</tbody></table></div>
+{% elif ledger %}
+<p>The ledger is up and running: {{ ledger.pending }} predictions saved so far, to be marked as the games are played.</p>
+{% endif %}
+{% if replay %}
+<p class="note">This season so far, replayed the same blind way: {{ replay.n }} games, winner {{ replay.acc | pct }}, log loss {{ "%.3f" % replay.logloss }}, margin error {{ replay.mae | f1 }}.</p>
+{% endif %}
+
+<h2>Data</h2>
+<p>Box scores and schedules come from the NBL's official stats feed, mostly through Jason Zivkovic's open-source <a href="https://github.com/JaseZiv/nblR" rel="noopener">nblR</a> project. Without it this site wouldn't exist. Games nblR hasn't picked up yet are read from the same NBL feed directly, and the site rebuilds every hour. Points in the paint and fast-break points aren't in this season's feed, so they're not shown.</p>
+</div>
+{% endblock %}
