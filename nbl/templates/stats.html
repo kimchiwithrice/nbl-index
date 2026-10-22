@@ -13,12 +13,12 @@
 <h2>{{ gl }}</h2>
 <div class="tw"><table class="dense sortable">
   <thead><tr><th class="l" data-sort="text">Team</th>
-    {% for k, label, hib, g, fmt in cols %}<th data-sort="{{ 'num' if hib != false else 'num-asc' }}">{{ label }}</th>{% endfor %}</tr></thead>
+    {% for k, label, hib, g, fmt in cols %}<th data-sort="{{ 'num' if hib != false else 'num-asc' }}"{% if k == 'c_net' %} class="sp-col"{% endif %}>{{ label }}</th>{% endfor %}</tr></thead>
   <tbody>
   {% for t in order %}{% set x = info[t] %}{% if x.stats %}
     <tr><td class="l">{{ m.team(info, t, root) }}</td>
     {% for k, label, hib, g, fmt in cols %}{% set v = x.stats[k] %}
-      <td data-v="{{ v if v is not none else '' }}">{{ (v | pct) if fmt == 'pct' else (v | f1) }}{{ m.rk(x.srk[k], N) if hib is not none else '' }}</td>
+      <td data-v="{{ v if v is not none else '' }}"{% if k == 'c_net' %} class="sp"{% endif %}>{{ (v | pct) if fmt == 'pct' else (v | f1) }}{{ m.rk(x.srk[k], N) if hib is not none else '' }}</td>
     {% endfor %}</tr>
   {% endif %}{% endfor %}
   </tbody>
@@ -26,7 +26,7 @@
 {% endif %}
 {% endfor %}
 {% if 'ahead' not in missing and flow[0] < flow[1] %}<p class="note">Game flow comes from the play-by-play, which covers {{ flow[0] }} of this season's {{ flow[1] }} games so far. The rest are left out until it's available.</p>{% endif %}
-{% if 'c_min' not in missing %}<p class="note">Shot profile and clutch come from the play-by-play. Clutch is the last five minutes of the fourth quarter or overtime with the score within five; clutch net needs at least 20 clutch possessions. Assisted share: FIBA also credits assists on free throws, which aren't counted here.</p>{% endif %}
+{% if 'c_min' not in missing %}<p class="note">Shot profile and clutch come from the play-by-play. Clutch is the last five minutes of the fourth quarter or overtime with the score within five; clutch net needs at least 20 clutch possessions and is hidden while scores are hidden. Assisted share: FIBA also credits assists on free throws, which aren't counted here.</p>{% endif %}
 <p class="note">Hover any column for a quick definition, or see the <a href="{{ root }}glossary/">glossary</a>. Points in the paint and fast-break points aren't in this season's NBL feed, so they're missing for now.</p>
 {{ m.ad(cfg) }}
 {% endblock %}

@@ -45,11 +45,11 @@
   <h2>Most-used lineups</h2>
   {% if lu.lineups %}
   <div class="tw"><table class="dense">
-    <thead><tr><th class="l">Five</th><th>Min</th><th>Poss</th><th>Off</th><th>Def</th><th>Net</th></tr></thead>
+    <thead><tr><th class="l">Five</th><th>Min</th><th>Poss</th><th class="sp-col">Off</th><th class="sp-col">Def</th><th class="sp-col">Net</th></tr></thead>
     <tbody>
     {% for r in lu.lineups %}
       <tr><td class="l wrap">{% for p in r.players %}{{ who(p) }}{{ ', ' if not loop.last }}{% endfor %}</td>
-        <td>{{ r.min | round | int }}</td><td>{{ r.poss | round | int }}</td><td>{{ r.o | f1 }}</td><td>{{ r.d | f1 }}</td><td class="b">{{ net(r.net) }}</td></tr>
+        <td>{{ r.min | round | int }}</td><td>{{ r.poss | round | int }}</td><td class="sp">{{ r.o | f1 }}</td><td class="sp">{{ r.d | f1 }}</td><td class="sp b">{{ net(r.net) }}</td></tr>
     {% endfor %}
     </tbody>
   </table></div>
@@ -58,11 +58,11 @@
   <h2>Most-used pairs</h2>
   {% if lu.pairs %}
   <div class="tw"><table class="dense">
-    <thead><tr><th class="l">Pair</th><th>Min</th><th>Off</th><th>Def</th><th>Net</th></tr></thead>
+    <thead><tr><th class="l">Pair</th><th>Min</th><th class="sp-col">Off</th><th class="sp-col">Def</th><th class="sp-col">Net</th></tr></thead>
     <tbody>
     {% for r in lu.pairs %}
       <tr><td class="l">{{ who(r.players[0]) }} + {{ who(r.players[1]) }}</td>
-        <td>{{ r.min | round | int }}</td><td>{{ r.o | f1 }}</td><td>{{ r.d | f1 }}</td><td class="b">{{ net(r.net) }}</td></tr>
+        <td>{{ r.min | round | int }}</td><td class="sp">{{ r.o | f1 }}</td><td class="sp">{{ r.d | f1 }}</td><td class="sp b">{{ net(r.net) }}</td></tr>
     {% endfor %}
     </tbody>
   </table></div>
@@ -70,16 +70,16 @@
 
   <h2>On/off</h2>
   <div class="tw"><table class="dense sortable">
-    <thead><tr><th class="l" data-sort="text">Player</th><th data-sort="num">Min on</th><th data-sort="num">Net on</th><th data-sort="num">Net off</th><th data-sort="num" title="Net rating with the player on, minus with them off">On − off</th></tr></thead>
+    <thead><tr><th class="l" data-sort="text">Player</th><th data-sort="num">Min on</th><th data-sort="num" class="sp-col">Net on</th><th data-sort="num" class="sp-col">Net off</th><th data-sort="num" class="sp-col" title="Net rating with the player on, minus with them off">On − off</th></tr></thead>
     <tbody>
     {% for p, r in lu.onoff.items() | sort(attribute='1.on.min', reverse=True) %}
-      <tr><td class="l">{{ who(p) }}</td><td>{{ r.on.min | round | int }}</td><td data-v="{{ r.on.net }}">{{ net(r.on.net) }}</td>
-        <td data-v="{{ r.off.net if r.off else '' }}">{{ net(r.off.net) if r.off else '–' }}</td>
-        <td class="b" data-v="{{ r.diff if r.diff is not none else '' }}">{{ net(r.diff) if r.diff is not none else '–' }}</td></tr>
+      <tr><td class="l">{{ who(p) }}</td><td>{{ r.on.min | round | int }}</td><td class="sp" data-v="{{ r.on.net }}">{{ net(r.on.net) }}</td>
+        <td class="sp" data-v="{{ r.off.net if r.off else '' }}">{{ net(r.off.net) if r.off else '–' }}</td>
+        <td class="sp b" data-v="{{ r.diff if r.diff is not none else '' }}">{{ net(r.diff) if r.diff is not none else '–' }}</td></tr>
     {% endfor %}
     </tbody>
   </table></div>
-  <p class="note">From {{ lu.games }} of this season's games ({{ lu.min | round | int }} minutes). Lineups are rebuilt from the substitutions in the play-by-play, and a game is only used if they check out against the box score: five on court the whole way, points matching the final score and every player's minutes within a minute of the official figure. {% if deep %}This season {{ deep.games }} of {{ deep.of }} games passed.{% endif %} Lineups need 10 minutes together to be listed, pairs 20, and players 20 minutes on court for on/off. Small samples still swing a lot: a lineup's net rating over 20 minutes says little on its own, and on/off depends heavily on who the backups are.</p>
+  <p class="note">From {{ lu.games }} of this season's games ({{ lu.min | round | int }} minutes). Lineups are rebuilt from the substitutions in the play-by-play, and a game is only used if they check out against the box score: five on court the whole way, points matching the final score and every player's minutes within a minute of the official figure. {% if deep %}This season {{ deep.games }} of {{ deep.of }} games passed.{% endif %} Lineups need 10 minutes together to be listed, pairs 20, and players 20 minutes on court for on/off. Small samples still swing a lot: a lineup's net rating over 20 minutes says little on its own, and on/off depends heavily on who the backups are. Ratings in these tables are hidden while scores are hidden.</p>
 </section>
 {% endif %}
 

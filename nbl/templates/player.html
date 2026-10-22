@@ -47,9 +47,9 @@
   <h2>On/off and shots</h2>
   <div class="tw"><table class="dense"><tbody>
     {% if d.onoff %}
-    <tr><td class="l">Team net rating with {{ p.name | surname }} on</td><td>{{ d.onoff.on.net | sgn }} <small class="mut">in {{ d.onoff.on.min | round | int }} min</small></td></tr>
-    <tr><td class="l">With {{ p.name | surname }} off</td><td>{{ (d.onoff.off.net | sgn) if d.onoff.off else '–' }}</td></tr>
-    <tr><td class="l">On − off</td><td class="b">{{ (d.onoff.diff | sgn) if d.onoff.diff is not none else '–' }}</td></tr>
+    <tr><td class="l">Team net rating with {{ p.name | surname }} on</td><td><span class="sp">{{ d.onoff.on.net | sgn }}</span> <small class="mut">in {{ d.onoff.on.min | round | int }} min</small></td></tr>
+    <tr><td class="l">With {{ p.name | surname }} off</td><td class="sp">{{ (d.onoff.off.net | sgn) if d.onoff.off else '–' }}</td></tr>
+    <tr><td class="l">On − off</td><td class="sp b">{{ (d.onoff.diff | sgn) if d.onoff.diff is not none else '–' }}</td></tr>
     {% endif %}
     {% if d.astd is not none %}<tr><td class="l">Made baskets assisted</td><td>{{ d.astd | pct(0) }}{% if d.astd3 is not none %} <small class="mut">threes {{ d.astd3 | pct(0) }}</small>{% endif %}</td></tr>{% endif %}
   </tbody></table></div>
