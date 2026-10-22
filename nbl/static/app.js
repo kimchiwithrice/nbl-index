@@ -180,7 +180,7 @@
     "P/40": "Points per 40 minutes.",
     "Impact": "Estimated points per 100 possessions a player adds compared with an average NBL player, from his box score.",
     "+/- 40": "Team point margin while he was on court, per 40 minutes.",
-    "Hype": "How watchable the game should be, 0-100, judged before tip-off from team quality and how close it projects.",
+    "Hype": "How watchable the game should be, 0-100, judged before tip-off, mostly from how evenly matched the teams are, plus a little for how good they are.",
     "Drama": "How the game actually played out, 0-100: how close it finished, overtime and team quality. Never says who won.",
     "Expected possessions": "How many possessions each team should get, from both teams' pace.",
     "Log loss": "Scores the win probabilities. Lower is better; a coin flip scores 0.693.",

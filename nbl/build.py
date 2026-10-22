@@ -160,12 +160,18 @@ def team_quality(net_home, net_away, net_sd):
     return min(1, max(0, ((net_home + net_away) / 2) / (2 * net_sd + 1e-9) + 0.5))
 
 
-def hype(net_home, net_away, p_home, total, net_sd):
-    """0-100 before the game: team quality, how close it should be, and expected points."""
+def hype(net_home, net_away, p_home, net_sd):
+    """0-100 before the game: mostly how evenly matched it is, plus a little for team quality.
+
+    Checked on 2016-17 to 2025-26: games with a 55% and a 65% favourite finish about as close as
+    each other, but blowouts climb fast once the favourite is past 70%, so the matchup part stays
+    full up to 55% and drops to zero at 85%. Expected points was left out, as higher-scoring
+    projections ended up slightly more lopsided, not less.
+    """
     quality = team_quality(net_home, net_away, net_sd)
-    closeness = 1 - abs(p_home - 0.5) * 2
-    scoring = min(1, max(0, (total - 165) / 40 + 0.5))
-    return round(100 * (0.45 * quality + 0.40 * closeness + 0.15 * scoring))
+    favourite = max(p_home, 1 - p_home)
+    matchup = min(1, max(0, (0.85 - favourite) / 0.30))
+    return round(100 * (0.65 * matchup + 0.35 * quality))
 
 
 # Build steps
@@ -245,8 +251,7 @@ def game_list(sched, games, info, ratings, cal, cur, teams, now):
             game["correct"] = (game["pred"]["p_home"] >= 0.5) == (game["hs"] > game["as"])
         else:
             game["pred"] = model.predict(ratings, cal, row.home, row.away, row.neutral)
-            game["hype"] = hype(net[row.home], net[row.away], game["pred"]["p_home"],
-                                game["pred"]["total"], net_sd)
+            game["hype"] = hype(net[row.home], net[row.away], game["pred"]["p_home"], net_sd)
         # Started, but the result isn't in the data yet.
         game["pending"] = not game["done"] and game["utc"] < now + pd.Timedelta(minutes=10)
         out.append(game)
