@@ -198,9 +198,13 @@ td.em .v{display:inline-block;min-width:38px}
 .thr{font-weight:600}
 
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:40px}
-.grid2>*{min-width:0}
+.grid2>*{min-width:0;container-type:inline-size}
+/* half-width columns on laptops: put kick-off time on its own line so game lists fit */
+@container (max-width:600px){td .t .h{display:block}}
+@container (max-width:500px){.wp{display:none}}
+@container (max-width:420px){.nm-full{display:none}.nm-short{display:inline!important}}
 .note+.tw{margin-top:10px}
-@media (max-width:860px){.grid2{grid-template-columns:1fr;gap:0}}
+@media (max-width:980px){.grid2{grid-template-columns:1fr;gap:0}}
 
 /* Key figures on team and player pages */
 .cards{display:flex;flex-wrap:wrap;background:var(--paper);border:1px solid var(--rule);border-radius:6px;padding:0 16px;margin:18px 0 6px}
