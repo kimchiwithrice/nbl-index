@@ -227,7 +227,7 @@
   var tipBox = document.createElement("div");
   tipBox.className = "tipbox"; tipBox.setAttribute("role", "tooltip"); tipBox.hidden = true;
   document.body.appendChild(tipBox);
-  var TIP_TARGETS = "th, .card b, td.l, .tw td.l, .pctl .lab > span";
+  var TIP_TARGETS = "th, .card b, td.l, .tw td.l, .pctl .lab > span, [data-explain]";
   // data-explain is written for that spot on the page, so it beats the generic TIPS text
   function tipFor(el){
     return el.dataset.explain || TIPS[el.textContent.trim()] || el.dataset.tip || null;

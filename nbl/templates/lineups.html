@@ -33,12 +33,13 @@
 {% block main %}
 <p class="crumb"><a href="{{ root }}">Ratings</a> › <a href="{{ root }}teams/{{ x.slug }}/">{{ t }}</a> › Lineups &amp; shots</p>
 <h1>{{ t }}: lineups &amp; shots</h1>
-<p class="sub">How {{ x.short }} have played game by game, which combinations of players work, and where their shots come from, built from the NBL play-by-play for {{ season }}.</p>
-<p class="lede">Most numbers here are <b>per 100 possessions</b>: points scored or allowed for every 100 times a team has the ball. That puts fast and slow teams on the same footing. A team scoring 115 and allowing 105 has a <b>net rating</b> of +10. Hover any column heading for a quick explanation, or see the <a href="{{ root }}glossary/#lineups">glossary</a>.</p>
+<p class="sub">From the NBL play-by-play, {{ season }}. Hover any heading for what it means.</p>
+<details class="how"><summary>What does "per 100 possessions" mean?</summary>
+  <p>Most numbers here are points scored or allowed for every 100 times a team has the ball. That puts fast and slow teams on the same footing. A team scoring 115 and allowing 105 has a net rating of +10. More in the <a href="{{ root }}glossary/#lineups">glossary</a>.</p>
+</details>
 
 <section>
   <h2>Game by game</h2>
-  <p class="note">How well {{ x.short }} scored and defended in each game. The adjusted columns allow for how good the opponent was and where the game was played.</p>
   {% if log_rows %}
   <div class="tw snug"><table class="dense">
     <thead><tr><th class="l">Date</th><th class="l">Opponent</th><th data-explain="{{ X.poss }}">Poss</th><th class="sp-col" data-explain="{{ X.off }}">Off</th><th class="sp-col" data-explain="{{ X.def }}">Def</th><th class="sp-col" data-explain="{{ X.adj_off }}">Adj off</th><th class="sp-col" data-explain="{{ X.adj_def }}">Adj def</th><th class="sp-col" data-explain="{{ X.adj_net }}">Adj net</th></tr></thead>
@@ -62,14 +63,15 @@
     {% endfor %}
     </tbody>
   </table></div>
-  <p class="note">Off and Def are points scored and allowed per 100 possessions in that game. The adjusted columns take out the opponent's strength and home court, using today's ratings, so a good night against a strong defense counts for more. Hidden while scores are hidden.</p>
+  <details class="how"><summary>About these numbers</summary>
+    <p>Off and Def are points scored and allowed per 100 possessions in that game. The adjusted columns take out the opponent's strength and home court, using today's ratings, so a good night against a strong defense counts for more. Hidden while scores are hidden.</p>
+  </details>
   {% else %}<p>No games yet this season.</p>{% endif %}
 </section>
 
 {% if L and L.lineups and L.lineups.onoff %}{% set lu = L.lineups %}
 <section>
   <h2>Most-used lineups</h2>
-  <p class="note">The groups of five that have played together the most, and how they've done while on the floor.</p>
   {% if lu.lineups %}
   <div class="tw"><table class="dense">
     <thead><tr><th class="l" data-explain="{{ X.five }}">Five</th><th data-explain="{{ X.min }}">Min</th><th data-explain="{{ X.lposs }}">Poss</th><th class="sp-col" data-explain="{{ X.off }}">Off</th><th class="sp-col" data-explain="{{ X.def }}">Def</th><th class="sp-col" data-explain="{{ X.net }}">Net</th></tr></thead>
@@ -83,7 +85,6 @@
   {% else %}<p class="note">No five has played 10 minutes together yet.</p>{% endif %}
 
   <h2>Most-used pairs</h2>
-  <p class="note">The same for two players, whoever the other three were. Pairs build up minutes faster, so these are a little more reliable than full lineups.</p>
   {% if lu.pairs %}
   <div class="tw"><table class="dense">
     <thead><tr><th class="l" data-explain="{{ X.pair }}">Pair</th><th data-explain="{{ X.min }}">Min</th><th class="sp-col" data-explain="{{ X.off }}">Off</th><th class="sp-col" data-explain="{{ X.def }}">Def</th><th class="sp-col" data-explain="{{ X.net }}">Net</th></tr></thead>
@@ -96,8 +97,7 @@
   </table></div>
   {% endif %}
 
-  <h2>On/off: with and without each player</h2>
-  <p class="note"><b>On/off</b> compares how the team does while a player is on the court against how it does while they sit on the bench. "Net on" is the scoring margin per 100 possessions with them playing, "Net off" without them, and "On − off" the gap. A big positive gap suggests the team is better with them out there, though it also depends on who comes in instead.</p>
+  <h2>On/off</h2>
   <div class="tw"><table class="dense sortable">
     <thead><tr><th class="l" data-sort="text">Player</th><th data-sort="num" data-explain="{{ X.min_on }}">Min on</th><th data-sort="num" class="sp-col" data-explain="{{ X.net_on }}">Net on</th><th data-sort="num" class="sp-col" data-explain="{{ X.net_off }}">Net off</th><th data-sort="num" class="sp-col">On − off</th></tr></thead>
     <tbody>
@@ -108,14 +108,16 @@
     {% endfor %}
     </tbody>
   </table></div>
-  <p class="note">From {{ lu.games }} of this season's games ({{ lu.min | round | int }} minutes). Lineups are rebuilt from the substitutions in the play-by-play, and a game is only used if they check out against the box score: five on court the whole way, points matching the final score and every player's minutes within a minute of the official figure. {% if deep %}This season {{ deep.games }} of {{ deep.of }} games passed.{% endif %} Lineups need 10 minutes together to be listed, pairs 20, and players 20 minutes on court for on/off. Small samples still swing a lot: a lineup's net rating over 20 minutes says little on its own, and on/off depends heavily on who the backups are. Ratings in these tables are hidden while scores are hidden.</p>
+  <details class="how"><summary>What is on/off, and how are these built?</summary>
+    <p>On/off compares how the team does while a player is on the court against how it does while they sit on the bench. "Net on" is the scoring margin per 100 possessions with them playing, "Net off" without them, and "On − off" the gap. A big positive gap suggests the team is better with them out there, though it also depends on who comes in instead.</p>
+    <p>From {{ lu.games }} of this season's games ({{ lu.min | round | int }} minutes). Lineups are rebuilt from the substitutions in the play-by-play, and a game is only used if they check out against the box score: five on court the whole way, points matching the final score and every player's minutes within a minute of the official figure. {% if deep %}This season {{ deep.games }} of {{ deep.of }} games passed.{% endif %} Lineups need 10 minutes together to be listed, pairs 20, and players 20 minutes on court for on/off. Small samples still swing a lot: a lineup's net rating over 20 minutes says little on its own, and on/off depends heavily on who the backups are. Ratings in these tables are hidden while scores are hidden.</p>
+  </details>
 </section>
 {% endif %}
 
 {% if L and L.kinds %}
 <section>
   <h2>Shot profile</h2>
-  <p class="note">What kind of shots {{ x.short }} take and give up, and how often they go in.</p>
   <div class="tw"><table class="dense">
     <thead><tr><th class="l" data-explain="{{ X.kind }}">Type of shot</th><th data-explain="{{ X.share }}">% of shots</th><th data-explain="{{ X.fg }}">Made %</th><th data-explain="{{ X.opp_share }}">Opp % of shots</th><th data-explain="{{ X.opp_fg }}">Opp made %</th></tr></thead>
     <tbody>
@@ -134,7 +136,9 @@
     </tbody>
   </table></div>
   {% endif %}
-  <p class="note">"% of shots" is how much of the team's shooting comes from each kind of shot, and "made %" is how often those shots go in. Free throws aren't included. Shot types are as the official scorers log them; floaters and hooks are mostly from 2 to 3 metres. {% if L.zones %}Locations are logged from 2025-26 on: at the rim is within 1.5 m of the basket, short is 1.5 to 3 m, and corner 3s are taken within 3 m of the baseline.{% endif %} Includes finals.</p>
+  <details class="how"><summary>About these numbers</summary>
+    <p>"% of shots" is how much of the team's shooting comes from each kind of shot, and "made %" is how often those shots go in. Free throws aren't included. Shot types are as the official scorers log them; floaters and hooks are mostly from 2 to 3 metres. {% if L.zones %}Locations are logged from 2025-26 on: at the rim is within 1.5 m of the basket, short is 1.5 to 3 m, and corner 3s are taken within 3 m of the baseline.{% endif %} Includes finals.</p>
+  </details>
 </section>
 {% endif %}
 {{ m.ad(cfg) }}
