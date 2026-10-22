@@ -343,7 +343,7 @@ def _rates(secs, poss, pf, pa):
 
 LINEUP_MIN = 10   # minutes together before a five is listed
 PAIR_MIN = 20     # ... or a pair
-ONOFF_MIN = 20    # minutes on court before on/off is shown
+ONOFF_MIN = 20    # minutes on court (and on the bench) before on/off is shown
 
 
 def lineup_tables(ts, team, top=10):
@@ -372,8 +372,10 @@ def lineup_tables(ts, team, top=10):
             continue
         on = _rates(secs, poss, pf, pa)
         off = _rates(total.secs - secs, total.poss - poss, total.pf - pf, total.pa - pa)
-        players[p] = {"on": on, "off": off if off["min"] >= 1 else None,
-                      "diff": (on["net"] - off["net"]) if off["min"] >= 1 else None}
+        # a handful of bench minutes is too noisy to compare against
+        enough = off["min"] >= ONOFF_MIN
+        players[p] = {"on": on, "off": off if enough else None,
+                      "diff": (on["net"] - off["net"]) if enough else None}
     return {"lineups": lineups, "pairs": pairs, "onoff": players, "games": int(mine.match_id.nunique()),
             "min": float(total.secs / 60)}
 
