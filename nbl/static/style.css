@@ -128,6 +128,10 @@ html{scroll-behavior:smooth}
 .early{font-size:14px;color:var(--soft);max-width:90ch;margin:0 0 14px;padding:8px 0 8px 12px;border-left:3px solid var(--rule)}
 .early b{color:var(--ink)}
 .note{color:var(--soft);font-size:14px;margin:8px 0 0;max-width:90ch}
+details.how{font-size:14px;color:var(--soft);margin:8px 0 0;max-width:90ch}
+details.how summary{cursor:pointer;color:var(--faint);width:max-content}
+details.how summary:hover{color:var(--ink)}
+details.how p{margin:6px 0 0}
 .center{text-align:center}
 .mut{color:var(--faint)}
 .b{font-weight:700}
@@ -194,8 +198,13 @@ td.em .v{display:inline-block;min-width:38px}
 .thr{font-weight:600}
 
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:40px}
-.grid2>*{min-width:0}
-@media (max-width:860px){.grid2{grid-template-columns:1fr;gap:0}}
+.grid2>*{min-width:0;container-type:inline-size}
+/* half-width columns on laptops: put kick-off time on its own line so game lists fit */
+@container (max-width:600px){td .t .h{display:block}}
+@container (max-width:500px){.wp{display:none}}
+@container (max-width:420px){.nm-full{display:none}.nm-short{display:inline!important}}
+.note+.tw{margin-top:10px}
+@media (max-width:980px){.grid2{grid-template-columns:1fr;gap:0}}
 
 /* Key figures on team and player pages */
 .cards{display:flex;flex-wrap:wrap;background:var(--paper);border:1px solid var(--rule);border-radius:6px;padding:0 16px;margin:18px 0 6px}
@@ -313,6 +322,9 @@ html[data-sp="hide"] .spblock:not(.open) .sp-reveal{display:block}
   td.tm small,td.l small{display:none}
   .card{flex-basis:45%}
   .card:nth-child(odd){border-left:0;padding-left:0}
+  .cards.three .card{flex:1 1 0;min-width:0;margin-right:10px}
+  .cards.three .card+.card{border-left:1px solid var(--rule);padding-left:10px}
+  .cards.three .card span{font-size:22px}
 }
 @media (prefers-reduced-motion: reduce){*{transition:none!important}html{scroll-behavior:auto}}
 /* Glossary */
@@ -324,7 +336,7 @@ html[data-sp="hide"] .spblock:not(.open) .sp-reveal{display:block}
 
 /* Stat tooltips */
 .has-tip{cursor:help}
-th.has-tip,.card b.has-tip,td.l.has-tip,.pctl .lab .has-tip{text-decoration:underline dotted var(--rule-strong);text-decoration-thickness:1px;text-underline-offset:3px}
+th.has-tip,.card b.has-tip,td.l.has-tip,.pctl .lab .has-tip,span.has-tip{text-decoration:underline dotted var(--rule-strong);text-decoration-thickness:1px;text-underline-offset:3px}
 th[data-sort].has-tip{cursor:pointer}
 .has-tip:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .tipbox{position:absolute;z-index:20;max-width:260px;padding:7px 10px;border-radius:4px;background:var(--ink);color:var(--paper);

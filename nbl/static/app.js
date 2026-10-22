@@ -197,12 +197,37 @@
     "Clutch minutes": "Minutes played in the last 5 minutes of the 4th quarter or overtime with the score within 5.",
     "Clutch net/100": "Point margin per 100 possessions in clutch time.",
     "Adj net": "Offense minus defense in that game, after taking out the opponent's strength and home court.",
-    "On − off": "Team net rating with the player on court minus with them off."
+    "On − off": "Team net rating with the player on court minus with them off.",
+    "Layups & dunks": "Layups, dunks, tip-ins and alley-oops.",
+    "Floaters & hooks": "Floaters and hook shots, mostly from 2 to 3 metres.",
+    "2-point jumpers": "Two-point jump shots: pull-ups, turnarounds, fadeaways, step-backs and the rest.",
+    "3-pointers": "Every three-point attempt.",
+    "At the rim": "Within 1.5 metres of the basket.",
+    "Short (1.5-3 m)": "Between 1.5 and 3 metres from the basket: floaters, hooks and short jumpers.",
+    "Mid-range": "Two-pointers from more than 3 metres out.",
+    "Corner 3": "Threes from within 3 metres of the baseline, where the line is closest.",
+    "Above-the-break 3": "Threes from anywhere above the corners.",
+    "All games": "Every game played this season.",
+    "Home": "Home games only.",
+    "Away": "Away games only.",
+    "Last 5": "The five most recent games.",
+    "Made baskets assisted": "Share of made field goals that came off a teammate's assist.",
+    "GP": "Games played.",
+    "MPG": "Minutes per game.",
+    "PTS": "Points per game.",
+    "REB": "Rebounds per game.",
+    "AST": "Assists per game.",
+    "3P%": "Three-pointers made per attempt.",
+    "2P%": "Two-pointers made per attempt.",
+    "FT%": "Free throws made per attempt.",
+    "3PA": "Three-point attempts in the season.",
+    "Opp 3P%": "Opponents' three-pointers made per attempt.",
+    "Opp 2P%": "Opponents' two-pointers made per attempt."
   };
   var tipBox = document.createElement("div");
   tipBox.className = "tipbox"; tipBox.setAttribute("role", "tooltip"); tipBox.hidden = true;
   document.body.appendChild(tipBox);
-  var TIP_TARGETS = "th, .card b, td.l, .tw td.l, .pctl .lab > span";
+  var TIP_TARGETS = "th, .card b, td.l, .tw td.l, .pctl .lab > span, [data-explain]";
   // data-explain is written for that spot on the page, so it beats the generic TIPS text
   function tipFor(el){
     return el.dataset.explain || TIPS[el.textContent.trim()] || el.dataset.tip || null;
