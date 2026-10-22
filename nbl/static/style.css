@@ -215,6 +215,10 @@ td.em .v{display:inline-block;min-width:38px}
 .card span{display:inline-block;font-size:28px;font-weight:700;letter-spacing:-.015em;line-height:1.2}
 .card em{display:block;font-style:normal;font-size:13px;color:var(--faint)}
 .card .rk{font-size:13px}
+.cards.three{flex-wrap:nowrap}
+.cards.three .card{flex:1 1 0;min-width:0;margin-right:12px}
+.cards.three .card+.card{border-left:1px solid var(--rule);padding-left:12px}
+@container (max-width:500px){.cards.three .card span{font-size:22px}}
 
 /* Charts */
 .chartbox{background:var(--paper);border:1px solid var(--rule);border-radius:6px;padding:10px 12px 6px}
@@ -323,9 +327,6 @@ html[data-sp="hide"] .spblock:not(.open) .sp-reveal{display:block}
   td.tm small,td.l small{display:none}
   .card{flex-basis:45%}
   .card:nth-child(odd){border-left:0;padding-left:0}
-  .cards.three .card{flex:1 1 0;min-width:0;margin-right:10px}
-  .cards.three .card+.card{border-left:1px solid var(--rule);padding-left:10px}
-  .cards.three .card span{font-size:22px}
 }
 @media (prefers-reduced-motion: reduce){*{transition:none!important}html{scroll-behavior:auto}}
 /* Glossary */
