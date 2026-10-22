@@ -1,4 +1,4 @@
-// Matchup calculator. Uses the ratings in data.js and the same formulas as nbl/model.py.
+// Custom matchup predictor. Uses the ratings in data.js and the same formulas as nbl/model.py.
 (function () {
   "use strict";
   var data = window.NBL;

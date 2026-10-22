@@ -42,7 +42,7 @@
   <br><small class="mut">Assumed out until he plays again. Capped at {{ impact_cap | int }} pts per team. <a href="{{ root }}glossary/#availability">How this works</a></small></div>
   {% endif %}
   {% if not g.done and S.share_played < 0.3 %}<p class="note">Early-season picks are shaky. In past seasons the model got about half of its first 10 picks right, and about two in three after that.</p>{% endif %}
-  <p class="note">{% if g.done %}What the model said before tip-off.{% else %}Updated every hour until tip-off. Try it on a neutral court in the <a href="{{ root }}matchup/#{{ h.code }}-{{ a.code }}">matchup tool</a>.{% endif %}</p>
+  <p class="note">{% if g.done %}What the model said before tip-off.{% else %}Updated every hour until tip-off. Try it on a neutral court in the <a href="{{ root }}matchup/#{{ h.code }}-{{ a.code }}">custom matchup predictor</a>.{% endif %}</p>
 </section>
 
 <section>
