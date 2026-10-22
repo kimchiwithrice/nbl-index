@@ -127,9 +127,11 @@ h3{font-size:15px;font-weight:700;margin:22px 0 8px}
 
 /* Tables */
 .tw{overflow-x:auto;background:var(--paper);border:1px solid var(--rule);border-radius:6px}
+.tw + .tw{margin-top:12px}
 table{border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums lining-nums}
 .dense{font-size:14px}
 th,td{padding:7px 10px;text-align:right;white-space:nowrap}
+td.wrap{white-space:normal;min-width:180px}
 @media (max-width:1400px){th,td{padding-left:8px;padding-right:8px}}  /* room for the side menu on laptops */
 th:first-child,td:first-child{padding-left:12px}
 th:last-child,td:last-child{padding-right:12px}

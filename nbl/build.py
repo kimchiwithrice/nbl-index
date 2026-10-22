@@ -9,7 +9,7 @@ import numpy as np
 import pandas as pd
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
-from . import data, impact, model, players, sim
+from . import data, impact, model, pbp, players, sim
 from .players import slugify
 
 HERE = os.path.dirname(__file__)
@@ -75,7 +75,15 @@ def position(code):
     return POSITIONS.get(str(code).strip().upper(), str(code))
 
 
-FILTERS = {"position": position, "f1": f1, "sgn": signed, "pct": pct, "odds": chance, "fair_ml": fair_moneyline,
+def surname(name):
+    """'Jo Lual-Acuil Jr' -> 'Lual-Acuil Jr', 'Bryce Cotton' -> 'Cotton'. For tight lineup tables."""
+    parts = str(name).split()
+    if len(parts) > 2 and parts[-1].rstrip(".").lower() in ("jr", "sr", "ii", "iii", "iv"):
+        return " ".join(parts[-2:])
+    return parts[-1] if parts else ""
+
+
+FILTERS = {"surname": surname, "position": position, "f1": f1, "sgn": signed, "pct": pct, "odds": chance, "fair_ml": fair_moneyline,
            "syd": sydney_time, "suffix": suffix}
 
 
@@ -229,6 +237,75 @@ def season_record(completed):
             "mae": float(np.mean([abs((g["hs"] - g["as"]) - g["pred"]["margin"]) for g in completed]))}
 
 
+def scouting_log(team, all_games, games, ratings, info):
+    """This season's played games with each one's offense and defense adjusted for the opponent and
+    venue, using the current ratings, plus the same numbers over a few splits."""
+    poss = games.set_index("match_id").poss
+    rows = []
+    for g in all_games:
+        if not g["done"] or team not in (g["home"], g["away"]) or g["id"] not in poss.index:
+            continue
+        home = g["home"] == team
+        opp = g["away"] if home else g["home"]
+        if opp not in ratings["idx"]:
+            continue
+        j = ratings["idx"][opp]
+        side = 0 if g["neutral"] else (1 if home else -1)
+        p = float(poss[g["id"]])
+        pf, pa = (g["hs"], g["as"]) if home else (g["as"], g["hs"])
+        raw_o, raw_d = 100 * pf / p, 100 * pa / p
+        adj_o = raw_o - ratings["def"][j] - side * ratings["hfa"]
+        adj_d = raw_d - ratings["off"][j] + side * ratings["hfa"]
+        rows.append({"g": g, "opp": opp, "home": home, "poss": p, "pf": pf, "pa": pa, "raw_o": raw_o, "raw_d": raw_d,
+                     "o": adj_o, "d": adj_d, "net": adj_o - adj_d, "opp_rk": info[opp]["rk"]["net"]})
+    n = len(info)
+
+    def split(label, picked):
+        if not picked:
+            return {"label": label, "n": 0}
+        w = np.array([r["poss"] for r in picked])
+        o = float(np.average([r["o"] for r in picked], weights=w))
+        d = float(np.average([r["d"] for r in picked], weights=w))
+        return {"label": label, "n": len(picked), "o": o, "d": d, "net": o - d}
+
+    splits = [split("All games", rows), split("Home", [r for r in rows if r["home"] and not r["g"]["neutral"]]),
+              split("Away", [r for r in rows if not r["home"] and not r["g"]["neutral"]]),
+              split("Last 5", rows[-5:]),
+              split(f"vs top {n // 2}", [r for r in rows if r["opp_rk"] <= n // 2]),
+              split(f"vs bottom {n - n // 2}", [r for r in rows if r["opp_rk"] > n // 2])]
+    return rows, splits
+
+
+def past_ratings(games, cur):
+    """Final ratings for every finished season, as they stood after the last game."""
+    out = []
+    for start in sorted(games.start.unique()):
+        if start >= cur:
+            continue
+        season = games[games.start == start]
+        teams = sorted(set(season.home) | set(season.away))
+        r = model.fit(games, season.utc.max() + pd.Timedelta(hours=1), start, teams)
+        if not r:
+            continue
+        rows = [{"team": t, "o": r["mu"] + r["off"][i], "d": r["mu"] + r["def"][i], "net": r["off"][i] - r["def"][i],
+                 "t": r["t_mu"] + r["tempo"][i]} for i, t in enumerate(teams)]
+        out.append({"label": f"{start}-{str(start + 1)[-2:]}", "rows": sorted(rows, key=lambda x: -x["net"])})
+    return out[::-1]
+
+
+def rating_views(history, past, teams, season):
+    """The tables for the past ratings page: every match day this season, newest first, then each
+    past season's final ratings."""
+    views = []
+    for i, point in enumerate(reversed(history)):
+        rows = [{"team": t, "net": point["net"][t], "o": point["o"][t], "d": point["d"][t], "t": point["t"][t]} for t in teams]
+        label = f"{season} preseason" if point["label"] == "Preseason" else f"After {point['label']}"
+        views.append({"id": f"d{i}", "label": label, "rows": sorted(rows, key=lambda r: -r["net"])})
+    for i, s in enumerate(past):
+        views.append({"id": f"s{i}", "label": f"{s['label']} final", "rows": s["rows"]})
+    return views
+
+
 # Percentile bars on player pages: (label, column, higher is better, format, tooltip).
 # None means neither direction is better (usage is a role, not a skill), so the bar stays grey.
 PERCENTILE_STATS = [
@@ -248,7 +325,7 @@ PERCENTILE_STATS = [
 ]
 
 
-def player_pages(seasons, cur, pb, info):
+def player_pages(seasons, cur, pb, info, deep_players=None, comps=None):
     pages = {}
     current = seasons[seasons.start == cur].copy()
     current["reb_pct"] = (current.orb_pct + current.drb_pct) / 2
@@ -271,6 +348,8 @@ def player_pages(seasons, cur, pb, info):
                 page["percentiles"].append({"label": label, "value": value, "fmt": fmt, "higher": higher, "tip": tip,
                                             "pct": round(100 * share)})
             page["log_svg"] = game_log_svg(pb[(pb.player == latest.player) & (pb.start == cur)], latest.team, info)
+            page["deep"] = (deep_players or {}).get((me.player, me.team))
+            page["comps"] = (comps or {}).get((me.player, me.team), [])
         pages[slug] = page
     return pages
 
@@ -327,6 +406,12 @@ def build(cfg, data_dir, out_dir, refresh=False, n_sims=sim.N_SIMS, log=print, l
     preseason = model.fit(games, sched.utc.min() - pd.Timedelta(hours=1), cur, teams)
     week_ago = model.fit(games, now - pd.Timedelta(days=7), cur, teams)
     stats = model.team_stats(games, cur, teams)
+    player_box = data.load_players(paths)
+    log("Lineups and shots from the play-by-play ...")
+    deep = pbp.season_tables(paths["pbp"], games, player_box, cur, teams, log) if paths.get("pbp") else None
+    for team in teams:
+        if stats.get(team) and deep:
+            stats[team].update(deep["stats"].get(team, {}))
     results = model.results_table(games, cur, ratings, cal, teams)
     log("Rating history ...")
     history = model.history(games, cur, teams)
@@ -339,7 +424,6 @@ def build(cfg, data_dir, out_dir, refresh=False, n_sims=sim.N_SIMS, log=print, l
     all_games, net_sd = game_list(sched, games, info, ratings, cal, cur, teams, now)
 
     log("Player impact and availability ...")
-    player_box = data.load_players(paths)
     pb = impact.prepare(player_box, games)
     weights = impact.fit_weights(pb)
     values_now = impact.current_values(pb, weights, cur)
@@ -359,6 +443,9 @@ def build(cfg, data_dir, out_dir, refresh=False, n_sims=sim.N_SIMS, log=print, l
     seasons["impact"] = [by_season.get(k, np.nan) - averages.get(k[2], 0.0) for k in keys]
     current = seasons[seasons.start == cur]
     rosters = {t: current[current.team == t].sort_values("min", ascending=False).to_dict("records") for t in teams}
+    comps = players.similar(seasons, cur)
+    log("Past ratings ...")
+    past = past_ratings(games, cur)
 
     regular = sched[~sched.finals]
     n_games = int(max(((regular.home == t) | (regular.away == t)).sum() for t in teams))
@@ -400,11 +487,15 @@ def build(cfg, data_dir, out_dir, refresh=False, n_sims=sim.N_SIMS, log=print, l
         site.page(f"teams/{info[team]['slug']}/", "team.html", t=team, x=info[team],
                   games=[g for g in all_games if team in (g["home"], g["away"])], roster=rosters[team],
                   chart=history_svg(history, team, teams), defs=model.STAT_DEFS, S=season_sim)
+        log_rows, splits = scouting_log(team, all_games, games, ratings, info)
+        site.page(f"teams/{info[team]['slug']}/lineups/", "lineups.html", t=team, x=info[team], L=(deep or {}).get("teams", {}).get(team),
+                  deep=deep, log_rows=log_rows, splits=splits, slugs={r["player"]: r["slug"] for r in rosters[team]})
     for game in all_games:
         site.page(f"games/{game['slug']}/", "game.html", g=game, h=info[game["home"]], a=info[game["away"]],
                   defs=model.STAT_DEFS, ld=event_ld(game, info[game["home"]], info[game["away"]], cfg, cfg.get("base_path", "/")),
                   impact_cap=impact.MAX_TEAM_PTS, S=season_sim)
-    for page in player_pages(seasons, cur, pb, info).values():
+    site.page("history/", "history.html", views=rating_views(history, past, teams, season))
+    for page in player_pages(seasons, cur, pb, info, (deep or {}).get("players", {}), comps).values():
         site.page(f"players/{page['slug']}/", "player.html", p=page)
     site.page("404.html", "404.html")
     write_sitemap(site, cfg, now)

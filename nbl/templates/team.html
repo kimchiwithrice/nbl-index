@@ -8,7 +8,7 @@
 {% block main %}
 <p class="crumb"><a href="{{ root }}">Ratings</a> › {{ t }}</p>
 <h1>{{ t }}</h1>
-<p class="sub">Ranked {{ x.rk.net }} of {{ N }} in {{ season }}, record <span class="sp">{{ x.w }}-{{ x.l }}</span> after {{ (x.stats.gp if x.stats else 0) | int }} games.</p>
+<p class="sub">Ranked {{ x.rk.net }} of {{ N }} in {{ season }}, record <span class="sp">{{ x.w }}-{{ x.l }}</span> after {{ (x.stats.gp if x.stats else 0) | int }} games. <a href="{{ root }}teams/{{ x.slug }}/lineups/">Lineups, on/off and shot profile</a></p>
 
 <div class="cards">
   <div class="card"><b>{{ rating }}</b><span class="{{ 'pos' if x.net >= 0 else 'neg' }}">{{ x.net | sgn }}</span><em>#{{ x.rk.net }}</em></div>

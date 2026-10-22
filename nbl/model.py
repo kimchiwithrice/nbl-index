@@ -234,6 +234,12 @@ STAT_DEFS = [
     ("raw_t", "Raw tempo", None, "raw", "1"),
     ("ahead", "Time leading", True, "gf", "pct"), ("level", "Time tied", None, "gf", "pct"),
     ("behind", "Time trailing", False, "gf", "pct"),
+    # From the play-by-play (pbp.py), added in build.py
+    ("rim_r", "Layups", None, "sp", "pct"), ("rim", "Layup FG%", True, "sp", "pct"),
+    ("float_r", "Floaters", None, "sp", "pct"), ("jumper_r", "2pt jumpers", None, "sp", "pct"),
+    ("jumper", "Jumper FG%", True, "sp", "pct"), ("astd", "Assisted", None, "sp", "pct"),
+    ("d_rim_r", "Opp layups", False, "sp", "pct"), ("d_rim", "Opp layup FG%", False, "sp", "pct"),
+    ("c_min", "Clutch minutes", None, "cl", "1"), ("c_net", "Clutch net/100", True, "cl", "1"),
 ]
 
 
@@ -341,6 +347,9 @@ def history(games, cur_start, teams, half_life=HALF_LIFE_DAYS):
     for label, asof in checkpoints:
         ratings = fit(games, asof, cur_start, teams, half_life)
         if ratings:
-            points.append({"label": label,
-                           "net": {t: float(ratings["off"][i] - ratings["def"][i]) for i, t in enumerate(teams)}})
+            points.append({"label": label, "asof": asof,
+                           "net": {t: float(ratings["off"][i] - ratings["def"][i]) for i, t in enumerate(teams)},
+                           "o": {t: float(ratings["mu"] + ratings["off"][i]) for i, t in enumerate(teams)},
+                           "d": {t: float(ratings["mu"] + ratings["def"][i]) for i, t in enumerate(teams)},
+                           "t": {t: float(ratings["t_mu"] + ratings["tempo"][i]) for i, t in enumerate(teams)}})
     return points

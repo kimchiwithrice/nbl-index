@@ -98,3 +98,41 @@ def assign_slugs(seasons):
             seen[slug] = 1
     seasons["slug"] = seasons.player.map(slugs)
     return seasons
+
+
+# Style comparisons: rates that describe how someone plays rather than how much.
+STYLE = ["usg", "ts", "fg3r", "ftr", "ast_pct", "orb_pct", "drb_pct", "stl_pct", "blk_pct", "tov_pct"]
+STYLE_MIN = 300  # minutes in a past season to count as a comparison
+STYLE_MIN_NOW = 150  # minutes this season before we try
+
+
+def similar(seasons, cur, n=5):
+    """For each player this season, the past player-seasons closest in style.
+
+    Each rate is put on the same scale (standard deviations from the average), then the nearest
+    seasons by straight-line distance are picked. A player's own seasons are left out, and each other player appears once.
+    Returns {(player, team): [rows]}.
+    """
+    s = seasons.copy()
+    s["ftr"] = s.fta / s.fga.replace(0, np.nan)
+    pool = s[(s["min"] >= STYLE_MIN) & (s.start < cur)].dropna(subset=STYLE)
+    now = s[(s["min"] >= STYLE_MIN_NOW) & (s.start == cur)].dropna(subset=STYLE)
+    if pool.empty or now.empty:
+        return {}
+    mean, sd = pool[STYLE].mean(), pool[STYLE].std()
+    a = ((pool[STYLE] - mean) / sd).to_numpy()
+    out = {}
+    for row in now.itertuples():
+        me = ((pd.Series({k: getattr(row, k) for k in STYLE}) - mean) / sd).to_numpy()
+        dist = np.sqrt(((a - me) ** 2).mean(axis=1))
+        order, seen = [], {row.player}
+        for i in np.argsort(dist):  # one season per player
+            if pool.player.iat[i] not in seen:
+                seen.add(pool.player.iat[i])
+                order.append(i)
+            if len(order) == n:
+                break
+        out[(row.player, row.team)] = [{"player": pool.player.iat[i], "slug": pool.slug.iat[i], "team": pool.team.iat[i],
+                                        "start": int(pool.start.iat[i]), "dist": float(dist[i]),
+                                        "ppg": float(pool.ppg.iat[i])} for i in order]
+    return out

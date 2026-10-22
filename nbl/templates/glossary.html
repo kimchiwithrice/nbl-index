@@ -35,6 +35,14 @@
     ("bench", "Bench share", "The share of a team's points scored by players who didn't start."),
     ("game-flow", "Time leading, tied and trailing", "The share of all game minutes this season a team spent ahead, level or behind on the scoreboard, overtime included, worked out from the play-by-play. It's close to point margin but not the same: a team that leads all night and holds on by three looks better here than one that wins a shootout late."),
     ("raw-eff", "Raw efficiency", "Points scored and allowed per 100 possessions, before any adjustment for opponents."),
+    ("shot-types", "Shot types", "How the official scorers log each shot, grouped into layups and dunks (tip-ins and alley-oops included), floaters and hooks, two-point jumpers, and threes. From 2025-26 the feed also logs where each shot was taken, which gives the zones on team pages: at the rim (within 1.5 m), short (1.5 to 3 m), mid-range, corner 3 and above-the-break 3."),
+    ("clutch", "Clutch", "The last five minutes of the fourth quarter or overtime with the score within five points. Clutch net is the point margin per 100 possessions in that time. Samples are small and it says more about what happened than about any skill."),
+  ]),
+  ("lineups", "Lineups", [
+    ("lineup", "Lineup", "The five players a team has on the floor at once. Rebuilt from the substitutions in the play-by-play, from 2017-18 on. A game is only used if the rebuild checks out: five on court the whole game, points matching the final score, and every player's minutes within a minute of the box score."),
+    ("on-off", "On/off", "The team's net rating (points scored minus allowed per 100 possessions) with a player on the floor, with them off it, and the gap between the two. It depends a lot on teammates and backups, and takes many minutes to settle down."),
+    ("adj-game", "Adjusted game efficiency", "Points scored and allowed per 100 possessions in one game, with the opponent's strength and home court taken out using the current ratings."),
+    ("similar", "Similar players", "Past NBL seasons closest in style, from usage, true shooting, three-point rate, free-throw rate, assist, rebound, steal, block and turnover rates. It compares how someone plays, not how good they are."),
   ]),
   ("players", "Player stats", [
     ("per-40", "Per 40 (P/40)", "A stat scaled up to 40 minutes, a full NBL game, so a bench player and a starter can be compared."),
