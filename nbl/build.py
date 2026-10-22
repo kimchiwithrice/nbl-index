@@ -2,6 +2,7 @@
 import json
 import math
 import os
+import html as htmllib
 import re
 import shutil
 
@@ -103,6 +104,7 @@ class Site:
         """Render `template` to `path` ('teams/perth-wildcats/' becomes teams/perth-wildcats/index.html)."""
         html = self.env.get_template(template).render(cfg=self.cfg, path=path, root=self.cfg.get("base_path", "/"),
                                                       **self.common, **context)
+        html = add_jump_links(html)
         if path == "" or path.endswith("/"):
             file_path = os.path.join(self.out_dir, path, "index.html")
         else:
@@ -112,6 +114,32 @@ class Site:
             f.write(html)
         if template != "404.html":
             self.urls.append(path)
+
+
+H2 = re.compile(r"<h2>(.*?)</h2>", re.S)
+INTRO = re.compile(r"</h1>\s*<p class=\"(?:sub|lede)\">.*?</p>", re.S)
+
+
+def add_jump_links(html, min_sections=3):
+    """On longer pages, list the section headings under the intro so it's clear what's further down."""
+    heads = H2.findall(html)
+    if len(heads) < min_sections:
+        return html
+    links, used = [], set()
+    def anchor(m):
+        label = re.sub(r"<[^>]+>", "", m.group(1)).strip()
+        slug = base = slugify(htmllib.unescape(label)) or "section"
+        n = 2
+        while slug in used:
+            slug, n = f"{base}-{n}", n + 1
+        used.add(slug)
+        links.append(f'<a href="#{slug}">{label}</a>')
+        return f'<h2 id="{slug}">{m.group(1)}</h2>'
+    html = H2.sub(anchor, html)
+    nav = '<nav class="jump" aria-label="On this page"><span>On this page</span>' + "".join(links) + "</nav>"
+    intro = INTRO.search(html)
+    at = intro.end() if intro else html.index("<h2 id=")
+    return html[:at] + "\n" + nav + html[at:]
 
 
 # Spoiler-free game ratings
