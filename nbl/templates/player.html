@@ -44,32 +44,36 @@
 <div class="grid2">
 {% if d %}
 <section>
-  <h2>On/off and shots</h2>
+  {% set sn = p.name | surname %}{% set tm = info[p.team].short if p.team in info else p.team %}
+  {% if d.onoff %}
+  <h2>With and without {{ sn }}</h2>
+  <p class="note"><b>On/off</b> compares how {{ tm }} do with {{ sn }} on the court against how they do while {{ sn }} sits on the bench. It's a simple way to see whether the team plays better with a player out there.</p>
   <div class="tw"><table class="dense"><tbody>
-    {% if d.onoff %}
-    <tr><td class="l" data-explain="Team points scored minus allowed per 100 possessions with the player on the floor this season.">Team net rating with {{ p.name | surname }} on</td><td><span class="sp">{{ d.onoff.on.net | sgn }}</span> <small class="mut">in {{ d.onoff.on.min | round | int }} min</small></td></tr>
-    <tr><td class="l" data-explain="Team net rating with the player on the bench, including games they missed.">With {{ p.name | surname }} off</td><td class="sp">{{ (d.onoff.off.net | sgn) if d.onoff.off else '–' }}</td></tr>
-    <tr><td class="l">On − off</td><td class="sp b">{{ (d.onoff.diff | sgn) if d.onoff.diff is not none else '–' }}</td></tr>
-    {% endif %}
-    {% if d.astd is not none %}<tr><td class="l" data-explain="Share of the player's made field goals that came straight off a teammate's assist. Lower usually means more self-created shots.">Made baskets assisted</td><td>{{ d.astd | pct(0) }}{% if d.astd3 is not none %} <small class="mut">threes {{ d.astd3 | pct(0) }}</small>{% endif %}</td></tr>{% endif %}
+    <tr><td class="l" data-explain="Points {{ tm }} scored minus points they allowed, per 100 possessions, while {{ sn }} was on the court this season.">{{ tm }}'s scoring margin with {{ sn }} on court</td><td><span class="sp">{{ d.onoff.on.net | sgn }}</span> <small class="mut">in {{ d.onoff.on.min | round | int }} min</small></td></tr>
+    <tr><td class="l" data-explain="The same margin for the minutes {{ sn }} sat on the bench, including any games missed.">With {{ sn }} on the bench</td><td class="sp">{{ (d.onoff.off.net | sgn) if d.onoff.off else '–' }}</td></tr>
+    <tr><td class="l" data-explain="On court minus on the bench. Positive means {{ tm }} have done better with {{ sn }} playing.">Difference</td><td class="sp b">{{ (d.onoff.diff | sgn) if d.onoff.diff is not none else '–' }}</td></tr>
   </tbody></table></div>
+  <p class="note">Scoring margin is points scored minus points allowed for every 100 times the team has the ball, about one and a half games' worth. A positive difference means {{ tm }} have outscored opponents by more with {{ sn }} on the floor. It also depends on who plays alongside and who comes in instead, so treat it as a hint, not a verdict, especially early in the season.</p>
+  {% endif %}
   {% if d.fga %}
+  <h2>{{ sn }}'s shots</h2>
+  {% if d.astd is not none %}<p>{{ d.astd | pct(0) }} of {{ sn }}'s baskets came straight off a teammate's pass{% if d.astd3 is not none %} ({{ d.astd3 | pct(0) }} of made threes){% endif %}. The rest {{ sn }} created alone.</p>{% endif %}
   <div class="tw"><table class="dense">
-    <thead><tr><th class="l" data-explain="How the official scorers logged the shot.">Shot type</th><th data-explain="Field-goal attempts this season.">FGA</th><th data-explain="Share of the player's field-goal attempts.">Share</th><th data-explain="Field goals made per attempt.">FG%</th></tr></thead>
+    <thead><tr><th class="l" data-explain="How the official scorers logged the shot.">Type of shot</th><th data-explain="Shots taken this season (free throws not included).">Shots</th><th data-explain="Share of all {{ sn }}'s shots.">% of shots</th><th data-explain="How many of those shots went in.">Made %</th></tr></thead>
     <tbody>
-    {% for r in d.kinds if r.fga %}<tr><td class="l">{{ r.label }}</td><td>{{ r.fga }}</td><td>{{ r.share | pct(0) }}</td><td>{{ r.pct | pct }}</td></tr>{% endfor %}
+    {% for r in d.kinds if r.fga %}<tr><td class="l">{{ r.label }}</td><td>{{ r.fga }}</td><td>{{ r.share | pct(0) }}</td><td>{{ r.pct | pct(0) }}</td></tr>{% endfor %}
     </tbody>
   </table></div>
   {% if d.zones %}
   <div class="tw"><table class="dense">
-    <thead><tr><th class="l" data-explain="Where the shot was taken from, from the court position the feed logs (2025-26 on).">Where from</th><th data-explain="Field-goal attempts this season.">FGA</th><th data-explain="Share of the player's field-goal attempts.">Share</th><th data-explain="Field goals made per attempt.">FG%</th></tr></thead>
+    <thead><tr><th class="l" data-explain="Where on the court the shot was taken, from the positions the NBL feed has logged since 2025-26.">Where from</th><th data-explain="Shots taken this season (free throws not included).">Shots</th><th data-explain="Share of all {{ sn }}'s shots.">% of shots</th><th data-explain="How many of those shots went in.">Made %</th></tr></thead>
     <tbody>
-    {% for r in d.zones if r.fga %}<tr><td class="l">{{ r.label }}</td><td>{{ r.fga }}</td><td>{{ r.share | pct(0) }}</td><td>{{ r.pct | pct }}</td></tr>{% endfor %}
+    {% for r in d.zones if r.fga %}<tr><td class="l">{{ r.label }}</td><td>{{ r.fga }}</td><td>{{ r.share | pct(0) }}</td><td>{{ r.pct | pct(0) }}</td></tr>{% endfor %}
     </tbody>
   </table></div>
   {% endif %}
+  <p class="note">This season, from the NBL play-by-play. Hover a row or heading for what it means, or see the <a href="{{ root }}glossary/#shot-types">glossary</a>.</p>
   {% endif %}
-  <p class="note">This season, from the play-by-play. Net rating is points scored minus allowed per 100 possessions, and only counts games whose lineups check out against the box score. On/off swings a lot over small samples. See the <a href="{{ root }}glossary/#on-off">glossary</a>.</p>
 </section>
 {% endif %}
 {% if p.comps %}

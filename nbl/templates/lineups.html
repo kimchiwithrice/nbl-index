@@ -26,9 +26,9 @@
   "kind": "How the official scorers logged the shot.",
   "where": "Where the shot was taken from, from the court position the feed logs (2025-26 on).",
   "share": "Share of the team's field-goal attempts.",
-  "fg": "Field goals made per attempt.",
+  "fg": "How many of those shots went in.",
   "opp_share": "Share of opponents' field-goal attempts.",
-  "opp_fg": "Opponents' field goals made per attempt."} %}
+  "opp_fg": "How many of the opponents' shots went in."} %}
 {% macro net(v) -%}<span class="{{ 'pos' if v >= 0 else 'neg' }}">{{ v | sgn }}</span>{%- endmacro %}
 {% block main %}
 <p class="crumb"><a href="{{ root }}">Ratings</a> › <a href="{{ root }}teams/{{ x.slug }}/">{{ t }}</a> › Lineups &amp; shots</p>
@@ -96,8 +96,8 @@
   </table></div>
   {% endif %}
 
-  <h2>On/off</h2>
-  <p class="note">How the team does with each player on the floor compared with when they sit. A big positive gap suggests the team is better with them out there, though it also depends on who replaces them.</p>
+  <h2>On/off: with and without each player</h2>
+  <p class="note"><b>On/off</b> compares how the team does while a player is on the court against how it does while they sit on the bench. "Net on" is the scoring margin per 100 possessions with them playing, "Net off" without them, and "On − off" the gap. A big positive gap suggests the team is better with them out there, though it also depends on who comes in instead.</p>
   <div class="tw"><table class="dense sortable">
     <thead><tr><th class="l" data-sort="text">Player</th><th data-sort="num" data-explain="{{ X.min_on }}">Min on</th><th data-sort="num" class="sp-col" data-explain="{{ X.net_on }}">Net on</th><th data-sort="num" class="sp-col" data-explain="{{ X.net_off }}">Net off</th><th data-sort="num" class="sp-col">On − off</th></tr></thead>
     <tbody>
@@ -117,7 +117,7 @@
   <h2>Shot profile</h2>
   <p class="note">What kind of shots {{ x.short }} take and give up, and how often they go in.</p>
   <div class="tw"><table class="dense">
-    <thead><tr><th class="l" data-explain="{{ X.kind }}">Shot type</th><th data-explain="{{ X.share }}">Share</th><th data-explain="{{ X.fg }}">FG%</th><th data-explain="{{ X.opp_share }}">Opp share</th><th data-explain="{{ X.opp_fg }}">Opp FG%</th></tr></thead>
+    <thead><tr><th class="l" data-explain="{{ X.kind }}">Type of shot</th><th data-explain="{{ X.share }}">% of shots</th><th data-explain="{{ X.fg }}">Made %</th><th data-explain="{{ X.opp_share }}">Opp % of shots</th><th data-explain="{{ X.opp_fg }}">Opp made %</th></tr></thead>
     <tbody>
     {% for mine, theirs in L.kinds %}
       <tr><td class="l">{{ mine.label }}</td><td>{{ mine.share | pct }}</td><td>{{ mine.pct | pct }}</td><td>{{ theirs.share | pct }}</td><td>{{ theirs.pct | pct }}</td></tr>
@@ -126,7 +126,7 @@
   </table></div>
   {% if L.zones %}
   <div class="tw"><table class="dense">
-    <thead><tr><th class="l" data-explain="{{ X.where }}">Where from</th><th data-explain="{{ X.share }}">Share</th><th data-explain="{{ X.fg }}">FG%</th><th data-explain="{{ X.opp_share }}">Opp share</th><th data-explain="{{ X.opp_fg }}">Opp FG%</th></tr></thead>
+    <thead><tr><th class="l" data-explain="{{ X.where }}">Where from</th><th data-explain="{{ X.share }}">% of shots</th><th data-explain="{{ X.fg }}">Made %</th><th data-explain="{{ X.opp_share }}">Opp % of shots</th><th data-explain="{{ X.opp_fg }}">Opp made %</th></tr></thead>
     <tbody>
     {% for mine, theirs in L.zones %}
       <tr><td class="l">{{ mine.label }}</td><td>{{ mine.share | pct }}</td><td>{{ mine.pct | pct }}</td><td>{{ theirs.share | pct }}</td><td>{{ theirs.pct | pct }}</td></tr>
@@ -134,7 +134,7 @@
     </tbody>
   </table></div>
   {% endif %}
-  <p class="note">Share is the part of all field goal attempts. Shot types are as the official scorers log them; floaters and hooks are mostly from 2 to 3 metres. {% if L.zones %}Locations are logged from 2025-26 on: at the rim is within 1.5 m of the basket, short is 1.5 to 3 m, and corner 3s are taken within 3 m of the baseline.{% endif %} Includes finals.</p>
+  <p class="note">"% of shots" is how much of the team's shooting comes from each kind of shot, and "made %" is how often those shots go in. Free throws aren't included. Shot types are as the official scorers log them; floaters and hooks are mostly from 2 to 3 metres. {% if L.zones %}Locations are logged from 2025-26 on: at the rim is within 1.5 m of the basket, short is 1.5 to 3 m, and corner 3s are taken within 3 m of the baseline.{% endif %} Includes finals.</p>
 </section>
 {% endif %}
 {{ m.ad(cfg) }}
