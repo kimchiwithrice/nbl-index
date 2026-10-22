@@ -11,7 +11,7 @@ import numpy as np
 import pandas as pd
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
-from . import data, impact, league, model, pbp, players, sim
+from . import archive, data, impact, league, model, pbp, players, sim
 from .players import slugify
 
 HERE = os.path.dirname(__file__)
@@ -681,7 +681,24 @@ def build(cfg, data_dir, out_dir, refresh=False, n_sims=sim.N_SIMS, log=print, l
     site.page("404.html", "404.html")
     write_sitemap(site, cfg, now)
     log(f"Wrote {len(site.urls)} pages to {out_dir}")
-    return {"pages": len(site.urls), "backtest": backtest, "ratings": ratings}
+    snapshot = model_snapshot(season, now, ratings, cal, info, teams, season_sim, upcoming, values_now, absences)
+    return {"pages": len(site.urls), "backtest": backtest, "ratings": ratings, "snapshot": snapshot}
+
+
+def model_snapshot(season, now, ratings, cal, info, teams, season_sim, upcoming, values_now, absences):
+    """What the model says right now, for the data archive. Can't be rebuilt later because the
+    data behind it gets corrected after the fact."""
+    keep = ("id", "utc", "home", "away", "neutral", "round", "venue", "finals", "pred", "hype", "adjust")
+    return archive.plain({
+        "season": season, "date": f"{now.tz_convert('Australia/Sydney'):%Y-%m-%d}", "time": now,
+        "league": {"mu": ratings["mu"], "hfa": ratings["hfa"], "t_mu": ratings["t_mu"], "cal": cal},
+        "teams": {t: {"off": ratings["off"][i], "def": ratings["def"][i], "tempo": ratings["tempo"][i],
+                      "net": info[t]["net"], "rank": info[t]["rk"], "sim": season_sim["teams"][t]}
+                  for i, t in enumerate(teams)},
+        "upcoming": [{k: g[k] for k in keep if k in g} for g in upcoming],
+        "players": values_now,
+        "missing": absences,
+    })
 
 
 def sanity_check(games, teams, ratings, cur):

@@ -5,3 +5,6 @@ data/*.rds
 data/health*.json
 __pycache__/
 *.pyc
+archive/
+data/feed/
+data/*.rds
