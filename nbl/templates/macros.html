@@ -27,6 +27,10 @@
 {# Shown on simulation output while the season is young. #}
 {# Shown until 30% of the regular season (about 50 games). Backtest: predictions are worse than
    average before that and normal after; ratings have done most of their settling by then. #}
+{% macro stamp(updated) -%}
+<p class="stamp">Updated {{ updated }} (Sydney time)</p>
+{%- endmacro %}
+
 {% macro early(S, root) -%}
-{% if S.share_played < 0.3 %}<p class="early"><b>Early days.</b> Only {{ S.games - S.games_left }} of {{ S.games }} games played, so these ratings are mostly last season plus a few results. New signings and injuries aren't in yet, so expect things to move.</p>{% endif %}
+{% if S.share_played < 0.3 %}<p class="early"><b>Early days.</b> Only {{ S.games - S.games_left }} of {{ S.games }} games played, so these ratings are mostly last season plus a few results. New signings aren't in yet, and injuries only count once a player has missed a game (and then only in the odds for the next one), so expect things to move.</p>{% endif %}
 {%- endmacro %}
