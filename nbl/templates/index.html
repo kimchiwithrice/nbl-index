@@ -1,6 +1,9 @@
 {% extends "base.html" %}
 {% import "macros.html" as m %}
 {% set title = "NBL Team Ratings " ~ season ~ " – Adjusted Efficiency & Predictions" %}
+{% block head %}
+<script type="application/ld+json">{{ {"@context": "https://schema.org", "@type": "WebSite", "name": cfg.site_name, "alternateName": ["nblindex", "nblindex.com"], "url": cfg.base_url | trim('/') ~ "/"} | tojson }}</script>
+{% endblock %}
 {% block main %}
 <section class="hero">
   <h1>NBL team ratings {{ season }}</h1>
