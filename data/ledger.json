@@ -117,11 +117,17 @@
   "home": "Perth Wildcats",
   "away": "Melbourne United",
   "slug": "2026-10-23-melbourne-united-at-perth-wildcats",
-  "p_home": 0.429,
-  "margin": -2.5,
+  "p_home": 0.544,
+  "margin": 1.5,
   "total": 181.6,
-  "adj": -4.0,
-  "logged": "2026-10-22T20:45:03.371940+00:00"
+  "unconfirmed": {
+   "p_home": 0.429,
+   "margin": -2.5
+  },
+  "returning": [
+   "Kristian Doolittle"
+  ],
+  "logged": "2026-10-23T08:02:56.955909+00:00"
  },
  "37106a00-58ad-11f1-a7e9-87e414b8c2d5": {
   "utc": "2026-10-24T06:30:00+00:00",
@@ -740,10 +746,10 @@
   "home": "Adelaide 36ers",
   "away": "Perth Wildcats",
   "slug": "2026-12-24-perth-wildcats-at-adelaide-36ers",
-  "p_home": 0.533,
+  "p_home": 0.534,
   "margin": 1.2,
   "total": 182.0,
-  "logged": "2026-10-22T20:45:03.371940+00:00"
+  "logged": "2026-10-23T08:02:56.955909+00:00"
  },
  "3761c65a-58ad-11f1-85ee-9bf90a853321": {
   "utc": "2026-12-25T08:30:00+00:00",
@@ -950,10 +956,10 @@
   "home": "Adelaide 36ers",
   "away": "Perth Wildcats",
   "slug": "2027-01-09-perth-wildcats-at-adelaide-36ers",
-  "p_home": 0.533,
+  "p_home": 0.534,
   "margin": 1.2,
   "total": 182.0,
-  "logged": "2026-10-22T20:45:03.371940+00:00"
+  "logged": "2026-10-23T08:02:56.955909+00:00"
  },
  "37876f5f-58ad-11f1-b7ed-b5c487635207": {
   "utc": "2027-01-10T04:00:00+00:00",
