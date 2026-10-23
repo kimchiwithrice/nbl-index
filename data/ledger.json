@@ -318,10 +318,10 @@
   "home": "Sydney Kings",
   "away": "South East Melbourne Phoenix",
   "slug": "2026-11-08-south-east-melbourne-phoenix-at-sydney-kings",
-  "p_home": 0.699,
+  "p_home": 0.698,
   "margin": 7.2,
   "total": 195.3,
-  "logged": "2026-10-23T13:28:58.564888+00:00"
+  "logged": "2026-10-23T15:10:06.083669+00:00"
  },
  "37289ea9-58ad-11f1-9790-bd240d5ec994": {
   "utc": "2026-11-08T06:00:00+00:00",
@@ -368,10 +368,10 @@
   "home": "New Zealand Breakers",
   "away": "Brisbane Bullets",
   "slug": "2026-11-13-brisbane-bullets-at-new-zealand-breakers",
-  "p_home": 0.744,
+  "p_home": 0.743,
   "margin": 9.0,
   "total": 185.8,
-  "logged": "2026-10-23T13:28:58.564888+00:00"
+  "logged": "2026-10-23T15:10:06.083669+00:00"
  },
  "3746d2f5-58ad-11f1-9032-1138b8cb68ba": {
   "utc": "2026-11-13T08:30:00+00:00",
@@ -728,10 +728,10 @@
   "home": "New Zealand Breakers",
   "away": "Brisbane Bullets",
   "slug": "2026-12-22-brisbane-bullets-at-new-zealand-breakers",
-  "p_home": 0.744,
+  "p_home": 0.743,
   "margin": 9.0,
   "total": 185.8,
-  "logged": "2026-10-23T13:28:58.564888+00:00"
+  "logged": "2026-10-23T15:10:06.083669+00:00"
  },
  "3759b81c-58ad-11f1-a957-a93048d70593": {
   "utc": "2026-12-23T09:00:00+00:00",
@@ -998,10 +998,10 @@
   "home": "Sydney Kings",
   "away": "South East Melbourne Phoenix",
   "slug": "2027-01-14-south-east-melbourne-phoenix-at-sydney-kings",
-  "p_home": 0.699,
+  "p_home": 0.698,
   "margin": 7.2,
   "total": 195.3,
-  "logged": "2026-10-23T13:28:58.564888+00:00"
+  "logged": "2026-10-23T15:10:06.083669+00:00"
  },
  "37b32cce-58ad-11f1-8d47-bd240d5ec994": {
   "utc": "2027-01-15T10:30:00+00:00",
