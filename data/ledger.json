@@ -176,10 +176,11 @@
   "home": "Perth Wildcats",
   "away": "Sydney Kings",
   "slug": "2026-10-28-sydney-kings-at-perth-wildcats",
-  "p_home": 0.371,
-  "margin": -4.5,
+  "p_home": 0.268,
+  "margin": -8.5,
   "total": 187.4,
-  "logged": "2026-10-22T20:45:03.371940+00:00"
+  "adj": -4.0,
+  "logged": "2026-10-23T12:29:07.457254+00:00"
  },
  "37196322-58ad-11f1-9f91-61e38b2284ba": {
   "utc": "2026-10-29T08:30:00+00:00",
@@ -1126,10 +1127,10 @@
   "home": "Sydney Kings",
   "away": "Brisbane Bullets",
   "slug": "2027-01-25-brisbane-bullets-at-sydney-kings",
-  "p_home": 0.868,
+  "p_home": 0.867,
   "margin": 15.4,
   "total": 189.2,
-  "logged": "2026-10-22T20:45:03.371940+00:00"
+  "logged": "2026-10-23T12:29:07.457254+00:00"
  },
  "37882039-58ad-11f1-b46f-4bbabfa2dd4f": {
   "utc": "2027-01-27T06:30:00+00:00",
