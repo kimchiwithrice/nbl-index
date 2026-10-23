@@ -344,6 +344,7 @@ def _rates(secs, poss, pf, pa):
 LINEUP_MIN = 10   # minutes together before a five is listed
 PAIR_MIN = 20     # ... or a pair
 ONOFF_MIN = 20    # minutes on court (and on the bench) before on/off is shown
+RANK_MIN = 100    # minutes on court before a player is ranked on on/off
 
 
 def lineup_tables(ts, team, top=10):
@@ -469,4 +470,10 @@ def season_tables(path, games, player_box, cur, teams, log=print):
         for player, onoff in ((tables["lineups"] or {}).get("onoff") or {}).items():
             out["players"].setdefault((player, team), {"fga": 0, "kinds": [], "zones": [], "astd": None,
                                                        "astd3": None, "onoff": onoff})
+    # League rank on on/off, among players with enough minutes both on and off the court.
+    ranked = [r for t in out["teams"].values() if t["lineups"] for r in t["lineups"]["onoff"].values()
+              if r["diff"] is not None and r["on"]["min"] >= RANK_MIN]
+    ranked.sort(key=lambda r: -r["diff"])
+    for i, r in enumerate(ranked):
+        r["rank"], r["rank_n"] = i + 1, len(ranked)
     return out
