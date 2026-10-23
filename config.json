@@ -9,5 +9,10 @@
   "contact": "",
   "ad_html": "",
   "head_html": "<script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{\"token\": \"3baf99161d5d46a5a433f77b21c490b7\"}'></script>",
-  "show_betting_tools": false
+  "show_betting_tools": false,
+  "confirmed_returning": {
+    "371130fd-58ad-11f1-aac7-754512109772": [
+      "Kristian Doolittle"
+    ]
+  }
 }
