@@ -3,3 +3,6 @@ data/*.csv
 data/*.part
 __pycache__/
 *.pyc
+archive/
+data/feed/
+data/*.rds
