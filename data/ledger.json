@@ -298,10 +298,10 @@
   "home": "Adelaide 36ers",
   "away": "Illawarra Hawks",
   "slug": "2026-11-07-illawarra-hawks-at-adelaide-36ers",
-  "p_home": 0.666,
+  "p_home": 0.665,
   "margin": 5.9,
   "total": 193.5,
-  "logged": "2026-10-23T13:28:58.564888+00:00"
+  "logged": "2026-10-23T19:19:24.737617+00:00"
  },
  "3723d03c-58ad-11f1-9032-15ea51636534": {
   "utc": "2026-11-07T08:30:00+00:00",
@@ -478,10 +478,10 @@
   "home": "South East Melbourne Phoenix",
   "away": "Cairns Taipans",
   "slug": "2026-11-22-cairns-taipans-at-south-east-melbourne-phoenix",
-  "p_home": 0.768,
+  "p_home": 0.767,
   "margin": 10.1,
   "total": 192.9,
-  "logged": "2026-10-23T13:28:58.564888+00:00"
+  "logged": "2026-10-23T19:19:24.737617+00:00"
  },
  "374c5a9d-58ad-11f1-8829-1daf76a0ede8": {
   "utc": "2026-11-22T06:00:00+00:00",
@@ -1088,10 +1088,10 @@
   "home": "Adelaide 36ers",
   "away": "Illawarra Hawks",
   "slug": "2027-01-23-illawarra-hawks-at-adelaide-36ers",
-  "p_home": 0.666,
+  "p_home": 0.665,
   "margin": 5.9,
   "total": 193.5,
-  "logged": "2026-10-23T13:28:58.564888+00:00"
+  "logged": "2026-10-23T19:19:24.737617+00:00"
  },
  "3794465d-58ad-11f1-a534-cb26a6dd9fe9": {
   "utc": "2027-01-23T08:30:00+00:00",
