@@ -41,6 +41,13 @@
   {% endfor %}{% endfor %}
   <br><small class="mut">Assumed out until he plays again. Capped at {{ impact_cap | int }} pts per team. <a href="{{ root }}glossary/#availability">How this works</a></small></div>
   {% endif %}
+  {% if g.returning %}
+  <div class="early"><b>Confirmed returning</b>
+  {% for x in g.returning %}
+    <br><span class="light green" title="Confirmed to play"></span>{{ x.player }} ({{ (a if x.side == 'away' else h).code }}) missed the last {{ 'game' if x.missed == 1 else '2 games' }} but is back tonight, so no penalty
+  {% endfor %}
+  <br><small class="mut">Without this, the model would have had {{ (h.short if g.unconfirmed.margin >= 0 else a.short) }} by {{ (g.unconfirmed.margin | abs) | f1 }}, {{ h.short }} {{ g.unconfirmed.p_home | pct(0) }}.</small></div>
+  {% endif %}
   {% if not g.done and S.share_played < 0.3 %}<p class="note">Early-season picks are shaky. In past seasons the model got about half of its first 10 picks right, and about two in three after that.</p>{% endif %}
   <p class="note">{% if g.done %}What the model said before tip-off.{% else %}Updated every hour until tip-off. Try it on a neutral court in the <a href="{{ root }}matchup/#{{ h.code }}-{{ a.code }}">custom matchup predictor</a>.{% endif %}</p>
 </section>
