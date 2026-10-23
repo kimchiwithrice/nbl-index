@@ -409,9 +409,9 @@
   "away": "New Zealand Breakers",
   "slug": "2026-11-15-new-zealand-breakers-at-sydney-kings",
   "p_home": 0.718,
-  "margin": 8.0,
+  "margin": 7.9,
   "total": 188.3,
-  "logged": "2026-10-23T13:28:58.564888+00:00"
+  "logged": "2026-10-23T23:12:11.652485+00:00"
  },
  "37470d73-58ad-11f1-9bf1-130129845108": {
   "utc": "2026-11-15T06:00:00+00:00",
@@ -1158,10 +1158,10 @@
   "home": "Brisbane Bullets",
   "away": "South East Melbourne Phoenix",
   "slug": "2027-01-28-south-east-melbourne-phoenix-at-brisbane-bullets",
-  "p_home": 0.317,
+  "p_home": 0.318,
   "margin": -6.5,
   "total": 192.7,
-  "logged": "2026-10-23T13:28:58.564888+00:00"
+  "logged": "2026-10-23T23:12:11.652485+00:00"
  },
  "37b7122e-58ad-11f1-9780-077ff55f3c82": {
   "utc": "2027-01-28T10:30:00+00:00",
