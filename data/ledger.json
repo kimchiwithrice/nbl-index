@@ -248,10 +248,10 @@
   "home": "Adelaide 36ers",
   "away": "Brisbane Bullets",
   "slug": "2026-11-01-brisbane-bullets-at-adelaide-36ers",
-  "p_home": 0.717,
+  "p_home": 0.716,
   "margin": 7.9,
   "total": 183.8,
-  "logged": "2026-10-23T13:28:58.564888+00:00"
+  "logged": "2026-10-24T01:39:22.044435+00:00"
  },
  "372b8b55-58ad-11f1-9407-d95637fbed2b": {
   "utc": "2026-11-02T08:30:00+00:00",
@@ -278,10 +278,10 @@
   "home": "Cairns Taipans",
   "away": "Illawarra Hawks",
   "slug": "2026-11-05-illawarra-hawks-at-cairns-taipans",
-  "p_home": 0.499,
+  "p_home": 0.5,
   "margin": -0.0,
   "total": 196.6,
-  "logged": "2026-10-23T13:28:58.564888+00:00"
+  "logged": "2026-10-24T01:39:22.044435+00:00"
  },
  "3723d8e8-58ad-11f1-b04c-17c1a1f1f487": {
   "utc": "2026-11-06T08:30:00+00:00",
@@ -308,10 +308,10 @@
   "home": "Melbourne United",
   "away": "Brisbane Bullets",
   "slug": "2026-11-07-brisbane-bullets-at-melbourne-united",
-  "p_home": 0.75,
+  "p_home": 0.749,
   "margin": 9.3,
   "total": 184.8,
-  "logged": "2026-10-23T13:28:58.564888+00:00"
+  "logged": "2026-10-24T01:39:22.044435+00:00"
  },
  "37495c97-58ad-11f1-8f28-d7e4e018b88d": {
   "utc": "2026-11-08T04:00:00+00:00",
@@ -558,10 +558,10 @@
   "home": "Melbourne United",
   "away": "Brisbane Bullets",
   "slug": "2026-12-06-brisbane-bullets-at-melbourne-united",
-  "p_home": 0.75,
+  "p_home": 0.749,
   "margin": 9.3,
   "total": 184.8,
-  "logged": "2026-10-23T13:28:58.564888+00:00"
+  "logged": "2026-10-24T01:39:22.044435+00:00"
  },
  "3752cf25-58ad-11f1-9654-2942781e7154": {
   "utc": "2026-12-06T06:00:00+00:00",
@@ -678,10 +678,10 @@
   "home": "Adelaide 36ers",
   "away": "Brisbane Bullets",
   "slug": "2026-12-19-brisbane-bullets-at-adelaide-36ers",
-  "p_home": 0.717,
+  "p_home": 0.716,
   "margin": 7.9,
   "total": 183.8,
-  "logged": "2026-10-23T13:28:58.564888+00:00"
+  "logged": "2026-10-24T01:39:22.044435+00:00"
  },
  "375df79f-58ad-11f1-b396-39b3918ccc00": {
   "utc": "2026-12-19T09:00:00+00:00",
@@ -868,10 +868,10 @@
   "home": "New Zealand Breakers",
   "away": "Perth Wildcats",
   "slug": "2027-01-03-perth-wildcats-at-new-zealand-breakers",
-  "p_home": 0.561,
+  "p_home": 0.562,
   "margin": 2.1,
   "total": 185.4,
-  "logged": "2026-10-23T13:28:58.564888+00:00"
+  "logged": "2026-10-24T01:39:22.044435+00:00"
  },
  "377c8615-58ad-11f1-9f3b-1fa229f84a5e": {
   "utc": "2027-01-03T06:00:00+00:00",
