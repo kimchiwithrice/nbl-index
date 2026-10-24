@@ -8,6 +8,7 @@ on:
   workflow_dispatch:
 permissions:
   contents: write
+  issues: write  # alert.py opens an issue when a data source breaks
   pages: write
   id-token: write
 concurrency:
@@ -24,7 +25,27 @@ jobs:
           python-version: "3.12"
           cache: pip
       - run: pip install -r requirements.txt
-      - run: python run.py
+      - name: Restore the last data check
+        uses: actions/cache/restore@v4
+        with:
+          path: data/health-last.json
+          key: source-health-${{ github.run_id }}
+          restore-keys: source-health-
+      - id: build
+        run: python run.py
+      - name: Alert if a data source is broken
+        if: always()
+        continue-on-error: true
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python alert.py ${{ steps.build.outcome == 'failure' && '--build-failed' || '' }}
+      - name: Save the data check for the next build
+        if: always()
+        continue-on-error: true
+        uses: actions/cache/save@v4
+        with:
+          path: data/health-last.json
+          key: source-health-${{ github.run_id }}
       - name: Keep the prediction ledger
         continue-on-error: true  # publish the site even if this commit fails
         run: |
