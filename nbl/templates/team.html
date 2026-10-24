@@ -90,13 +90,14 @@
     <div><h3>Opponents' shots</h3><p class="mut">{{ shots.n_theirs }} shots allowed, {{ season }}</p>{{ shots.theirs | safe if shots.theirs else '' }}</div>
   </div>
   <div class="shotkey">
-    <div><b data-explain="Made % from each zone compared with the league average from the same zone. On the opponents' chart green means they shoot worse than average there, which is good for {{ x.short }}.">Made % compared with the league average (for {{ x.short }})</b>
+    <div><b data-explain="Made % from each zone compared with the league average from the same zone. Much worse or much better means 10+ points off the average. On the opponents' chart green means they shoot worse than average there, which is good for {{ x.short }}. Zones with under 15 shots are left as outlines.">Made % compared with the league average (for {{ x.short }})</b>
       <div class="strip">{% for c, label in [("#c0392b", "Much worse"), ("#e8822a", "Worse"), ("#f2cf3a", "About average"), ("#9ccc4e", "Better"), ("#2e9e4f", "Much better")] %}<span><i style="background:{{ c }}"></i>{{ label }}</span>{% endfor %}</div></div>
+    <div><b>Zone labels</b>
+      <div class="sizes"><span><svg class="shotchart key" viewBox="-22 -13 44 27" width="44" height="27" aria-hidden="true"><g class="zl"><rect x="-21" y="-12" width="42" height="25" rx="4"/><text y="1">41%</text><text class="s" y="10.5">avg 37%</text></g></svg> made % · league avg</span></div></div>
     <div><b>Shots from the spot</b>
       <div class="sizes"><span><svg viewBox="0 0 96 24" width="96" height="24" aria-hidden="true"><path class="sz" d="M14,8.5 L17.5,10.5 L17.5,14.5 L14,16.5 L10.5,14.5 L10.5,10.5Z"/><path class="sz" d="M44,4.5 L51,8.5 L51,16.5 L44,20.5 L37,16.5 L37,8.5Z"/><path class="sz" d="M82,1 L92.5,6.5 L92.5,18 L82,23.5 L71.5,18 L71.5,6.5Z"/></svg> fewer → more</span>
         <span><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path class="few" d="M12,4.5 L19,8.5 L19,16.5 L12,20.5 L5,16.5 L5,8.5Z"/></svg> too few to judge</span></div></div>
   </div>
-  <p class="note">Big number = how often {{ x.short }} (or their opponents) make shots from that zone; small number = the league average. "Much worse" or "much better" means 10 or more percentage points off the average. Each hexagon is coloured by its whole zone, and zones with under 15 shots are left as outlines. Locations are logged from 2025-26 on. Free throws not included; finals included.</p>
 </section>
 {% endif %}
 
