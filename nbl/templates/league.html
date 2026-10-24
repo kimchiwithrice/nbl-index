@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% set title = "The NBL League Today " ~ season ~ " – Team Styles, Trends & Model Record" %}
+{% set desc = "Every NBL team mapped by adjusted offense and defense, league scoring, pace and three-point trends since 2015-16, and how the predictions are doing this season." %}
+{% block main %}
+<h1>The league today</h1>
+<p class="lede">{{ season }} so far, {{ now.n }} of {{ n_regular }} regular-season games in.</p>
+
+<h2>Ratings map</h2>
+<div class="chartbox mapbox">{{ rmap | safe }}</div>
+<p class="key"><span><i class="dash"></i>league average</span><span>up and right is better</span><span>tap a team for its page</span></p>
+
+<h2>Trends by season</h2>
+<div class="trends">
+{% for key, label, fmt, tip, cur_v, last_v, svg in trends %}
+  <div class="trendbox">
+    <b data-explain="{{ tip }}">{{ label }}</b>
+    <span>{{ (cur_v | pct) if fmt == 'pct' else (cur_v | f1) }}</span>{% if last_v is not none %}<em>last season {{ (last_v | pct) if fmt == 'pct' else (last_v | f1) }}</em>{% endif %}
+    {{ svg | safe }}
+  </div>
+{% endfor %}
+</div>
+<p class="key"><span><i class="dot"></i>full season</span><span><i class="dot hollow"></i>this season so far</span><span>regular season only</span></p>
+
+<h2>Model track record</h2>
+{% if rec %}
+<div class="cards">
+  <div class="card"><b data-explain="Games where the team the model favoured before tip-off won.">Winners picked</b><span class="sp">{{ rec.won }}/{{ rec.n }}</span><em class="sp">{{ rec.acc | pct }}{% if bt %}, past seasons {{ bt.acc | pct(0) }}{% endif %}</em></div>
+  <div class="card"><b>Log loss</b><span class="sp">{{ "%.3f" % rec.logloss }}</span><em>coin flip 0.693{% if bt %}, past {{ "%.3f" % bt.logloss }}{% endif %}</em></div>
+  <div class="card"><b>Margin error</b><span class="sp">{{ rec.mae | f1 }}</span><em>avg points off{% if bt %}, past {{ bt.mae_margin | f1 }}{% endif %}</em></div>
+</div>
+<div class="chartbox mapbox sp">{{ rec_chart | safe }}</div>
+<p class="key"><span><i class="sq"></i>past seasons, replayed blind</span><span><i class="sq now"></i>{{ season }}, saved before tip-off</span></p>
+<div class="tw"><table class="dense"><thead><tr><th class="l" data-explain="How likely the model said the favourite was to win.">Fav. chance</th><th>Games</th><th data-explain="Wins the favourites should have had if the chances were right.">Expected</th><th>Won</th><th data-explain="How often favourites in this band won in the backtest, 2016-17 to last season.">Past</th></tr></thead><tbody>
+{% for b in rec.bands %}<tr><td class="l">{{ b.label }}</td><td>{{ b.n }}</td><td>{{ b.exp | f1 }}</td><td class="sp">{{ b.won }}</td><td>{{ b.past | pct(0) if b.past is not none else '–' }}</td></tr>{% endfor %}
+</tbody></table></div>
+<p class="note">Since {{ rec.since }}. Totals only, so no single game is given away. Full method and the <a href="{{ root }}model/#prediction-ledger">prediction ledger</a> are on the <a href="{{ root }}model/">Model</a> page.</p>
+{% else %}
+<p>The first logged predictions haven't been played yet.</p>
+{% endif %}
+{% endblock %}
