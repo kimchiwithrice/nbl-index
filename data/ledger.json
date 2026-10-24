@@ -304,10 +304,10 @@
   "home": "Adelaide 36ers",
   "away": "Illawarra Hawks",
   "slug": "2026-11-07-illawarra-hawks-at-adelaide-36ers",
-  "p_home": 0.672,
+  "p_home": 0.671,
   "margin": 6.1,
   "total": 193.4,
-  "logged": "2026-10-24T12:44:41.758438+00:00"
+  "logged": "2026-10-24T16:40:07.163539+00:00"
  },
  "3723d03c-58ad-11f1-9032-15ea51636534": {
   "utc": "2026-11-07T08:30:00+00:00",
@@ -416,8 +416,8 @@
   "slug": "2026-11-15-new-zealand-breakers-at-sydney-kings",
   "p_home": 0.713,
   "margin": 7.7,
-  "total": 188.3,
-  "logged": "2026-10-24T12:44:41.758438+00:00"
+  "total": 188.4,
+  "logged": "2026-10-24T16:40:07.163539+00:00"
  },
  "37470d73-58ad-11f1-9bf1-130129845108": {
   "utc": "2026-11-15T06:00:00+00:00",
@@ -606,8 +606,8 @@
   "slug": "2026-12-11-sydney-kings-at-new-zealand-breakers",
   "p_home": 0.373,
   "margin": -4.5,
-  "total": 188.3,
-  "logged": "2026-10-24T12:44:41.758438+00:00"
+  "total": 188.4,
+  "logged": "2026-10-24T16:40:07.163539+00:00"
  },
  "37510e22-58ad-11f1-b8d1-0361ae94d7e7": {
   "utc": "2026-12-12T06:30:00+00:00",
@@ -1094,10 +1094,10 @@
   "home": "Adelaide 36ers",
   "away": "Illawarra Hawks",
   "slug": "2027-01-23-illawarra-hawks-at-adelaide-36ers",
-  "p_home": 0.672,
+  "p_home": 0.671,
   "margin": 6.1,
   "total": 193.4,
-  "logged": "2026-10-24T12:44:41.758438+00:00"
+  "logged": "2026-10-24T16:40:07.163539+00:00"
  },
  "3794465d-58ad-11f1-a534-cb26a6dd9fe9": {
   "utc": "2027-01-23T08:30:00+00:00",
@@ -1326,8 +1326,8 @@
   "slug": "2027-02-11-sydney-kings-at-new-zealand-breakers",
   "p_home": 0.373,
   "margin": -4.5,
-  "total": 188.3,
-  "logged": "2026-10-24T12:44:41.758438+00:00"
+  "total": 188.4,
+  "logged": "2026-10-24T16:40:07.163539+00:00"
  },
  "3797f6e3-58ad-11f1-87a8-fbbd24deadd3": {
   "utc": "2027-02-11T08:30:00+00:00",
