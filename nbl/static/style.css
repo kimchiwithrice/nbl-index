@@ -210,16 +210,19 @@ td.em .v{display:inline-block;min-width:38px}
 @media (max-width:980px){.grid2{grid-template-columns:1fr;gap:0}}
 
 /* Key figures on team and player pages */
-.cards{display:flex;flex-wrap:wrap;background:var(--paper);border:1px solid var(--rule);border-radius:6px;padding:0 16px;margin:18px 0 6px}
-.card{flex:1 1 140px;padding:12px 16px 12px 0;margin-right:16px}
-.card+.card{border-left:1px solid var(--rule);padding-left:16px}
+/* Cards sit in a grid: one row on wide screens, 3 or 2 across on smaller ones.
+   Every card draws a line on its left and top; the box clips the ones on the outer edge,
+   so dividers only show between cards whatever the column count. */
+.cards{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;overflow:hidden;background:var(--paper);border:1px solid var(--rule);border-radius:6px;margin:18px 0 6px}
+.card{min-width:0;padding:12px 16px;margin:-1px 0 0 -1px;border-left:1px solid var(--rule);border-top:1px solid var(--rule)}
 .card b{display:block;font-size:13px;font-weight:500;color:var(--soft)}
 .card span{display:inline-block;font-size:28px;font-weight:700;letter-spacing:-.015em;line-height:1.2}
 .card em{display:block;font-style:normal;font-size:13px;color:var(--faint)}
 .card .rk{font-size:13px}
-.cards.three{flex-wrap:nowrap}
-.cards.three .card{flex:1 1 0;min-width:0;margin-right:12px}
-.cards.three .card+.card{border-left:1px solid var(--rule);padding-left:12px}
+.cards.three .card{padding:12px}
+@media (max-width:900px){.cards:not(.three){grid-auto-flow:row;grid-template-columns:repeat(3,1fr)}
+  .cards:has(>.card:nth-child(4):last-child){grid-template-columns:repeat(2,1fr)}}
+@media (max-width:600px){.cards:not(.three){grid-template-columns:repeat(2,1fr)}}
 @container (max-width:500px){.cards.three .card span{font-size:22px}}
 
 /* Charts */
@@ -312,7 +315,6 @@ html[data-sp="hide"] .final.sp:not(.peek)::after{content:"Score hidden. Tap to s
 html[data-sp="hide"] .spblock:not(.open) .tw{display:none}
 html[data-sp="hide"] .spblock:not(.open) .sp-reveal{display:block}
 
-.prose .card{flex-basis:90px}
 @media (max-width:600px){
   main{padding:22px 20px 48px} footer .in{padding:18px 20px 36px}
   .sidetop{flex-basis:100%;padding-bottom:4px}
@@ -327,8 +329,6 @@ html[data-sp="hide"] .spblock:not(.open) .sp-reveal{display:block}
   .nm-full{display:none} .nm-short{display:inline!important}
   h1{font-size:25px} .final span{font-size:36px}
   td.tm small,td.l small{display:none}
-  .card{flex-basis:45%}
-  .card:nth-child(odd){border-left:0;padding-left:0}
 }
 @media (prefers-reduced-motion: reduce){*{transition:none!important}html{scroll-behavior:auto}}
 /* Glossary */
