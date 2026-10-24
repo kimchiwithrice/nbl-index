@@ -265,6 +265,12 @@ svg.trend .ax{font-size:12px}
 .key .dash{display:inline-block;width:20px;border-top:1.5px dashed var(--faint)}
 .key .dot{display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--accent)}
 .key .dot.hollow{background:var(--paper);border:2px solid var(--accent)}
+.cards.wk{grid-auto-flow:row;grid-template-columns:repeat(4,1fr)}
+.wk .card i{display:block;font-style:normal;font-weight:600;margin-top:2px}
+.wk .card span{font-size:24px}
+.wk .card .mv{color:var(--ink);font-size:14px;margin-top:4px}
+.wk .card .mv strong{font-weight:600;margin-left:4px}
+@media (max-width:900px){.cards.wk{grid-template-columns:repeat(2,1fr)}}
 @media (max-width:600px){.trends{grid-template-columns:1fr}
   svg.rmap .ax,svg.rmap .tt{font-size:17px} svg.rmap .quad{font-size:17px} svg .tm .lab{font-size:19px}}
 .dist{display:flex;gap:6px;align-items:flex-end;height:140px;border-bottom:1px solid var(--rule-strong)}
