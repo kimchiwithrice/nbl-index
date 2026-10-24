@@ -25,6 +25,28 @@
 </table></div>
 {% endif %}
 {% endfor %}
+{% if venue %}
+<h2>Home &amp; away</h2>
+<div class="tw"><table class="dense sortable">
+  <thead><tr><th class="l" data-sort="text">Team</th>
+    <th class="sp-col" data-sort="num" data-explain="Wins and losses at home.">Home W-L</th>
+    <th data-sort="num" data-explain="Points per 100 possessions better than the opponent at home, adjusted for how good each opponent was and for the usual home edge.">Home net</th>
+    <th class="sp-col" data-sort="num" data-explain="Wins and losses on the road.">Road W-L</th>
+    <th data-sort="num" data-explain="Points per 100 possessions better than the opponent on the road, adjusted for how good each opponent was and for the usual road disadvantage.">Road net</th>
+    <th data-sort="num" data-explain="Home net minus road net. Positive means a team plays better at home than an average team does.">Home − road</th></tr></thead>
+  <tbody>
+  {% for t in order %}{% set v = venue[t] %}
+    <tr><td class="l">{{ m.team(info, t, root) }}</td>
+    {% for k in ("home", "road") %}{% set x = v[k] %}
+      <td class="sp" data-v="{{ (x.w / x.n) if x.n else '' }}">{% if x.n %}{{ x.w }}-{{ x.n - x.w }}{% else %}–{% endif %}</td>
+      <td data-v="{{ x.net if x.n else '' }}">{{ (x.net | sgn) if x.n else '–' }}</td>
+    {% endfor %}
+      <td data-v="{{ v.gap if v.gap is defined else '' }}">{{ (v.gap | sgn) if v.gap is defined else '–' }}</td></tr>
+  {% endfor %}
+  </tbody>
+</table></div>
+<p class="note">Describes this season only: on past seasons a team's home edge barely carried over to the next year, so the predictions use one home edge for everyone.</p>
+{% endif %}
 {% if 'ahead' not in missing and flow[0] < flow[1] %}<p class="note">Game flow comes from the play-by-play, which covers {{ flow[0] }} of this season's {{ flow[1] }} games so far. The rest are left out until it's available.</p>{% endif %}
 {% if 'c_min' not in missing %}<p class="note">Shot profile and clutch come from the play-by-play. Clutch is the last five minutes of the fourth quarter or overtime with the score within five; clutch net needs at least 20 clutch possessions and is hidden while scores are hidden. Assisted share: FIBA also credits assists on free throws, which aren't counted here.</p>{% endif %}
 <p class="note">Hover any column for a quick definition, or see the <a href="{{ root }}glossary/">glossary</a>. Points in the paint and fast-break points aren't in this season's NBL feed, so they're missing for now.</p>

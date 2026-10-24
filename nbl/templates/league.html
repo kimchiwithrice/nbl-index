@@ -5,8 +5,8 @@
 <h1>The league today</h1>
 <p class="lede">{{ now.n }} of {{ n_regular }} regular-season games played this season. Last week refreshes every Monday, everything else after each game.</p>
 
-{% if wk %}
 {% macro tm(t) %}<a href="{{ root }}teams/{{ info[t].slug }}/">{{ info[t].short }}</a>{% endmacro %}
+{% if wk %}
 <h2>Last week</h2>
 <p class="key"><span>{{ wk.label }}, {{ wk.games }} game{{ 's' if wk.games != 1 }}</span></p>
 {% macro mover(label, tip, m) %}<div class="card"><b data-explain="{{ tip }}">{{ label }}</b><div class="sp"><i>{{ tm(m.team) }}</i><span class="{{ 'up' if m.diff > 0 else 'down' }}">{{ m.diff | sgn }}</span> <small class="unit">AdjEM</small><em>{{ m.from | sgn }} → {{ m.to | sgn }}</em><em>rank {{ m.rk_from }}{{ m.rk_from | suffix }} → {{ m.rk_to }}{{ m.rk_to | suffix }}</em></div></div>{% endmacro %}
@@ -25,6 +25,12 @@
 </div>
 {% endif %}
 
+{% if venue_best %}
+<h2>Home &amp; away</h2>
+<div class="cards wk up">
+  {% for k, label in (("home", "Best at home"), ("road", "Best on the road")) %}<div class="card"><b data-explain="Highest opponent-adjusted net rating {{ 'at home' if k == 'home' else 'on the road' }} this season.">{{ label }}</b><i>{{ tm(venue_best[k]) }}</i><span>{{ venue[venue_best[k]][k].net | sgn }}</span><em>adj. net per 100, {{ venue[venue_best[k]][k].n }} games, <a href="{{ root }}stats/#home-away">all teams</a></em></div>{% endfor %}
+</div>
+{% endif %}
 <h2>Ratings map</h2>
 <div class="chartbox mapbox">{{ rmap | safe }}</div>
 <p class="key"><span><i class="dash"></i>league average</span><span>up and right is better</span><span>tap a team for its page</span></p>
