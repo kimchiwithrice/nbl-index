@@ -15,7 +15,7 @@ The feed comes in two shapes. Up to 2024-25 events are listed newest first with 
 import numpy as np
 import pandas as pd
 
-from . import data, rds
+from . import data, rds, shotchart
 
 COLUMNS = ["match_id", "team_name", "period", "period_type", "gt", "action_type", "sub_type", "success",
            "first_name", "family_name", "qualifier", "x", "y", "s1", "s2"]
@@ -261,8 +261,10 @@ def shots(events):
             if not side:
                 continue
             if act in ("2pt", "3pt"):
+                u, v = shotchart.half_court(x, y)
                 row = {"match_id": match_id, "side": side, "player": player, "three": act == "3pt", "made": made,
-                       "kind": _kind(act, sub), "zone": _zone(x, y, act), "assisted": False, "t": t}
+                       "kind": _kind(act, sub), "zone": _zone(x, y, act), "assisted": False, "t": t,
+                       "u": u, "v": v, "zone10": shotchart.zone(u, v, act == "3pt")}
                 out.append(row)
                 if made:
                     last_make[side] = row
@@ -416,6 +418,7 @@ def season_tables(path, games, player_box, cur, teams, log=print):
     ex = game_extras(events).set_index("match_id")
     ts = team_stints(stints, season, cur)
     has_zones = not sh.empty and sh.zone.notna().any()
+    league = shotchart.league_averages(sh) if has_zones else {}
 
     out = {"stats": {}, "teams": {}, "players": {}, "games": ok_games, "of": len(season),
            "pbp_games": int(events.match_id.nunique()), "zones": bool(has_zones)}
@@ -450,6 +453,9 @@ def season_tables(path, games, player_box, cur, teams, log=print):
             "lineups": lineup_tables(ts, team) if not ts.empty else None,
             "kinds": list(zip(_shot_rows(all_mine, "kind", KINDS), _shot_rows(all_theirs, "kind", KINDS))) if len(all_mine) else [],
             "zones": list(zip(_shot_rows(all_mine, "zone", ZONES), _shot_rows(all_theirs, "zone", ZONES))) if has_zones and len(all_mine) else [],
+            "chart": {"mine": shotchart.svg(all_mine, league, 1, f"{team} shots"),
+                      "theirs": shotchart.svg(all_theirs, league, -1, f"Opponents' shots against {team}"),
+                      "n_mine": len(all_mine), "n_theirs": len(all_theirs)} if has_zones and len(all_mine) else None,
         }
 
     if not sh.empty:
