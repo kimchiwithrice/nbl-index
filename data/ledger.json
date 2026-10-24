@@ -394,10 +394,10 @@
   "home": "Melbourne United",
   "away": "South East Melbourne Phoenix",
   "slug": "2026-11-14-south-east-melbourne-phoenix-at-melbourne-united",
-  "p_home": 0.504,
+  "p_home": 0.505,
   "margin": 0.2,
   "total": 191.5,
-  "logged": "2026-10-24T12:44:41.758438+00:00"
+  "logged": "2026-10-24T18:26:58.375703+00:00"
  },
  "3743885e-58ad-11f1-b2f7-c9ba3efad88d": {
   "utc": "2026-11-14T10:30:00+00:00",
@@ -534,10 +534,10 @@
   "home": "Illawarra Hawks",
   "away": "Sydney Kings",
   "slug": "2026-12-04-sydney-kings-at-illawarra-hawks",
-  "p_home": 0.219,
+  "p_home": 0.22,
   "margin": -10.7,
   "total": 198.3,
-  "logged": "2026-10-24T12:44:41.758438+00:00"
+  "logged": "2026-10-24T18:26:58.375703+00:00"
  },
  "37770bc1-58ad-11f1-a93a-ebcda8a5e5b1": {
   "utc": "2026-12-05T06:30:00+00:00",
@@ -665,9 +665,9 @@
   "away": "Cairns Taipans",
   "slug": "2026-12-17-cairns-taipans-at-sydney-kings",
   "p_home": 0.858,
-  "margin": 14.8,
+  "margin": 14.7,
   "total": 189.4,
-  "logged": "2026-10-24T12:44:41.758438+00:00"
+  "logged": "2026-10-24T18:26:58.375703+00:00"
  },
  "375d497d-58ad-11f1-bfc4-7b56785c5eab": {
   "utc": "2026-12-18T08:30:00+00:00",
@@ -774,10 +774,10 @@
   "home": "Tasmania JackJumpers",
   "away": "South East Melbourne Phoenix",
   "slug": "2026-12-26-south-east-melbourne-phoenix-at-tasmania-jackjumpers",
-  "p_home": 0.498,
+  "p_home": 0.499,
   "margin": -0.1,
   "total": 192.8,
-  "logged": "2026-10-24T12:44:41.758438+00:00"
+  "logged": "2026-10-24T18:26:58.375703+00:00"
  },
  "3770b91e-58ad-11f1-9efe-a362560fc147": {
   "utc": "2026-12-27T04:00:00+00:00",
@@ -895,9 +895,9 @@
   "away": "Tasmania JackJumpers",
   "slug": "2027-01-04-tasmania-jackjumpers-at-sydney-kings",
   "p_home": 0.713,
-  "margin": 7.8,
+  "margin": 7.7,
   "total": 188.4,
-  "logged": "2026-10-24T12:44:41.758438+00:00"
+  "logged": "2026-10-24T18:26:58.375703+00:00"
  },
  "377af928-58ad-11f1-af79-ad562dad26a0": {
   "utc": "2027-01-06T06:30:00+00:00",
@@ -954,10 +954,10 @@
   "home": "Cairns Taipans",
   "away": "Tasmania JackJumpers",
   "slug": "2027-01-09-tasmania-jackjumpers-at-cairns-taipans",
-  "p_home": 0.359,
+  "p_home": 0.36,
   "margin": -5.0,
   "total": 186.1,
-  "logged": "2026-10-24T12:44:41.758438+00:00"
+  "logged": "2026-10-24T18:26:58.375703+00:00"
  },
  "3784706a-58ad-11f1-962d-09df0c3978fa": {
   "utc": "2027-01-09T08:30:00+00:00",
@@ -1334,10 +1334,10 @@
   "home": "Melbourne United",
   "away": "South East Melbourne Phoenix",
   "slug": "2027-02-11-south-east-melbourne-phoenix-at-melbourne-united",
-  "p_home": 0.504,
+  "p_home": 0.505,
   "margin": 0.2,
   "total": 191.5,
-  "logged": "2026-10-24T12:44:41.758438+00:00"
+  "logged": "2026-10-24T18:26:58.375703+00:00"
  },
  "37974b51-58ad-11f1-85a6-d3f8eb4e543c": {
   "utc": "2027-02-12T08:30:00+00:00",
@@ -1375,9 +1375,9 @@
   "away": "Tasmania JackJumpers",
   "slug": "2027-02-13-tasmania-jackjumpers-at-sydney-kings",
   "p_home": 0.713,
-  "margin": 7.8,
+  "margin": 7.7,
   "total": 188.4,
-  "logged": "2026-10-24T12:44:41.758438+00:00"
+  "logged": "2026-10-24T18:26:58.375703+00:00"
  },
  "379eac2d-58ad-11f1-90d4-d98e318e0a1e": {
   "utc": "2027-02-14T04:00:00+00:00",
