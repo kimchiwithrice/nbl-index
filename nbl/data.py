@@ -11,7 +11,7 @@ import numpy as np
 import pandas as pd
 import requests
 
-from . import feed, rds
+from . import feed, health, rds
 
 RELEASE_URL = "https://github.com/JaseZiv/nblr_data/releases/download/{}"
 FILES = {
@@ -124,6 +124,7 @@ def download(url, path, log, attempts=4):
 def fetch(data_dir, refresh=False, log=print, fallback=True):
     """Download the data files unless recent copies exist. Returns {name: local path}."""
     os.makedirs(data_dir, exist_ok=True)
+    health.start(data_dir)
     paths = {}
     for key, release_path in FILES.items():
         path = os.path.join(data_dir, os.path.basename(release_path))
@@ -135,6 +136,7 @@ def fetch(data_dir, refresh=False, log=print, fallback=True):
         try:
             download(RELEASE_URL.format(release_path), path, log)
         except Exception as e:
+            health.problem("pbp" if key == "pbp" else "nblr", f"{os.path.basename(release_path)} couldn't be downloaded ({e})")
             if not os.path.exists(path):
                 if key in OPTIONAL:
                     log(f"  download failed ({e}); building without it")
@@ -150,6 +152,7 @@ def fetch(data_dir, refresh=False, log=print, fallback=True):
         extra = os.path.join(data_dir, name)
         if os.path.exists(extra):
             paths["extra_" + key] = extra
+    health.check(paths, log)
     return paths
 
 
