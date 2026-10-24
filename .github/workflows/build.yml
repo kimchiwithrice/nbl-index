@@ -31,8 +31,25 @@ jobs:
           path: data/health-last.json
           key: source-health-${{ github.run_id }}
           restore-keys: source-health-
+      # The data archive is a private repo, so the raw data and the model's daily numbers stay out
+      # of public view. It needs an ARCHIVE_TOKEN secret; without one, or if anything here fails,
+      # the site still builds and publishes as normal.
+      - name: Check for the data archive
+        id: has_archive
+        env:
+          TOKEN: ${{ secrets.ARCHIVE_TOKEN }}
+        run: if [ -n "$TOKEN" ]; then echo "ok=true" >> "$GITHUB_OUTPUT"; fi
+      - name: Get the data archive
+        id: archive
+        if: steps.has_archive.outputs.ok == 'true'
+        continue-on-error: true
+        uses: actions/checkout@v4
+        with:
+          repository: kimchiwithrice/nbl-data
+          token: ${{ secrets.ARCHIVE_TOKEN }}
+          path: archive
       - id: build
-        run: python run.py
+        run: python run.py ${{ steps.archive.outcome == 'success' && '--archive archive' || '' }}
       - name: Alert if a data source is broken
         if: always()
         continue-on-error: true
@@ -53,6 +70,21 @@ jobs:
           git config user.email "site-bot@users.noreply.github.com"
           git add data/ledger.json
           if ! git diff --cached --quiet; then git commit -m "Update prediction ledger" && git push; fi
+      - name: Save the data archive
+        if: steps.archive.outcome == 'success'
+        continue-on-error: true
+        working-directory: archive
+        run: |
+          git config user.name "site-bot"
+          git config user.email "site-bot@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -q -m "Data as of $(date -u '+%Y-%m-%d %H:%M') UTC"
+          for attempt in 1 2 3; do
+            git pull -q --rebase && git push -q && exit 0
+            sleep 10
+          done
+          exit 1
       - uses: actions/upload-pages-artifact@v3
         with:
           path: public

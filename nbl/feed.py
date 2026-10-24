@@ -3,6 +3,7 @@
 Rows are written in nblR's column format to extra_*.csv, which data.load() merges in. If the feed
 fails or looks wrong, the game is skipped and the build carries on with nblR's data.
 """
+import json
 import os
 
 import pandas as pd
@@ -160,6 +161,14 @@ def parse(data, season):
     return result, team_rows, player_rows
 
 
+def keep(data_dir, season, match_id, data):
+    """Save the feed's answer as it came, for the data archive."""
+    folder = os.path.join(data_dir, "feed", str(season))
+    os.makedirs(folder, exist_ok=True)
+    with open(os.path.join(folder, f"{match_id}.json"), "w", encoding="utf-8") as f:
+        json.dump(data, f)
+
+
 def fill_missing(data_dir, paths, log=print):
     """Fetch finished games that nblR doesn't have yet. Writes extra_*.csv; returns how many it added."""
     out = {k: os.path.join(data_dir, v) for k, v in EXTRA_FILES.items()}
@@ -192,6 +201,7 @@ def fill_missing(data_dir, paths, log=print):
             resp = session.get(MATCH_URL.format(row.match_id), headers=HEADERS, timeout=30)
             resp.raise_for_status()
             data = resp.json()
+            keep(data_dir, latest, row.match_id, data)
             data = data.get("data", data) if isinstance(data, dict) else data
             if isinstance(data, list):
                 data = data[0] if data else {}
