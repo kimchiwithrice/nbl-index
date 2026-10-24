@@ -15,6 +15,7 @@
     ("luck", "Luck", "How many more games a team has won than its play deserved. For each game it's played, the model gives it a chance of winning based on its rating, say 70% against a weak side at home and 40% away to a strong one. Add those chances up and you get the wins its play deserved. Luck is real wins minus that number. +1.5 means about a win and a half more than expected, usually from winning close games, and that rarely lasts. A negative number means it has lost more close ones than it should have."),
     ("resume", "Résumé", "How many more games a team has won than an average side would have against the same opponents, home and away. A road win over the top team counts for a lot more than a home win over the bottom one."),
     ("7d", "7d", "How many places a team has moved in the ratings over the last 7 days."),
+    ("ratings-map", "Ratings map", "Every team placed by AdjO across and AdjD up, with defense flipped so better is higher. The dashed lines are the league average, so a team's corner shows its style: good at both ends, offense first, defense first, or struggling at both."),
     ("preseason", "Preseason rating", "Where a team starts before the first game, built from last season. It matters a lot in the first few weeks and less every week after."),
   ]),
   ("four-factors", "Four Factors", [
@@ -87,6 +88,11 @@
     ("backtest", "Backtest", "Replaying past seasons with the model only ever seeing games played before each prediction. It's the honest way to see how it would have done."),
     ("log-loss", "Log loss", "A score for probability predictions that punishes confident misses hard. Lower is better; a coin flip scores 0.693."),
     ("calibration", "Calibration", "Whether the probabilities mean what they say: teams given a 65% chance should win about 65% of the time."),
+    ("player-of-the-week", "Player of the week", "The player who added the most points over an average player across last week's games. It uses the same box-score weights as Impact (scoring, efficiency, assists, rebounds, steals, blocks, turnovers), multiplied by the possessions he was on court, so a big two-game week can beat one great night. He needs 20+ minutes in every game he played. Checked on every week since 2016-17."),
+    ("weekly-movers", "Biggest riser / faller", "The biggest change in a team's " ~ rating ~ " from the Monday before last week's games to the Monday after."),
+    ("finals-race", "Finals race", "The two biggest changes in a team's chance of finishing top 6, from the Monday before last week's games to the Monday after. Both use the same simulated seasons, so only the games played make the difference."),
+    ("toughest-run", "Toughest run ahead", "The team whose next three opponents have the highest average " ~ rating ~ "."),
+    ("home-win", "Home win %", "The share of games won by the home team, league-wide."),
     ("ledger", "Prediction ledger", "Every prediction saved before tip-off and marked afterwards, so the track record can't be quietly rewritten."),
   ]),
 ] %}

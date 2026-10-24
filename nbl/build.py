@@ -10,7 +10,7 @@ import numpy as np
 import pandas as pd
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
-from . import data, impact, model, pbp, players, sim
+from . import data, impact, league, model, pbp, players, sim
 from .players import slugify
 
 HERE = os.path.dirname(__file__)
@@ -270,6 +270,97 @@ def season_record(completed):
             "mae": float(np.mean([abs((g["hs"] - g["as"]) - g["pred"]["margin"]) for g in completed]))}
 
 
+def week_snapshot(games, sched, info, teams, cal, cur, all_games, pb, weights, avg_impact, now, n_sims):
+    """The last full Monday-to-Sunday week (Sydney time). Everything is worked out as of the Monday
+    before and the Monday after, so it reads the same all week and changes once on Monday."""
+    end = now.tz_convert(SYDNEY).normalize()
+    end = (end - pd.Timedelta(days=end.weekday())).tz_convert("UTC")
+    start = end - pd.Timedelta(days=7)
+    season = games[games.start == cur]
+    week = season[(season.utc >= start) & (season.utc < end)]
+    if week.empty:
+        return None
+    before = model.fit(games, start, cur, teams)
+    after = model.fit(games, end, cur, teams)
+    if not before or not after:
+        return None
+
+    def net(r, t):
+        i = r["idx"][t]
+        return r["off"][i] - r["def"][i]
+
+    def ranks(r):
+        return {t: k + 1 for k, t in enumerate(sorted(teams, key=lambda t: -net(r, t)))}
+
+    rk0, rk1 = ranks(before), ranks(after)
+    moves = sorted(({"team": t, "from": net(before, t), "to": net(after, t), "diff": net(after, t) - net(before, t),
+                     "rk_from": rk0[t], "rk_to": rk1[t]} for t in teams), key=lambda m: -m["diff"])
+
+    # Finals odds before and after, with the same random draws so only the week's games differ.
+    def odds(r, t):
+        as_of = sched.copy()
+        as_of["done"] = as_of.done & (as_of.utc < t)
+        return sim.simulate(r, cal, as_of, teams, n=n_sims)["teams"]
+
+    o0, o1 = odds(before, start), odds(after, end)
+    race = sorted(({"team": t, "from": o0[t]["top6"], "to": o1[t]["top6"]} for t in teams),
+                  key=lambda r: -abs(r["to"] - r["from"]))[:2]
+
+    # Each team's offense and defense in the week's games, adjusted for opponent and venue.
+    played = []
+    for row in week.itertuples():
+        for team, opp, side, pf, pa in ((row.home, row.away, 1, row.h_pts, row.a_pts), (row.away, row.home, -1, row.a_pts, row.h_pts)):
+            if team not in after["idx"] or opp not in after["idx"]:
+                continue
+            j = after["idx"][opp]
+            side = 0 if row.neutral else side
+            played.append({"team": team, "poss": row.poss,
+                           "o": 100 * pf / row.poss - after["def"][j] - side * after["hfa"],
+                           "d": 100 * pa / row.poss - after["off"][j] + side * after["hfa"]})
+    played = pd.DataFrame(played)
+    by_team = played.groupby("team").apply(lambda d: pd.Series({
+        "o": np.average(d.o, weights=d.poss), "d": np.average(d.d, weights=d.poss), "n": len(d)}))
+    best_o, best_d = by_team.o.idxmax(), by_team.d.idxmin()
+
+    # Player of the week: points added above an average player over the week's games.
+    wk = pb[pb.match_id.isin(week.match_id)]
+    agg = wk.groupby(["player", "team"])[impact.STATS + ["on_poss", "min"]].sum()
+    agg["games"] = wk.groupby(["player", "team"]).match_id.nunique()
+    agg = agg[agg["min"] >= 20 * agg.games]
+    potw = None
+    if len(agg):
+        rates = agg[impact.STATS].div(agg.on_poss.clip(lower=1), axis=0) * 100
+        c = weights["coef"]
+        value = weights["intercept"] + sum(c[k] * rates[k] for k in impact.STATS) + c["team_net"] * weights["team_mean"]
+        added = (value - avg_impact) * agg.on_poss / 100
+        (player, team) = added.idxmax()
+        r = agg.loc[(player, team)]
+        potw = {"player": player, "team": team, "added": float(added.max()), "games": int(r.games), "min": float(r["min"]),
+                "pts": int(r.pts), "reb": int(r.orb + r.drb), "ast": int(r.ast)}
+
+    # Looking ahead, worked out fresh every build: the most watchable game in the next seven days,
+    # and the hardest next three games.
+    upcoming = [g for g in all_games if not g["done"] and not g["pending"] and g["utc"] >= now]
+    soon = [g for g in upcoming if g["utc"] < now + pd.Timedelta(days=7)] or upcoming[:6]
+    watch = max(soon, key=lambda g: g["hype"]) if soon else None
+    runs = []
+    for t in teams:
+        nxt = [g for g in upcoming if t in (g["home"], g["away"])][:3]
+        if len(nxt) == 3:
+            opps = [g["away"] if g["home"] == t else g["home"] for g in nxt]
+            runs.append({"team": t, "opps": opps, "avg": float(np.mean([info[o]["net"] for o in opps]))})
+    tough = max(runs, key=lambda r: r["avg"]) if runs else None
+
+    local = start.tz_convert(SYDNEY)
+    last = (end - pd.Timedelta(days=1)).tz_convert(SYDNEY)
+    first = f"{local.day}" if local.month == last.month else f"{local.day} {local:%b}"
+    return {"label": f"{first}–{last.day} {last:%b}",
+            "games": len(week), "riser": moves[0], "faller": moves[-1], "race": race,
+            "best_o": {"team": best_o, **by_team.loc[best_o].to_dict()},
+            "best_d": {"team": best_d, **by_team.loc[best_d].to_dict()},
+            "potw": potw, "watch": watch, "tough": tough}
+
+
 def scouting_log(team, all_games, games, ratings, info):
     """This season's played games with each one's offense and defense adjusted for the opponent and
     venue, using the current ratings, plus the same numbers over a few splits."""
@@ -515,6 +606,15 @@ def build(cfg, data_dir, out_dir, refresh=False, n_sims=sim.N_SIMS, log=print, l
     site.page("matchup/", "matchup.html")
     site.page("model/", "model.html", bt=backtest, cal=cal, R=ratings, replay=season_record(completed),
               ledger=ledger)
+    trend_rows = league.trends(games, cur)
+    snap = week_snapshot(games, sched, info, teams, cal, cur, all_games, pb, weights, averages.get(cur, 0.0), now, n_sims)
+    if snap and snap["potw"]:
+        hit = current[(current.player == snap["potw"]["player"]) & (current.team == snap["potw"]["team"])]
+        snap["potw"]["slug"] = hit.slug.iloc[0] if len(hit) else None
+    site.page("league/", "league.html", rmap=league.ratings_map_svg(info, teams, ratings["mu"], cfg.get("base_path", "/")),
+              trends=[(key, label, fmt, tip, trend_rows[-1][key], trend_rows[-2][key] if len(trend_rows) > 1 else None,
+                       league.trend_svg(trend_rows, key, fmt)) for key, label, fmt, tip in league.TRENDS],
+              now=trend_rows[-1], n_regular=len(sched[~sched.finals]), wk=snap)
     site.page("about/", "about.html")
     site.page("glossary/", "glossary.html")
     for team in teams:

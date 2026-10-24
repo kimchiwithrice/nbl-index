@@ -27,13 +27,14 @@
 <div class="shell">
 {# Side menu: (group, [(path, label, icon)]). To add a page, add a line here and an icon below. #}
 {% set menu = [
-  ("League", [("", "Ratings", "ratings"), ("ladder/", "Ladder", "ladder"), ("schedule/", "Schedule", "schedule"), ("history/", "Past ratings", "history")]),
+  ("League", [("", "Ratings", "ratings"), ("league/", "League today", "league"), ("ladder/", "Ladder", "ladder"), ("schedule/", "Schedule", "schedule"), ("history/", "Past ratings", "history")]),
   ("Stats", [("stats/", "Team stats", "stats"), ("players/", "Players", "players"), ("matchup/", "Custom matchup", "matchup")]),
   ("How it works", [("model/", "Model", "model"), ("glossary/", "Glossary", "glossary"), ("about/", "About", "about")])] %}
 {# Menu icons: simple 24x24 line drawings #}
 {% set icons = {
   "menu": "M4 6h16M4 12h16M4 18h16",
   "ratings": "M4 20h16M6 16v-4M10 16V6M14 16v-7M18 16v-2",
+  "league": "M4 4v16h16M8.5 14.5h.01M12 9.5h.01M15.5 12.5h.01M17.5 6.5h.01",
   "ladder": "M9 6h11M9 12h11M9 18h11M4 6h1M4 12h1M4 18h1",
   "history": "M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18zM12 7v5l3 2",
   "schedule": "M4 6h16v14H4zM4 10h16M8 3v4M16 3v4",
