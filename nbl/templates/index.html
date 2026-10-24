@@ -19,13 +19,13 @@
       <th data-sort="num" class="num">Rk</th>
       <th data-sort="text" class="l">Team</th>
       <th data-sort="rec" class="sp-col" title="Wins-losses this regular season">W-L</th>
-      <th data-sort="num" title="{{ rating }}: adjusted offense minus adjusted defense. The headline rating.">{{ rating }}</th>
-      <th data-sort="num" title="Points scored per 100 possessions vs an average defense">AdjO</th>
-      <th data-sort="num-asc" title="Points allowed per 100 possessions vs an average offense (lower is better)">AdjD</th>
-      <th data-sort="num" title="Possessions per 40 minutes vs an average opponent">AdjT</th>
+      <th data-sort="num" title="{{ rating }}: points per 100 possessions better than an average team, after adjusting for the opponents actually played. The headline rating.">{{ rating }}</th>
+      <th data-sort="num" title="Points scored per 100 possessions, adjusted for the defenses faced. Shown against an average defense.">AdjO</th>
+      <th data-sort="num-asc" title="Points allowed per 100 possessions, adjusted for the offenses faced. Shown against an average offense. Lower is better.">AdjD</th>
+      <th data-sort="num" title="Possessions per 40 minutes, adjusted for the opponents faced">AdjT</th>
       <th data-sort="num" class="sep" title="Average {{ rating }} of opponents played so far">SOS</th>
       <th data-sort="num" title="Average {{ rating }} of opponents still to play">Left SOS</th>
-      <th data-sort="num" class="sp-col" title="Wins above what the model expected, given the games played">Luck</th>
+      <th data-sort="num" class="sp-col" title="Wins minus the wins its play deserved. Positive usually means winning close games.">Luck</th>
       <th data-sort="num" class="sep" title="Average wins across 10,000 simulated seasons">Proj W</th>
       <th data-sort="num" title="Chance of finishing top six (finals)">Finals</th>
       <th data-sort="num" title="Chance of winning the championship">Title</th>
