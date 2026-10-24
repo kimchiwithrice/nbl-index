@@ -3,7 +3,7 @@
 {% set desc = "Every NBL team mapped by adjusted offense and defense, and league scoring, pace, three-point and home-court trends since 2015-16." %}
 {% block main %}
 <h1>The league today</h1>
-<p class="lede">A snapshot of {{ season }}, {{ now.n }} of {{ n_regular }} regular-season games in. Last week's review updates every Monday; everything else after each game.</p>
+<p class="lede">{{ now.n }} of {{ n_regular }} regular-season games played this season. Last week refreshes every Monday, everything else after each game.</p>
 
 {% if wk %}
 {% macro tm(t) %}<a href="{{ root }}teams/{{ info[t].slug }}/">{{ info[t].short }}</a>{% endmacro %}

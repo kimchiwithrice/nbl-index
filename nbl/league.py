@@ -66,7 +66,7 @@ def trend_svg(rows, key, fmt, width=440, height=150):
     for i in (0, n // 2, n - 1):
         svg.append(f'<text x="{x(i):.1f}" y="{height - 5}" class="ax" text-anchor="middle">{rows[i]["label"][2:]}</text>')
     done = [(i, r) for i, r in enumerate(rows) if not r["now"]]
-    svg.append('<polyline class="ln" points="' + " ".join(f"{x(i):.1f},{y(r[key]):.1f}" for i, r in done) + '"/>')
+    svg.append('<polyline class="ln" fill="none" points="' + " ".join(f"{x(i):.1f},{y(r[key]):.1f}" for i, r in done) + '"/>')
     if rows[-1]["now"] and done:
         i, r = done[-1]
         svg.append(f'<line class="ln so" x1="{x(i):.1f}" y1="{y(r[key]):.1f}" x2="{x(n - 1):.1f}" y2="{y(rows[-1][key]):.1f}"/>')
