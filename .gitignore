@@ -1,6 +1,7 @@
 public/
 data/*.csv
 data/*.part
+data/*.rds
 data/health*.json
 __pycache__/
 *.pyc
