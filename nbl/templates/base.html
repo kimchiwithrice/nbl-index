@@ -71,7 +71,7 @@
       {% endfor %}
     </div>
   </nav>
-  {% if cfg.kofi_url %}<div class="kofi"><a class="chip" href="{{ cfg.kofi_url }}" rel="noopener" title="Chip in for the hosting">{{ icon("cup") }}<span class="tx">Chip in</span></a></div>{% endif %}
+  {% if cfg.kofi_url %}<div class="kofi"><a class="chip" href="{{ cfg.kofi_url }}" rel="noopener" title="Donate to help cover the hosting" aria-label="Donate">{{ icon("cup") }}<span class="tx">Donate</span></a></div>{% endif %}
 </aside>
 <div class="page">
 <main>
@@ -80,7 +80,7 @@
 <footer>
   <div class="in">
     {% if cfg.newsletter_url %}<p class="news"><b>Get the weekly ratings, ladder projections and game predictions by email.</b> <a href="{{ cfg.newsletter_url }}" rel="noopener">Subscribe free</a></p>{% endif %}
-    {% if cfg.kofi_url %}<p>{{ cfg.site_name }} is free and run by one person. If you get something out of it, you can <a href="{{ cfg.kofi_url }}" rel="noopener">chip in for the hosting</a>.</p>{% endif %}
+    {% if cfg.kofi_url %}<p>{{ cfg.site_name }} is free and run by one person. If you get something out of it, you can <a href="{{ cfg.kofi_url }}" rel="noopener">donate</a> to help cover the hosting.</p>{% endif %}
     <p>Updated {{ updated }}. Data: the NBL's official stats feed via the <a href="https://github.com/JaseZiv/nblR" rel="noopener">nblR</a> project. Not affiliated with the NBL. The predictions are a model's best guess, not betting advice.
     <a href="{{ root }}about/">About</a>, <a href="{{ root }}model/">how it works</a>, <a href="{{ root }}glossary/">glossary</a>.</p>
   </div>

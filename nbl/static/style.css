@@ -38,7 +38,7 @@ a:hover{text-decoration:underline;text-underline-offset:2px}
 /* Layout: menu down the left, page to the right */
 .shell{display:flex;align-items:flex-start;min-height:100vh}
 .page{flex:1;min-width:0}
-.side{position:sticky;top:0;flex:0 0 200px;height:100vh;overflow-y:auto;overflow-x:hidden;display:flex;flex-direction:column;
+.side{position:sticky;top:0;flex:0 0 200px;height:100vh;overflow:hidden;display:flex;flex-direction:column;
   background:var(--side);border-right:1px solid var(--rule);font-size:14px;scrollbar-width:thin}
 .ic{flex:none;width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 .sidetop{display:flex;align-items:center;gap:8px;padding:16px 14px 12px 12px}
@@ -49,7 +49,7 @@ a:hover{text-decoration:underline;text-underline-offset:2px}
 .brand:hover{text-decoration:none}
 .brand img{width:.92em;height:.92em;margin-right:.32em;vertical-align:-.1em}
 .brand .star{display:none}
-.side nav{display:flex;flex-direction:column;gap:12px;padding:14px 0 0}
+.side nav{flex:1;min-height:0;overflow-y:auto;overflow-x:hidden;scrollbar-width:thin;display:flex;flex-direction:column;gap:12px;padding:14px 0 12px}
 .ngrp{display:flex;flex-direction:column}
 .cap{font-size:11.5px;font-weight:600;color:var(--faint);text-transform:uppercase;letter-spacing:.06em;padding:0 18px 4px;white-space:nowrap}
 .side nav a{display:flex;align-items:center;gap:11px;color:var(--soft);font-weight:500;padding:4px 18px 4px 15px;border-left:3px solid transparent;white-space:nowrap}
@@ -64,7 +64,7 @@ a:hover{text-decoration:underline;text-underline-offset:2px}
 .tools button{display:flex;align-items:center;gap:11px;font:inherit;font-size:13px;color:var(--soft);background:none;border:0;padding:4px 18px;cursor:pointer;white-space:nowrap}
 .tools button:hover{color:var(--ink)}
 .tools button:hover .tx{text-decoration:underline;text-underline-offset:2px}
-.kofi{margin-top:auto;padding:14px 18px 20px}
+.kofi{flex:none;padding:12px 18px 16px;border-top:1px solid var(--rule)}
 a.chip{display:inline-flex;align-items:center;gap:6px;color:var(--paper);background:var(--accent);font-size:13px;font-weight:600;padding:5px 12px;border-radius:999px;line-height:1.2;white-space:nowrap}
 a.chip .ic{width:15px;height:15px;stroke-width:2}
 a.chip:hover{color:var(--paper);text-decoration:none;filter:brightness(1.1)}
@@ -84,7 +84,7 @@ html[data-sp="hide"] #sp-btn{color:var(--ink);font-weight:600}
   html[data-nav="mini"] .teams a{flex-direction:column;gap:3px;padding:5px 0}
   html[data-nav="mini"] .teams a i{width:18px;height:4px;margin:0}
   html[data-nav="mini"] .teams .code{display:block;font-size:11px;letter-spacing:.02em}
-  html[data-nav="mini"] .kofi{padding:14px 0 20px;text-align:center}
+  html[data-nav="mini"] .kofi{padding:12px 0 16px;text-align:center}
   html[data-nav="mini"] a.chip{padding:7px}
 }
 
@@ -97,7 +97,7 @@ html[data-sp="hide"] #sp-btn{color:var(--ink);font-weight:600}
   .tools{flex-direction:row;gap:14px}
   .tools button{padding:0}
   .tools{order:2;margin-left:auto;align-items:center;border:0;padding:8px 0}
-  .kofi{order:2;margin:0;padding:8px 20px 8px 14px}
+  .kofi{order:2;margin:0;padding:8px 20px 8px 14px;border:0}
   .side nav{order:3;flex-basis:100%;flex-direction:row;gap:0;padding:0 20px;overflow-x:auto;scrollbar-width:none;
     mask-image:linear-gradient(to right,#000 calc(100% - 28px),transparent)}
   .side nav::-webkit-scrollbar{display:none}
