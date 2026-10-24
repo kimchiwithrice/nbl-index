@@ -268,8 +268,15 @@ svg.trend .ax{font-size:12px}
 .cards.wk{grid-auto-flow:row;grid-template-columns:repeat(3,1fr)}
 .wk .card i{display:block;font-style:normal;font-weight:600;margin-top:2px}
 .wk .card span{font-size:24px}
-.wk .card .mv{color:var(--ink);font-size:14px;margin-top:4px}
-.wk .card .mv strong{font-weight:600;margin-left:4px}
+.wk .card span.up,.wk .race .up{color:var(--up)}
+.wk .card span.down,.wk .race .down{color:var(--down)}
+.wk .card .unit{font-size:13px;color:var(--soft);font-weight:600}
+.wk .race{display:grid;grid-template-columns:1fr auto;column-gap:8px;padding:6px 0;border-bottom:1px solid var(--rule)}
+.wk .race:first-child{margin-top:2px}
+.wk .race i{margin:0}
+.wk .race strong{font-size:15px;font-weight:700;text-align:right;white-space:nowrap}
+.wk .race em{grid-column:1 / -1}
+.wk .race + em{margin-top:6px}
 .cards.wk.up{grid-template-columns:repeat(2,1fr)}
 @media (max-width:900px){.cards.wk{grid-template-columns:repeat(2,1fr)}}
 @media (max-width:600px){.trends{grid-template-columns:1fr}

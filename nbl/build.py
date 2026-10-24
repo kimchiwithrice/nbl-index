@@ -412,6 +412,38 @@ def scouting_log(team, all_games, games, ratings, info):
     return rows, splits
 
 
+def home_away(scouting):
+    """Each team's opponent-adjusted net rating at home and on the road this season, with its record.
+
+    The league-wide home edge is already taken out of every game, so the two numbers are on the
+    same scale: a team that plays the same everywhere has about the same number in both.
+    """
+    out = {}
+    for team, (rows, _) in scouting.items():
+        side = {}
+        for key, at_home in (("home", True), ("road", False)):
+            picked = [r for r in rows if r["home"] == at_home and not r["g"]["neutral"]]
+            if not picked:
+                side[key] = {"n": 0}
+                continue
+            w = np.array([r["poss"] for r in picked])
+            side[key] = {"n": len(picked), "w": sum(r["pf"] > r["pa"] for r in picked),
+                         "net": float(np.average([r["net"] for r in picked], weights=w))}
+        if side["home"]["n"] and side["road"]["n"]:
+            side["gap"] = side["home"]["net"] - side["road"]["net"]
+        out[team] = side
+    return out
+
+
+VENUE_MIN_GAMES = 6  # home and road games every team needs before League today names a best
+
+
+def venue_leaders(venue):
+    if not venue or any(v[k]["n"] < VENUE_MIN_GAMES for v in venue.values() for k in ("home", "road")):
+        return None
+    return {k: max(venue, key=lambda t: venue[t][k]["net"]) for k in ("home", "road")}
+
+
 def past_ratings(games, cur):
     """Final ratings for every finished season, as they stood after the last game."""
     out = []
@@ -612,7 +644,9 @@ def build(cfg, data_dir, out_dir, refresh=False, n_sims=sim.N_SIMS, log=print, l
     site.page("ladder/", "ladder.html", S=season_sim, standings=standings, projected=projected, n_games=n_games)
     regular = games[(games.start == cur) & ~games.finals]
     flow = (int(regular.h_ahead.notna().sum()) if "h_ahead" in regular else 0, len(regular))
-    site.page("stats/", "stats.html", defs=model.STAT_DEFS, missing=missing_stats, flow=flow)
+    scouting = {t: scouting_log(t, all_games, games, ratings, info) for t in teams}
+    venue = home_away(scouting)
+    site.page("stats/", "stats.html", defs=model.STAT_DEFS, missing=missing_stats, flow=flow, venue=venue)
     site.page("players/", "players.html",
               players=sorted(current.to_dict("records"), key=lambda r: -r["min"]))
     site.page("matchup/", "matchup.html")
@@ -626,14 +660,15 @@ def build(cfg, data_dir, out_dir, refresh=False, n_sims=sim.N_SIMS, log=print, l
     site.page("league/", "league.html", rmap=league.ratings_map_svg(info, teams, ratings["mu"], cfg.get("base_path", "/")),
               trends=[(key, label, fmt, tip, trend_rows[-1][key], trend_rows[-2][key] if len(trend_rows) > 1 else None,
                        league.trend_svg(trend_rows, key, fmt)) for key, label, fmt, tip in league.TRENDS],
-              now=trend_rows[-1], n_regular=len(sched[~sched.finals]), wk=snap)
+              now=trend_rows[-1], n_regular=len(sched[~sched.finals]), wk=snap,
+              venue=venue, venue_best=venue_leaders(venue))
     site.page("about/", "about.html")
     site.page("glossary/", "glossary.html")
     for team in teams:
         site.page(f"teams/{info[team]['slug']}/", "team.html", t=team, x=info[team],
                   games=[g for g in all_games if team in (g["home"], g["away"])], roster=rosters[team],
                   rot=rotations[team], shots=((deep or {}).get("teams", {}).get(team) or {}).get("chart"), slugs={r["player"]: r["slug"] for r in rosters[team]}, chart=history_svg(history, team, teams), defs=model.STAT_DEFS, S=season_sim)
-        log_rows, splits = scouting_log(team, all_games, games, ratings, info)
+        log_rows, splits = scouting[team]
         site.page(f"teams/{info[team]['slug']}/lineups/", "lineups.html", t=team, x=info[team], L=(deep or {}).get("teams", {}).get(team),
                   deep=deep, log_rows=log_rows, splits=splits, slugs={r["player"]: r["slug"] for r in rosters[team]})
     for game in all_games:
