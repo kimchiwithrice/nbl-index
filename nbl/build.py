@@ -520,7 +520,7 @@ def build(cfg, data_dir, out_dir, refresh=False, n_sims=sim.N_SIMS, log=print, l
     for team in teams:
         site.page(f"teams/{info[team]['slug']}/", "team.html", t=team, x=info[team],
                   games=[g for g in all_games if team in (g["home"], g["away"])], roster=rosters[team],
-                  rot=rotations[team], slugs={r["player"]: r["slug"] for r in rosters[team]}, chart=history_svg(history, team, teams), defs=model.STAT_DEFS, S=season_sim)
+                  rot=rotations[team], shots=((deep or {}).get("teams", {}).get(team) or {}).get("chart"), slugs={r["player"]: r["slug"] for r in rosters[team]}, chart=history_svg(history, team, teams), defs=model.STAT_DEFS, S=season_sim)
         log_rows, splits = scouting_log(team, all_games, games, ratings, info)
         site.page(f"teams/{info[team]['slug']}/lineups/", "lineups.html", t=team, x=info[team], L=(deep or {}).get("teams", {}).get(team),
                   deep=deep, log_rows=log_rows, splits=splits, slugs={r["player"]: r["slug"] for r in rosters[team]})
