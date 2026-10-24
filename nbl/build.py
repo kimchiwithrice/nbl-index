@@ -336,11 +336,12 @@ def week_snapshot(games, sched, info, teams, cal, cur, all_games, pb, weights, a
         (player, team) = added.idxmax()
         r = agg.loc[(player, team)]
         potw = {"player": player, "team": team, "added": float(added.max()), "games": int(r.games), "min": float(r["min"]),
-                "pts": int(r.pts)}
+                "pts": int(r.pts), "reb": int(r.orb + r.drb), "ast": int(r.ast)}
 
-    # Looking ahead: the most watchable game left this week, and the hardest next three games.
+    # Looking ahead, worked out fresh every build: the most watchable game in the next seven days,
+    # and the hardest next three games.
     upcoming = [g for g in all_games if not g["done"] and not g["pending"] and g["utc"] >= now]
-    soon = [g for g in upcoming if g["utc"] < end + pd.Timedelta(days=7)] or upcoming[:6]
+    soon = [g for g in upcoming if g["utc"] < now + pd.Timedelta(days=7)] or upcoming[:6]
     watch = max(soon, key=lambda g: g["hype"]) if soon else None
     runs = []
     for t in teams:

@@ -3,20 +3,23 @@
 {% set desc = "Every NBL team mapped by adjusted offense and defense, and league scoring, pace, three-point and home-court trends since 2015-16." %}
 {% block main %}
 <h1>The league today</h1>
-<p class="lede">{{ season }} so far, {{ now.n }} of {{ n_regular }} regular-season games in.</p>
+<p class="lede">A snapshot of {{ season }}, {{ now.n }} of {{ n_regular }} regular-season games in. Last week's review updates every Monday; everything else after each game.</p>
 
 {% if wk %}
 {% macro tm(t) %}<a href="{{ root }}teams/{{ info[t].slug }}/">{{ info[t].short }}</a>{% endmacro %}
-<h2>This week</h2>
-<p class="key"><span>{{ wk.label }}, {{ wk.games }} game{{ 's' if wk.games != 1 }}</span><span>updates every Monday</span></p>
+<h2>Last week</h2>
+<p class="key"><span>{{ wk.label }}, {{ wk.games }} game{{ 's' if wk.games != 1 }}</span></p>
 <div class="cards wk">
-  <div class="card"><b data-explain="Biggest rise in AdjEM over the week's games.">Biggest riser</b><div class="sp"><i>{{ tm(wk.riser.team) }}</i><span>{{ wk.riser.diff | sgn }}</span><em>{{ wk.riser.from | sgn }} → {{ wk.riser.to | sgn }}, {{ wk.riser.rk_from }}{{ wk.riser.rk_from | suffix }} → {{ wk.riser.rk_to }}{{ wk.riser.rk_to | suffix }}</em></div></div>
-  <div class="card"><b data-explain="Biggest drop in AdjEM over the week's games.">Biggest faller</b><div class="sp"><i>{{ tm(wk.faller.team) }}</i><span>{{ wk.faller.diff | sgn }}</span><em>{{ wk.faller.from | sgn }} → {{ wk.faller.to | sgn }}, {{ wk.faller.rk_from }}{{ wk.faller.rk_from | suffix }} → {{ wk.faller.rk_to }}{{ wk.faller.rk_to | suffix }}</em></div></div>
-  <div class="card"><b data-explain="Points scored per 100 possessions in the week's games, adjusted for the opponent and venue.">Best offense</b><div class="sp"><i>{{ tm(wk.best_o.team) }}</i><span>{{ wk.best_o.o | f1 }}</span><em>adj. points per 100, {{ wk.best_o.n | int }} game{{ 's' if wk.best_o.n != 1 }}</em></div></div>
-  <div class="card"><b data-explain="Points allowed per 100 possessions in the week's games, adjusted for the opponent and venue. Lower is better.">Best defense</b><div class="sp"><i>{{ tm(wk.best_d.team) }}</i><span>{{ wk.best_d.d | f1 }}</span><em>adj. allowed per 100, {{ wk.best_d.n | int }} game{{ 's' if wk.best_d.n != 1 }}</em></div></div>
-  <div class="card"><b data-explain="Chance of finishing top 6, before and after the week's games. The two biggest changes.">Finals race</b><div class="sp">{% for r in wk.race %}<em class="mv">{{ tm(r.team) }} <strong>{{ r.from | pct(0) }} → {{ r.to | pct(0) }}</strong></em>{% endfor %}<em>chance of top 6</em></div></div>
-  <div class="card"><b data-explain="Most points added above an average player over the week's games, from Impact. At least 20 minutes a game.">Player of the week</b>{% if wk.potw %}<div class="sp"><i>{% if wk.potw.slug %}<a href="{{ root }}players/{{ wk.potw.slug }}/">{{ wk.potw.player }}</a>{% else %}{{ wk.potw.player }}{% endif %} <small class="mut">{{ info[wk.potw.team].code }}</small></i><span>{{ wk.potw.added | sgn }}</span><em>pts above average, {{ wk.potw.games }} game{{ 's' if wk.potw.games != 1 }}</em></div>{% else %}<em>–</em>{% endif %}</div>
-  <div class="card"><b data-explain="The highest Hype game still to come this week.">Game to watch</b>{% if wk.watch %}{% set g = wk.watch %}<i><a href="{{ root }}games/{{ g.slug }}/">{{ info[g.away].code }} @ {{ info[g.home].code }}</a></i><span>{{ g.hype }}</span><em>Hype, {{ g.utc | syd("%a %d %b") }}</em>{% else %}<em>–</em>{% endif %}</div>
+  <div class="card"><b data-explain="Biggest rise in AdjEM over last week's games.">Biggest riser</b><div class="sp"><i>{{ tm(wk.riser.team) }}</i><span>{{ wk.riser.diff | sgn }}</span><em>{{ wk.riser.from | sgn }} → {{ wk.riser.to | sgn }}, {{ wk.riser.rk_from }}{{ wk.riser.rk_from | suffix }} → {{ wk.riser.rk_to }}{{ wk.riser.rk_to | suffix }}</em></div></div>
+  <div class="card"><b data-explain="Biggest drop in AdjEM over last week's games.">Biggest faller</b><div class="sp"><i>{{ tm(wk.faller.team) }}</i><span>{{ wk.faller.diff | sgn }}</span><em>{{ wk.faller.from | sgn }} → {{ wk.faller.to | sgn }}, {{ wk.faller.rk_from }}{{ wk.faller.rk_from | suffix }} → {{ wk.faller.rk_to }}{{ wk.faller.rk_to | suffix }}</em></div></div>
+  <div class="card"><b data-explain="Points scored per 100 possessions in last week's games, adjusted for the opponent and venue.">Best offense</b><div class="sp"><i>{{ tm(wk.best_o.team) }}</i><span>{{ wk.best_o.o | f1 }}</span><em>adj. points per 100, {{ wk.best_o.n | int }} game{{ 's' if wk.best_o.n != 1 }}</em></div></div>
+  <div class="card"><b data-explain="Points allowed per 100 possessions in last week's games, adjusted for the opponent and venue. Lower is better.">Best defense</b><div class="sp"><i>{{ tm(wk.best_d.team) }}</i><span>{{ wk.best_d.d | f1 }}</span><em>adj. allowed per 100, {{ wk.best_d.n | int }} game{{ 's' if wk.best_d.n != 1 }}</em></div></div>
+  <div class="card"><b data-explain="Chance of finishing top 6, before and after last week's games. The two biggest changes.">Finals race</b><div class="sp">{% for r in wk.race %}<em class="mv">{{ tm(r.team) }} <strong>{{ r.from | pct(0) }} → {{ r.to | pct(0) }}</strong></em>{% endfor %}<em>chance of top 6</em></div></div>
+  <div class="card"><b data-explain="Most points added over an average player across last week's games, using the same box-score weights as Impact. 20+ minutes in every game.">Player of the week</b>{% if wk.potw %}<div class="sp"><i>{% if wk.potw.slug %}<a href="{{ root }}players/{{ wk.potw.slug }}/">{{ wk.potw.player }}</a>{% else %}{{ wk.potw.player }}{% endif %} <small class="mut">{{ info[wk.potw.team].code }}</small></i><span>{{ wk.potw.added | sgn }}</span><em>points added vs an average player</em><em>{{ wk.potw.pts }} pts, {{ wk.potw.reb }} reb, {{ wk.potw.ast }} ast in {{ wk.potw.games }} game{{ 's' if wk.potw.games != 1 }}</em></div>{% else %}<em>–</em>{% endif %}</div>
+</div>
+<h2>Coming up</h2>
+<div class="cards wk up">
+  <div class="card"><b data-explain="The highest Hype game in the next 7 days.">Game to watch</b>{% if wk.watch %}{% set g = wk.watch %}<i><a href="{{ root }}games/{{ g.slug }}/">{{ info[g.away].code }} @ {{ info[g.home].code }}</a></i><span>{{ g.hype }}</span><em>Hype, {{ g.utc | syd("%a %d %b") }}</em>{% else %}<em>–</em>{% endif %}</div>
   <div class="card"><b data-explain="Average AdjEM of a team's next three opponents. The hardest stretch in the league.">Toughest run ahead</b>{% if wk.tough %}<i>{{ tm(wk.tough.team) }}</i><span>{{ wk.tough.avg | sgn }}</span><em>next: {% for o in wk.tough.opps %}{{ info[o].code }}{{ ", " if not loop.last }}{% endfor %}</em>{% else %}<em>–</em>{% endif %}</div>
 </div>
 {% endif %}
