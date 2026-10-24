@@ -394,3 +394,4 @@ svg.shotchart .zl text.s{font-size:8px;font-weight:400;fill:var(--soft)}
 .shotkey .sizes{display:flex;flex-wrap:wrap;gap:4px 18px}
 .shotkey .sizes span{display:inline-flex;align-items:center;gap:6px}
 .shotkey .sz{fill:var(--rule-strong)}
+svg.shotchart.key{display:inline-block;width:44px;background:none}
