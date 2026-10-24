@@ -18,7 +18,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="{{ root }}assets/ball.svg" type="image/svg+xml">
 <link rel="preload" href="{{ root }}assets/fonts/archivo-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="{{ root }}assets/style.css">
+<link rel="stylesheet" href="{{ root }}assets/style.css?v={{ v }}">
 <script>try{var s=localStorage.getItem("nbl-sp");if(s)document.documentElement.dataset.sp=s;var th=localStorage.getItem("nbl-theme");if(th)document.documentElement.dataset.theme=th;if(localStorage.getItem("nbl-nav")==="mini")document.documentElement.dataset.nav="mini";}catch(e){}</script>
 {% if cfg.head_html %}{{ cfg.head_html | safe }}{% endif %}
 {% block head %}{% endblock %}
@@ -87,7 +87,7 @@
 </footer>
 </div>
 </div>
-<script src="{{ root }}assets/app.js" defer></script>
+<script src="{{ root }}assets/app.js?v={{ v }}" defer></script>
 {% block scripts %}{% endblock %}
 </body>
 </html>

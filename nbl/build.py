@@ -2,6 +2,7 @@
 import json
 import math
 import os
+import hashlib
 import html as htmllib
 import re
 import shutil
@@ -268,6 +269,17 @@ def season_record(completed):
             "acc": float(np.mean((p >= 0.5) == (home_won == 1))),
             "logloss": float(-np.mean(home_won * np.log(p) + (1 - home_won) * np.log(1 - p))),
             "mae": float(np.mean([abs((g["hs"] - g["as"]) - g["pred"]["margin"]) for g in completed]))}
+
+
+def asset_version():
+    """Short hash of the static files, added to their URLs so browsers fetch new copies after a change."""
+    h = hashlib.sha1()
+    for name in sorted(os.listdir(os.path.join(HERE, "static"))):
+        path = os.path.join(HERE, "static", name)
+        if os.path.isfile(path):
+            with open(path, "rb") as f:
+                h.update(f.read())
+    return h.hexdigest()[:8]
 
 
 def week_snapshot(games, sched, info, teams, cal, cur, all_games, pb, weights, avg_impact, now, n_sims):
@@ -590,7 +602,7 @@ def build(cfg, data_dir, out_dir, refresh=False, n_sims=sim.N_SIMS, log=print, l
     write_data_js(out_dir, ratings, cal, info, teams, season, bool(cfg.get("show_betting_tools")))
     common = {"season": season, "updated": sydney_time(now, "%d %b %Y, %I:%M%p %Z"),
               "info": info, "order": order, "teams": teams, "rating": cfg.get("rating_name", "Rating"),
-              "N": len(teams)}
+              "N": len(teams), "v": asset_version()}
     site = Site(cfg, out_dir, common)
 
     em_max = max(abs(info[t]["net"]) for t in teams) or 1
