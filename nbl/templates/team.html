@@ -130,6 +130,36 @@
 </section>
 
 <section>
+  <h2>Rotation</h2>
+  {% if rot %}
+{% set X = {
+  "top5": "Share of the team's minutes played by its five most-used players. Higher means the team leans hard on its main players; lower means it spreads minutes around.",
+  "top8": "Share of the team's minutes played by its eight most-used players.",
+  "regulars": "Players averaging " ~ 10 ~ " or more minutes a game across all the team's games. Games a player missed count as zero, so injured players drop out.",
+  "share": "A player's minutes out of all the team's minutes, five players at a time. Playing every minute of every game would be 20%. Missed games bring it down.",
+  "recent": "The same share over the team's last few games. Shows who has moved into or out of the rotation lately.",
+  "gs": "Games started."} %}
+  <div class="cards three">
+    <div class="card"><b data-explain="{{ X.top5 }}">Minutes to top 5</b><span>{{ rot.top5 | pct(0) }}</span><em>{{ 'Most in league' if rot.rank == 1 else ('Fewest in league' if rot.rank == N else rot.rank ~ (rot.rank | suffix) ~ ' most of ' ~ N) }}, avg {{ rot.top5_avg | pct(0) }}</em></div>
+    <div class="card"><b data-explain="{{ X.top8 }}">Minutes to top 8</b><span>{{ rot.top8 | pct(0) }}</span><em>Avg {{ rot.top8_avg | pct(0) }}</em></div>
+    <div class="card"><b data-explain="{{ X.regulars }}">Players at 10+ min</b><span>{{ rot.regulars }}</span><em>Avg {{ rot.regulars_avg | f1 }}</em></div>
+  </div>
+  <div class="tw snug"><table class="dense">
+    <thead><tr><th class="l">Player</th><th>GP</th><th data-explain="{{ X.gs }}">GS</th><th>MPG</th><th class="l" data-explain="{{ X.share }}">Share of minutes</th><th data-explain="{{ X.recent }}">Last {{ rot.recent }} games</th></tr></thead>
+    <tbody>
+    {% for r in rot.rows %}
+      <tr><td class="l">{% if slugs[r.player] %}<a href="{{ root }}players/{{ slugs[r.player] }}/">{{ r.player }}</a>{% else %}{{ r.player }}{% endif %}</td>
+        <td>{{ r.gp }}</td><td>{{ r.gs }}</td><td>{{ r.mpg | f1 }}</td>
+        <td class="l mins"><span class="bar"><i style="width:{{ [r.share / 0.2 * 100, 100] | min | round(1) }}%"></i></span>{{ r.share | pct(0) }}</td>
+        <td>{{ r.recent | pct(0) }}</td></tr>
+    {% endfor %}
+    </tbody>
+  </table></div>
+  <p class="note">How {{ x.short }} share out their minutes across {{ rot.games }} games this season. A player's share is their minutes out of all the team's minutes, so playing every minute of every game would be 20%. The last column is the same over the last {{ rot.recent }} games.</p>
+  {% else %}<p>No games yet this season.</p>{% endif %}
+</section>
+
+<section>
   <h2>Roster ({{ season }})</h2>
   {% if roster %}
   <div class="tw"><table class="dense sortable">
