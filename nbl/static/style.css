@@ -241,7 +241,7 @@ svg .other:hover .lab{fill-opacity:1}
 svg .me polyline{fill:none;stroke:var(--tc);stroke-width:2.8}
 svg .me circle{fill:var(--tc)}
 svg .me .lab{fill:var(--tc);font-size:11px;font-weight:700}
-/* League today: ratings map, trend panels, record bars */
+/* League today: ratings map and trend panels */
 .mapbox{max-width:640px}
 svg .avg{stroke:var(--faint);stroke-width:1.2;stroke-dasharray:5 4}
 svg.rmap .ax{font-size:12px}
@@ -259,18 +259,14 @@ svg .ln{fill:none;stroke:var(--accent);stroke-width:2}
 svg .ln.so{stroke-dasharray:3 3}
 svg circle.pt{fill:var(--accent)}
 svg circle.now,.key .dot.hollow{fill:var(--paper);stroke:var(--accent);stroke-width:2}
-svg.rec .ax{font-size:12.5px}
 svg.trend .ax{font-size:12px}
-svg rect.bar{fill:var(--rule-strong)}
-svg rect.now,.key .sq.now{fill:var(--accent);background:var(--accent)}
 .key{color:var(--soft);font-size:13px;margin:8px 0 0;display:flex;flex-wrap:wrap;gap:4px 16px}
 .key span{white-space:nowrap;display:inline-flex;align-items:center;gap:6px}
 .key .dash{display:inline-block;width:20px;border-top:1.5px dashed var(--faint)}
 .key .dot{display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--accent)}
 .key .dot.hollow{background:var(--paper);border:2px solid var(--accent)}
-.key .sq{display:inline-block;width:10px;height:10px;background:var(--rule-strong)}
 @media (max-width:600px){.trends{grid-template-columns:1fr}
-  svg.rmap .ax,svg.rmap .tt{font-size:17px} svg.rmap .quad{font-size:17px} svg .tm .lab{font-size:19px} svg.rec .ax{font-size:16px}}
+  svg.rmap .ax,svg.rmap .tt{font-size:17px} svg.rmap .quad{font-size:17px} svg .tm .lab{font-size:19px}}
 .dist{display:flex;gap:6px;align-items:flex-end;height:140px;border-bottom:1px solid var(--rule-strong)}
 .dist .col{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;height:100%}
 .dist{--tc:var(--c)}
@@ -355,7 +351,7 @@ html[data-sp="hide"] .spblock:not(.open) .sp-reveal{display:block}
   td .t .h{display:block;color:var(--soft)}
   td .t{display:inline-block;line-height:1.3}
   th,td{padding-left:6px;padding-right:6px}
-  .chartbox{overflow-x:auto} svg.chart{min-width:560px} svg.rmap,svg.trend,svg.rec{min-width:0}
+  .chartbox{overflow-x:auto} svg.chart{min-width:560px} svg.rmap,svg.trend{min-width:0}
   .nm-full{display:none} .nm-short{display:inline!important}
   h1{font-size:25px} .final span{font-size:36px}
   td.tm small,td.l small{display:none}

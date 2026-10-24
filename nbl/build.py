@@ -515,13 +515,11 @@ def build(cfg, data_dir, out_dir, refresh=False, n_sims=sim.N_SIMS, log=print, l
     site.page("matchup/", "matchup.html")
     site.page("model/", "model.html", bt=backtest, cal=cal, R=ratings, replay=season_record(completed),
               ledger=ledger)
-    record = league.track_record((ledger or {}).get("graded"), backtest)
     trend_rows = league.trends(games, cur)
     site.page("league/", "league.html", rmap=league.ratings_map_svg(info, teams, ratings["mu"], cfg.get("base_path", "/")),
               trends=[(key, label, fmt, tip, trend_rows[-1][key], trend_rows[-2][key] if len(trend_rows) > 1 else None,
                        league.trend_svg(trend_rows, key, fmt)) for key, label, fmt, tip in league.TRENDS],
-              now=trend_rows[-1], n_regular=len(sched[~sched.finals]), rec=record, bt=backtest,
-              rec_chart=league.record_svg(record, backtest, season))
+              now=trend_rows[-1], n_regular=len(sched[~sched.finals]))
     site.page("about/", "about.html")
     site.page("glossary/", "glossary.html")
     for team in teams:
@@ -755,7 +753,7 @@ def update_ledger(path, upcoming, completed, now):
             "acc": float(np.mean((p >= 0.5) == (home_won == 1))),
             "logloss": float(-np.mean(home_won * np.log(p) + (1 - home_won) * np.log(1 - p))),
             "mae": float(np.mean([abs((e["hs"] - e["as"]) - e["margin"]) for e in graded])),
-            "since": min(e["logged"] for e in ledger.values())[:10], "graded": graded,
+            "since": min(e["logged"] for e in ledger.values())[:10],
             "rows": sorted(graded, key=lambda e: e["utc"], reverse=True)[:30]}
 
 

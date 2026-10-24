@@ -1,4 +1,4 @@
-"""The league today page: the ratings map, league-wide trends by season and the model's record."""
+"""The league today page: the ratings map and league-wide trends by season."""
 import math
 
 import numpy as np
@@ -149,59 +149,3 @@ def ratings_map_svg(info, teams, mu, root="/", width=540, height=460):
     svg.append("</svg>")
     return "".join(svg)
 
-
-BANDS = ((0.5, 0.6), (0.6, 0.7), (0.7, 0.8), (0.8, 1.01))
-
-
-def track_record(graded, backtest):
-    """This season's logged predictions, totals only, next to the backtest. No game is named."""
-    if not graded:
-        return None
-    y = np.array([e["hs"] > e["as"] for e in graded], float)
-    p = np.clip(np.array([e["p_home"] for e in graded]), 1e-6, 1 - 1e-6)
-    fav_p = np.maximum(p, 1 - p)
-    fav_won = np.where(p >= 0.5, y, 1 - y)
-    bands = []
-    for lo, hi in BANDS:
-        inside = (fav_p >= lo) & (fav_p < hi)
-        label = f"{int(lo * 100)}–{min(int(hi * 100), 100)}%"
-        past = next((c for c in (backtest or {}).get("calib", []) if c["bin"].startswith(str(int(lo * 100)))), None)
-        if lo == 0.8 and backtest:  # the backtest splits 80-90 and 90+; combine them
-            past_bins = [c for c in backtest["calib"] if int(c["bin"][:2]) >= 80]
-            past = {"n": sum(c["n"] for c in past_bins),
-                    "act": sum(c["act"] * c["n"] for c in past_bins) / max(sum(c["n"] for c in past_bins), 1)}
-        bands.append({"label": label, "n": int(inside.sum()),
-                      "exp": float(fav_p[inside].sum()), "won": int(fav_won[inside].sum()),
-                      "past": past["act"] if past else None})
-    return {"n": len(graded), "won": int(fav_won.sum()), "acc": float(fav_won.mean()),
-            "logloss": float(-np.mean(y * np.log(p) + (1 - y) * np.log(1 - p))),
-            "brier": float(np.mean((p - y) ** 2)),
-            "mae": float(np.mean([abs((e["hs"] - e["as"]) - e["margin"]) for e in graded])),
-            "since": min(e["logged"] for e in graded)[:10], "bands": bands}
-
-
-def record_svg(record, backtest, season, width=540, height=170):
-    """Winners picked by season: the backtest seasons, then this season's logged predictions."""
-    if not backtest or not record:
-        return ""
-    rows = [(s["season"], s["acc"], s["n"], False) for s in backtest["by_season"] if s["season"] != season]
-    rows.append((season, record["acc"], record["n"], True))
-    left, right, top, bottom = 46, 8, 14, 22
-    lo, hi = 0.4, 0.8
-    bw = (width - left - right) / len(rows)
-
-    def y(v):
-        return top + (height - top - bottom) * (hi - v) / (hi - lo)
-
-    svg = [f'<svg viewBox="0 0 {width} {height}" class="chart rec" role="img" aria-label="Winners picked by season">']
-    for v in (0.4, 0.5, 0.6, 0.7, 0.8):
-        svg.append(f'<line x1="{left}" x2="{width - right}" y1="{y(v):.1f}" y2="{y(v):.1f}" class="grid"/>'
-                   f'<text x="{left - 6}" y="{y(v) + 4:.1f}" class="ax" text-anchor="end">{int(v * 100)}%</text>')
-    for i, (label, acc, n, now) in enumerate(rows):
-        bx = left + i * bw + bw * 0.18
-        top_y = y(min(max(acc, lo), hi))
-        svg.append(f'<rect class="{"now" if now else "bar"}" x="{bx:.1f}" y="{top_y:.1f}" width="{bw * 0.64:.1f}" '
-                   f'height="{y(lo) - top_y:.1f}"><title>{label}: {100 * acc:.1f}% of {n} games{" (live, so far)" if now else " (backtest)"}</title></rect>'
-                   f'<text x="{bx + bw * 0.32:.1f}" y="{height - 6}" class="ax" text-anchor="middle">{label[2:]}</text>')
-    svg.append("</svg>")
-    return "".join(svg)
