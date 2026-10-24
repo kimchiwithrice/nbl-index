@@ -68,7 +68,7 @@
     <tr><td class="l">Wins vs expected (luck)</td><td class="sp">{{ x.luck | sgn }}{{ m.rk(x.rk.luck, N) }}</td></tr>
     <tr><td class="l">Wins above an average team (résumé)</td><td class="sp">{{ x.waa | sgn }}{{ m.rk(x.rk.waa, N) }}</td></tr>
   </tbody></table></div>
-  <p class="note">Home and away games left are already built into the projections: every remaining game is simulated where it's actually played. Luck is wins minus what the ratings expected from those games. Close games decide most of it and it tends to even out. Résumé is how many more wins than an average team would have managed against the same opponents, home and away.</p>
+  <p class="note">Home and away games left are already built into the projections: every remaining game is simulated where it's actually played. Luck is how many more games a team has won than its play deserved: the model gives it a chance of winning each game it's played, and luck is real wins minus those chances added up. It mostly comes from close games and tends to even out. Résumé is how many more wins than an average team would have managed against the same opponents, home and away.</p>
 
   <h2>Where they'll finish</h2>
   <div class="dist" style="--c:{{ x.colours[0] }};--cd:{{ x.colours[1] }}">
