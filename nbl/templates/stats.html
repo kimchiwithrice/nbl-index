@@ -30,10 +30,10 @@
 <div class="tw"><table class="dense sortable">
   <thead><tr><th class="l" data-sort="text">Team</th>
     <th class="sp-col" data-sort="num" data-explain="Wins and losses at home.">Home W-L</th>
-    <th data-sort="num" data-explain="Points per 100 possessions better than the opponent at home, adjusted for how good each opponent was and for the usual home edge.">Home net</th>
+    <th data-sort="num" data-explain="Points per 100 better than opponents at home, adjusted for opponent strength.">Home net</th>
     <th class="sp-col" data-sort="num" data-explain="Wins and losses on the road.">Road W-L</th>
-    <th data-sort="num" data-explain="Points per 100 possessions better than the opponent on the road, adjusted for how good each opponent was and for the usual road disadvantage.">Road net</th>
-    <th data-sort="num" data-explain="Home net minus road net. Positive means a team plays better at home than an average team does.">Home − road</th></tr></thead>
+    <th data-sort="num" data-explain="Points per 100 better than opponents on the road, adjusted for opponent strength.">Road net</th>
+    <th data-sort="num" data-explain="Home net minus road net. Positive = a bigger home edge than most teams.">Home − road</th></tr></thead>
   <tbody>
   {% for t in order %}{% set v = venue[t] %}
     <tr><td class="l">{{ m.team(info, t, root) }}</td>
