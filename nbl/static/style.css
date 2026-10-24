@@ -370,3 +370,7 @@ svg.glog .val{fill:var(--soft);font-size:10px}
 .pctl .rank{text-align:right;font-weight:600}
 .pctl .rank small{font-weight:400;color:var(--faint);font-size:10px}
 .adjmark{color:var(--accent);font-weight:700;cursor:help;margin-left:2px}
+td.mins{white-space:nowrap}
+td.mins .bar{display:inline-block;width:90px;height:8px;margin-right:8px;vertical-align:middle;background:var(--wash);border-radius:4px;overflow:hidden}
+td.mins .bar i{display:block;height:100%;background:var(--bar-up);border-radius:4px}
+@media (max-width:500px){td.mins .bar{display:none}}

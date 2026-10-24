@@ -136,3 +136,52 @@ def similar(seasons, cur, n=5):
                                         "start": int(pool.start.iat[i]), "dist": float(dist[i]),
                                         "ppg": float(pool.ppg.iat[i])} for i in order]
     return out
+
+
+ROTATION_MIN = 10  # minutes a game, over all the team's games, to count as part of the regular rotation
+
+
+def rotation(player_box, games, cur, teams, recent=3):
+    """How each team shares out its minutes this season.
+
+    A player's share is his minutes out of all the team's minutes (five on court at a time), so a
+    full game every night is 20% and missed games bring it down. Returns {team: {...}}, with the
+    top-5 and top-8 shares, how many players average ROTATION_MIN minutes over all the team's
+    games, and a row per player with his share overall and over the last `recent` games.
+    """
+    season = games[games.start == cur].sort_values("utc")
+    box = player_box[player_box.match_id.isin(set(season.match_id))]
+    floor_min = season.set_index("match_id").minutes * 5
+    out = {}
+    for team in teams:
+        ids = list(season.match_id[(season.home == team) | (season.away == team)])
+        mine = box[box.team == team]
+        if not ids or mine.empty:
+            out[team] = None
+            continue
+        last = ids[-recent:]
+        rows = mine.groupby("player").agg(
+            gp=("match_id", "nunique"),
+            gs=("starter", lambda x: int(pd.to_numeric(x, errors="coerce").fillna(0).sum())),
+            min=("min", "sum"))
+        rows["share"] = rows["min"] / floor_min[ids].sum()
+        rows["recent"] = (mine[mine.match_id.isin(last)].groupby("player")["min"].sum()
+                          .reindex(rows.index).fillna(0) / floor_min[last].sum())
+        rows["mpg"] = rows["min"] / rows.gp
+        rows = rows.sort_values("share", ascending=False)
+        out[team] = {
+            "top5": float(rows.share.head(5).sum()), "top8": float(rows.share.head(8).sum()),
+            "regulars": int((rows["min"] / len(ids) >= ROTATION_MIN).sum()),
+            "games": len(ids), "recent": len(last),
+            "rows": [{"player": p, "gp": int(r.gp), "gs": int(r.gs), "mpg": float(r.mpg), "share": float(r.share),
+                      "recent": float(r.recent)} for p, r in rows.iterrows()],
+        }
+    # League rank and average for the top-5 share, most top-heavy first.
+    done = [t for t in teams if out[t]]
+    for i, t in enumerate(sorted(done, key=lambda t: -out[t]["top5"])):
+        out[t]["rank"] = i + 1
+    for key in ("top5", "top8", "regulars"):
+        avg = float(np.mean([out[t][key] for t in done])) if done else None
+        for t in done:
+            out[t][key + "_avg"] = avg
+    return out
