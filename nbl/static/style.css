@@ -232,6 +232,8 @@ td.em .v{display:inline-block;min-width:38px}
   .cards:has(>.card:nth-child(4):last-child){grid-template-columns:repeat(2,1fr)}}
 @media (max-width:600px){.cards:not(.three){grid-template-columns:repeat(2,1fr)}}
 @container (max-width:500px){.cards.three .card span{font-size:22px}}
+/* text in place of a number, e.g. too little bench time for on/off */
+.cards .card span.na{font-size:16px;font-weight:600;color:var(--soft);letter-spacing:0;padding:8px 0 4px}
 
 /* Charts */
 .chartbox{background:var(--paper);border:1px solid var(--rule);border-radius:6px;padding:10px 12px 6px}
