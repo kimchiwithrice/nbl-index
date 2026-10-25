@@ -26,7 +26,13 @@
   // Light/dark theme
   var th = document.getElementById("th-btn");
   function isDark(){ return root.dataset.theme === "dark" || (!root.dataset.theme && matchMedia("(prefers-color-scheme: dark)").matches); }
-  function thLabel(){ if(th) label(th, isDark() ? "Light mode" : "Dark mode"); }
+  // Icon-only button: shows the mode you'd switch to (moon in light, sun in dark)
+  function thLabel(){
+    if(!th) return;
+    var d = isDark(), t = d ? "Switch to light mode" : "Switch to dark mode";
+    th.title = t; th.setAttribute("aria-label", t);
+    th.querySelector("path").setAttribute("d", d ? th.dataset.sun : th.dataset.moon);
+  }
   thLabel();
   if(th) th.onclick = function(){
     root.dataset.theme = isDark() ? "light" : "dark"; store("nbl-theme", root.dataset.theme); thLabel();
