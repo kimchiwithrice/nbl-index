@@ -66,10 +66,13 @@ a:hover{text-decoration:underline;text-underline-offset:2px}
 :root[data-theme="dark"] .teams a i{background:var(--cd)}
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .teams a i{background:var(--cd)}}
 .teams .code{display:none}
-.tools{display:flex;flex-direction:column;gap:2px;padding:0 0 12px;border-bottom:1px solid var(--rule)}
+.tools{display:flex;align-items:center;gap:2px;padding:0 12px 12px 0;border-bottom:1px solid var(--rule)}
+.tools #sp-btn{flex:1}
 .tools button{display:flex;align-items:center;gap:11px;font:inherit;font-size:13px;color:var(--soft);background:none;border:0;padding:4px 18px;cursor:pointer;white-space:nowrap}
 .tools button:hover{color:var(--ink)}
 .tools button:hover .tx{text-decoration:underline;text-underline-offset:2px}
+.tools button.thb{flex:none;padding:6px;border-radius:4px}
+.tools button.thb:hover{background:var(--side-on)}
 .kofi{flex:none;padding:12px 18px 16px;border-top:1px solid var(--rule)}
 a.chip{display:inline-flex;align-items:center;gap:6px;color:#17191c;background:var(--orange);font-size:13px;font-weight:600;padding:5px 12px;border-radius:999px;line-height:1.2;white-space:nowrap}
 a.chip .ic{width:15px;height:15px;stroke-width:2}
@@ -82,7 +85,9 @@ html[data-sp="hide"] #sp-btn{color:var(--ink);font-weight:600}
   html[data-nav="mini"] .side .tx,html[data-nav="mini"] .cap{display:none}
   html[data-nav="mini"] .sidetop{flex-direction:column;gap:10px;padding:14px 0 12px}
   html[data-nav="mini"] .brand img{margin:0}
+  html[data-nav="mini"] .tools{flex-direction:column;padding-right:0}
   html[data-nav="mini"] .tools button{justify-content:center;padding:6px 0}
+  html[data-nav="mini"] .tools button.thb{padding:6px}
   html[data-nav="mini"] .side nav a{justify-content:center;padding:7px 0;border-left:0;box-shadow:inset 3px 0 0 transparent}
   html[data-nav="mini"] .side nav a.on{box-shadow:inset 3px 0 0 var(--orange)}
   html[data-nav="mini"] .ngrp+.ngrp{border-top:1px solid var(--rule);padding-top:10px}
@@ -99,10 +104,11 @@ html[data-sp="hide"] #sp-btn{color:var(--ink);font-weight:600}
   .shell{display:block}
   .side{position:static;height:auto;flex-direction:row;flex-wrap:wrap;align-items:center;border-right:0;border-bottom:1px solid var(--rule);overflow:visible}
   .sidetop{padding:14px 20px 10px}
-  .navbtn,.side nav .ic,.tools .ic{display:none}
+  .navbtn,.side nav .ic,#sp-btn .ic{display:none}
   .tools{flex-direction:row;gap:14px}
   .tools button{padding:0}
-  .tools{order:2;margin-left:auto;align-items:center;border:0;padding:8px 0}
+  .tools button.thb{padding:4px}
+  .tools{order:2;margin-left:auto;border:0;padding:8px 0}
   .kofi{order:2;margin:0;padding:8px 20px 8px 14px;border:0}
   .side nav{order:3;flex-basis:100%;flex-direction:row;gap:0;padding:0 20px;overflow-x:auto;scrollbar-width:none;
     mask-image:linear-gradient(to right,#000 calc(100% - 28px),transparent)}
