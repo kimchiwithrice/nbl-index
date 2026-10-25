@@ -330,8 +330,8 @@
   "slug": "2026-11-08-south-east-melbourne-phoenix-at-sydney-kings",
   "p_home": 0.667,
   "margin": 6.0,
-  "total": 197.0,
-  "logged": "2026-10-25T09:27:16.472113+00:00"
+  "total": 196.9,
+  "logged": "2026-10-25T11:47:33.796280+00:00"
  },
  "37289ea9-58ad-11f1-9790-bd240d5ec994": {
   "utc": "2026-11-08T06:00:00+00:00",
@@ -699,9 +699,9 @@
   "away": "Sydney Kings",
   "slug": "2026-12-19-sydney-kings-at-south-east-melbourne-phoenix",
   "p_home": 0.449,
-  "margin": -1.8,
-  "total": 197.0,
-  "logged": "2026-10-25T09:27:16.472113+00:00"
+  "margin": -1.7,
+  "total": 196.9,
+  "logged": "2026-10-25T11:47:33.796280+00:00"
  },
  "3761d184-58ad-11f1-84ea-411a11259918": {
   "utc": "2026-12-20T04:00:00+00:00",
@@ -1010,8 +1010,8 @@
   "slug": "2027-01-14-south-east-melbourne-phoenix-at-sydney-kings",
   "p_home": 0.667,
   "margin": 6.0,
-  "total": 197.0,
-  "logged": "2026-10-25T09:27:16.472113+00:00"
+  "total": 196.9,
+  "logged": "2026-10-25T11:47:33.796280+00:00"
  },
  "37b32cce-58ad-11f1-8d47-bd240d5ec994": {
   "utc": "2027-01-15T10:30:00+00:00",
@@ -1289,9 +1289,9 @@
   "away": "Sydney Kings",
   "slug": "2027-02-06-sydney-kings-at-south-east-melbourne-phoenix",
   "p_home": 0.449,
-  "margin": -1.8,
-  "total": 197.0,
-  "logged": "2026-10-25T09:27:16.472113+00:00"
+  "margin": -1.7,
+  "total": 196.9,
+  "logged": "2026-10-25T11:47:33.796280+00:00"
  },
  "3799258e-58ad-11f1-9453-39f5f9ac4ced": {
   "utc": "2027-02-07T04:00:00+00:00",
