@@ -1,5 +1,5 @@
 // Team-list lights on game pages. The build sets them when it runs, but it can run hours late, so
-// close to tip the page asks for the game-day team list itself and redoes the prediction, using
+// in the last 2 hours the page asks for the game-day team list itself and redoes the prediction, using
 // the same rule as adjust_for_absences in nbl/build.py.
 (function () {
   "use strict";
@@ -8,7 +8,7 @@
   if (!box || !src) return;
   var d = JSON.parse(src.textContent);
   var left = new Date(d.tip) - Date.now();
-  if (!d.url || left <= 0 || left > 3 * 3600 * 1000) return;
+  if (!d.url || left <= 0 || left > 2 * 3600 * 1000) return;
 
   var TIPS = { green: "Named in the game-day team list", red: "Not in the game-day team list" };
 
