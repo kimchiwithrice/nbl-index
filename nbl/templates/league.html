@@ -6,7 +6,7 @@
 <p class="lede">{{ now.n }} of {{ n_regular }} regular-season games played this season. A new week is added every Monday, everything else updates after each game.</p>
 
 {% macro tm(t) %}<a href="{{ root }}teams/{{ info[t].slug }}/">{{ info[t].short }}</a>{% endmacro %}
-{% macro mover(label, tip, m) %}<div class="card"><b data-explain="{{ tip }}">{{ label }}</b><div class="sp"><i>{{ tm(m.team) }}</i><span class="{{ 'up' if m.diff > 0 else 'down' }}">{{ m.diff | sgn }}</span> <small class="unit">AdjEM</small><em>{{ m.from | sgn }} → {{ m.to | sgn }}</em><em>rank {{ m.rk_from }}{{ m.rk_from | suffix }} → {{ m.rk_to }}{{ m.rk_to | suffix }}</em></div></div>{% endmacro %}
+{% macro mover(label, tip, m) %}<div class="card"><b data-explain="{{ tip }}">{{ label }}</b><div class="sp"><i>{{ tm(m.team) }}</i><p class="num"><span class="{{ 'up' if m.diff > 0 else 'down' }}">{{ m.diff | sgn }}</span><small class="unit">AdjEM</small></p><em>from {{ m.from | sgn }} to {{ m.to | sgn }}</em><em>rank {{ m.rk_from }}{{ m.rk_from | suffix }} → {{ m.rk_to }}{{ m.rk_to | suffix }}</em></div></div>{% endmacro %}
 {% if weeks %}
 <h2>Week in review</h2>
 <p class="key wkpick"><select id="wk-pick" aria-label="Pick a week">{% for w in weeks %}<option value="{{ loop.index0 }}">{{ w.label }} · {{ w.round }}</option>{% endfor %}</select></p>
