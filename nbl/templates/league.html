@@ -21,7 +21,7 @@
 <h2>Coming up</h2>
 <div class="cards wk up">
   <div class="card"><b data-explain="The highest Hype game in the next 7 days.">Game to watch</b>{% if wk.watch %}{% set g = wk.watch %}<i><a href="{{ root }}games/{{ g.slug }}/">{{ info[g.away].code }} @ {{ info[g.home].code }}</a></i><span>{{ g.hype }}</span><em>Hype, {{ g.utc | syd("%a %d %b") }}</em>{% else %}<em>–</em>{% endif %}</div>
-  <div class="card"><b data-explain="Average AdjEM of a team's next three opponents. The hardest stretch in the league.">Toughest run ahead</b>{% if wk.tough %}<i>{{ tm(wk.tough.team) }}</i><span>{{ wk.tough.avg | sgn }}</span><em>next: {% for o in wk.tough.opps %}{{ info[o].code }}{{ ", " if not loop.last }}{% endfor %}</em>{% else %}<em>–</em>{% endif %}</div>
+  <div class="card"><b data-explain="Average AdjEM of a team's next three opponents. The hardest stretch in the league.">Toughest upcoming schedule</b>{% if wk.tough %}<i>{{ tm(wk.tough.team) }}</i><span>{{ wk.tough.avg | sgn }}</span><em>next: {% for o in wk.tough.opps %}{{ info[o].code }}{{ ", " if not loop.last }}{% endfor %}</em>{% else %}<em>–</em>{% endif %}</div>
 </div>
 {% endif %}
 
@@ -33,7 +33,7 @@
 {% endif %}
 <h2>Ratings map</h2>
 <div class="chartbox mapbox">{{ rmap | safe }}</div>
-<p class="key"><span><i class="dash"></i>league average</span><span>up and right is better</span><span>tap a team for its page</span></p>
+<p class="key"><span><i class="dash"></i>league average</span><span>tap a team for its page</span></p>
 
 <h2>Trends by season</h2>
 <div class="trends">
