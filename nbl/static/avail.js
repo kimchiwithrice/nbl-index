@@ -10,7 +10,7 @@
   var left = new Date(d.tip) - Date.now();
   if (!d.url || left <= 0 || left > 2 * 3600 * 1000) return;
 
-  var TIPS = { green: "Named in the game-day team list", red: "Not in the game-day team list" };
+  var TIPS = { green: "Expected to play: named in the game-day team list", red: "Out: not in the game-day team list" };
 
   // Abramowitz and Stegun 7.1.26, as in matchup.js
   function erf(x) {
@@ -46,8 +46,8 @@
     var now = predict(keep);
     var rows = d.players.map(function (p, i) {
       var green = !!named[slug(p.name)];
-      var text = green ? "in the team list, so no penalty (would have been " + sgn(-all.pts[i]) + " pts)"
-        : "not in the team list, " + sgn(-now.pts[keep.indexOf(p)]) + " pts";
+      var text = green ? "<b>Expected to play</b>. Named in the team list, so no penalty (would have been " + sgn(-all.pts[i]) + " pts)"
+        : "<b>Out</b>. Not in the team list, " + sgn(-now.pts[keep.indexOf(p)]) + " pts";
       return '<br><span class="light ' + (green ? "green" : "red") + '" title="' + TIPS[green ? "green" : "red"] + '"></span>' +
         esc(p.name) + " (" + d.code[p.side] + "): " + text;
     });
