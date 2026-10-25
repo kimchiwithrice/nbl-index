@@ -183,8 +183,8 @@ tr.dayh td{text-align:left;font-weight:700;font-size:13px;color:var(--soft);padd
 tbody tr.dayh:first-child td{padding-top:6px}
 td.l a .rk{min-width:0}
 .sep{border-left:1px solid var(--rule)}
-.rk{display:inline-block;min-width:18px;margin-left:5px;font-size:11.5px;color:var(--soft);text-align:left}
-.rk.c.t,.rk.c.b{min-width:19px;padding:0 3px;border-radius:9px;line-height:17px;text-align:center;font-weight:700}
+.rk{display:inline-block;min-width:19px;padding:0 3px;margin-left:5px;border-radius:9px;line-height:17px;font-size:11.5px;text-align:center;background:var(--wash);color:var(--soft)}
+.rk.c.t,.rk.c.b{font-weight:700}
 .rk.c.t{background:var(--good-wash);color:var(--good)}
 .rk.c.b{background:var(--bad-wash);color:var(--bad)}
 a.tm{color:var(--ink);font-weight:600}
