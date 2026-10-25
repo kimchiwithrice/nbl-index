@@ -128,6 +128,13 @@ h3{font-size:15px;font-weight:700;margin:22px 0 8px}
 .lede{color:var(--soft);max-width:68ch;margin:0 0 22px}
 .stamp{color:var(--faint);font-size:13px;margin:-14px 0 22px}
 .sub{color:var(--soft);margin:0 0 20px}
+/* Overview / Lineups & shots tabs on team pages: the open tab is filled in the team's colour */
+.tabs{display:flex;gap:6px;border-bottom:3px solid var(--c);margin:-4px 0 20px}
+.tabs a{padding:9px 18px 8px;border:1px solid var(--rule);border-bottom:0;border-radius:6px 6px 0 0;background:var(--side);color:var(--soft);font-weight:600}
+.tabs a:hover{text-decoration:none;color:var(--ink);background:var(--side-on)}
+.tabs a.on{background:var(--c);border-color:var(--c);color:var(--on)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .tabs a.on{border-color:var(--rule-strong)}}
+:root[data-theme="dark"] .tabs a.on{border-color:var(--rule-strong)}  /* so near-black team colours still show */
 .crumb{font-size:13px;color:var(--faint);margin:0 0 6px}
 .crumb a{color:var(--soft)}
 /* "On this page" links under the intro on longer pages */

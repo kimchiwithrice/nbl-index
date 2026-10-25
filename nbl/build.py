@@ -118,7 +118,7 @@ class Site:
 
 
 H2 = re.compile(r"<h2>(.*?)</h2>", re.S)
-INTRO = re.compile(r"</h1>\s*<p class=\"(?:sub|lede)\">.*?</p>(?:\s*<p class=\"stamp\">.*?</p>)?", re.S)
+INTRO = re.compile(r"</h1>\s*<p class=\"(?:sub|lede)\">.*?</p>(?:\s*<p class=\"stamp\">.*?</p>)?(?:\s*<nav class=\"tabs\".*?</nav>)?", re.S)
 
 
 def add_jump_links(html, min_sections=3):
@@ -177,6 +177,17 @@ def hype(net_home, net_away, p_home, net_sd):
 
 # Build steps
 
+def text_on(bg):
+    """White or dark text, whichever has more contrast on a solid background colour."""
+    def lum(hex_):
+        c = [int(hex_.lstrip("#")[i:i + 2], 16) / 255 for i in (0, 2, 4)]
+        c = [v / 12.92 if v <= 0.04045 else ((v + 0.055) / 1.055) ** 2.4 for v in c]
+        return 0.2126 * c[0] + 0.7152 * c[1] + 0.0722 * c[2]
+    white, dark = "#ffffff", "#1b2230"
+    L = lum(bg)
+    return white if 1.05 / (L + 0.05) >= (L + 0.05) / (lum(dark) + 0.05) else dark
+
+
 def team_summaries(teams, ratings, preseason, week_ago, results, stats, season_sim, games, sched, cur):
     """Everything shown about each team: ratings, ranks, schedule strength, record and simulation odds."""
     info = {}
@@ -185,6 +196,7 @@ def team_summaries(teams, ratings, preseason, week_ago, results, stats, season_s
         info[team] = {
             "name": team, "code": code, "slug": slug, "short": short,
             "colours": data.TEAM_COLOURS.get(team, data.DEFAULT_COLOURS),
+            "on_colour": text_on(data.TEAM_COLOURS.get(team, data.DEFAULT_COLOURS)[0]),
             "o": ratings["mu"] + ratings["off"][i],
             "d": ratings["mu"] + ratings["def"][i],
             "net": ratings["off"][i] - ratings["def"][i],
@@ -733,10 +745,10 @@ def build(cfg, data_dir, out_dir, refresh=False, n_sims=sim.N_SIMS, log=print, l
     for team in teams:
         site.page(f"teams/{info[team]['slug']}/", "team.html", t=team, x=info[team],
                   games=[g for g in all_games if team in (g["home"], g["away"])], roster=rosters[team],
-                  rot=rotations[team], shots=((deep or {}).get("teams", {}).get(team) or {}).get("chart"), slugs={r["player"]: r["slug"] for r in rosters[team]}, chart=history_svg(history, team, teams), defs=model.STAT_DEFS, S=season_sim)
+                  rot=rotations[team], slugs={r["player"]: r["slug"] for r in rosters[team]}, chart=history_svg(history, team, teams), defs=model.STAT_DEFS, S=season_sim)
         log_rows, splits = scouting[team]
         site.page(f"teams/{info[team]['slug']}/lineups/", "lineups.html", t=team, x=info[team], L=(deep or {}).get("teams", {}).get(team),
-                  deep=deep, log_rows=log_rows, splits=splits, slugs={r["player"]: r["slug"] for r in rosters[team]})
+                  deep=deep, log_rows=log_rows, splits=splits, shots=((deep or {}).get("teams", {}).get(team) or {}).get("chart"), slugs={r["player"]: r["slug"] for r in rosters[team]})
     for game in all_games:
         site.page(f"games/{game['slug']}/", "game.html", g=game, h=info[game["home"]], a=info[game["away"]],
                   defs=model.STAT_DEFS, ld=event_ld(game, info[game["home"]], info[game["away"]], cfg, cfg.get("base_path", "/")),

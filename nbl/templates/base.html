@@ -68,7 +68,7 @@
     {% endfor %}
     <div class="ngrp teams"><span class="cap">Teams</span>
       {% for t in teams | sort %}
-      <a href="{{ root }}teams/{{ info[t].slug }}/" title="{{ t }}" class="{{ 'on' if path == 'teams/' ~ info[t].slug ~ '/' else '' }}" style="--c:{{ info[t].colours[0] }};--cd:{{ info[t].colours[1] }}"><i></i><span class="tx">{{ info[t].short }}</span><span class="code">{{ info[t].code }}</span></a>
+      <a href="{{ root }}teams/{{ info[t].slug }}/" title="{{ t }}" class="{{ 'on' if path.startswith('teams/' ~ info[t].slug ~ '/') else '' }}" style="--c:{{ info[t].colours[0] }};--cd:{{ info[t].colours[1] }}"><i></i><span class="tx">{{ info[t].short }}</span><span class="code">{{ info[t].code }}</span></a>
       {% endfor %}
     </div>
   </nav>

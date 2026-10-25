@@ -7,6 +7,15 @@
 <a class="tm" href="{{ root }}teams/{{ info[t].slug }}/">{% if full %}<span class="nm-full">{{ info[t].name }}</span><span class="nm-short">{{ info[t].short }}</span>{% else %}{{ info[t].short }}{% endif %}</a>
 {%- endmacro %}
 
+{# Overview / Lineups & shots tabs at the top of both team pages, in the team's colour #}
+{% macro team_tabs(x, root, active) -%}
+<nav class="tabs" aria-label="{{ x.name }} pages" style="--c:{{ x.colours[0] }};--on:{{ x.on_colour }}">
+  {% for key, href, label in [("overview", "", "Overview"), ("lineups", "lineups/", "Lineups &amp; shots")] %}
+  <a href="{{ root }}teams/{{ x.slug }}/{{ href }}"{% if key == active %} class="on" aria-current="page"{% endif %}>{{ label | safe }}</a>
+  {% endfor %}
+</nav>
+{%- endmacro %}
+
 {% macro when(utc) -%}
 <span class="t" data-utc="{{ utc.isoformat() if utc else '' }}">{{ utc | syd }}</span>
 {%- endmacro %}
