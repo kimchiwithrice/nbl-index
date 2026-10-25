@@ -578,10 +578,10 @@
   "home": "Sydney Kings",
   "away": "Perth Wildcats",
   "slug": "2026-12-06-perth-wildcats-at-sydney-kings",
-  "p_home": 0.711,
+  "p_home": 0.71,
   "margin": 7.6,
   "total": 189.5,
-  "logged": "2026-10-25T09:27:16.472113+00:00"
+  "logged": "2026-10-25T18:52:51.719745+00:00"
  },
  "3747bba2-58ad-11f1-b586-c9fe4bf38829": {
   "utc": "2026-12-09T07:30:00+00:00",
@@ -698,10 +698,10 @@
   "home": "South East Melbourne Phoenix",
   "away": "Sydney Kings",
   "slug": "2026-12-19-sydney-kings-at-south-east-melbourne-phoenix",
-  "p_home": 0.449,
+  "p_home": 0.45,
   "margin": -1.7,
   "total": 196.9,
-  "logged": "2026-10-25T11:47:33.796280+00:00"
+  "logged": "2026-10-25T18:52:51.719745+00:00"
  },
  "3761d184-58ad-11f1-84ea-411a11259918": {
   "utc": "2026-12-20T04:00:00+00:00",
@@ -710,8 +710,8 @@
   "slug": "2026-12-20-melbourne-united-at-illawarra-hawks",
   "p_home": 0.363,
   "margin": -4.8,
-  "total": 194.5,
-  "logged": "2026-10-25T09:27:16.472113+00:00"
+  "total": 194.4,
+  "logged": "2026-10-25T18:52:51.719745+00:00"
  },
  "3757e2b3-58ad-11f1-801d-e3b03d7fb141": {
   "utc": "2026-12-20T06:00:00+00:00",
@@ -828,10 +828,10 @@
   "home": "Illawarra Hawks",
   "away": "South East Melbourne Phoenix",
   "slug": "2026-12-31-south-east-melbourne-phoenix-at-illawarra-hawks",
-  "p_home": 0.338,
+  "p_home": 0.339,
   "margin": -5.7,
   "total": 202.6,
-  "logged": "2026-10-25T09:27:16.472113+00:00"
+  "logged": "2026-10-25T18:52:51.719745+00:00"
  },
  "3769a2ba-58ad-11f1-ba9d-6f9744c8d3ab": {
   "utc": "2026-12-31T08:30:00+00:00",
@@ -918,10 +918,10 @@
   "home": "Illawarra Hawks",
   "away": "Perth Wildcats",
   "slug": "2027-01-06-perth-wildcats-at-illawarra-hawks",
-  "p_home": 0.397,
+  "p_home": 0.398,
   "margin": -3.6,
   "total": 195.1,
-  "logged": "2026-10-25T09:27:16.472113+00:00"
+  "logged": "2026-10-25T18:52:51.719745+00:00"
  },
  "377cd763-58ad-11f1-8114-69c2b72ae0a9": {
   "utc": "2027-01-07T08:30:00+00:00",
@@ -1198,10 +1198,10 @@
   "home": "Illawarra Hawks",
   "away": "Perth Wildcats",
   "slug": "2027-01-30-perth-wildcats-at-illawarra-hawks",
-  "p_home": 0.397,
+  "p_home": 0.398,
   "margin": -3.6,
   "total": 195.1,
-  "logged": "2026-10-25T09:27:16.472113+00:00"
+  "logged": "2026-10-25T18:52:51.719745+00:00"
  },
  "37927ea9-58ad-11f1-816a-db7d6019155e": {
   "utc": "2027-01-30T08:30:00+00:00",
@@ -1288,10 +1288,10 @@
   "home": "South East Melbourne Phoenix",
   "away": "Sydney Kings",
   "slug": "2027-02-06-sydney-kings-at-south-east-melbourne-phoenix",
-  "p_home": 0.449,
+  "p_home": 0.45,
   "margin": -1.7,
   "total": 196.9,
-  "logged": "2026-10-25T11:47:33.796280+00:00"
+  "logged": "2026-10-25T18:52:51.719745+00:00"
  },
  "3799258e-58ad-11f1-9453-39f5f9ac4ced": {
   "utc": "2027-02-07T04:00:00+00:00",
@@ -1370,8 +1370,8 @@
   "slug": "2027-02-13-illawarra-hawks-at-melbourne-united",
   "p_home": 0.744,
   "margin": 9.0,
-  "total": 194.5,
-  "logged": "2026-10-25T12:57:56.749990+00:00"
+  "total": 194.4,
+  "logged": "2026-10-25T18:52:51.719745+00:00"
  },
  "37c1c5ea-58ad-11f1-956b-892c4438c413": {
   "utc": "2027-02-13T08:30:00+00:00",
