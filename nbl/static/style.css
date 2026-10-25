@@ -12,6 +12,8 @@
   --bar-up:#0d5ea8; --bar-down:#b0322c;
   /* soft tints around the stats: page, menu, table headers, headings */
   --bg:#f1f4f8; --side:#e5ebf3; --side-on:#d6e2f1; --thead:#eaf0f7; --head:#1d3a5c;
+  /* basketball orange from the logo, for menu touches only (labels use the darker one) */
+  --orange:#e0702a; --orange-text:#a84d1a;
   --font:"Archivo",system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
 }
 @media (prefers-color-scheme: dark){
@@ -19,14 +21,14 @@
     --paper:#171c24; --wash:#1f2630; --rule:#2a323e; --rule-strong:#3a4452;
     --ink:#e4e8ee; --soft:#a8b1bd; --faint:#8b95a3;
     --accent:#72aef0; --up:#5cc58a; --down:#f07a70; --bar-up:#72aef0; --bar-down:#f07a70;
-    --bg:#11161d; --side:#0d1218; --side-on:#1d2a3b; --thead:#1e2733; --head:#c9dcf2;
+    --bg:#11161d; --side:#0d1218; --side-on:#1d2a3b; --thead:#1e2733; --head:#c9dcf2; --orange:#f0904f; --orange-text:#e8a06a;
   }
 }
 :root[data-theme="dark"]{
   --paper:#171c24; --wash:#1f2630; --rule:#2a323e; --rule-strong:#3a4452;
   --ink:#e4e8ee; --soft:#a8b1bd; --faint:#8b95a3;
   --accent:#72aef0; --up:#5cc58a; --down:#f07a70; --bar-up:#72aef0; --bar-down:#f07a70;
-  --bg:#11161d; --side:#0d1218; --side-on:#1d2a3b; --thead:#1e2733; --head:#c9dcf2;
+  --bg:#11161d; --side:#0d1218; --side-on:#1d2a3b; --thead:#1e2733; --head:#c9dcf2; --orange:#f0904f; --orange-text:#e8a06a;
 }
 *{box-sizing:border-box}
 html,body{margin:0;background:var(--bg);color:var(--ink)}
@@ -41,7 +43,7 @@ a:hover{text-decoration:underline;text-underline-offset:2px}
 .side{position:sticky;top:0;flex:0 0 200px;height:100vh;overflow:hidden;display:flex;flex-direction:column;
   background:var(--side);border-right:1px solid var(--rule);font-size:14px;scrollbar-width:thin}
 .ic{flex:none;width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-.sidetop{display:flex;align-items:center;gap:8px;padding:16px 14px 12px 12px}
+.sidetop{display:flex;align-items:center;gap:8px;padding:16px 14px 12px 12px;box-shadow:inset 0 3px 0 var(--orange)}
 .navbtn{display:flex;padding:6px;margin:0;border:0;border-radius:4px;background:none;color:var(--soft);cursor:pointer}
 .navbtn .ic{width:20px;height:20px}
 .navbtn:hover{color:var(--ink);background:var(--side-on)}
@@ -51,10 +53,10 @@ a:hover{text-decoration:underline;text-underline-offset:2px}
 .brand .star{display:none}
 .side nav{flex:1;min-height:0;overflow-y:auto;overflow-x:hidden;scrollbar-width:thin;display:flex;flex-direction:column;gap:12px;padding:14px 0 12px}
 .ngrp{display:flex;flex-direction:column}
-.cap{font-size:11.5px;font-weight:600;color:var(--faint);text-transform:uppercase;letter-spacing:.06em;padding:0 18px 4px;white-space:nowrap}
+.cap{font-size:11.5px;font-weight:600;color:var(--orange-text);text-transform:uppercase;letter-spacing:.06em;padding:0 18px 4px;white-space:nowrap}
 .side nav a{display:flex;align-items:center;gap:11px;color:var(--soft);font-weight:500;padding:4px 18px 4px 15px;border-left:3px solid transparent;white-space:nowrap}
 .side nav a:hover{color:var(--ink);background:var(--side-on);text-decoration:none}
-.side nav a.on{color:var(--head);font-weight:700;border-left-color:var(--accent);background:var(--side-on)}
+.side nav a.on{color:var(--head);font-weight:700;border-left-color:var(--orange);background:var(--side-on)}
 .side nav a.on .ic{stroke-width:2.2}
 .teams a i{flex:none;width:4px;height:14px;margin:0 7px;border-radius:1px;background:var(--c)}
 :root[data-theme="dark"] .teams a i{background:var(--cd)}
@@ -65,9 +67,9 @@ a:hover{text-decoration:underline;text-underline-offset:2px}
 .tools button:hover{color:var(--ink)}
 .tools button:hover .tx{text-decoration:underline;text-underline-offset:2px}
 .kofi{flex:none;padding:12px 18px 16px;border-top:1px solid var(--rule)}
-a.chip{display:inline-flex;align-items:center;gap:6px;color:var(--paper);background:var(--accent);font-size:13px;font-weight:600;padding:5px 12px;border-radius:999px;line-height:1.2;white-space:nowrap}
+a.chip{display:inline-flex;align-items:center;gap:6px;color:#17191c;background:var(--orange);font-size:13px;font-weight:600;padding:5px 12px;border-radius:999px;line-height:1.2;white-space:nowrap}
 a.chip .ic{width:15px;height:15px;stroke-width:2}
-a.chip:hover{color:var(--paper);text-decoration:none;filter:brightness(1.1)}
+a.chip:hover{color:#17191c;text-decoration:none;filter:brightness(1.1)}
 html[data-sp="hide"] #sp-btn{color:var(--ink);font-weight:600}
 
 /* Collapsed menu: icons only (the choice is remembered per browser) */
@@ -78,7 +80,7 @@ html[data-sp="hide"] #sp-btn{color:var(--ink);font-weight:600}
   html[data-nav="mini"] .brand img{margin:0}
   html[data-nav="mini"] .tools button{justify-content:center;padding:6px 0}
   html[data-nav="mini"] .side nav a{justify-content:center;padding:7px 0;border-left:0;box-shadow:inset 3px 0 0 transparent}
-  html[data-nav="mini"] .side nav a.on{box-shadow:inset 3px 0 0 var(--accent)}
+  html[data-nav="mini"] .side nav a.on{box-shadow:inset 3px 0 0 var(--orange)}
   html[data-nav="mini"] .ngrp+.ngrp{border-top:1px solid var(--rule);padding-top:10px}
   html[data-nav="mini"] .side nav{gap:10px}
   html[data-nav="mini"] .teams a{flex-direction:column;gap:3px;padding:5px 0}
@@ -104,7 +106,7 @@ html[data-sp="hide"] #sp-btn{color:var(--ink);font-weight:600}
   .ngrp{flex-direction:row;gap:18px;margin-right:18px}
   .cap,.ngrp.teams,.ngrp a[href$="about/"]{display:none}
   .side nav a,.side nav a.on{flex:none;gap:0;padding:8px 0 10px;border-left:0;border-bottom:2px solid transparent;background:none;font-weight:500}
-  .side nav a.on{border-bottom-color:var(--ink)}
+  .side nav a.on{border-bottom-color:var(--orange)}
   .side nav a:hover{background:none}
 }
 
