@@ -278,6 +278,7 @@ svg.trend .ax{font-size:12px}
 .key .dot{display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--accent)}
 .key .dot.hollow{background:var(--paper);border:2px solid var(--accent)}
 .cards.wk{grid-auto-flow:row;grid-template-columns:repeat(3,1fr)}
+.wk .card{display:grid;grid-row:span 2;grid-template-rows:subgrid;align-content:start}
 .wk .card i{display:block;font-style:normal;font-weight:600;margin-top:2px}
 .wk .card span{font-size:24px}
 .wk .card span.up,.wk .race .up{color:var(--up)}
