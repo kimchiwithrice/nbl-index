@@ -191,7 +191,7 @@ def team_summaries(teams, ratings, preseason, week_ago, results, stats, season_s
             "t": ratings["t_mu"] + ratings["tempo"][i],
             "pre": (preseason["off"][i] - preseason["def"][i]) if preseason else None,
             "wk": (week_ago["off"][i] - week_ago["def"][i]) if week_ago else None,
-            **{k: results[team][k] for k in ("w", "l", "pf", "pa", "luck", "waa", "gp")},
+            **{k: results[team][k] for k in ("w", "l", "pf", "pa", "luck", "waa", "gp", "cw", "cl")},
             "sim": season_sim["teams"][team],
             "stats": stats.get(team),
         }

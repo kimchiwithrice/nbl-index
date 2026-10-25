@@ -18,6 +18,7 @@ HALF_LIFE_DAYS = 120       # a game's weight halves every 120 days
 PRIOR_SEASON_WEIGHT = 0.8  # extra discount for last season's games (rosters change)
 RIDGE_EFF = 6.0            # shrinkage towards average, roughly in games' worth of evidence
 RIDGE_TEMPO = 6.0
+CLOSE_GAME = 5             # margin that counts as a close game
 REFIT_DAYS = 7             # how often the backtest refits
 
 DEFAULT_CAL = {"k": 1.0, "sigma": 12.0, "tot_bias": 0.0, "sigma_tot": 16.0}
@@ -310,9 +311,10 @@ def results_table(games, cur_start, ratings, cal, teams):
 
     luck = wins - wins expected from the ratings for the games played
     waa  = wins - wins an average team would expect against the same opponents and venues
+    cw/cl = record in close games (decided by 5 points or less)
     """
     played = games[(games.start == cur_start) & ~games.finals]
-    out = {t: {"w": 0, "l": 0, "pf": 0, "pa": 0, "exp_w": 0.0, "avg_w": 0.0} for t in teams}
+    out = {t: {"w": 0, "l": 0, "pf": 0, "pa": 0, "exp_w": 0.0, "avg_w": 0.0, "cw": 0, "cl": 0} for t in teams}
     for row in played.itertuples():
         for team, opp, pf, pa, home in ((row.home, row.away, row.h_pts, row.a_pts, True),
                                         (row.away, row.home, row.a_pts, row.h_pts, False)):
@@ -322,6 +324,8 @@ def results_table(games, cur_start, ratings, cal, teams):
             rec["w" if pf > pa else "l"] += 1
             rec["pf"] += pf
             rec["pa"] += pa
+            if abs(pf - pa) <= CLOSE_GAME:
+                rec["cw" if pf > pa else "cl"] += 1
             p_home = predict(ratings, cal, row.home, row.away, row.neutral)["p_home"]
             rec["exp_w"] += p_home if home else 1 - p_home
             # An average team (all ratings zero) playing the same opponent at the same venue.
