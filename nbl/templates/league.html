@@ -20,15 +20,15 @@
 </div>
 <h2>Coming up</h2>
 <div class="cards wk up">
-  <div class="card"><b data-explain="The highest Hype game in the next 7 days.">Game to watch</b>{% if wk.watch %}{% set g = wk.watch %}<i><a href="{{ root }}games/{{ g.slug }}/">{{ info[g.away].code }} @ {{ info[g.home].code }}</a></i><span>{{ g.hype }}</span><em>Hype, {{ g.utc | syd("%a %d %b") }}</em>{% else %}<em>–</em>{% endif %}</div>
-  <div class="card"><b data-explain="Average AdjEM of a team's next three opponents. The hardest stretch in the league.">Toughest upcoming schedule</b>{% if wk.tough %}<i>{{ tm(wk.tough.team) }}</i><span>{{ wk.tough.avg | sgn }}</span><em>next: {% for o in wk.tough.opps %}{{ info[o].code }}{{ ", " if not loop.last }}{% endfor %}</em>{% else %}<em>–</em>{% endif %}</div>
+  <div class="card"><b data-explain="The highest Hype game in the next 7 days.">Game to watch</b>{% if wk.watch %}{% set g = wk.watch %}<div><i><a href="{{ root }}games/{{ g.slug }}/">{{ info[g.away].code }} @ {{ info[g.home].code }}</a></i><span>{{ g.hype }}</span><em>Hype, {{ g.utc | syd("%a %d %b") }}</em></div>{% else %}<em>–</em>{% endif %}</div>
+  <div class="card"><b data-explain="Average AdjEM of a team's next three opponents. The hardest stretch in the league.">Toughest upcoming schedule</b>{% if wk.tough %}<div><i>{{ tm(wk.tough.team) }}</i><span>{{ wk.tough.avg | sgn }}</span><em>next: {% for o in wk.tough.opps %}{{ info[o].code }}{{ ", " if not loop.last }}{% endfor %}</em></div>{% else %}<em>–</em>{% endif %}</div>
 </div>
 {% endif %}
 
 {% if venue_best %}
 <h2>Home &amp; away</h2>
 <div class="cards wk up">
-  {% for k, label in (("home", "Best at home"), ("road", "Best on the road")) %}<div class="card"><b data-explain="Best net per 100 {{ 'at home' if k == 'home' else 'on the road' }}, adjusted for opponent strength.">{{ label }}</b><i>{{ tm(venue_best[k]) }}</i><span>{{ venue[venue_best[k]][k].net | sgn }}</span><em>adj. net per 100, {{ venue[venue_best[k]][k].n }} games, <a href="{{ root }}stats/#home-away">all teams</a></em></div>{% endfor %}
+  {% for k, label in (("home", "Best at home"), ("road", "Best on the road")) %}<div class="card"><b data-explain="Best net per 100 {{ 'at home' if k == 'home' else 'on the road' }}, adjusted for opponent strength.">{{ label }}</b><div><i>{{ tm(venue_best[k]) }}</i><span>{{ venue[venue_best[k]][k].net | sgn }}</span><em>adj. net per 100, {{ venue[venue_best[k]][k].n }} games, <a href="{{ root }}stats/#home-away">all teams</a></em></div></div>{% endfor %}
 </div>
 {% endif %}
 <h2>Ratings map</h2>
