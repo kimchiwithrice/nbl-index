@@ -35,13 +35,13 @@
     {% if not g.done %}<tr><td class="l">Hype</td><td>{{ g.hype }} / 100</td></tr>{% endif %}
   </tbody></table></div>
   {% if g.avail and not g.done %}
-  {% set tips = {"green": "Named in the game-day team list", "red": "Not in the game-day team list", "yellow": "Team list not out yet"} %}
+  {% set tips = {"green": "Expected to play: named in the game-day team list", "red": "Out: not in the game-day team list", "yellow": "Questionable: team list not out yet"} %}
   <div class="early" id="avail"><b>Missed the last game</b>
   {% for side, team in (("away", a), ("home", h)) %}{% for x in g.avail[side] %}
     <br><span class="light {{ x.light }}" title="{{ tips[x.light] }}"></span>{{ x.player }} ({{ team.code }}):
-    {% if x.light == "green" %}in the team list, so no penalty (would have been {{ (-x.pts) | sgn }} pts)
-    {% elif x.light == "red" %}not in the team list, {{ (-x.pts) | sgn }} pts
-    {% else %}team list not out yet, assumed out, {{ (-x.pts) | sgn }} pts{% endif %}
+    {% if x.light == "green" %}<b>Expected to play</b>. Named in the team list, so no penalty (would have been {{ (-x.pts) | sgn }} pts)
+    {% elif x.light == "red" %}<b>Out</b>. Not in the team list, {{ (-x.pts) | sgn }} pts
+    {% else %}<b>Questionable</b>. Team list not out yet, counted as out, {{ (-x.pts) | sgn }} pts{% endif %}
   {% endfor %}{% endfor %}
   {% if g.unconfirmed %}<br><small class="mut">Without the team list: {{ (h.short if g.unconfirmed.margin >= 0 else a.short) }} by {{ (g.unconfirmed.margin | abs) | f1 }}, {{ h.short }} {{ g.unconfirmed.p_home | pct(0) }}.</small>{% endif %}
   <br><small class="mut">Team lists come out about an hour before tip. Until then a regular who missed the last game is assumed out. Capped at {{ impact_cap | int }} pts per team. <a href="{{ root }}glossary/#availability">How this works</a></small></div>
