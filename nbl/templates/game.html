@@ -24,29 +24,33 @@
 <section>
   <h2>{{ "Pre-game prediction" if g.done or g.pending else "Prediction" }}</h2>
   {% if g.pending %}<p class="note">This one has been played. The result shows up after the next data update.</p>{% endif %}
-  <div class="score">{{ a.short }} {{ p.a_pts | f1 }} <small>–</small> {{ p.h_pts | f1 }} {{ h.short }}</div>
-  <div class="wlab"><span>{{ a.short }} {{ (1 - p.p_home) | pct(0) }}</span><span>{{ h.short }} {{ p.p_home | pct(0) }}</span></div>
-  <div class="wbar"><div class="a" style="width:{{ ((1 - p.p_home) * 100) | round | int }}%"></div><div class="h" style="width:{{ (p.p_home * 100) | round | int }}%"></div></div>
+  <div class="score" id="pred-score">{{ a.short }} {{ p.a_pts | f1 }} <small>–</small> {{ p.h_pts | f1 }} {{ h.short }}</div>
+  <div class="wlab" id="pred-wlab"><span>{{ a.short }} {{ (1 - p.p_home) | pct(0) }}</span><span>{{ h.short }} {{ p.p_home | pct(0) }}</span></div>
+  <div class="wbar" id="pred-wbar"><div class="a" style="width:{{ ((1 - p.p_home) * 100) | round | int }}%"></div><div class="h" style="width:{{ (p.p_home * 100) | round | int }}%"></div></div>
   <div class="tw"><table class="dense"><tbody>
-    <tr><td class="l">Projected margin</td><td>{{ (h.short if p.margin >= 0 else a.short) }} by {{ (p.margin | abs) | f1 }}</td></tr>
+    <tr><td class="l">Projected margin</td><td id="pred-margin">{{ (h.short if p.margin >= 0 else a.short) }} by {{ (p.margin | abs) | f1 }}</td></tr>
     <tr><td class="l">Projected total</td><td>{{ p.total | f1 }}</td></tr>
     {% if cfg.show_betting_tools %}<tr><td class="l">Fair moneyline</td><td>{{ a.code }} {{ (1 - p.p_home) | fair_ml }} / {{ h.code }} {{ p.p_home | fair_ml }}</td></tr>{% endif %}
     <tr><td class="l">Expected possessions</td><td>{{ p.poss | f1 }}</td></tr>
     {% if not g.done %}<tr><td class="l">Hype</td><td>{{ g.hype }} / 100</td></tr>{% endif %}
   </tbody></table></div>
-  {% if g.adjust %}
-  <div class="early"><b>Likely out</b>
-  {% for side, team in (("away", a), ("home", h)) %}{% for x in g.adjust[side] %}
-    <br>{{ x.player }} ({{ team.code }}) missed the last {{ 'game' if x.missed == 1 else '2 games' }}: {{ (-x.pts) | sgn }} pts
+  {% if g.avail and not g.done %}
+  {% set tips = {"green": "Named in the game-day team list", "red": "Not in the game-day team list", "yellow": "Team list not out yet"} %}
+  <div class="early" id="avail"><b>Missed the last game</b>
+  {% for side, team in (("away", a), ("home", h)) %}{% for x in g.avail[side] %}
+    <br><span class="light {{ x.light }}" title="{{ tips[x.light] }}"></span>{{ x.player }} ({{ team.code }}):
+    {% if x.light == "green" %}in the team list, so no penalty (would have been {{ (-x.pts) | sgn }} pts)
+    {% elif x.light == "red" %}not in the team list, {{ (-x.pts) | sgn }} pts
+    {% else %}team list not out yet, assumed out, {{ (-x.pts) | sgn }} pts{% endif %}
   {% endfor %}{% endfor %}
-  <br><small class="mut">Assumed out until he plays again. Capped at {{ impact_cap | int }} pts per team. <a href="{{ root }}glossary/#availability">How this works</a></small></div>
+  {% if g.unconfirmed %}<br><small class="mut">Without the team list: {{ (h.short if g.unconfirmed.margin >= 0 else a.short) }} by {{ (g.unconfirmed.margin | abs) | f1 }}, {{ h.short }} {{ g.unconfirmed.p_home | pct(0) }}.</small>{% endif %}
+  <br><small class="mut">Team lists come out about an hour before tip. Until then a regular who missed the last game is assumed out. Capped at {{ impact_cap | int }} pts per team. <a href="{{ root }}glossary/#availability">How this works</a></small></div>
+  {% if cfg.team_list_url %}
+  <script type="application/json" id="avail-data">{{ {"id": g.id, "tip": g.utc.isoformat(), "url": cfg.team_list_url, "cap": impact_cap,
+    "sigma": g.avail.sigma, "base": g.avail.base, "code": {"home": h.code, "away": a.code}, "short": {"home": h.short, "away": a.short},
+    "players": g.avail.players} | tojson }}</script>
+  <script src="{{ root }}assets/avail.js?v={{ v }}" defer></script>
   {% endif %}
-  {% if g.returning %}
-  <div class="early"><b>Confirmed returning</b>
-  {% for x in g.returning %}
-    <br><span class="light green" title="Confirmed to play"></span>{{ x.player }} ({{ (a if x.side == 'away' else h).code }}) missed the last {{ 'game' if x.missed == 1 else '2 games' }} but is back tonight, so no penalty
-  {% endfor %}
-  <br><small class="mut">Without this, the model would have had {{ (h.short if g.unconfirmed.margin >= 0 else a.short) }} by {{ (g.unconfirmed.margin | abs) | f1 }}, {{ h.short }} {{ g.unconfirmed.p_home | pct(0) }}.</small></div>
   {% endif %}
   {% if not g.done and S.share_played < 0.3 %}<p class="note">Early-season picks are shaky. In past seasons the model got about half of its first 10 picks right, and about two in three after that.</p>{% endif %}
   <p class="note">{% if g.done %}What the model said before tip-off.{% else %}Updated every hour until tip-off. Try it on a neutral court in the <a href="{{ root }}matchup/#{{ h.code }}-{{ a.code }}">custom matchup predictor</a>.{% endif %}</p>

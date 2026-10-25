@@ -11,7 +11,7 @@ import numpy as np
 import pandas as pd
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
-from . import archive, data, impact, league, model, pbp, players, sim
+from . import archive, data, feed, impact, league, model, pbp, players, sim
 from .players import slugify
 
 HERE = os.path.dirname(__file__)
@@ -282,6 +282,7 @@ def asset_version():
     return h.hexdigest()[:8]
 
 
+LIST_HOURS = 3  # check the feed for team lists for games this close to tip
 WEEK_WAIT = pd.Timedelta(hours=33)  # Monday midnight to Tuesday 9am: the longest a late result is waited for
 
 
@@ -614,7 +615,10 @@ def build(cfg, data_dir, out_dir, refresh=False, n_sims=sim.N_SIMS, log=print, l
     weights = impact.fit_weights(pb)
     values_now = impact.current_values(pb, weights, cur)
     absences = {t: impact.missing_regulars(pb, t, cur, values_now) for t in teams}
-    adjust_for_absences(all_games, absences, cal, cfg.get("confirmed_returning"))
+    soon = [g["id"] for g in all_games
+            if not g["done"] and not g["pending"] and g["utc"] - now < pd.Timedelta(hours=LIST_HOURS)]
+    lists = feed.team_lists(soon, log) if soon and any(absences.values()) else {}
+    adjust_for_absences(all_games, absences, cal, lists)
 
     upcoming = [g for g in all_games if not g["done"] and not g["pending"]]
     pending = [g for g in all_games if g["pending"]]
@@ -757,12 +761,14 @@ def write_data_js(out_dir, ratings, cal, info, teams, season, betting=False):
         f.write("window.NBL=" + json.dumps(payload, separators=(",", ":"), default=float) + ";")
 
 
-def adjust_for_absences(all_games, absences, cal, returning=None):
+def adjust_for_absences(all_games, absences, cal, lists=None):
     """Move each team's next prediction for regulars who missed its last game.
 
-    `returning` is a one-off manual override, {game id: [players confirmed back]}: their penalty is
-    dropped, and the prediction that still had it is kept in g["unconfirmed"] to compare afterwards."""
-    returning = returning or {}
+    `lists` holds game-day team lists from the feed ({game id: names}), out about an hour before
+    tip. A flagged player who is named gets a green light and no penalty, one who isn't named gets
+    a red light, and with no list yet it's yellow and he's assumed out as usual. When the list
+    lifts a penalty, the prediction without it is kept in g["unconfirmed"] to compare later."""
+    lists = lists or {}
     next_game = {}
     for g in all_games:
         if not g["done"] and not g["pending"]:
@@ -773,17 +779,21 @@ def adjust_for_absences(all_games, absences, cal, returning=None):
                for side in ("home", "away")}
         if not out["home"] and not out["away"]:
             continue
-        back = set(returning.get(g["id"], []))
-        if back:
-            before = dict(g["pred"])
-            _shift_for_absences(before, out, cal)
-            g["unconfirmed"] = before
-            g["returning"] = [{**a, "side": side} for side in out for a in out[side] if a["player"] in back]
-            out = {side: [a for a in out[side] if a["player"] not in back] for side in out}
-            if not out["home"] and not out["away"]:
-                continue
+        named = {slugify(n) for n in lists.get(g["id"], ())}
+        out = {side: [{**a, "light": ("green" if slugify(a["player"]) in named else "red") if named else "yellow"}
+                      for a in out[side]] for side in out}
+        base = {k: g["pred"][k] for k in ("margin", "total")}
+        if any(a["light"] == "green" for side in out for a in out[side]):
+            g["unconfirmed"] = dict(g["pred"])
+            _shift_for_absences(g["unconfirmed"], out, cal)  # also gives green players their would-be pts
+        g["avail"] = {"home": out["home"], "away": out["away"], "listed": bool(named), "base": base,
+                      "sigma": cal["sigma"]}
+        out = {side: [a for a in out[side] if a["light"] != "green"] for side in out}
         shift, capped = _shift_for_absences(g["pred"], out, cal)
-        g["adjust"] = {"home": out["home"], "away": out["away"], "shift": shift, "capped": capped}
+        g["avail"]["players"] = [{"name": a["player"], "side": side, "raw": round(a["raw"], 3), "missed": a["missed"]}
+                                 for side in ("away", "home") for a in g["avail"][side]]
+        if out["home"] or out["away"]:
+            g["adjust"] = {"home": out["home"], "away": out["away"], "shift": shift, "capped": capped}
 
 
 def _shift_for_absences(p, out, cal):
@@ -796,7 +806,8 @@ def _shift_for_absences(p, out, cal):
     p["p_home"] = model.normal_cdf(p["margin"] / cal["sigma"])
     for side in out:
         for a in out[side]:
-            a["pts"] = a["per100"] * to_pts * (lost[side] / raw[side] if raw[side] else 0)
+            a["raw"] = a["per100"] * to_pts
+            a["pts"] = a["raw"] * (lost[side] / raw[side] if raw[side] else 0)
     return shift, any(raw[s] > impact.MAX_TEAM_PTS for s in out)
 
 
@@ -900,10 +911,11 @@ def update_ledger(path, upcoming, completed, now):
                      "margin": round(p["margin"], 1), "total": round(p["total"], 1)}
             if game.get("adjust"):  # how far the injury adjustment moved the margin, to check it later
                 entry["adj"] = round(game["adjust"]["shift"], 2)
-            if game.get("unconfirmed"):  # same game without the confirmed-returning override
+            if game.get("unconfirmed"):  # same game without the team list
                 entry["unconfirmed"] = {"p_home": round(game["unconfirmed"]["p_home"], 3),
                                         "margin": round(game["unconfirmed"]["margin"], 1)}
-                entry["returning"] = [a["player"] for a in game["returning"]]
+                entry["returning"] = [a["player"] for side in ("home", "away")
+                                      for a in game["avail"][side] if a["light"] == "green"]
             # Only touch the entry when the prediction changes, so the file (and the repo) stays quiet.
             old = ledger.get(game["id"], {})
             if {k: v for k, v in old.items() if k != "logged"} != entry:
