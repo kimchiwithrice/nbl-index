@@ -282,11 +282,29 @@ def asset_version():
     return h.hexdigest()[:8]
 
 
+WEEK_WAIT = pd.Timedelta(hours=33)  # Monday midnight to Tuesday 9am: the longest a late result is waited for
+
+
 def week_snapshot(games, sched, info, teams, cal, cur, all_games, pb, weights, avg_impact, now, n_sims):
     """The last full Monday-to-Sunday week (Sydney time). Everything is worked out as of the Monday
-    before and the Monday after, so it reads the same all week and changes once on Monday."""
-    end = now.tz_convert(SYDNEY).normalize()
-    end = (end - pd.Timedelta(days=end.weekday())).tz_convert("UTC")
+    before and the Monday after, so it reads the same all week.
+
+    It moves on to the week just finished once every game from it is in the data, usually a few
+    hours into Monday; until then the week before stays up. If a game still hasn't arrived by
+    Tuesday 9am (postponed, or a broken box score), it moves on anyway and the page says how many
+    of the week's games it covers.
+    """
+    monday = now.tz_convert(SYDNEY).normalize()
+    monday = monday - pd.Timedelta(days=monday.weekday())
+    season_sched = sched[sched.start == cur]
+
+    def scheduled(start, end):
+        return season_sched[(season_sched.utc >= start) & (season_sched.utc < end)]
+
+    end = monday.tz_convert("UTC")
+    due = scheduled(end - pd.Timedelta(days=7), end)
+    if not due.done.all() and now < (monday + WEEK_WAIT).tz_convert("UTC"):
+        end -= pd.Timedelta(days=7)
     start = end - pd.Timedelta(days=7)
     season = games[games.start == cur]
     week = season[(season.utc >= start) & (season.utc < end)]
@@ -367,7 +385,7 @@ def week_snapshot(games, sched, info, teams, cal, cur, all_games, pb, weights, a
     last = (end - pd.Timedelta(days=1)).tz_convert(SYDNEY)
     first = f"{local.day}" if local.month == last.month else f"{local.day} {local:%b}"
     return {"label": f"{first}–{last.day} {last:%b}",
-            "games": len(week), "riser": moves[0], "faller": moves[-1], "race": race,
+            "games": len(week), "scheduled": len(scheduled(start, end)), "riser": moves[0], "faller": moves[-1], "race": race,
             "best_o": {"team": best_o, **by_team.loc[best_o].to_dict()},
             "best_d": {"team": best_d, **by_team.loc[best_d].to_dict()},
             "potw": potw, "watch": watch, "tough": tough}
