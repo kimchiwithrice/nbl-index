@@ -72,6 +72,36 @@ def _minutes(v):
     return f"{int(mins):02d}:{int(round((mins % 1) * 60)):02d}"
 
 
+def _unwrap(data):
+    data = data.get("data", data) if isinstance(data, dict) else data
+    if isinstance(data, list):
+        data = data[0] if data else {}
+    return data
+
+
+def team_lists(match_ids, log=print):
+    """Game-day team lists for games about to start: {match id: set of player names}.
+
+    The feed fills in each game's list about an hour before tip. Games with no list yet, or where
+    the feed fails, are left out, so they count as unknown."""
+    lists = {}
+    session = requests.Session()
+    for mid in match_ids:
+        try:
+            resp = session.get(MATCH_URL.format(mid), headers=HEADERS, timeout=30)
+            resp.raise_for_status()
+            rows = _unwrap(resp.json()).get("player_match_statistics") or []
+        except Exception as e:  # noqa: BLE001
+            log(f"  team list for {mid}: skipped ({e})")
+            continue
+        names = {f"{_field(r, 'player', 'first_name') or ''} {_field(r, 'player', 'last_name') or _field(r, 'player', 'family_name') or ''}".strip()
+                 for r in rows if str(r.get("period", "0")) in ("0", "None")}
+        names.discard("")
+        if names:
+            lists[mid] = names
+    return lists
+
+
 def parse(data, season):
     """Turn one match from the feed into nblR-style rows. Returns (result, team_rows, player_rows)."""
     home, away = data.get("home_team") or {}, data.get("away_team") or {}
