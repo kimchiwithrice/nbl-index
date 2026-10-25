@@ -47,7 +47,7 @@
     {% for r in log_rows %}
       <tr class="link" data-href="{{ root }}games/{{ r.g.slug }}/">
         <td class="l">{{ m.when(r.g.utc) }}</td>
-        <td class="l">{{ 'vs' if r.home else '@' }} <a href="{{ root }}games/{{ r.g.slug }}/">{{ info[r.opp].short }}</a>{{ m.rk(r.opp_rk, N) }}</td>
+        <td class="l">{{ 'vs' if r.home else '@' }} <a href="{{ root }}games/{{ r.g.slug }}/">{{ info[r.opp].short }}</a>{{ m.rk(r.opp_rk, N, False) }}</td>
         <td>{{ r.poss | round | int }}</td>
         <td class="sp">{{ r.raw_o | f1 }}</td><td class="sp">{{ r.raw_d | f1 }}</td>
         <td class="sp">{{ r.o | f1 }}</td><td class="sp">{{ r.d | f1 }}</td><td class="sp b">{{ net(r.net) }}</td>

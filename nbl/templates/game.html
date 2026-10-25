@@ -59,12 +59,12 @@
     <tbody>
       {% for key, label, d in [("net", rating, 1), ("o", "Adj. offense", 1), ("d", "Adj. defense", 1), ("t", "Adj. tempo", 1), ("sos", "Schedule strength", 1)] %}
       <tr><td class="l">{{ label }}</td>
-        <td class="{{ 'adv' if a.rk[key] < h.rk[key] else '' }}">{{ (a[key] | sgn) if key in ('net','sos') else (a[key] | f1) }}{{ m.rk(a.rk[key], N) }}</td>
-        <td class="{{ 'adv' if h.rk[key] < a.rk[key] else '' }}">{{ (h[key] | sgn) if key in ('net','sos') else (h[key] | f1) }}{{ m.rk(h.rk[key], N) }}</td></tr>
+        <td class="{{ 'adv' if a.rk[key] < h.rk[key] else '' }}">{{ (a[key] | sgn) if key in ('net','sos') else (a[key] | f1) }}{{ m.rk(a.rk[key], N, key not in ('t', 'sos')) }}</td>
+        <td class="{{ 'adv' if h.rk[key] < a.rk[key] else '' }}">{{ (h[key] | sgn) if key in ('net','sos') else (h[key] | f1) }}{{ m.rk(h.rk[key], N, key not in ('t', 'sos')) }}</td></tr>
       {% endfor %}
       {% if a.stats and h.stats %}
       {% for key, label in [("efg", "eFG%"), ("tov", "Turnover %"), ("orb", "Off. rebound %"), ("ftr", "FT rate"), ("fg3r", "3PA share")] %}
-      <tr><td class="l">{{ label }}</td><td>{{ a.stats[key] | pct }}{{ m.rk(a.srk[key], N) }}</td><td>{{ h.stats[key] | pct }}{{ m.rk(h.srk[key], N) }}</td></tr>
+      <tr><td class="l">{{ label }}</td><td>{{ a.stats[key] | pct }}{{ m.rk(a.srk[key], N, key != 'fg3r') }}</td><td>{{ h.stats[key] | pct }}{{ m.rk(h.srk[key], N, key != 'fg3r') }}</td></tr>
       {% endfor %}
       {% endif %}
     </tbody>
