@@ -48,16 +48,16 @@
 <section>
   <h2>Similar past seasons</h2>
   <div class="tw"><table class="dense">
-    <thead><tr><th class="l" data-explain="Past NBL seasons closest in playing style: usage, shot mix, efficiency, passing, rebounding, steals, blocks and turnovers. Not a measure of how good they were.">Player</th><th class="l">Season</th><th data-explain="Points per game that season.">PPG</th></tr></thead>
+    <thead><tr><th class="l" data-explain="Past NBL seasons closest in role and playing style: minutes, scoring and assists, plus usage, shot mix, efficiency, passing, rebounding, steals, blocks and turnovers.">Player</th><th class="l">Season</th><th data-explain="Minutes per game that season.">MPG</th><th data-explain="Points per game that season.">PPG</th></tr></thead>
     <tbody>
     {% for c in p.comps %}
       <tr><td class="l"><a href="{{ root }}players/{{ c.slug }}/">{{ c.player }}</a></td>
-        <td class="l">{{ c.start }}-{{ '%02d' % ((c.start + 1) % 100) }} {{ m.team(info, c.team, root, False) if c.team in info else c.team }}</td><td>{{ c.ppg | f1 }}</td></tr>
+        <td class="l">{{ c.start }}-{{ '%02d' % ((c.start + 1) % 100) }} {{ m.team(info, c.team, root, False) if c.team in info else c.team }}</td><td>{{ c.mpg | f1 }}</td><td>{{ c.ppg | f1 }}</td></tr>
     {% endfor %}
     </tbody>
   </table></div>
   <details class="how"><summary>How are these picked?</summary>
-    <p>NBL seasons since 2015-16 closest to this one in playing style: usage, shot mix and efficiency, passing, rebounding, steals, blocks and turnovers. It's about how they play, not how good they are.</p>
+    <p>NBL seasons since 2015-16 closest to this one in role and style: minutes, points and assists per 40 minutes, usage, shot mix and efficiency, passing, rebounding, steals, blocks and turnovers.</p>
   </details>
 </section>
 {% endif %}
