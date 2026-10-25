@@ -217,10 +217,10 @@
   "home": "Tasmania JackJumpers",
   "away": "Sydney Kings",
   "slug": "2026-10-30-sydney-kings-at-tasmania-jackjumpers",
-  "p_home": 0.403,
+  "p_home": 0.404,
   "margin": -3.4,
   "total": 189.3,
-  "logged": "2026-10-25T09:27:16.472113+00:00"
+  "logged": "2026-10-25T14:42:10.445997+00:00"
  },
  "3719f6ce-58ad-11f1-b7b9-736e6b79ac99": {
   "utc": "2026-10-31T08:30:00+00:00",
@@ -468,10 +468,10 @@
   "home": "Tasmania JackJumpers",
   "away": "Illawarra Hawks",
   "slug": "2026-11-21-illawarra-hawks-at-tasmania-jackjumpers",
-  "p_home": 0.715,
+  "p_home": 0.714,
   "margin": 7.8,
   "total": 194.9,
-  "logged": "2026-10-25T09:27:16.472113+00:00"
+  "logged": "2026-10-25T14:42:10.445997+00:00"
  },
  "3750b552-58ad-11f1-a12d-7ddf75ccac0d": {
   "utc": "2026-11-21T08:30:00+00:00",
@@ -788,10 +788,10 @@
   "home": "Illawarra Hawks",
   "away": "New Zealand Breakers",
   "slug": "2026-12-27-new-zealand-breakers-at-illawarra-hawks",
-  "p_home": 0.396,
+  "p_home": 0.397,
   "margin": -3.6,
   "total": 194.0,
-  "logged": "2026-10-25T09:27:16.472113+00:00"
+  "logged": "2026-10-25T14:42:10.445997+00:00"
  },
  "379201a1-58ad-11f1-a7bf-ede76c1d904d": {
   "utc": "2026-12-27T06:00:00+00:00",
@@ -1058,10 +1058,10 @@
   "home": "Illawarra Hawks",
   "away": "New Zealand Breakers",
   "slug": "2027-01-20-new-zealand-breakers-at-illawarra-hawks",
-  "p_home": 0.396,
+  "p_home": 0.397,
   "margin": -3.6,
   "total": 194.0,
-  "logged": "2026-10-25T09:27:16.472113+00:00"
+  "logged": "2026-10-25T14:42:10.445997+00:00"
  },
  "37b85f23-58ad-11f1-9eb0-2bbb920071b5": {
   "utc": "2027-01-21T08:30:00+00:00",
@@ -1148,10 +1148,10 @@
   "home": "Tasmania JackJumpers",
   "away": "Illawarra Hawks",
   "slug": "2027-01-27-illawarra-hawks-at-tasmania-jackjumpers",
-  "p_home": 0.715,
+  "p_home": 0.714,
   "margin": 7.8,
   "total": 194.9,
-  "logged": "2026-10-25T09:27:16.472113+00:00"
+  "logged": "2026-10-25T14:42:10.445997+00:00"
  },
  "378d7045-58ad-11f1-be6f-59142d8bd7d5": {
   "utc": "2027-01-27T07:30:00+00:00",

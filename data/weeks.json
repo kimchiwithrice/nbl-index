@@ -1,0 +1,346 @@
+{
+ "2026": [
+  {
+   "start": "2026-09-13T14:00:00+00:00",
+   "label": "14–20 Sep",
+   "round": "Round 1",
+   "games": 4,
+   "scheduled": 4,
+   "riser": {
+    "team": "South East Melbourne Phoenix",
+    "from": 4.184463972023866,
+    "to": 5.8212142778641685,
+    "diff": 1.6367503058403026,
+    "rk_from": 2,
+    "rk_to": 2
+   },
+   "faller": {
+    "team": "Perth Wildcats",
+    "from": 2.8399713613017643,
+    "to": 1.0906098070379846,
+    "diff": -1.7493615542637797,
+    "rk_from": 3,
+    "rk_to": 4
+   },
+   "race": [
+    {
+     "team": "Perth Wildcats",
+     "from": 0.7462,
+     "to": 0.6387
+    },
+    {
+     "team": "New Zealand Breakers",
+     "from": 0.5967,
+     "to": 0.7005
+    }
+   ],
+   "best_o": {
+    "team": "Adelaide 36ers",
+    "o": 130.86833101266663,
+    "d": 125.59102365730271,
+    "n": 1.0
+   },
+   "best_d": {
+    "team": "South East Melbourne Phoenix",
+    "o": 124.23482755677168,
+    "d": 95.96873288334295,
+    "n": 1.0
+   },
+   "potw": {
+    "player": "Tanner Krebs",
+    "team": "South East Melbourne Phoenix",
+    "added": 9.179316934982975,
+    "games": 1,
+    "min": 28.0,
+    "pts": 25,
+    "reb": 1,
+    "ast": 4
+   }
+  },
+  {
+   "start": "2026-09-20T14:00:00+00:00",
+   "label": "21–27 Sep",
+   "round": "Rounds 1–2",
+   "games": 9,
+   "scheduled": 9,
+   "riser": {
+    "team": "Melbourne United",
+    "from": 0.9554194479470447,
+    "to": 3.316205430700169,
+    "diff": 2.360785982753124,
+    "rk_from": 5,
+    "rk_to": 2
+   },
+   "faller": {
+    "team": "South East Melbourne Phoenix",
+    "from": 5.8212142778641685,
+    "to": 2.9240542768389757,
+    "diff": -2.8971600010251928,
+    "rk_from": 2,
+    "rk_to": 3
+   },
+   "race": [
+    {
+     "team": "Melbourne United",
+     "from": 0.6574,
+     "to": 0.8208
+    },
+    {
+     "team": "Illawarra Hawks",
+     "from": 0.4542,
+     "to": 0.3015
+    }
+   ],
+   "best_o": {
+    "team": "Sydney Kings",
+    "o": 138.29967131748447,
+    "d": 119.61437907784789,
+    "n": 1.0
+   },
+   "best_d": {
+    "team": "Melbourne United",
+    "o": 105.81027066582476,
+    "d": 70.80980041429414,
+    "n": 1.0
+   },
+   "potw": {
+    "player": "Bryce Cotton",
+    "team": "Adelaide 36ers",
+    "added": 13.2959734116193,
+    "games": 2,
+    "min": 76.65,
+    "pts": 62,
+    "reb": 3,
+    "ast": 13
+   }
+  },
+  {
+   "start": "2026-09-27T14:00:00+00:00",
+   "label": "28 Sep–4 Oct",
+   "round": "Round 3",
+   "games": 9,
+   "scheduled": 9,
+   "riser": {
+    "team": "New Zealand Breakers",
+    "from": -0.17818421101806137,
+    "to": 2.626898036052183,
+    "diff": 2.805082247070245,
+    "rk_from": 6,
+    "rk_to": 3
+   },
+   "faller": {
+    "team": "Adelaide 36ers",
+    "from": 2.319922965194064,
+    "to": -0.5900297711676121,
+    "diff": -2.909952736361676,
+    "rk_from": 4,
+    "rk_to": 7
+   },
+   "race": [
+    {
+     "team": "Adelaide 36ers",
+     "from": 0.7849,
+     "to": 0.5579
+    },
+    {
+     "team": "New Zealand Breakers",
+     "from": 0.5843,
+     "to": 0.8022
+    }
+   ],
+   "best_o": {
+    "team": "Illawarra Hawks",
+    "o": 123.92517667750242,
+    "d": 119.53930899544541,
+    "n": 2.0
+   },
+   "best_d": {
+    "team": "New Zealand Breakers",
+    "o": 120.6882125258659,
+    "d": 98.60812713466294,
+    "n": 2.0
+   },
+   "potw": {
+    "player": "Parker Jackson-Cartwright",
+    "team": "New Zealand Breakers",
+    "added": 15.726156913159377,
+    "games": 2,
+    "min": 74.73333333333333,
+    "pts": 54,
+    "reb": 11,
+    "ast": 20
+   }
+  },
+  {
+   "start": "2026-10-04T14:00:00+00:00",
+   "label": "5–11 Oct",
+   "round": "Round 4",
+   "games": 7,
+   "scheduled": 7,
+   "riser": {
+    "team": "Perth Wildcats",
+    "from": 1.1210946964841946,
+    "to": 2.3504731394625242,
+    "diff": 1.2293784429783297,
+    "rk_from": 5,
+    "rk_to": 3
+   },
+   "faller": {
+    "team": "Illawarra Hawks",
+    "from": -2.4202135648515077,
+    "to": -4.240768087289362,
+    "diff": -1.8205545224378539,
+    "rk_from": 8,
+    "rk_to": 8
+   },
+   "race": [
+    {
+     "team": "Illawarra Hawks",
+     "from": 0.3678,
+     "to": 0.1769
+    },
+    {
+     "team": "Melbourne United",
+     "from": 0.6517,
+     "to": 0.7837
+    }
+   ],
+   "best_o": {
+    "team": "Tasmania JackJumpers",
+    "o": 154.80909613276145,
+    "d": 144.17808038561222,
+    "n": 1.0
+   },
+   "best_d": {
+    "team": "Perth Wildcats",
+    "o": 128.1297474735103,
+    "d": 107.9926708562267,
+    "n": 1.0
+   },
+   "potw": {
+    "player": "Jonah Bolden",
+    "team": "Cairns Taipans",
+    "added": 17.600120130605717,
+    "games": 2,
+    "min": 50.11666666666667,
+    "pts": 36,
+    "reb": 17,
+    "ast": 1
+   }
+  },
+  {
+   "start": "2026-10-11T14:00:00+00:00",
+   "label": "12–18 Oct",
+   "round": "Round 5",
+   "games": 7,
+   "scheduled": 7,
+   "riser": {
+    "team": "Brisbane Bullets",
+    "from": -7.5447937376818315,
+    "to": -6.31509388302856,
+    "diff": 1.2296998546532718,
+    "rk_from": 10,
+    "rk_to": 9
+   },
+   "faller": {
+    "team": "Cairns Taipans",
+    "from": -5.663613641564986,
+    "to": -6.849752847388713,
+    "diff": -1.1861392058237268,
+    "rk_from": 9,
+    "rk_to": 10
+   },
+   "race": [
+    {
+     "team": "Cairns Taipans",
+     "from": 0.3087,
+     "to": 0.217
+    },
+    {
+     "team": "Brisbane Bullets",
+     "from": 0.1762,
+     "to": 0.262
+    }
+   ],
+   "best_o": {
+    "team": "Brisbane Bullets",
+    "o": 133.79072477310385,
+    "d": 121.62813929973709,
+    "n": 1.0
+   },
+   "best_d": {
+    "team": "Illawarra Hawks",
+    "o": 114.97595298188571,
+    "d": 108.38406206750842,
+    "n": 1.0
+   },
+   "potw": {
+    "player": "Carlin Davison",
+    "team": "New Zealand Breakers",
+    "added": 14.142639229067294,
+    "games": 2,
+    "min": 64.73333333333333,
+    "pts": 37,
+    "reb": 6,
+    "ast": 25
+   }
+  },
+  {
+   "start": "2026-10-18T14:00:00+00:00",
+   "label": "19–25 Oct",
+   "round": "Round 6",
+   "games": 7,
+   "scheduled": 7,
+   "riser": {
+    "team": "Tasmania JackJumpers",
+    "from": 0.4758450326257817,
+    "to": 1.4064078722934117,
+    "diff": 0.93056283966763,
+    "rk_from": 6,
+    "rk_to": 4
+   },
+   "faller": {
+    "team": "Illawarra Hawks",
+    "from": -3.521540500870796,
+    "to": -5.728798827819633,
+    "diff": -2.207258326948837,
+    "rk_from": 8,
+    "rk_to": 8
+   },
+   "race": [
+    {
+     "team": "Illawarra Hawks",
+     "from": 0.2297,
+     "to": 0.0821
+    },
+    {
+     "team": "New Zealand Breakers",
+     "from": 0.7467,
+     "to": 0.6653
+    }
+   ],
+   "best_o": {
+    "team": "Tasmania JackJumpers",
+    "o": 135.27058048719294,
+    "d": 116.42128379159992,
+    "n": 1.0
+   },
+   "best_d": {
+    "team": "Cairns Taipans",
+    "o": 112.0752862996556,
+    "d": 110.7747094268084,
+    "n": 1.0
+   },
+   "potw": {
+    "player": "Torrey Craig",
+    "team": "Sydney Kings",
+    "added": 15.804887426719718,
+    "games": 2,
+    "min": 52.36666666666667,
+    "pts": 44,
+    "reb": 19,
+    "ast": 4
+   }
+  }
+ ]
+}
