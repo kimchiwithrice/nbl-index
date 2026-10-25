@@ -222,7 +222,8 @@
     "FT%": "Free throws made per attempt.",
     "3PA": "Three-point attempts in the season.",
     "Opp 3P%": "Opponents' three-pointers made per attempt.",
-    "Opp 2P%": "Opponents' two-pointers made per attempt."
+    "Opp 2P%": "Opponents' two-pointers made per attempt.",
+    "Opp FT%": "Opponents' free throws made per attempt. Defences have almost no say over it, so it's mostly luck."
   };
   var tipBox = document.createElement("div");
   tipBox.className = "tipbox"; tipBox.setAttribute("role", "tooltip"); tipBox.hidden = true;
