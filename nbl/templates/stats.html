@@ -18,7 +18,7 @@
   {% for t in order %}{% set x = info[t] %}{% if x.stats %}
     <tr><td class="l">{{ m.team(info, t, root) }}</td>
     {% for k, label, hib, g, fmt in cols %}{% set v = x.stats[k] %}
-      <td data-v="{{ v if v is not none else '' }}"{% if k == 'c_net' %} class="sp"{% endif %}>{{ (v | pct) if fmt == 'pct' else (v | f1) }}{{ m.rk(x.srk[k], N) if hib is not none else '' }}</td>
+      <td data-v="{{ v if v is not none else '' }}"{% if k == 'c_net' %} class="sp"{% endif %}>{{ (v | pct) if fmt == 'pct' else (v | f1) }}{{ m.rk(x.srk[k], N, k != 'd_ft') if hib is not none else '' }}</td>
     {% endfor %}</tr>
   {% endif %}{% endfor %}
   </tbody>

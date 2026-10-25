@@ -49,7 +49,7 @@
       <tr><td class="l">3-point %</td><td>{{ x.stats.fg3 | pct }}{{ m.rk(x.srk.fg3, N) }}</td><td>{{ x.stats.d_fg3 | pct }}{{ m.rk(x.srk.d_fg3, N) }}</td></tr>
       <tr><td class="l">2-point %</td><td>{{ x.stats.fg2 | pct }}{{ m.rk(x.srk.fg2, N) }}</td><td>{{ x.stats.d_fg2 | pct }}{{ m.rk(x.srk.d_fg2, N) }}</td></tr>
       <tr><td class="l">3PA share of shots</td><td>{{ x.stats.fg3r | pct }}{{ m.rk(x.srk.fg3r, N, False) }}</td><td>{{ x.stats.d_fg3r | pct }}{{ m.rk(x.srk.d_fg3r, N) }}</td></tr>
-      <tr><td class="l">Free-throw %</td><td>{{ x.stats.ft | pct }}{{ m.rk(x.srk.ft, N) }}</td><td class="mut">–</td></tr>
+      <tr><td class="l">Free-throw %</td><td>{{ x.stats.ft | pct }}{{ m.rk(x.srk.ft, N) }}</td><td data-explain="What opponents shoot at the line. Defences have almost no say over it, so it's mostly luck and isn't marked good or bad.">{{ x.stats.d_ft | pct }}{{ m.rk(x.srk.d_ft, N, False) }}</td></tr>
       <tr><td class="l">Assists per made FG</td><td>{{ x.stats.ast | pct }}{{ m.rk(x.srk.ast, N) }}</td><td>{{ x.stats.d_ast | pct }}{{ m.rk(x.srk.d_ast, N) }}</td></tr>
       <tr><td class="l">Steal % / Block %</td><td>{{ x.stats.stl | pct }}{{ m.rk(x.srk.stl, N) }}</td><td>{{ x.stats.blk | pct }}{{ m.rk(x.srk.blk, N) }}</td></tr>
       <tr><td class="l">Bench share of points</td><td>{{ x.stats.bench | pct }}{{ m.rk(x.srk.bench, N, False) }}</td><td class="mut">–</td></tr>

@@ -103,8 +103,8 @@
     <tbody>
     {% for p, r in lu.onoff.items() | sort(attribute='1.on.min', reverse=True) %}
       <tr><td class="l">{{ who(p) }}</td><td>{{ r.on.min | round | int }}</td><td class="sp" data-v="{{ r.on.net }}">{{ net(r.on.net) }}</td>
-        <td class="sp" data-v="{{ r.off.net if r.off else '' }}">{{ net(r.off.net) if r.off else '–' }}</td>
-        <td class="sp b" data-v="{{ r.diff if r.diff is not none else '' }}">{{ net(r.diff) if r.diff is not none else '–' }}</td></tr>
+        <td class="sp" data-v="{{ r.off.net if r.off else '' }}"{% if not r.off %} data-explain="Under 20 minutes on the bench so far, too few to judge."{% endif %}>{{ net(r.off.net) if r.off else '–' }}</td>
+        <td class="sp b" data-v="{{ r.diff if r.diff is not none else '' }}"{% if r.diff is none %} data-explain="Needs 20+ minutes on the bench before on/off means much."{% endif %}>{{ net(r.diff) if r.diff is not none else '–' }}</td></tr>
     {% endfor %}
     </tbody>
   </table></div>
