@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% import "macros.html" as m %}
-{% set title = t ~ " Lineups, On/Off & Shot Profile " ~ season %}
-{% set desc = t ~ " " ~ season ~ ": most-used lineups and pairs, player on/off, shot profile and game-by-game adjusted efficiency." %}
+{% set title = t ~ " Lineups, On/Off & Shot Chart " ~ season %}
+{% set desc = t ~ " " ~ season ~ ": most-used lineups and pairs, player on/off, shot chart, shot profile and game-by-game adjusted efficiency." %}
 {% macro who(name) -%}
 {% if name in slugs %}<a href="{{ root }}players/{{ slugs[name] }}/">{{ name | surname }}</a>{% else %}{{ name | surname }}{% endif %}
 {%- endmacro %}
@@ -32,8 +32,9 @@
 {% macro net(v) -%}<span class="{{ 'pos' if v >= 0 else 'neg' }}">{{ v | sgn }}</span>{%- endmacro %}
 {% block main %}
 <p class="crumb"><a href="{{ root }}">Ratings</a> › <a href="{{ root }}teams/{{ x.slug }}/">{{ t }}</a> › Lineups &amp; shots</p>
-<h1>{{ t }}: lineups &amp; shots</h1>
-<p class="sub">From the NBL play-by-play, {{ season }}. Hover any heading for what it means.</p>
+<h1>{{ t }}</h1>
+<p class="sub">Lineups, on/off and shooting from the NBL play-by-play, {{ season }}. Hover any heading for what it means.</p>
+{{ m.team_tabs(x, root, "lineups") }}
 <details class="how"><summary>What does "per 100 possessions" mean?</summary>
   <p>Most numbers here are points scored or allowed for every 100 times a team has the ball. That puts fast and slow teams on the same footing. A team scoring 115 and allowing 105 has a net rating of +10. More in the <a href="{{ root }}glossary/#lineups">glossary</a>.</p>
 </details>
@@ -112,6 +113,25 @@
     <p>On/off compares how the team does while a player is on the court against how it does while they sit on the bench. "Net on" is the scoring margin per 100 possessions with them playing, "Net off" without them, and "On − off" the gap. A big positive gap suggests the team is better with them out there, though it also depends on who comes in instead.</p>
     <p>From {{ lu.games }} of this season's games ({{ lu.min | round | int }} minutes). Lineups are rebuilt from the substitutions in the play-by-play, and a game is only used if they check out against the box score: five on court the whole way, points matching the final score and every player's minutes within a minute of the official figure. {% if deep %}This season {{ deep.games }} of {{ deep.of }} games passed.{% endif %} Lineups need 10 minutes together to be listed, pairs 20, and players need 20 minutes both on court and on the bench for on/off. Small samples still swing a lot: a lineup's net rating over 20 minutes says little on its own, and on/off depends heavily on who the backups are. Ratings in these tables are hidden while scores are hidden.</p>
   </details>
+</section>
+{% endif %}
+
+{% if shots and shots.mine %}
+<section>
+  <h2>Shot chart</h2>
+  <div class="shotpair">
+    <div><h3>{{ x.short }} shots</h3><p class="mut">{{ shots.n_mine }} shots, {{ season }}</p>{{ shots.mine | safe }}</div>
+    <div><h3>Opponents' shots</h3><p class="mut">{{ shots.n_theirs }} shots allowed, {{ season }}</p>{{ shots.theirs | safe if shots.theirs else '' }}</div>
+  </div>
+  <div class="shotkey">
+    <div><b data-explain="Made % from each zone compared with the league average from the same zone. Much worse or much better means 10+ points off the average. On the opponents' chart green means they shoot worse than average there, which is good for {{ x.short }}. Zones with under 15 shots are left as outlines.">Made % compared with the league average (for {{ x.short }})</b>
+      <div class="strip">{% for c, label in [("#c0392b", "Much worse"), ("#e8822a", "Worse"), ("#f2cf3a", "About average"), ("#9ccc4e", "Better"), ("#2e9e4f", "Much better")] %}<span><i style="background:{{ c }}"></i>{{ label }}</span>{% endfor %}</div></div>
+    <div><b>Zone labels</b>
+      <div class="sizes"><span><svg class="shotchart key" viewBox="-22 -13 44 27" width="44" height="27" aria-hidden="true"><g class="zl"><rect x="-21" y="-12" width="42" height="25" rx="4"/><text y="1">41%</text><text class="s" y="10.5">avg 37%</text></g></svg> made % · league avg</span></div></div>
+    <div><b>Shots from the spot</b>
+      <div class="sizes"><span><svg viewBox="0 0 96 24" width="96" height="24" aria-hidden="true"><path class="sz" d="M14,8.5 L17.5,10.5 L17.5,14.5 L14,16.5 L10.5,14.5 L10.5,10.5Z"/><path class="sz" d="M44,4.5 L51,8.5 L51,16.5 L44,20.5 L37,16.5 L37,8.5Z"/><path class="sz" d="M82,1 L92.5,6.5 L92.5,18 L82,23.5 L71.5,18 L71.5,6.5Z"/></svg> fewer → more</span>
+        <span><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path class="few" d="M12,4.5 L19,8.5 L19,16.5 L12,20.5 L5,16.5 L5,8.5Z"/></svg> too few to judge</span></div></div>
+  </div>
 </section>
 {% endif %}
 
