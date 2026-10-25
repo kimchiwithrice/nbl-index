@@ -8,7 +8,7 @@
 {% macro tm(t) %}<a href="{{ root }}teams/{{ info[t].slug }}/">{{ info[t].short }}</a>{% endmacro %}
 {% if wk %}
 <h2>Last week</h2>
-<p class="key"><span>{{ wk.label }}, {{ wk.games }} game{{ 's' if wk.games != 1 }}</span></p>
+<p class="key"><span>{{ wk.label }}, {% if wk.games < wk.scheduled %}{{ wk.games }} of {{ wk.scheduled }} games (results still missing){% else %}{{ wk.games }} game{{ 's' if wk.games != 1 }}{% endif %}</span></p>
 {% macro mover(label, tip, m) %}<div class="card"><b data-explain="{{ tip }}">{{ label }}</b><div class="sp"><i>{{ tm(m.team) }}</i><span class="{{ 'up' if m.diff > 0 else 'down' }}">{{ m.diff | sgn }}</span> <small class="unit">AdjEM</small><em>{{ m.from | sgn }} → {{ m.to | sgn }}</em><em>rank {{ m.rk_from }}{{ m.rk_from | suffix }} → {{ m.rk_to }}{{ m.rk_to | suffix }}</em></div></div>{% endmacro %}
 <div class="cards wk">
   {{ mover("Biggest riser", "Biggest rise in AdjEM over last week's games.", wk.riser) }}
