@@ -284,6 +284,7 @@ svg.trend .ax{font-size:12px}
 .wk .card span.up,.wk .race .up{color:var(--up)}
 .wk .card span.down,.wk .race .down{color:var(--down)}
 .wk .card .unit{font-size:13px;color:var(--soft);font-weight:600}
+.wk .card .num{display:flex;align-items:baseline;gap:5px;margin:0}
 .wk .race{display:grid;grid-template-columns:1fr auto;column-gap:8px;padding:6px 0;border-bottom:1px solid var(--rule)}
 .wk .race:first-child{margin-top:2px}
 .wk .race i{margin:0}
