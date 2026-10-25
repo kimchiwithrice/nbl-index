@@ -14,6 +14,8 @@
   --bg:#f1f4f8; --side:#e5ebf3; --side-on:#d6e2f1; --thead:#eaf0f7; --head:#1d3a5c;
   /* basketball orange from the logo, for menu touches only (labels use the darker one) */
   --orange:#e0702a; --orange-text:#a84d1a;
+  /* top-3 / bottom-3 rank badges */
+  --good:#0d5ea8; --good-wash:#e2edf9; --bad:#b0322c; --bad-wash:#fbe6e3;
   --font:"Archivo",system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
 }
 @media (prefers-color-scheme: dark){
@@ -22,6 +24,7 @@
     --ink:#e4e8ee; --soft:#a8b1bd; --faint:#8b95a3;
     --accent:#72aef0; --up:#5cc58a; --down:#f07a70; --bar-up:#72aef0; --bar-down:#f07a70;
     --bg:#11161d; --side:#0d1218; --side-on:#1d2a3b; --thead:#1e2733; --head:#c9dcf2; --orange:#f0904f; --orange-text:#e8a06a;
+    --good:#7db6f2; --good-wash:#1c2c42; --bad:#f2867c; --bad-wash:#3b2326;
   }
 }
 :root[data-theme="dark"]{
@@ -29,6 +32,7 @@
   --ink:#e4e8ee; --soft:#a8b1bd; --faint:#8b95a3;
   --accent:#72aef0; --up:#5cc58a; --down:#f07a70; --bar-up:#72aef0; --bar-down:#f07a70;
   --bg:#11161d; --side:#0d1218; --side-on:#1d2a3b; --thead:#1e2733; --head:#c9dcf2; --orange:#f0904f; --orange-text:#e8a06a;
+    --good:#7db6f2; --good-wash:#1c2c42; --bad:#f2867c; --bad-wash:#3b2326;
 }
 *{box-sizing:border-box}
 html,body{margin:0;background:var(--bg);color:var(--ink)}
@@ -180,7 +184,9 @@ tbody tr.dayh:first-child td{padding-top:6px}
 td.l a .rk{min-width:0}
 .sep{border-left:1px solid var(--rule)}
 .rk{display:inline-block;min-width:18px;margin-left:5px;font-size:11.5px;color:var(--soft);text-align:left}
-.rk.t,.rk.b{font-weight:700}
+.rk.c.t,.rk.c.b{min-width:19px;padding:0 3px;border-radius:9px;line-height:17px;text-align:center;font-weight:700}
+.rk.c.t{background:var(--good-wash);color:var(--good)}
+.rk.c.b{background:var(--bad-wash);color:var(--bad)}
 a.tm{color:var(--ink);font-weight:600}
 .nm-short{display:none}
 a.tm:hover{color:var(--accent)}

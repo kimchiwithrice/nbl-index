@@ -1,5 +1,6 @@
-{% macro rk(r, N=10) -%}
-{%- if r -%}<span class="rk {{ 't' if r <= 3 else ('b' if r > N - 3 else '') }}">{{ r }}</span>{%- endif -%}
+{# tone=False for stats where a high rank is neither good nor bad (pace, schedule, style) #}
+{% macro rk(r, N=10, tone=True) -%}
+{%- if r -%}<span class="rk {{ 't' if r <= 3 else ('b' if r > N - 3 else '') }}{{ ' c' if tone else '' }}">{{ r }}</span>{%- endif -%}
 {%- endmacro %}
 
 {% macro team(info, t, root, full=True) -%}

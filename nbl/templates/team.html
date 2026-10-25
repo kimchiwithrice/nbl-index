@@ -48,11 +48,11 @@
     <tbody>
       <tr><td class="l">3-point %</td><td>{{ x.stats.fg3 | pct }}{{ m.rk(x.srk.fg3, N) }}</td><td>{{ x.stats.d_fg3 | pct }}{{ m.rk(x.srk.d_fg3, N) }}</td></tr>
       <tr><td class="l">2-point %</td><td>{{ x.stats.fg2 | pct }}{{ m.rk(x.srk.fg2, N) }}</td><td>{{ x.stats.d_fg2 | pct }}{{ m.rk(x.srk.d_fg2, N) }}</td></tr>
-      <tr><td class="l">3PA share of shots</td><td>{{ x.stats.fg3r | pct }}{{ m.rk(x.srk.fg3r, N) }}</td><td>{{ x.stats.d_fg3r | pct }}{{ m.rk(x.srk.d_fg3r, N) }}</td></tr>
+      <tr><td class="l">3PA share of shots</td><td>{{ x.stats.fg3r | pct }}{{ m.rk(x.srk.fg3r, N, False) }}</td><td>{{ x.stats.d_fg3r | pct }}{{ m.rk(x.srk.d_fg3r, N) }}</td></tr>
       <tr><td class="l">Free-throw %</td><td>{{ x.stats.ft | pct }}{{ m.rk(x.srk.ft, N) }}</td><td class="mut">–</td></tr>
       <tr><td class="l">Assists per made FG</td><td>{{ x.stats.ast | pct }}{{ m.rk(x.srk.ast, N) }}</td><td>{{ x.stats.d_ast | pct }}{{ m.rk(x.srk.d_ast, N) }}</td></tr>
       <tr><td class="l">Steal % / Block %</td><td>{{ x.stats.stl | pct }}{{ m.rk(x.srk.stl, N) }}</td><td>{{ x.stats.blk | pct }}{{ m.rk(x.srk.blk, N) }}</td></tr>
-      <tr><td class="l">Bench share of points</td><td>{{ x.stats.bench | pct }}{{ m.rk(x.srk.bench, N) }}</td><td class="mut">–</td></tr>
+      <tr><td class="l">Bench share of points</td><td>{{ x.stats.bench | pct }}{{ m.rk(x.srk.bench, N, False) }}</td><td class="mut">–</td></tr>
     </tbody>
   </table></div>
   {% else %}<p>No games yet this season.</p>{% endif %}
@@ -61,11 +61,11 @@
 <section>
   <h2>Schedule strength &amp; luck</h2>
   <div class="tw"><table class="dense"><tbody>
-    <tr><td class="l">Opponents played (avg {{ rating }})</td><td>{{ x.sos | sgn }}{{ m.rk(x.rk.sos, N) }}</td></tr>
-    <tr><td class="l">Opponents still to play</td><td>{{ x.rsos | sgn }}{{ m.rk(x.rk.rsos, N) }}</td></tr>
+    <tr><td class="l">Opponents played (avg {{ rating }})</td><td>{{ x.sos | sgn }}{{ m.rk(x.rk.sos, N, False) }}</td></tr>
+    <tr><td class="l">Opponents still to play</td><td>{{ x.rsos | sgn }}{{ m.rk(x.rk.rsos, N, False) }}</td></tr>
     <tr><td class="l">Games left at home / away</td><td>{{ x.left_home }} / {{ x.left_away }}{% if x.left_neutral %} <small class="mut">+{{ x.left_neutral }} neutral</small>{% endif %}</td></tr>
     <tr><td class="l">Raw efficiency (off / def)</td><td>{% if x.stats %}{{ x.stats.raw_o | f1 }} / {{ x.stats.raw_d | f1 }}{% else %}–{% endif %}</td></tr>
-    <tr><td class="l">Wins vs expected (luck)</td><td class="sp">{{ x.luck | sgn }}{{ m.rk(x.rk.luck, N) }}</td></tr>
+    <tr><td class="l">Wins vs expected (luck)</td><td class="sp">{{ x.luck | sgn }}{{ m.rk(x.rk.luck, N, False) }}</td></tr>
     <tr><td class="l">Wins above an average team (résumé)</td><td class="sp">{{ x.waa | sgn }}{{ m.rk(x.rk.waa, N) }}</td></tr>
   </tbody></table></div>
   <p class="note">Home and away games left are already built into the projections: every remaining game is simulated where it's actually played. Luck is how many more games a team has won than its play deserved: the model gives it a chance of winning each game it's played, and luck is real wins minus those chances added up. It mostly comes from close games and tends to even out. Résumé is how many more wins than an average team would have managed against the same opponents, home and away.</p>
@@ -114,7 +114,7 @@
       {% set p = g.pred.p_home if home else 1 - g.pred.p_home %}
       <tr class="link" data-href="{{ root }}games/{{ g.slug }}/">
         <td class="l">{{ m.when(g.utc) }}</td>
-        <td class="l">{{ 'vs' if home else '@' }} <a href="{{ root }}games/{{ g.slug }}/">{{ info[opp].short }}</a>{{ m.rk(info[opp].rk.net, N) }}</td>
+        <td class="l">{{ 'vs' if home else '@' }} <a href="{{ root }}games/{{ g.slug }}/">{{ info[opp].short }}</a>{{ m.rk(info[opp].rk.net, N, False) }}</td>
         <td>{{ p | pct(0) }}</td>
         <td>{{ (g.pred.h_pts if home else g.pred.a_pts) | round | int }}–{{ (g.pred.a_pts if home else g.pred.h_pts) | round | int }}</td>
         {% if g.done %}{% set mine = g.hs if home else g.as %}{% set theirs = g.as if home else g.hs %}
@@ -136,7 +136,7 @@
       {% set p = g.pred.p_home if home else 1 - g.pred.p_home %}
       <tr class="link" data-href="{{ root }}games/{{ g.slug }}/">
         <td class="l">{{ m.when(g.utc) }}</td>
-        <td class="l">{{ 'vs' if home else '@' }} <a href="{{ root }}games/{{ g.slug }}/">{{ info[opp].short }}</a>{{ m.rk(info[opp].rk.net, N) }}</td>
+        <td class="l">{{ 'vs' if home else '@' }} <a href="{{ root }}games/{{ g.slug }}/">{{ info[opp].short }}</a>{{ m.rk(info[opp].rk.net, N, False) }}</td>
         <td>{{ p | pct(0) }}</td>
         <td>{{ (g.pred.h_pts if home else g.pred.a_pts) | round | int }}–{{ (g.pred.a_pts if home else g.pred.h_pts) | round | int }}</td>
         <td>{{ g.hype }}</td>
