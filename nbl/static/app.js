@@ -272,4 +272,10 @@
     });
   }
   if(pq && pmin){ pq.oninput = pf; pmin.onchange = pf; pf(); }
+
+  // Week in review: pick a past week
+  var wp = document.getElementById("wk-pick");
+  if(wp) wp.onchange = function(){
+    document.querySelectorAll(".wkweek").forEach(function(d){ d.hidden = d.dataset.week !== wp.value; });
+  };
 })();

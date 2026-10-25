@@ -286,9 +286,8 @@ LIST_HOURS = 3  # check the feed for team lists for games this close to tip
 WEEK_WAIT = pd.Timedelta(hours=33)  # Monday midnight to Tuesday 9am: the longest a late result is waited for
 
 
-def week_snapshot(games, sched, info, teams, cal, cur, all_games, pb, weights, avg_impact, now, n_sims):
-    """The last full Monday-to-Sunday week (Sydney time). Everything is worked out as of the Monday
-    before and the Monday after, so it reads the same all week.
+def week_end(sched, cur, now):
+    """End (UTC) of the last full Monday-to-Sunday week (Sydney time) to show.
 
     It moves on to the week just finished once every game from it is in the data, usually a few
     hours into Monday; until then the week before stays up. If a game still hasn't arrived by
@@ -298,15 +297,18 @@ def week_snapshot(games, sched, info, teams, cal, cur, all_games, pb, weights, a
     monday = now.tz_convert(SYDNEY).normalize()
     monday = monday - pd.Timedelta(days=monday.weekday())
     season_sched = sched[sched.start == cur]
-
-    def scheduled(start, end):
-        return season_sched[(season_sched.utc >= start) & (season_sched.utc < end)]
-
     end = monday.tz_convert("UTC")
-    due = scheduled(end - pd.Timedelta(days=7), end)
+    due = season_sched[(season_sched.utc >= end - pd.Timedelta(days=7)) & (season_sched.utc < end)]
     if not due.done.all() and now < (monday + WEEK_WAIT).tz_convert("UTC"):
         end -= pd.Timedelta(days=7)
-    start = end - pd.Timedelta(days=7)
+    return end
+
+
+def week_block(games, sched, teams, cal, cur, pb, weights, avg_impact, start, end, n_sims):
+    """One week's movers, finals race, best offense and defense and player of the week. Everything
+    is worked out as of the Monday before and the Monday after, so it reads the same later on."""
+    season_sched = sched[sched.start == cur]
+    due = season_sched[(season_sched.utc >= start) & (season_sched.utc < end)]
     season = games[games.start == cur]
     week = season[(season.utc >= start) & (season.utc < end)]
     if week.empty:
@@ -369,8 +371,56 @@ def week_snapshot(games, sched, info, teams, cal, cur, all_games, pb, weights, a
         potw = {"player": player, "team": team, "added": float(added.max()), "games": int(r.games), "min": float(r["min"]),
                 "pts": int(r.pts), "reb": int(r.orb + r.drb), "ast": int(r.ast)}
 
-    # Looking ahead, worked out fresh every build: the most watchable game in the next seven days,
-    # and the hardest next three games.
+    local = start.tz_convert(SYDNEY)
+    last = (end - pd.Timedelta(days=1)).tz_convert(SYDNEY)
+    first = f"{local.day}" if local.month == last.month else f"{local.day} {local:%b}"
+    rounds = sorted({int(r) for r in due[~due.finals].round_number.dropna()})
+    return {"start": start.isoformat(), "label": f"{first}–{last.day} {last:%b}",
+            "round": f"Round {rounds[0]}" if len(rounds) == 1 else f"Rounds {rounds[0]}–{rounds[-1]}" if rounds else "Finals",
+            "games": len(week), "scheduled": len(due), "riser": moves[0], "faller": moves[-1], "race": race,
+            "best_o": {"team": best_o, **{k: float(v) for k, v in by_team.loc[best_o].items()}},
+            "best_d": {"team": best_d, **{k: float(v) for k, v in by_team.loc[best_d].items()}},
+            "potw": potw}
+
+
+def week_history(path, games, sched, teams, cal, cur, pb, weights, avg_impact, now, n_sims, log=print):
+    """Every finished week of this season, newest first. A week is worked out once, when it first
+    shows, and kept in `path` so it reads the same later on; one that went up with results still
+    missing is redone when they arrive. Past seasons stay in the file for the season review."""
+    saved = {}
+    if path and os.path.exists(path):
+        with open(path) as f:
+            saved = json.load(f)
+    kept = {w["start"]: w for w in saved.get(str(cur), [])}
+    season_sched = sched[sched.start == cur]
+    if season_sched.empty:
+        return []
+    first = season_sched.utc.min().tz_convert(SYDNEY).normalize()
+    start = (first - pd.Timedelta(days=first.weekday())).tz_convert("UTC")
+    last = week_end(sched, cur, now)
+    season = games[games.start == cur]
+    weeks = []
+    while start < last:
+        end = start + pd.Timedelta(days=7)
+        w = kept.get(start.isoformat())
+        played = int(((season.utc >= start) & (season.utc < end)).sum())
+        if w is None or (w["games"] < w["scheduled"] and played > w["games"]):
+            w = week_block(games, sched, teams, cal, cur, pb, weights, avg_impact, start, end, n_sims)
+            if w:
+                log(f"  week of {w['label']} added to the weekly history")
+        if w:
+            weeks.append(w)
+        start = end
+    if path:
+        saved[str(cur)] = weeks
+        with open(path, "w") as f:
+            json.dump(saved, f, indent=1, ensure_ascii=False, default=float)
+    return weeks[::-1]
+
+
+def coming_up(all_games, teams, info, now):
+    """Worked out fresh every build: the most watchable game in the next seven days, and the
+    hardest next three games."""
     upcoming = [g for g in all_games if not g["done"] and not g["pending"] and g["utc"] >= now]
     soon = [g for g in upcoming if g["utc"] < now + pd.Timedelta(days=7)] or upcoming[:6]
     watch = max(soon, key=lambda g: g["hype"]) if soon else None
@@ -381,15 +431,7 @@ def week_snapshot(games, sched, info, teams, cal, cur, all_games, pb, weights, a
             opps = [g["away"] if g["home"] == t else g["home"] for g in nxt]
             runs.append({"team": t, "opps": opps, "avg": float(np.mean([info[o]["net"] for o in opps]))})
     tough = max(runs, key=lambda r: r["avg"]) if runs else None
-
-    local = start.tz_convert(SYDNEY)
-    last = (end - pd.Timedelta(days=1)).tz_convert(SYDNEY)
-    first = f"{local.day}" if local.month == last.month else f"{local.day} {local:%b}"
-    return {"label": f"{first}–{last.day} {last:%b}",
-            "games": len(week), "scheduled": len(scheduled(start, end)), "riser": moves[0], "faller": moves[-1], "race": race,
-            "best_o": {"team": best_o, **by_team.loc[best_o].to_dict()},
-            "best_d": {"team": best_d, **by_team.loc[best_d].to_dict()},
-            "potw": potw, "watch": watch, "tough": tough}
+    return {"watch": watch, "tough": tough}
 
 
 def scouting_log(team, all_games, games, ratings, info):
@@ -675,14 +717,16 @@ def build(cfg, data_dir, out_dir, refresh=False, n_sims=sim.N_SIMS, log=print, l
     site.page("model/", "model.html", bt=backtest, cal=cal, R=ratings, replay=season_record(completed),
               ledger=ledger)
     trend_rows = league.trends(games, cur)
-    snap = week_snapshot(games, sched, info, teams, cal, cur, all_games, pb, weights, averages.get(cur, 0.0), now, n_sims)
-    if snap and snap["potw"]:
-        hit = current[(current.player == snap["potw"]["player"]) & (current.team == snap["potw"]["team"])]
-        snap["potw"]["slug"] = hit.slug.iloc[0] if len(hit) else None
+    weeks_path = os.path.join(os.path.dirname(ledger_path), "weeks.json") if ledger_path else None
+    weeks = week_history(weeks_path, games, sched, teams, cal, cur, pb, weights, averages.get(cur, 0.0), now, n_sims, log)
+    slugs = {(r.player, r.team): r.slug for r in current.itertuples()}
+    for w in weeks:
+        if w["potw"]:
+            w["potw"]["slug"] = slugs.get((w["potw"]["player"], w["potw"]["team"]))
     site.page("league/", "league.html", rmap=league.ratings_map_svg(info, teams, ratings["mu"], cfg.get("base_path", "/")),
               trends=[(key, label, fmt, tip, trend_rows[-1][key], trend_rows[-2][key] if len(trend_rows) > 1 else None,
                        league.trend_svg(trend_rows, key, fmt)) for key, label, fmt, tip in league.TRENDS],
-              now=trend_rows[-1], n_regular=len(sched[~sched.finals]), wk=snap,
+              now=trend_rows[-1], n_regular=len(sched[~sched.finals]), weeks=weeks, ahead=coming_up(all_games, teams, info, now),
               venue=venue, venue_best=venue_leaders(venue))
     site.page("about/", "about.html")
     site.page("glossary/", "glossary.html")
