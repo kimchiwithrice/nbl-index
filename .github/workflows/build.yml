@@ -63,12 +63,12 @@ jobs:
         with:
           path: data/health-last.json
           key: source-health-${{ github.run_id }}
-      - name: Keep the prediction ledger
+      - name: Keep the prediction ledger and weekly history
         continue-on-error: true  # publish the site even if this commit fails
         run: |
           git config user.name "site-bot"
           git config user.email "site-bot@users.noreply.github.com"
-          git add data/ledger.json
+          git add data/ledger.json data/weeks.json
           if ! git diff --cached --quiet; then git commit -m "Update prediction ledger" && git push; fi
       - name: Save the data archive
         if: steps.archive.outcome == 'success'

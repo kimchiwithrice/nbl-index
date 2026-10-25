@@ -291,6 +291,7 @@ svg.trend .ax{font-size:12px}
 .wk .race em{grid-column:1 / -1}
 .wk .race + em{margin-top:6px}
 .cards.wk.up{grid-template-columns:repeat(2,1fr)}
+.wkpick select{width:auto;max-width:100%}
 @media (max-width:900px){.cards.wk{grid-template-columns:repeat(2,1fr)}}
 @media (max-width:600px){.trends{grid-template-columns:1fr}
   svg.rmap .ax,svg.rmap .tt{font-size:17px} svg.rmap .quad{font-size:17px} svg .tm .lab{font-size:19px}}
