@@ -2,7 +2,11 @@
 {% import "macros.html" as m %}
 {% set last = p.rows[-1] %}
 {% set title = p.name ~ " NBL Stats – Advanced Stats & Career" %}
+{% if p.current %}
+{% set desc = p.name ~ " (" ~ p.team ~ ") NBL stats " ~ season ~ ": " ~ (last.ppg | f1) ~ " points, " ~ (last.rpg | f1) ~ " rebounds and " ~ (last.apg | f1) ~ " assists a game, " ~ (last.ts | pct) ~ " true shooting. Game log, on/off, advanced stats and career." %}
+{% else %}
 {% set desc = p.name ~ " (" ~ p.team ~ ") NBL career and advanced stats: points, rebounds, assists, true shooting, usage and more, season by season since 2015-16." %}
+{% endif %}
 {% block head %}
 <script type="application/ld+json">{{ {"@context": "https://schema.org", "@type": "Person", "name": p.name, "affiliation": {"@type": "SportsTeam", "name": p.team}} | tojson }}</script>
 {% endblock %}
@@ -101,6 +105,8 @@
 </div>
 {% endif %}
 <h2>Season by season</h2>
+{% set c = p.career %}{% macro yr(y) %}{{ y }}-{{ '%02d' % ((y + 1) % 100) }}{% endmacro %}
+<p class="career">{% if c.first <= 2015 %}Since 2015-16, {% endif %}{{ p.name | surname }} {{ 'has played' if p.current else 'played' }} {{ c.gp }} NBL game{{ 's' if c.gp != 1 }} {% if c.seasons > 1 %}over {{ c.seasons }} seasons ({{ yr(c.first) }} to {{ yr(c.last) }}){% else %}in {{ yr(c.first) }}{% endif %} for {% for t in c.teams %}{{ m.team(info, t, root) if t in info else t }}{{ ' and ' if loop.revindex == 2 else (', ' if not loop.last) }}{% endfor %}, averaging {{ c.ppg | f1 }} points, {{ c.rpg | f1 }} rebounds and {{ c.apg | f1 }} assists a game.{% if c.best and c.seasons > 1 %} Best season by <a href="{{ root }}glossary/#impact">Impact</a>: {{ yr(c.best.start | int) }} with {{ info[c.best.team].short if c.best.team in info else c.best.team }}, {{ c.best.impact | sgn }} ({{ c.best.rank | int }}{{ c.best.rank | int | suffix }} of {{ c.best.of | int }} regulars).{% elif c.best %} That ranked {{ c.best.rank | int }}{{ c.best.rank | int | suffix }} of {{ c.best.of | int }} regulars by <a href="{{ root }}glossary/#impact">Impact</a>.{% endif %}</p>
 <div class="tw"><table class="dense">
   <thead><tr><th class="l">Season</th><th class="l">Team</th><th>GP</th><th>MPG</th><th>PTS</th><th>REB</th><th>AST</th><th>Impact</th><th>TS%</th><th>eFG%</th><th>3P%</th><th>3PA</th><th>FT%</th><th>USG%</th><th>AST%</th><th>ORB%</th><th>DRB%</th><th>STL%</th><th>BLK%</th><th>TOV%</th><th>ORtg</th></tr></thead>
   <tbody>
