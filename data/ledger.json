@@ -270,8 +270,8 @@
   "slug": "2026-11-02-new-zealand-breakers-at-melbourne-united",
   "p_home": 0.59,
   "margin": 3.1,
-  "total": 184.0,
-  "logged": "2026-10-25T09:27:16.472113+00:00"
+  "total": 184.1,
+  "logged": "2026-10-26T20:34:25.662264+00:00"
  },
  "3729bbac-58ad-11f1-b394-cbe0cbdf48fe": {
   "utc": "2026-11-04T08:30:00+00:00",
@@ -318,10 +318,10 @@
   "home": "Melbourne United",
   "away": "Brisbane Bullets",
   "slug": "2026-11-07-brisbane-bullets-at-melbourne-united",
-  "p_home": 0.744,
+  "p_home": 0.743,
   "margin": 9.0,
   "total": 184.7,
-  "logged": "2026-10-25T09:27:16.472113+00:00"
+  "logged": "2026-10-26T20:34:25.662264+00:00"
  },
  "37495c97-58ad-11f1-8f28-d7e4e018b88d": {
   "utc": "2026-11-08T04:00:00+00:00",
@@ -388,10 +388,10 @@
   "home": "Cairns Taipans",
   "away": "Sydney Kings",
   "slug": "2026-11-13-sydney-kings-at-cairns-taipans",
-  "p_home": 0.239,
-  "margin": -9.8,
+  "p_home": 0.24,
+  "margin": -9.7,
   "total": 189.4,
-  "logged": "2026-10-25T09:27:16.472113+00:00"
+  "logged": "2026-10-26T20:34:25.662264+00:00"
  },
  "377ccd38-58ad-11f1-9384-d30081aaf8c6": {
   "utc": "2026-11-14T08:30:00+00:00",
@@ -439,9 +439,9 @@
   "away": "South East Melbourne Phoenix",
   "slug": "2026-11-18-south-east-melbourne-phoenix-at-new-zealand-breakers",
   "p_home": 0.504,
-  "margin": 0.1,
+  "margin": 0.2,
   "total": 191.9,
-  "logged": "2026-10-25T10:14:16.263772+00:00"
+  "logged": "2026-10-26T20:34:25.662264+00:00"
  },
  "3748b33b-58ad-11f1-9f9a-71e9315f7411": {
   "utc": "2026-11-19T08:30:00+00:00",
@@ -480,8 +480,8 @@
   "slug": "2026-11-21-new-zealand-breakers-at-melbourne-united",
   "p_home": 0.59,
   "margin": 3.1,
-  "total": 184.0,
-  "logged": "2026-10-25T09:27:16.472113+00:00"
+  "total": 184.1,
+  "logged": "2026-10-26T20:34:25.662264+00:00"
  },
  "37514d45-58ad-11f1-917b-0f009f2e4d02": {
   "utc": "2026-11-22T04:00:00+00:00",
@@ -530,8 +530,8 @@
   "slug": "2026-12-04-melbourne-united-at-new-zealand-breakers",
   "p_home": 0.528,
   "margin": 1.0,
-  "total": 184.0,
-  "logged": "2026-10-25T09:27:16.472113+00:00"
+  "total": 184.1,
+  "logged": "2026-10-26T20:34:25.662264+00:00"
  },
  "3751fcc5-58ad-11f1-a32f-279e256f2655": {
   "utc": "2026-12-04T08:30:00+00:00",
@@ -548,10 +548,10 @@
   "home": "Cairns Taipans",
   "away": "South East Melbourne Phoenix",
   "slug": "2026-12-05-south-east-melbourne-phoenix-at-cairns-taipans",
-  "p_home": 0.328,
+  "p_home": 0.329,
   "margin": -6.1,
   "total": 192.9,
-  "logged": "2026-10-25T09:27:16.472113+00:00"
+  "logged": "2026-10-26T20:34:25.662264+00:00"
  },
  "3747bbe2-58ad-11f1-a09d-892c4438c413": {
   "utc": "2026-12-05T08:30:00+00:00",
@@ -568,10 +568,10 @@
   "home": "Melbourne United",
   "away": "Brisbane Bullets",
   "slug": "2026-12-06-brisbane-bullets-at-melbourne-united",
-  "p_home": 0.744,
+  "p_home": 0.743,
   "margin": 9.0,
   "total": 184.7,
-  "logged": "2026-10-25T09:27:16.472113+00:00"
+  "logged": "2026-10-26T20:34:25.662264+00:00"
  },
  "3752cf25-58ad-11f1-9654-2942781e7154": {
   "utc": "2026-12-06T06:00:00+00:00",
@@ -748,10 +748,10 @@
   "home": "Melbourne United",
   "away": "Cairns Taipans",
   "slug": "2026-12-23-cairns-taipans-at-melbourne-united",
-  "p_home": 0.752,
+  "p_home": 0.751,
   "margin": 9.4,
   "total": 184.9,
-  "logged": "2026-10-25T09:27:16.472113+00:00"
+  "logged": "2026-10-26T20:34:25.662264+00:00"
  },
  "377fd891-58ad-11f1-a6fa-c1b6941c6419": {
   "utc": "2026-12-24T08:00:00+00:00",
@@ -998,10 +998,10 @@
   "home": "Melbourne United",
   "away": "Cairns Taipans",
   "slug": "2027-01-13-cairns-taipans-at-melbourne-united",
-  "p_home": 0.752,
+  "p_home": 0.751,
   "margin": 9.4,
   "total": 184.9,
-  "logged": "2026-10-25T09:27:16.472113+00:00"
+  "logged": "2026-10-26T20:34:25.662264+00:00"
  },
  "378cef96-58ad-11f1-a398-d95637fbed2b": {
   "utc": "2027-01-14T10:30:00+00:00",
@@ -1158,10 +1158,10 @@
   "home": "Cairns Taipans",
   "away": "Sydney Kings",
   "slug": "2027-01-27-sydney-kings-at-cairns-taipans",
-  "p_home": 0.239,
-  "margin": -9.8,
+  "p_home": 0.24,
+  "margin": -9.7,
   "total": 189.4,
-  "logged": "2026-10-25T09:27:16.472113+00:00"
+  "logged": "2026-10-26T20:34:25.662264+00:00"
  },
  "37947616-58ad-11f1-a290-8da1c4ae1ac0": {
   "utc": "2027-01-28T08:30:00+00:00",
@@ -1190,8 +1190,8 @@
   "slug": "2027-01-29-melbourne-united-at-new-zealand-breakers",
   "p_home": 0.528,
   "margin": 1.0,
-  "total": 184.0,
-  "logged": "2026-10-25T09:27:16.472113+00:00"
+  "total": 184.1,
+  "logged": "2026-10-26T20:34:25.662264+00:00"
  },
  "37912f47-58ad-11f1-a905-9b50298fb358": {
   "utc": "2027-01-30T06:30:00+00:00",
@@ -1218,10 +1218,10 @@
   "home": "Cairns Taipans",
   "away": "South East Melbourne Phoenix",
   "slug": "2027-01-31-south-east-melbourne-phoenix-at-cairns-taipans",
-  "p_home": 0.328,
+  "p_home": 0.329,
   "margin": -6.1,
   "total": 192.9,
-  "logged": "2026-10-25T09:27:16.472113+00:00"
+  "logged": "2026-10-26T20:34:25.662264+00:00"
  },
  "37931e61-58ad-11f1-982d-a93048d70593": {
   "utc": "2027-01-31T08:30:00+00:00",
@@ -1249,9 +1249,9 @@
   "away": "South East Melbourne Phoenix",
   "slug": "2027-02-04-south-east-melbourne-phoenix-at-new-zealand-breakers",
   "p_home": 0.504,
-  "margin": 0.1,
+  "margin": 0.2,
   "total": 191.9,
-  "logged": "2026-10-25T10:14:16.263772+00:00"
+  "logged": "2026-10-26T20:34:25.662264+00:00"
  },
  "3796b045-58ad-11f1-ad75-2572c13c410b": {
   "utc": "2027-02-05T08:30:00+00:00",
