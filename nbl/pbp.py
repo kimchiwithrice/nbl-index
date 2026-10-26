@@ -449,8 +449,18 @@ def season_tables(path, games, player_box, cur, teams, log=print):
 
         all_mine = sh[sh.team == team] if not sh.empty else sh
         all_theirs = sh[sh.opp == team] if not sh.empty else sh
+        lineups = lineup_tables(ts, team) if not ts.empty else None
+        if lineups:
+            # So readers can see how fresh the lineups are: the newest game in them, and how many
+            # games the team has played that aren't in (not out yet, or failed the checks).
+            played = season[(season.home == team) | (season.away == team)]
+            used = played[played.match_id.isin(set(ts.match_id[ts.team == team]))]
+            last = used.loc[used.utc.idxmax()]
+            lineups.update(played=len(played), last=last.utc,
+                           last_opp=last.away if last.home == team else last.home,
+                           last_home=bool(last.home == team))
         out["teams"][team] = {
-            "lineups": lineup_tables(ts, team) if not ts.empty else None,
+            "lineups": lineups,
             "kinds": list(zip(_shot_rows(all_mine, "kind", KINDS), _shot_rows(all_theirs, "kind", KINDS))) if len(all_mine) else [],
             "zones": list(zip(_shot_rows(all_mine, "zone", ZONES), _shot_rows(all_theirs, "zone", ZONES))) if has_zones and len(all_mine) else [],
             "chart": {"mine": shotchart.svg(all_mine, league, 1, f"{team} shots"),
