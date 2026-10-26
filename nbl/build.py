@@ -97,12 +97,14 @@ class Site:
         self.out_dir = out_dir
         self.common = common
         self.urls = []
+        self.hashes = {}
         self.env = Environment(loader=FileSystemLoader(os.path.join(HERE, "templates")),
                                autoescape=select_autoescape(["html"]), trim_blocks=True, lstrip_blocks=True)
         self.env.filters.update(FILTERS)
 
-    def page(self, path, template, **context):
-        """Render `template` to `path` ('teams/perth-wildcats/' becomes teams/perth-wildcats/index.html)."""
+    def page(self, path, template, listed=True, **context):
+        """Render `template` to `path` ('teams/perth-wildcats/' becomes teams/perth-wildcats/index.html).
+        Pages with listed=False are still written but left out of the sitemap."""
         html = self.env.get_template(template).render(cfg=self.cfg, path=path, root=self.cfg.get("base_path", "/"),
                                                       **self.common, **context)
         html = add_jump_links(html)
@@ -113,8 +115,17 @@ class Site:
         os.makedirs(os.path.dirname(file_path), exist_ok=True)
         with open(file_path, "w", encoding="utf-8") as f:
             f.write(html)
-        if template != "404.html":
+        if template != "404.html" and listed:
             self.urls.append(path)
+            self.hashes[path] = page_hash(html)
+
+
+# Bits that change on every build even when nothing on the page has
+VOLATILE = re.compile(r"Updated [^<.]*(?:\(Sydney time\))?|\?v=[0-9a-f]+")
+
+
+def page_hash(html):
+    return hashlib.md5(VOLATILE.sub("", html).encode("utf-8")).hexdigest()[:12]
 
 
 H2 = re.compile(r"<h2>(.*?)</h2>", re.S)
@@ -294,6 +305,7 @@ def asset_version():
     return h.hexdigest()[:8]
 
 
+SITEMAP_AHEAD = pd.Timedelta(days=7)  # how far ahead game pages go in the sitemap
 LIST_HOURS = 3  # check the feed for team lists for games this close to tip
 WEEK_WAIT = pd.Timedelta(hours=33)  # Monday midnight to Tuesday 9am: the longest a late result is waited for
 
@@ -571,11 +583,23 @@ def player_pages(seasons, cur, pb, info, deep_players=None, comps=None):
     current = seasons[seasons.start == cur].copy()
     current["reb_pct"] = (current.orb_pct + current.drb_pct) / 2
     pool = current[(current.mpg >= 10) & (current.gp >= 3)]
+    # Impact rank among each season's regulars, for the career line
+    regulars = seasons[(seasons.mpg >= 10) & (seasons.gp >= 3) & seasons.impact.notna()].copy()
+    regulars["rank"] = regulars.groupby("start").impact.rank(ascending=False, method="min").astype(int)
+    regulars["of"] = regulars.groupby("start").impact.transform("size")
     for slug, rows in seasons.groupby("slug"):
         rows = rows.sort_values(["start", "min"])
         latest = rows.iloc[-1]
         page = {"name": latest.player, "slug": slug, "team": latest.team, "pos": latest.pos,
                 "rows": rows.to_dict("records"), "current": bool((rows.start == cur).any())}
+        gp = int(rows.gp.sum())
+        best = regulars.loc[regulars.index.intersection(rows.index)].sort_values("impact")
+        page["career"] = {"gp": gp, "seasons": int(rows.start.nunique()), "first": int(rows.start.min()),
+                          "last": int(rows.start.max()), "teams": list(dict.fromkeys(rows.team[::-1]))[::-1],
+                          "ppg": float((rows.ppg * rows.gp).sum() / gp) if gp else 0.0,
+                          "rpg": float((rows.rpg * rows.gp).sum() / gp) if gp else 0.0,
+                          "apg": float((rows.apg * rows.gp).sum() / gp) if gp else 0.0,
+                          "best": best.iloc[-1].to_dict() if len(best) else None}
         if page["current"]:
             me = current[current.slug == slug].sort_values("min").iloc[-1]
             page["impact_rank"] = int((pool.impact > me.impact).sum() + 1) if me.impact == me.impact else None
@@ -714,7 +738,7 @@ def build(cfg, data_dir, out_dir, refresh=False, n_sims=sim.N_SIMS, log=print, l
     site = Site(cfg, out_dir, common)
 
     em_max = max(abs(info[t]["net"]) for t in teams) or 1
-    site.page("", "index.html", upcoming=upcoming[:6], em_max=em_max, S=season_sim, title=None, desc=None)
+    site.page("", "index.html", upcoming=upcoming[:6], em_max=em_max, S=season_sim)
     site.page("schedule/", "schedule.html", upcoming=upcoming, completed=completed[::-1], pending=pending,
               net_sd=net_sd)
     site.page("ladder/", "ladder.html", S=season_sim, standings=standings, projected=projected, n_games=n_games)
@@ -750,14 +774,15 @@ def build(cfg, data_dir, out_dir, refresh=False, n_sims=sim.N_SIMS, log=print, l
         site.page(f"teams/{info[team]['slug']}/lineups/", "lineups.html", t=team, x=info[team], L=(deep or {}).get("teams", {}).get(team),
                   deep=deep, log_rows=log_rows, splits=splits, shots=((deep or {}).get("teams", {}).get(team) or {}).get("chart"), slugs={r["player"]: r["slug"] for r in rosters[team]})
     for game in all_games:
-        site.page(f"games/{game['slug']}/", "game.html", g=game, h=info[game["home"]], a=info[game["away"]],
+        # games more than a week away are almost empty, so keep them out of the sitemap until then
+        site.page(f"games/{game['slug']}/", "game.html", listed=game["utc"] < now + SITEMAP_AHEAD, g=game, h=info[game["home"]], a=info[game["away"]],
                   defs=model.STAT_DEFS, ld=event_ld(game, info[game["home"]], info[game["away"]], cfg, cfg.get("base_path", "/")),
                   impact_cap=impact.MAX_TEAM_PTS, S=season_sim)
     site.page("history/", "history.html", views=rating_views(history, past, teams, season))
     for page in player_pages(seasons, cur, pb, info, (deep or {}).get("players", {}), comps).values():
         site.page(f"players/{page['slug']}/", "player.html", p=page)
     site.page("404.html", "404.html")
-    write_sitemap(site, cfg, now)
+    write_sitemap(site, cfg, now, os.path.join(os.path.dirname(ledger_path), "pages.json") if ledger_path else None)
     log(f"Wrote {len(site.urls)} pages to {out_dir}")
     snapshot = model_snapshot(season, now, ratings, cal, info, teams, season_sim, upcoming, values_now, absences)
     return {"pages": len(site.urls), "backtest": backtest, "ratings": ratings, "snapshot": snapshot}
@@ -1002,14 +1027,27 @@ def update_ledger(path, upcoming, completed, now):
             "rows": sorted(graded, key=lambda e: e["utc"], reverse=True)[:30]}
 
 
-def write_sitemap(site, cfg, now):
+def write_sitemap(site, cfg, now, pages_path=None):
+    """lastmod is the day a page last really changed, so it's kept between builds in pages.json."""
     base = cfg.get("base_url", "").rstrip("/")
     today = now.strftime("%Y-%m-%d")
+    seen = {}
+    if pages_path and os.path.exists(pages_path):
+        with open(pages_path, encoding="utf-8") as f:
+            seen = json.load(f)
+    pages = {}
+    for url in site.urls:
+        h = site.hashes[url]
+        old = seen.get(url)
+        pages[url] = old if old and old[0] == h else [h, today]
+    if pages_path:
+        with open(pages_path, "w", encoding="utf-8") as f:
+            json.dump(pages, f, indent=0, sort_keys=True)
     with open(os.path.join(site.out_dir, "sitemap.xml"), "w", encoding="utf-8") as f:
         f.write('<?xml version="1.0" encoding="UTF-8"?>\n'
                 '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n')
         for url in site.urls:
-            f.write(f"  <url><loc>{base}/{url}</loc><lastmod>{today}</lastmod></url>\n")
+            f.write(f"  <url><loc>{base}/{url}</loc><lastmod>{pages[url][1]}</lastmod></url>\n")
         f.write("</urlset>\n")
     with open(os.path.join(site.out_dir, "robots.txt"), "w", encoding="utf-8") as f:
         f.write(f"User-agent: *\nAllow: /\nSitemap: {base}/sitemap.xml\n")

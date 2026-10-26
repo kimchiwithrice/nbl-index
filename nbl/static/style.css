@@ -152,6 +152,7 @@ html{scroll-behavior:smooth}
 .light.yellow{background:#e0a800}
 .light.red{background:#d03b3b}
 .note{color:var(--soft);font-size:14px;margin:8px 0 0;max-width:90ch}
+.career{max-width:90ch;margin:0 0 12px}
 details.how{font-size:14px;color:var(--soft);margin:8px 0 0;max-width:90ch}
 details.how summary{cursor:pointer;color:var(--faint);width:max-content}
 details.how summary:hover{color:var(--ink)}
