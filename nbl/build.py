@@ -660,6 +660,7 @@ def build(cfg, data_dir, out_dir, refresh=False, n_sims=sim.N_SIMS, log=print, l
     cur = int(sched.start.max())
     season = f"{cur}-{str(cur + 1)[-2:]}"
     teams = sorted(set(sched.home) | set(sched.away))
+    model.SEASON_GAMES[cur] = int((~sched.finals).sum())
     now = pd.Timestamp.now(tz="UTC")
     log(f"{len(games)} games loaded; {season} season: {int(sched.done.sum())} played, "
         f"{int((~sched.done).sum())} to go")
