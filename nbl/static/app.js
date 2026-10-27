@@ -126,7 +126,7 @@
 
   // Short explanations for the less obvious stats. Shown on hover, keyboard focus or tap.
   var TIPS = {
-    "AdjEM": "How many points per 100 possessions better than an average team. Based on the opponents each team actually played.",
+    "AdjEM": "Points scored per 100 possessions minus points allowed per 100 possessions, adjusted for the opponents each team actually played.",
     "AdjO": "Points scored per 100 possessions, adjusted for the defenses each team actually faced.",
     "Adj. offense": "Points scored per 100 possessions, adjusted for the defenses each team actually faced.",
     "AdjD": "Points allowed per 100 possessions, adjusted for the offenses each team actually faced. Lower is better.",
