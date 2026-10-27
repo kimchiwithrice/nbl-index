@@ -7,7 +7,8 @@ Ratings are points per 100 possessions against an average NBL team on a neutral 
 
 All teams are fitted together with ridge regression, which adjusts every rating for the
 opponents faced. Games are weighted by age (exponential decay), and last season's games are
-included at a discount so early-season ratings aren't built on a handful of games.
+included so early-season ratings aren't built on a handful of games. Last season counts in full
+at the start and fades out as this season's games come in, gone by 60% of the regular season.
 """
 import math
 
@@ -15,11 +16,16 @@ import numpy as np
 import pandas as pd
 
 HALF_LIFE_DAYS = 120       # a game's weight halves every 120 days
-PRIOR_SEASON_WEIGHT = 0.8  # extra discount for last season's games (rosters change)
+PRIOR_SEASON_WEIGHT = 1.0  # last season's games at the start of the season...
+PRIOR_FADE_BY = 0.6        # ...fading to nothing once this share of the regular season is played
 RIDGE_EFF = 6.0            # shrinkage towards average, roughly in games' worth of evidence
 RIDGE_TEMPO = 6.0
 CLOSE_GAME = 5             # margin that counts as a close game
 REFIT_DAYS = 7             # how often the backtest refits
+
+# Regular-season games per season, filled in from the schedule for the season under way.
+# Finished seasons are counted from the games themselves.
+SEASON_GAMES = {}
 
 DEFAULT_CAL = {"k": 1.0, "sigma": 12.0, "tot_bias": 0.0, "sigma_tot": 16.0}
 
@@ -27,6 +33,16 @@ DEFAULT_CAL = {"k": 1.0, "sigma": 12.0, "tot_bias": 0.0, "sigma_tot": 16.0}
 def ridge(X, y, weights, penalty):
     XtW = X.T * weights
     return np.linalg.solve(XtW @ X + np.diag(penalty), XtW @ y)
+
+
+def prior_weight(games, asof, cur_start):
+    """How much last season's games count, given how much of this season was played by `asof`."""
+    season = games[games.start == cur_start]
+    total = SEASON_GAMES.get(cur_start) or int((~season.finals).sum())
+    played = int((season.utc < asof).sum())
+    if not total:
+        return PRIOR_SEASON_WEIGHT
+    return PRIOR_SEASON_WEIGHT * max(0.0, 1 - played / total / PRIOR_FADE_BY)
 
 
 def fit(games, asof, cur_start, teams, half_life=HALF_LIFE_DAYS):
@@ -41,7 +57,10 @@ def fit(games, asof, cur_start, teams, half_life=HALF_LIFE_DAYS):
     if len(g) < n:
         return None
     age_days = (asof - g.utc).dt.total_seconds().values / 86400
-    weight = 0.5 ** (age_days / half_life) * np.where(g.start.values < cur_start, PRIOR_SEASON_WEIGHT, 1.0)
+    prior = prior_weight(games, asof, cur_start)
+    weight = 0.5 ** (age_days / half_life) * np.where(g.start.values < cur_start, prior, 1.0)
+    if weight.sum() == 0 or (weight > 0).sum() < n:
+        return None
     home_i, away_i = g.home.map(idx).values, g.away.map(idx).values
     home_side = np.where(g.neutral.values, 0.0, 1.0)
     poss = g.poss.values
