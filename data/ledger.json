@@ -218,9 +218,9 @@
   "away": "Sydney Kings",
   "slug": "2026-10-30-sydney-kings-at-tasmania-jackjumpers",
   "p_home": 0.404,
-  "margin": -3.4,
+  "margin": -3.3,
   "total": 189.3,
-  "logged": "2026-10-25T14:42:10.445997+00:00"
+  "logged": "2026-10-27T00:31:46.474401+00:00"
  },
  "3719f6ce-58ad-11f1-b7b9-736e6b79ac99": {
   "utc": "2026-10-31T08:30:00+00:00",
@@ -239,9 +239,9 @@
   "slug": "2026-10-31-illawarra-hawks-at-perth-wildcats",
   "p_home": 0.73,
   "margin": 8.4,
-  "total": 195.1,
+  "total": 195.0,
   "adj": 0.74,
-  "logged": "2026-10-25T09:27:16.472113+00:00"
+  "logged": "2026-10-27T00:31:46.474401+00:00"
  },
  "374fd3d1-58ad-11f1-945e-cbcb1725dbfe": {
   "utc": "2026-11-01T04:00:00+00:00",
@@ -370,8 +370,8 @@
   "slug": "2026-11-12-tasmania-jackjumpers-at-perth-wildcats",
   "p_home": 0.551,
   "margin": 1.8,
-  "total": 185.3,
-  "logged": "2026-10-25T09:27:16.472113+00:00"
+  "total": 185.4,
+  "logged": "2026-10-27T00:31:46.474401+00:00"
  },
  "374d40eb-58ad-11f1-926c-d7c956f67204": {
   "utc": "2026-11-13T06:30:00+00:00",
@@ -410,8 +410,8 @@
   "slug": "2026-11-14-illawarra-hawks-at-perth-wildcats",
   "p_home": 0.712,
   "margin": 7.7,
-  "total": 195.1,
-  "logged": "2026-10-25T09:27:16.472113+00:00"
+  "total": 195.0,
+  "logged": "2026-10-27T00:31:46.474401+00:00"
  },
  "3746a5e8-58ad-11f1-8707-7d800a023985": {
   "utc": "2026-11-15T04:00:00+00:00",
@@ -538,10 +538,10 @@
   "home": "Illawarra Hawks",
   "away": "Sydney Kings",
   "slug": "2026-12-04-sydney-kings-at-illawarra-hawks",
-  "p_home": 0.246,
+  "p_home": 0.247,
   "margin": -9.4,
   "total": 199.0,
-  "logged": "2026-10-26T13:44:22.884806+00:00"
+  "logged": "2026-10-27T00:31:46.474401+00:00"
  },
  "37770bc1-58ad-11f1-a93a-ebcda8a5e5b1": {
   "utc": "2026-12-05T06:30:00+00:00",
@@ -708,10 +708,10 @@
   "home": "Illawarra Hawks",
   "away": "Melbourne United",
   "slug": "2026-12-20-melbourne-united-at-illawarra-hawks",
-  "p_home": 0.363,
+  "p_home": 0.364,
   "margin": -4.8,
   "total": 194.4,
-  "logged": "2026-10-25T18:52:51.719745+00:00"
+  "logged": "2026-10-27T00:31:46.474401+00:00"
  },
  "3757e2b3-58ad-11f1-801d-e3b03d7fb141": {
   "utc": "2026-12-20T06:00:00+00:00",
@@ -850,8 +850,8 @@
   "slug": "2027-01-01-perth-wildcats-at-tasmania-jackjumpers",
   "p_home": 0.562,
   "margin": 2.2,
-  "total": 185.3,
-  "logged": "2026-10-26T06:26:08.381918+00:00"
+  "total": 185.4,
+  "logged": "2026-10-27T00:31:46.474401+00:00"
  },
  "3791ec9a-58ad-11f1-8e37-819ec06531e4": {
   "utc": "2027-01-02T06:30:00+00:00",
@@ -889,9 +889,9 @@
   "away": "Melbourne United",
   "slug": "2027-01-03-melbourne-united-at-brisbane-bullets",
   "p_home": 0.362,
-  "margin": -4.9,
+  "margin": -4.8,
   "total": 184.7,
-  "logged": "2026-10-25T09:27:16.472113+00:00"
+  "logged": "2026-10-27T00:31:46.474401+00:00"
  },
  "3778a221-58ad-11f1-93c2-61e38b2284ba": {
   "utc": "2027-01-04T08:30:00+00:00",
@@ -920,8 +920,8 @@
   "slug": "2027-01-06-perth-wildcats-at-illawarra-hawks",
   "p_home": 0.398,
   "margin": -3.6,
-  "total": 195.1,
-  "logged": "2026-10-25T18:52:51.719745+00:00"
+  "total": 195.0,
+  "logged": "2026-10-27T00:31:46.474401+00:00"
  },
  "377cd763-58ad-11f1-8114-69c2b72ae0a9": {
   "utc": "2027-01-07T08:30:00+00:00",
@@ -1109,9 +1109,9 @@
   "away": "Melbourne United",
   "slug": "2027-01-23-melbourne-united-at-brisbane-bullets",
   "p_home": 0.362,
-  "margin": -4.9,
+  "margin": -4.8,
   "total": 184.7,
-  "logged": "2026-10-25T09:27:16.472113+00:00"
+  "logged": "2026-10-27T00:31:46.474401+00:00"
  },
  "378b3988-58ad-11f1-a999-cb5b62df0525": {
   "utc": "2027-01-24T04:00:00+00:00",
@@ -1169,9 +1169,9 @@
   "away": "South East Melbourne Phoenix",
   "slug": "2027-01-28-south-east-melbourne-phoenix-at-brisbane-bullets",
   "p_home": 0.338,
-  "margin": -5.8,
+  "margin": -5.7,
   "total": 192.7,
-  "logged": "2026-10-25T10:14:16.263772+00:00"
+  "logged": "2026-10-27T00:31:46.474401+00:00"
  },
  "37b7122e-58ad-11f1-9780-077ff55f3c82": {
   "utc": "2027-01-28T10:30:00+00:00",
@@ -1200,8 +1200,8 @@
   "slug": "2027-01-30-perth-wildcats-at-illawarra-hawks",
   "p_home": 0.398,
   "margin": -3.6,
-  "total": 195.1,
-  "logged": "2026-10-25T18:52:51.719745+00:00"
+  "total": 195.0,
+  "logged": "2026-10-27T00:31:46.474401+00:00"
  },
  "37927ea9-58ad-11f1-816a-db7d6019155e": {
   "utc": "2027-01-30T08:30:00+00:00",
@@ -1320,8 +1320,8 @@
   "slug": "2027-02-10-perth-wildcats-at-tasmania-jackjumpers",
   "p_home": 0.562,
   "margin": 2.2,
-  "total": 185.3,
-  "logged": "2026-10-26T06:26:08.381918+00:00"
+  "total": 185.4,
+  "logged": "2026-10-27T00:31:46.474401+00:00"
  },
  "37995304-58ad-11f1-bced-f323fa41d58d": {
   "utc": "2027-02-11T06:30:00+00:00",
