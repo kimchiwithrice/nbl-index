@@ -23,6 +23,9 @@ RIDGE_TEMPO = 6.0
 CLOSE_GAME = 5             # margin that counts as a close game
 REFIT_DAYS = 7             # how often the backtest refits
 
+# Bump when the rating method changes, so numbers saved by earlier builds get worked out again.
+VERSION = 2
+
 # Regular-season games per season, filled in from the schedule for the season under way.
 # Finished seasons are counted from the games themselves.
 SEASON_GAMES = {}
