@@ -410,7 +410,8 @@ def week_block(games, sched, teams, cal, cur, pb, weights, avg_impact, start, en
 def week_history(path, games, sched, teams, cal, cur, pb, weights, avg_impact, now, n_sims, log=print):
     """Every finished week of this season, newest first. A week is worked out once, when it first
     shows, and kept in `path` so it reads the same later on; one that went up with results still
-    missing is redone when they arrive. Past seasons stay in the file for the season review."""
+    missing is redone when they arrive, and so is every week after a change to the rating method.
+    Past seasons stay in the file for the season review."""
     saved = {}
     if path and os.path.exists(path):
         with open(path) as f:
@@ -428,9 +429,11 @@ def week_history(path, games, sched, teams, cal, cur, pb, weights, avg_impact, n
         end = start + pd.Timedelta(days=7)
         w = kept.get(start.isoformat())
         played = int(((season.utc >= start) & (season.utc < end)).sum())
-        if w is None or (w["games"] < w["scheduled"] and played > w["games"]):
+        if (w is None or w.get("model") != model.VERSION
+                or (w["games"] < w["scheduled"] and played > w["games"])):
             w = week_block(games, sched, teams, cal, cur, pb, weights, avg_impact, start, end, n_sims)
             if w:
+                w["model"] = model.VERSION
                 log(f"  week of {w['label']} added to the weekly history")
         if w:
             weeks.append(w)
