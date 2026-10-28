@@ -227,10 +227,10 @@
   "home": "Cairns Taipans",
   "away": "Melbourne United",
   "slug": "2026-10-31-melbourne-united-at-cairns-taipans",
-  "p_home": 0.38,
+  "p_home": 0.381,
   "margin": -4.2,
   "total": 185.8,
-  "logged": "2026-10-27T13:18:44.486815+00:00"
+  "logged": "2026-10-28T05:51:24.215924+00:00"
  },
  "37214b47-58ad-11f1-9b38-e78395b5c13c": {
   "utc": "2026-10-31T10:30:00+00:00",
@@ -429,9 +429,9 @@
   "away": "Tasmania JackJumpers",
   "slug": "2026-11-15-tasmania-jackjumpers-at-brisbane-bullets",
   "p_home": 0.418,
-  "margin": -2.9,
+  "margin": -2.8,
   "total": 186.6,
-  "logged": "2026-10-27T08:39:39.203197+00:00"
+  "logged": "2026-10-28T05:51:24.215924+00:00"
  },
  "3748f8f0-58ad-11f1-bb02-b15d4ea6aed8": {
   "utc": "2026-11-18T06:30:00+00:00",
@@ -509,9 +509,9 @@
   "away": "South East Melbourne Phoenix",
   "slug": "2026-12-02-south-east-melbourne-phoenix-at-adelaide-36ers",
   "p_home": 0.481,
-  "margin": -0.7,
+  "margin": -0.6,
   "total": 190.7,
-  "logged": "2026-10-27T08:39:39.203197+00:00"
+  "logged": "2026-10-28T05:51:24.215924+00:00"
  },
  "3748a57b-58ad-11f1-a4fa-fb9d3a8baf78": {
   "utc": "2026-12-03T08:30:00+00:00",
@@ -788,10 +788,10 @@
   "home": "Illawarra Hawks",
   "away": "New Zealand Breakers",
   "slug": "2026-12-27-new-zealand-breakers-at-illawarra-hawks",
-  "p_home": 0.396,
+  "p_home": 0.397,
   "margin": -3.6,
   "total": 193.8,
-  "logged": "2026-10-27T08:39:39.203197+00:00"
+  "logged": "2026-10-28T05:51:24.215924+00:00"
  },
  "379201a1-58ad-11f1-a7bf-ede76c1d904d": {
   "utc": "2026-12-27T06:00:00+00:00",
@@ -869,9 +869,9 @@
   "away": "South East Melbourne Phoenix",
   "slug": "2027-01-02-south-east-melbourne-phoenix-at-adelaide-36ers",
   "p_home": 0.481,
-  "margin": -0.7,
+  "margin": -0.6,
   "total": 190.7,
-  "logged": "2026-10-27T08:39:39.203197+00:00"
+  "logged": "2026-10-28T05:51:24.215924+00:00"
  },
  "377a706f-58ad-11f1-9081-95101c4b3f9d": {
   "utc": "2027-01-03T04:00:00+00:00",
@@ -1058,10 +1058,10 @@
   "home": "Illawarra Hawks",
   "away": "New Zealand Breakers",
   "slug": "2027-01-20-new-zealand-breakers-at-illawarra-hawks",
-  "p_home": 0.396,
+  "p_home": 0.397,
   "margin": -3.6,
   "total": 193.8,
-  "logged": "2026-10-27T08:39:39.203197+00:00"
+  "logged": "2026-10-28T05:51:24.215924+00:00"
  },
  "37b85f23-58ad-11f1-9eb0-2bbb920071b5": {
   "utc": "2027-01-21T08:30:00+00:00",
