@@ -109,7 +109,7 @@
 {% block main %}
 <div class="prose">
 <h1>Glossary</h1>
-<p class="lede"><b>New here?</b> Start with the <a href="{{ root }}">team ratings</a> or <a href="{{ root }}league/">League today</a>. This page explains what every number on the site means and how it's worked out. In the formulas, FGM/FGA are field goals made/attempted, 3PM is threes made, FTA is free-throw attempts, ORB/DRB are offensive/defensive rebounds and TOV is turnovers.</p>
+<p class="lede"><b>New here?</b> Start with the <a href="{{ root }}">team ratings</a>, <a href="{{ root }}league/">League today</a> or the <a href="{{ root }}stats/">NBL advanced stats</a>. This page explains what every number on the site means and how it's worked out. In the formulas, FGM/FGA are field goals made/attempted, 3PM is threes made, FTA is free-throw attempts, ORB/DRB are offensive/defensive rebounds and TOV is turnovers.</p>
 <nav class="jump" aria-label="On this page"><span>On this page</span>{% for gid, gname, items in groups %}<a href="#{{ gid }}">{{ gname }}</a>{% endfor %}</nav>
 {% for gid, gname, items in groups %}
 <h2 id="{{ gid }}">{{ gname }}</h2>
