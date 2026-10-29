@@ -1,10 +1,10 @@
 {% extends "base.html" %}
 {% import "macros.html" as m %}
-{% set title = "NBL Team Stats " ~ season ~ " – Four Factors, Shooting & Advanced" %}
-{% set desc = "NBL " ~ season ~ " advanced team stats: Dean Oliver's four factors on offense and defense, 3-point and 2-point shooting, assist, steal and block rates, with league ranks." %}
+{% set title = "NBL Advanced Stats " ~ season ~ " – Four Factors, Shooting & Team Ranks" %}
+{% set desc = "NBL advanced stats for " ~ season ~ ": Dean Oliver's four factors on offense and defense, 3-point and 2-point shooting, assist, steal and block rates, with league ranks." %}
 {% block main %}
-<h1>Team stats</h1>
-<p class="lede">This season's team numbers with league ranks. These are raw, not adjusted for opponents. For the adjusted version, see the <a href="{{ root }}">ratings</a>.</p>
+<h1>NBL advanced stats {{ season }}</h1>
+<p class="lede">This season's advanced team numbers with league ranks. For players, see <a href="{{ root }}players/">player stats</a>. These are raw, not adjusted for opponents. For the adjusted version, see the <a href="{{ root }}">ratings</a>.</p>
 {% set groups = [("o4", "Four Factors – offense"), ("d4", "Four Factors – defense"), ("sh", "Shooting"), ("st", "Style & other"), ("gf", "Game flow"), ("sp", "Shot profile"), ("cl", "Clutch")] %}
 {% for gk, gl in groups %}
 {% set cols = defs | selectattr(3, 'equalto', gk) | list %}

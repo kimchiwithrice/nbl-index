@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 {% import "macros.html" as m %}
-{% set title = "NBL Player Stats " ~ season ~ " – Advanced Stats, True Shooting, Usage" %}
+{% set title = "NBL Advanced Player Stats " ~ season ~ " – True Shooting, Usage, Impact" %}
 {% set desc = "Advanced NBL player stats for " ~ season ~ ": true shooting, usage rate, assist and rebound rates, per-40 numbers and plus-minus for every player." %}
 {% block main %}
-<h1>Player stats</h1>
+<h1>NBL player stats {{ season }}</h1>
 <p class="lede">Everyone who's played this season. The rate stats only count the time a player was actually on court, so bench players aren't penalised. Click a column to sort, or a name for their career page.</p>
 <div class="bar"><input id="pq" placeholder="Search players or teams" aria-label="Search players"> <label class="chk"><input type="checkbox" id="pmin" checked> 10+ minutes per game</label></div>
 <div class="tw"><table class="dense sortable" id="ptable">
