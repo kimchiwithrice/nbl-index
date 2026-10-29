@@ -390,10 +390,10 @@
   "home": "Cairns Taipans",
   "away": "Sydney Kings",
   "slug": "2026-11-13-sydney-kings-at-cairns-taipans",
-  "p_home": 0.273,
+  "p_home": 0.274,
   "margin": -8.3,
   "total": 189.8,
-  "logged": "2026-10-28T13:05:26.348717+00:00"
+  "logged": "2026-10-29T02:32:32.546784+00:00"
  },
  "377ccd38-58ad-11f1-9384-d30081aaf8c6": {
   "utc": "2026-11-14T08:30:00+00:00",
@@ -491,9 +491,9 @@
   "away": "Cairns Taipans",
   "slug": "2026-11-22-cairns-taipans-at-south-east-melbourne-phoenix",
   "p_home": 0.744,
-  "margin": 9.1,
+  "margin": 9.0,
   "total": 192.5,
-  "logged": "2026-10-28T13:05:26.348717+00:00"
+  "logged": "2026-10-29T02:32:32.546784+00:00"
  },
  "374c5a9d-58ad-11f1-8829-1daf76a0ede8": {
   "utc": "2026-11-22T06:00:00+00:00",
@@ -550,10 +550,10 @@
   "home": "Cairns Taipans",
   "away": "South East Melbourne Phoenix",
   "slug": "2026-12-05-south-east-melbourne-phoenix-at-cairns-taipans",
-  "p_home": 0.363,
+  "p_home": 0.364,
   "margin": -4.8,
   "total": 192.5,
-  "logged": "2026-10-28T13:05:26.348717+00:00"
+  "logged": "2026-10-29T02:32:32.546784+00:00"
  },
  "3747bbe2-58ad-11f1-a09d-892c4438c413": {
   "utc": "2026-12-05T08:30:00+00:00",
@@ -960,10 +960,10 @@
   "home": "Cairns Taipans",
   "away": "Tasmania JackJumpers",
   "slug": "2027-01-09-tasmania-jackjumpers-at-cairns-taipans",
-  "p_home": 0.399,
+  "p_home": 0.4,
   "margin": -3.5,
   "total": 186.7,
-  "logged": "2026-10-28T13:05:26.348717+00:00"
+  "logged": "2026-10-29T02:32:32.546784+00:00"
  },
  "3784706a-58ad-11f1-962d-09df0c3978fa": {
   "utc": "2027-01-09T08:30:00+00:00",
@@ -1160,10 +1160,10 @@
   "home": "Cairns Taipans",
   "away": "Sydney Kings",
   "slug": "2027-01-27-sydney-kings-at-cairns-taipans",
-  "p_home": 0.273,
+  "p_home": 0.274,
   "margin": -8.3,
   "total": 189.8,
-  "logged": "2026-10-28T13:05:26.348717+00:00"
+  "logged": "2026-10-29T02:32:32.546784+00:00"
  },
  "37947616-58ad-11f1-a290-8da1c4ae1ac0": {
   "utc": "2027-01-28T08:30:00+00:00",
@@ -1171,9 +1171,9 @@
   "away": "South East Melbourne Phoenix",
   "slug": "2027-01-28-south-east-melbourne-phoenix-at-brisbane-bullets",
   "p_home": 0.382,
-  "margin": -4.2,
+  "margin": -4.1,
   "total": 192.4,
-  "logged": "2026-10-28T18:54:22.307101+00:00"
+  "logged": "2026-10-29T02:32:32.546784+00:00"
  },
  "37b7122e-58ad-11f1-9780-077ff55f3c82": {
   "utc": "2027-01-28T10:30:00+00:00",
@@ -1220,10 +1220,10 @@
   "home": "Cairns Taipans",
   "away": "South East Melbourne Phoenix",
   "slug": "2027-01-31-south-east-melbourne-phoenix-at-cairns-taipans",
-  "p_home": 0.363,
+  "p_home": 0.364,
   "margin": -4.8,
   "total": 192.5,
-  "logged": "2026-10-28T13:05:26.348717+00:00"
+  "logged": "2026-10-29T02:32:32.546784+00:00"
  },
  "37931e61-58ad-11f1-982d-a93048d70593": {
   "utc": "2027-01-31T08:30:00+00:00",
