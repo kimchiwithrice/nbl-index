@@ -254,8 +254,8 @@
   "slug": "2026-11-01-tasmania-jackjumpers-at-south-east-melbourne-phoenix",
   "p_home": 0.583,
   "margin": 2.9,
-  "total": 193.1,
-  "logged": "2026-10-29T16:46:41.189477+00:00"
+  "total": 193.0,
+  "logged": "2026-10-29T21:51:06.214884+00:00"
  },
  "372517f1-58ad-11f1-b481-53622f199a68": {
   "utc": "2026-11-01T06:00:00+00:00",
@@ -282,10 +282,10 @@
   "home": "Brisbane Bullets",
   "away": "Perth Wildcats",
   "slug": "2026-11-04-perth-wildcats-at-brisbane-bullets",
-  "p_home": 0.405,
+  "p_home": 0.406,
   "margin": -3.3,
   "total": 187.4,
-  "logged": "2026-10-29T16:46:41.189477+00:00"
+  "logged": "2026-10-29T21:51:06.214884+00:00"
  },
  "3723e003-58ad-11f1-b68b-09df0c3978fa": {
   "utc": "2026-11-05T08:30:00+00:00",
@@ -323,9 +323,9 @@
   "away": "Brisbane Bullets",
   "slug": "2026-11-07-brisbane-bullets-at-melbourne-united",
   "p_home": 0.735,
-  "margin": 8.7,
+  "margin": 8.6,
   "total": 186.3,
-  "logged": "2026-10-29T16:46:41.189477+00:00"
+  "logged": "2026-10-29T21:51:06.214884+00:00"
  },
  "37495c97-58ad-11f1-8f28-d7e4e018b88d": {
   "utc": "2026-11-08T04:00:00+00:00",
@@ -452,10 +452,10 @@
   "home": "Illawarra Hawks",
   "away": "Adelaide 36ers",
   "slug": "2026-11-19-adelaide-36ers-at-illawarra-hawks",
-  "p_home": 0.427,
+  "p_home": 0.428,
   "margin": -2.5,
   "total": 193.4,
-  "logged": "2026-10-29T16:46:41.189477+00:00"
+  "logged": "2026-10-29T21:51:06.214884+00:00"
  },
  "37779e30-58ad-11f1-a2d6-d729b42cc855": {
   "utc": "2026-11-20T08:30:00+00:00",
@@ -492,10 +492,10 @@
   "home": "South East Melbourne Phoenix",
   "away": "Cairns Taipans",
   "slug": "2026-11-22-cairns-taipans-at-south-east-melbourne-phoenix",
-  "p_home": 0.712,
+  "p_home": 0.711,
   "margin": 7.7,
   "total": 193.0,
-  "logged": "2026-10-29T16:46:41.189477+00:00"
+  "logged": "2026-10-29T21:51:06.214884+00:00"
  },
  "374c5a9d-58ad-11f1-8829-1daf76a0ede8": {
   "utc": "2026-11-22T06:00:00+00:00",
@@ -522,10 +522,10 @@
   "home": "Brisbane Bullets",
   "away": "Perth Wildcats",
   "slug": "2026-12-03-perth-wildcats-at-brisbane-bullets",
-  "p_home": 0.405,
+  "p_home": 0.406,
   "margin": -3.3,
   "total": 187.4,
-  "logged": "2026-10-29T16:46:41.189477+00:00"
+  "logged": "2026-10-29T21:51:06.214884+00:00"
  },
  "37509e79-58ad-11f1-9e3b-fbbd24deadd3": {
   "utc": "2026-12-04T06:30:00+00:00",
@@ -542,10 +542,10 @@
   "home": "Illawarra Hawks",
   "away": "Sydney Kings",
   "slug": "2026-12-04-sydney-kings-at-illawarra-hawks",
-  "p_home": 0.255,
+  "p_home": 0.256,
   "margin": -9.1,
-  "total": 199.1,
-  "logged": "2026-10-29T16:46:41.189477+00:00"
+  "total": 199.0,
+  "logged": "2026-10-29T21:51:06.214884+00:00"
  },
  "37770bc1-58ad-11f1-a93a-ebcda8a5e5b1": {
   "utc": "2026-12-05T06:30:00+00:00",
@@ -573,9 +573,9 @@
   "away": "Brisbane Bullets",
   "slug": "2026-12-06-brisbane-bullets-at-melbourne-united",
   "p_home": 0.735,
-  "margin": 8.7,
+  "margin": 8.6,
   "total": 186.3,
-  "logged": "2026-10-29T16:46:41.189477+00:00"
+  "logged": "2026-10-29T21:51:06.214884+00:00"
  },
  "3752cf25-58ad-11f1-9654-2942781e7154": {
   "utc": "2026-12-06T06:00:00+00:00",
@@ -774,8 +774,8 @@
   "slug": "2026-12-25-illawarra-hawks-at-sydney-kings",
   "p_home": 0.82,
   "margin": 12.6,
-  "total": 199.1,
-  "logged": "2026-10-29T16:46:41.189477+00:00"
+  "total": 199.0,
+  "logged": "2026-10-29T21:51:06.214884+00:00"
  },
  "3763a871-58ad-11f1-bb01-15ea51636534": {
   "utc": "2026-12-26T08:30:00+00:00",
@@ -784,8 +784,8 @@
   "slug": "2026-12-26-south-east-melbourne-phoenix-at-tasmania-jackjumpers",
   "p_home": 0.517,
   "margin": 0.6,
-  "total": 193.1,
-  "logged": "2026-10-29T16:46:41.189477+00:00"
+  "total": 193.0,
+  "logged": "2026-10-29T21:51:06.214884+00:00"
  },
  "3770b91e-58ad-11f1-9efe-a362560fc147": {
   "utc": "2026-12-27T04:00:00+00:00",
@@ -914,8 +914,8 @@
   "slug": "2027-01-06-tasmania-jackjumpers-at-south-east-melbourne-phoenix",
   "p_home": 0.583,
   "margin": 2.9,
-  "total": 193.1,
-  "logged": "2026-10-29T16:46:41.189477+00:00"
+  "total": 193.0,
+  "logged": "2026-10-29T21:51:06.214884+00:00"
  },
  "377ea044-58ad-11f1-bd17-43a6b5595d3e": {
   "utc": "2027-01-06T08:30:00+00:00",
