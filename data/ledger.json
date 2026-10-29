@@ -272,8 +272,8 @@
   "slug": "2026-11-02-new-zealand-breakers-at-melbourne-united",
   "p_home": 0.582,
   "margin": 2.9,
-  "total": 184.2,
-  "logged": "2026-10-28T13:05:26.348717+00:00"
+  "total": 184.3,
+  "logged": "2026-10-29T10:06:45.703832+00:00"
  },
  "3729bbac-58ad-11f1-b394-cbe0cbdf48fe": {
   "utc": "2026-11-04T08:30:00+00:00",
@@ -450,10 +450,10 @@
   "home": "Illawarra Hawks",
   "away": "Adelaide 36ers",
   "slug": "2026-11-19-adelaide-36ers-at-illawarra-hawks",
-  "p_home": 0.437,
+  "p_home": 0.438,
   "margin": -2.2,
   "total": 193.4,
-  "logged": "2026-10-28T13:05:26.348717+00:00"
+  "logged": "2026-10-29T10:06:45.703832+00:00"
  },
  "37779e30-58ad-11f1-a2d6-d729b42cc855": {
   "utc": "2026-11-20T08:30:00+00:00",
@@ -482,8 +482,8 @@
   "slug": "2026-11-21-new-zealand-breakers-at-melbourne-united",
   "p_home": 0.582,
   "margin": 2.9,
-  "total": 184.2,
-  "logged": "2026-10-28T13:05:26.348717+00:00"
+  "total": 184.3,
+  "logged": "2026-10-29T10:06:45.703832+00:00"
  },
  "37514d45-58ad-11f1-917b-0f009f2e4d02": {
   "utc": "2026-11-22T04:00:00+00:00",
@@ -532,8 +532,8 @@
   "slug": "2026-12-04-melbourne-united-at-new-zealand-breakers",
   "p_home": 0.537,
   "margin": 1.3,
-  "total": 184.2,
-  "logged": "2026-10-28T18:54:22.307101+00:00"
+  "total": 184.3,
+  "logged": "2026-10-29T10:06:45.703832+00:00"
  },
  "3751fcc5-58ad-11f1-a32f-279e256f2655": {
   "utc": "2026-12-04T08:30:00+00:00",
@@ -542,8 +542,8 @@
   "slug": "2026-12-04-sydney-kings-at-illawarra-hawks",
   "p_home": 0.264,
   "margin": -8.7,
-  "total": 199.2,
-  "logged": "2026-10-28T18:54:22.307101+00:00"
+  "total": 199.1,
+  "logged": "2026-10-29T10:06:45.703832+00:00"
  },
  "37770bc1-58ad-11f1-a93a-ebcda8a5e5b1": {
   "utc": "2026-12-05T06:30:00+00:00",
@@ -600,10 +600,10 @@
   "home": "Illawarra Hawks",
   "away": "Tasmania JackJumpers",
   "slug": "2026-12-10-tasmania-jackjumpers-at-illawarra-hawks",
-  "p_home": 0.39,
+  "p_home": 0.391,
   "margin": -3.8,
   "total": 195.9,
-  "logged": "2026-10-28T13:05:26.348717+00:00"
+  "logged": "2026-10-29T10:06:45.703832+00:00"
  },
  "37788a52-58ad-11f1-b28e-b7b6f460181f": {
   "utc": "2026-12-11T06:30:00+00:00",
@@ -772,8 +772,8 @@
   "slug": "2026-12-25-illawarra-hawks-at-sydney-kings",
   "p_home": 0.826,
   "margin": 12.9,
-  "total": 199.2,
-  "logged": "2026-10-28T13:05:26.348717+00:00"
+  "total": 199.1,
+  "logged": "2026-10-29T10:06:45.703832+00:00"
  },
  "3763a871-58ad-11f1-bb01-15ea51636534": {
   "utc": "2026-12-26T08:30:00+00:00",
@@ -921,9 +921,9 @@
   "away": "Perth Wildcats",
   "slug": "2027-01-06-perth-wildcats-at-illawarra-hawks",
   "p_home": 0.421,
-  "margin": -2.8,
+  "margin": -2.7,
   "total": 196.0,
-  "logged": "2026-10-28T13:05:26.348717+00:00"
+  "logged": "2026-10-29T10:06:45.703832+00:00"
  },
  "377cd763-58ad-11f1-8114-69c2b72ae0a9": {
   "utc": "2027-01-07T08:30:00+00:00",
@@ -1140,10 +1140,10 @@
   "home": "Sydney Kings",
   "away": "Brisbane Bullets",
   "slug": "2027-01-25-brisbane-bullets-at-sydney-kings",
-  "p_home": 0.805,
+  "p_home": 0.804,
   "margin": 11.8,
   "total": 189.7,
-  "logged": "2026-10-28T13:05:26.348717+00:00"
+  "logged": "2026-10-29T10:06:45.703832+00:00"
  },
  "37882039-58ad-11f1-b46f-4bbabfa2dd4f": {
   "utc": "2027-01-27T06:30:00+00:00",
@@ -1192,8 +1192,8 @@
   "slug": "2027-01-29-melbourne-united-at-new-zealand-breakers",
   "p_home": 0.537,
   "margin": 1.3,
-  "total": 184.2,
-  "logged": "2026-10-28T18:54:22.307101+00:00"
+  "total": 184.3,
+  "logged": "2026-10-29T10:06:45.703832+00:00"
  },
  "37912f47-58ad-11f1-a905-9b50298fb358": {
   "utc": "2027-01-30T06:30:00+00:00",
@@ -1201,9 +1201,9 @@
   "away": "Perth Wildcats",
   "slug": "2027-01-30-perth-wildcats-at-illawarra-hawks",
   "p_home": 0.421,
-  "margin": -2.8,
+  "margin": -2.7,
   "total": 196.0,
-  "logged": "2026-10-28T13:05:26.348717+00:00"
+  "logged": "2026-10-29T10:06:45.703832+00:00"
  },
  "37927ea9-58ad-11f1-816a-db7d6019155e": {
   "utc": "2027-01-30T08:30:00+00:00",
@@ -1230,10 +1230,10 @@
   "home": "Tasmania JackJumpers",
   "away": "Brisbane Bullets",
   "slug": "2027-01-31-brisbane-bullets-at-tasmania-jackjumpers",
-  "p_home": 0.693,
+  "p_home": 0.692,
   "margin": 6.9,
   "total": 186.6,
-  "logged": "2026-10-28T13:05:26.348717+00:00"
+  "logged": "2026-10-29T10:06:45.703832+00:00"
  },
  "379682fb-58ad-11f1-bbe4-a9a6cbaba447": {
   "utc": "2027-02-04T08:30:00+00:00",
