@@ -352,10 +352,10 @@
   "home": "South East Melbourne Phoenix",
   "away": "Illawarra Hawks",
   "slug": "2026-11-11-illawarra-hawks-at-south-east-melbourne-phoenix",
-  "p_home": 0.748,
+  "p_home": 0.747,
   "margin": 9.2,
   "total": 201.8,
-  "logged": "2026-10-29T16:46:41.189477+00:00"
+  "logged": "2026-10-30T02:00:14.232241+00:00"
  },
  "375813e7-58ad-11f1-8c9c-2572c13c410b": {
   "utc": "2026-11-12T08:30:00+00:00",
@@ -593,9 +593,9 @@
   "away": "Adelaide 36ers",
   "slug": "2026-12-09-adelaide-36ers-at-cairns-taipans",
   "p_home": 0.467,
-  "margin": -1.2,
+  "margin": -1.1,
   "total": 184.9,
-  "logged": "2026-10-29T16:46:41.189477+00:00"
+  "logged": "2026-10-30T02:00:14.232241+00:00"
  },
  "37754382-58ad-11f1-a2bf-754528413e51": {
   "utc": "2026-12-10T08:30:00+00:00",
@@ -884,8 +884,8 @@
   "slug": "2027-01-03-perth-wildcats-at-new-zealand-breakers",
   "p_home": 0.571,
   "margin": 2.5,
-  "total": 185.0,
-  "logged": "2026-10-29T16:46:41.189477+00:00"
+  "total": 185.1,
+  "logged": "2026-10-30T02:00:14.232241+00:00"
  },
  "377c8615-58ad-11f1-9f3b-1fa229f84a5e": {
   "utc": "2027-01-03T06:00:00+00:00",
@@ -1024,8 +1024,8 @@
   "slug": "2027-01-15-new-zealand-breakers-at-perth-wildcats",
   "p_home": 0.527,
   "margin": 0.9,
-  "total": 185.0,
-  "logged": "2026-10-29T16:46:41.189477+00:00"
+  "total": 185.1,
+  "logged": "2026-10-30T02:00:14.232241+00:00"
  },
  "37abe4a4-58ad-11f1-9473-fb9d3a8baf78": {
   "utc": "2027-01-16T10:30:00+00:00",
@@ -1353,9 +1353,9 @@
   "away": "Adelaide 36ers",
   "slug": "2027-02-12-adelaide-36ers-at-cairns-taipans",
   "p_home": 0.467,
-  "margin": -1.2,
+  "margin": -1.1,
   "total": 184.9,
-  "logged": "2026-10-29T16:46:41.189477+00:00"
+  "logged": "2026-10-30T02:00:14.232241+00:00"
  },
  "37be2ab4-58ad-11f1-841c-2942781e7154": {
   "utc": "2027-02-12T10:30:00+00:00",
@@ -1403,8 +1403,8 @@
   "away": "Brisbane Bullets",
   "slug": "2027-02-14-brisbane-bullets-at-south-east-melbourne-phoenix",
   "p_home": 0.749,
-  "margin": 9.3,
+  "margin": 9.2,
   "total": 192.9,
-  "logged": "2026-10-29T16:46:41.189477+00:00"
+  "logged": "2026-10-30T02:00:14.232241+00:00"
  }
 }
