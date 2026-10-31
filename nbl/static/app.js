@@ -23,6 +23,20 @@
     b.onclick = function(){ var blk = b.closest(".spblock"); blk.classList.add("open"); blk.querySelectorAll(".sp").forEach(function(s){ s.classList.add("peek"); }); if(window.fitTables) window.fitTables(); };
   });
 
+  // Long game lists: show the first few, with a button for the rest (all rows stay without JS)
+  document.querySelectorAll(".tw[data-clip]").forEach(function(tw){
+    var n = +tw.dataset.clip, btn = tw.nextElementSibling && tw.nextElementSibling.querySelector(".showall");
+    if(!btn) return;
+    var rows = tw.querySelectorAll("tbody tr");
+    function set(open){
+      rows.forEach(function(r, i){ r.hidden = !open && i >= n; });
+      btn.textContent = open ? "Show next " + n + " only" : "Show all " + btn.dataset.n + " games";
+      if(window.fitTables) window.fitTables();
+    }
+    var open = false; set(open); btn.hidden = false;
+    btn.onclick = function(){ open = !open; set(open); };
+  });
+
   // Light/dark theme
   var th = document.getElementById("th-btn");
   function isDark(){ return root.dataset.theme === "dark" || (!root.dataset.theme && matchMedia("(prefers-color-scheme: dark)").matches); }

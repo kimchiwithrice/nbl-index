@@ -112,7 +112,7 @@
   {% endif %}
   {% if upcoming %}
   <h3>Upcoming</h3>
-  <div class="tw snug"><table class="dense">
+  <div class="tw snug"{% if upcoming | length > 5 %} data-clip="5"{% endif %}><table class="dense">
     <thead><tr><th class="l">Date</th><th class="l">Opponent</th><th>Win %</th><th>Proj</th><th>Hype</th></tr></thead>
     <tbody>
     {% for g in upcoming %}{% set home = g.home == t %}{% set opp = g.away if home else g.home %}
@@ -127,6 +127,7 @@
     {% endfor %}
     </tbody>
   </table></div>
+  {% if upcoming | length > 5 %}<p class="note"><button type="button" class="showall" data-n="{{ upcoming | length }}" hidden>Show all {{ upcoming | length }} games</button></p>{% endif %}
   <p class="note">Hype is how watchable the game should be.</p>
   {% endif %}
 </section>
