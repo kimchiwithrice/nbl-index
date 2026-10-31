@@ -126,7 +126,7 @@
     <div class="card"><b data-explain="If an average NBL shooter took {{ x.short }}'s shots, from the same spots, they'd score this many points per 100 shots. Higher means better shots.">Shot quality</b><span>{{ st.sq | f1 }}</span><em>#{{ x.srk.sq }} · league avg {{ (ns.sq / ns.n) | f1 }}</em></div>
     <div class="card"><b data-explain="Points per 100 shots more (+) or fewer (−) than an average shooter would score from the same spots. Partly skill: good shooting teams tend to stay good.">Shot making</b><span class="{{ 'pos' if st.sm >= 0 else 'neg' }}">{{ st.sm | sgn }}</span><em>#{{ x.srk.sm }} · avg is 0</em></div>
     <div class="card"><b data-explain="If an average NBL shooter took the shots opponents get against {{ x.short }}, they'd score this many points per 100 shots. Lower means tougher shots allowed.">Shot quality allowed</b><span>{{ st.d_sq | f1 }}</span><em>#{{ x.srk.d_sq }} · league avg {{ (ns.dsq / ns.n) | f1 }}</em></div>
-    <div class="card"><b data-explain="Points per 100 shots opponents scored below (+) or above (−) an average shooter from the same spots.">Opp shooting luck</b><span class="{{ 'pos' if st.d_sm >= 0 else 'neg' }}">{{ st.d_sm | sgn }}</span><em>#{{ x.srk.d_sm }} · avg is 0</em></div>
+    <div class="card"><b data-explain="Points per 100 shots opponents scored below (+) or above (−) an average shooter from the same spots. Plus is better.">Opp shooting luck</b><span class="{{ 'pos' if st.d_sm >= 0 else 'neg' }}">{{ st.d_sm | sgn }}</span><em>#{{ x.srk.d_sm }} · avg is 0</em></div>
   </div>
   {% endif %}
   <div class="shotpair">
