@@ -419,6 +419,10 @@ def season_tables(path, games, player_box, cur, teams, log=print):
     ts = team_stints(stints, season, cur)
     has_zones = not sh.empty and sh.zone.notna().any()
     league = shotchart.league_averages(sh) if has_zones else {}
+    if has_zones:
+        # Shot quality: what each shot is worth on average, going by where it was taken from.
+        sh["pts"] = np.where(sh.made, np.where(sh.three, 3, 2), 0)
+        sh["xpts"] = sh.zone10.map(sh.dropna(subset=["zone10"]).groupby("zone10").pts.mean())
 
     out = {"stats": {}, "teams": {}, "players": {}, "games": ok_games, "of": len(season),
            "pbp_games": int(events.match_id.nunique()), "zones": bool(has_zones)}
@@ -434,6 +438,12 @@ def season_tables(path, games, player_box, cur, teams, log=print):
             stats["d_rim_r"] = (theirs.kind == "rim").mean()
             stats["d_rim"] = theirs[theirs.kind == "rim"].made.mean() if (theirs.kind == "rim").any() else None
             stats["astd"] = mine[mine.made].assisted.mean() if mine.made.any() else None
+            if has_zones:
+                for pre, d in (("", mine), ("d_", theirs)):
+                    d = d.dropna(subset=["xpts"])
+                    if len(d):
+                        stats[pre + "sq"] = 100 * d.xpts.mean()
+                        stats[pre + "sm"] = 100 * (d.pts - d.xpts).mean()
 
         # Clutch: regular season games with a play-by-play.
         g = regular[(regular.home == team) | (regular.away == team)].join(ex, how="inner")
