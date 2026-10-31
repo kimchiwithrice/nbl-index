@@ -216,7 +216,7 @@
     "Shot quality": "If an average NBL shooter took this team's shots, from the same spots, they'd score this many points per 100 shots. Higher means better shots.",
     "Shot making": "Points per 100 shots more (+) or fewer (−) than an average shooter would score from the same spots. Partly skill: good shooting teams tend to stay good.",
     "Shot quality allowed": "If an average NBL shooter took the shots opponents get against this team, they'd score this many points per 100 shots. Lower means tougher shots allowed.",
-    "Opp shooting luck": "Points per 100 shots opponents scored below (+) or above (−) an average shooter from the same spots. Plus is good luck for this team. It tends to even out.",
+    "Opp shooting luck": "Points per 100 shots opponents scored below (+) or above (−) an average shooter from the same spots.",
     "Opp layup FG%": "Opponents' field-goal % on layups, dunks and tip-ins.",
     "Clutch minutes": "Minutes played in the last 5 minutes of the 4th quarter or overtime with the score within 5.",
     "Clutch net/100": "Point margin per 100 possessions in clutch time.",
