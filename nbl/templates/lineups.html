@@ -123,10 +123,10 @@
   {% set st = x.stats or {} %}{% if st.sq is not none and st.sq is defined %}
   {% set ns = namespace(sq=0, dsq=0, n=0) %}{% for y in info.values() %}{% if y.stats and y.stats.sq is not none and y.stats.sq is defined %}{% set ns.sq = ns.sq + y.stats.sq %}{% set ns.dsq = ns.dsq + y.stats.d_sq %}{% set ns.n = ns.n + 1 %}{% endif %}{% endfor %}
   <div class="cards">
-    <div class="card"><b data-explain="How good {{ x.short }}'s shots are, judged only by where they take them from: what an average shooter would score from those spots, in points per 100 shots. Higher is better.">Shot quality</b><span>{{ st.sq | f1 }}</span><em>#{{ x.srk.sq }} · league avg {{ (ns.sq / ns.n) | f1 }}</em></div>
+    <div class="card"><b data-explain="If an average NBL shooter took {{ x.short }}'s shots, from the same spots, they'd score this many points per 100 shots. Higher means better shots.">Shot quality</b><span>{{ st.sq | f1 }}</span><em>#{{ x.srk.sq }} · league avg {{ (ns.sq / ns.n) | f1 }}</em></div>
     <div class="card"><b data-explain="Points per 100 shots more (+) or fewer (−) than an average shooter would score from the same spots. Partly skill: good shooting teams tend to stay good.">Shot making</b><span class="{{ 'pos' if st.sm >= 0 else 'neg' }}">{{ st.sm | sgn }}</span><em>#{{ x.srk.sm }} · avg is 0</em></div>
-    <div class="card"><b data-explain="How good the shots {{ x.short }} give up are, judged by where opponents shoot from: what an average shooter would score from those spots, per 100 shots. Lower is better. Last season this held steady all year.">Shot quality allowed</b><span>{{ st.d_sq | f1 }}</span><em>#{{ x.srk.d_sq }} · league avg {{ (ns.dsq / ns.n) | f1 }}</em></div>
-    <div class="card"><b data-explain="Points per 100 shots opponents scored above (+) or below (−) what an average shooter would from the same spots. Mostly luck: last season it didn't carry on from the first half of the year to the second. Minus is good for {{ x.short }}.">Opp shooting luck</b><span>{{ st.d_sm | sgn }}</span><em>#{{ x.srk.d_sm }} · avg is 0</em></div>
+    <div class="card"><b data-explain="If an average NBL shooter took the shots opponents get against {{ x.short }}, they'd score this many points per 100 shots. Lower means tougher shots allowed.">Shot quality allowed</b><span>{{ st.d_sq | f1 }}</span><em>#{{ x.srk.d_sq }} · league avg {{ (ns.dsq / ns.n) | f1 }}</em></div>
+    <div class="card"><b data-explain="Points per 100 shots opponents scored below (+) or above (−) an average shooter from the same spots. Plus is better.">Opp shooting luck</b><span class="{{ 'pos' if st.d_sm >= 0 else 'neg' }}">{{ st.d_sm | sgn }}</span><em>#{{ x.srk.d_sm }} · avg is 0</em></div>
   </div>
   {% endif %}
   <div class="shotpair">
