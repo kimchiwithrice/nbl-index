@@ -477,9 +477,9 @@
   "away": "Illawarra Hawks",
   "slug": "2026-11-21-illawarra-hawks-at-tasmania-jackjumpers",
   "p_home": 0.706,
-  "margin": 7.5,
+  "margin": 7.4,
   "total": 192.9,
-  "logged": "2026-10-30T15:59:26.308641+00:00"
+  "logged": "2026-10-31T00:52:04.326212+00:00"
  },
  "3750b552-58ad-11f1-a12d-7ddf75ccac0d": {
   "utc": "2026-11-21T08:30:00+00:00",
@@ -1096,10 +1096,10 @@
   "home": "Perth Wildcats",
   "away": "Sydney Kings",
   "slug": "2027-01-22-sydney-kings-at-perth-wildcats",
-  "p_home": 0.384,
+  "p_home": 0.385,
   "margin": -4.0,
   "total": 187.6,
-  "logged": "2026-10-30T20:52:06.387777+00:00"
+  "logged": "2026-10-31T00:52:04.326212+00:00"
  },
  "378a267b-58ad-11f1-b1d5-67a8251482c3": {
   "utc": "2027-01-23T06:30:00+00:00",
@@ -1157,9 +1157,9 @@
   "away": "Illawarra Hawks",
   "slug": "2027-01-27-illawarra-hawks-at-tasmania-jackjumpers",
   "p_home": 0.706,
-  "margin": 7.5,
+  "margin": 7.4,
   "total": 192.9,
-  "logged": "2026-10-30T15:59:26.308641+00:00"
+  "logged": "2026-10-31T00:52:04.326212+00:00"
  },
  "378d7045-58ad-11f1-be6f-59142d8bd7d5": {
   "utc": "2027-01-27T07:30:00+00:00",
