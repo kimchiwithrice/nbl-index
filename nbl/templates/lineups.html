@@ -126,7 +126,7 @@
     <div class="card"><b data-explain="How good {{ x.short }}'s shots are, judged only by where they take them from: what an average shooter would score from those spots, in points per 100 shots. Higher is better.">Shot quality</b><span>{{ st.sq | f1 }}</span><em>#{{ x.srk.sq }} · league avg {{ (ns.sq / ns.n) | f1 }}</em></div>
     <div class="card"><b data-explain="Points per 100 shots more (+) or fewer (−) than an average shooter would score from the same spots. Partly skill: good shooting teams tend to stay good.">Shot making</b><span class="{{ 'pos' if st.sm >= 0 else 'neg' }}">{{ st.sm | sgn }}</span><em>#{{ x.srk.sm }} · avg is 0</em></div>
     <div class="card"><b data-explain="How good the shots {{ x.short }} give up are, judged by where opponents shoot from: what an average shooter would score from those spots, per 100 shots. Lower is better. Last season this held steady all year.">Shot quality allowed</b><span>{{ st.d_sq | f1 }}</span><em>#{{ x.srk.d_sq }} · league avg {{ (ns.dsq / ns.n) | f1 }}</em></div>
-    <div class="card"><b data-explain="Points per 100 shots opponents scored above (+) or below (−) what an average shooter would from the same spots. Mostly luck: last season it didn't carry on from the first half of the year to the second. Minus is good for {{ x.short }}.">Opp shooting luck</b><span>{{ st.d_sm | sgn }}</span><em>#{{ x.srk.d_sm }} · avg is 0</em></div>
+    <div class="card"><b data-explain="Plus means opponents have missed more than usual from those spots: good luck for {{ x.short }}. It tends to even out.">Opp shooting luck</b><span class="{{ 'pos' if st.d_sm >= 0 else 'neg' }}">{{ st.d_sm | sgn }}</span><em>#{{ x.srk.d_sm }} · avg is 0</em></div>
   </div>
   {% endif %}
   <div class="shotpair">

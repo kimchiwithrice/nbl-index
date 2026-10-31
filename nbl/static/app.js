@@ -216,7 +216,7 @@
     "Shot quality": "How good a team's shots are, judged only by where they take them from. It's what an average shooter would score from those spots, in points per 100 shots. Higher is better.",
     "Shot making": "Points per 100 shots more (+) or fewer (−) than an average shooter would score from the same spots. Partly skill: good shooting teams tend to stay good.",
     "Shot quality allowed": "How good the shots a team gives up are, judged by where opponents shoot from. Points an average shooter would score from those spots, per 100 shots. Lower is better.",
-    "Opp shooting luck": "Points per 100 shots opponents scored above (+) or below (−) what an average shooter would from the same spots. Mostly luck, so it tends to even out. Minus is good for this team.",
+    "Opp shooting luck": "Plus means opponents have missed more than usual from those spots: good luck for this team. It tends to even out.",
     "Opp layup FG%": "Opponents' field-goal % on layups, dunks and tip-ins.",
     "Clutch minutes": "Minutes played in the last 5 minutes of the 4th quarter or overtime with the score within 5.",
     "Clutch net/100": "Point margin per 100 possessions in clutch time.",

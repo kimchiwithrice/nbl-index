@@ -443,7 +443,8 @@ def season_tables(path, games, player_box, cur, teams, log=print):
                     d = d.dropna(subset=["xpts"])
                     if len(d):
                         stats[pre + "sq"] = 100 * d.xpts.mean()
-                        stats[pre + "sm"] = 100 * (d.pts - d.xpts).mean()
+                        # Opponents' version is flipped so plus is good for this team (they missed more than usual).
+                        stats[pre + "sm"] = (1 if pre == "" else -1) * 100 * (d.pts - d.xpts).mean()
 
         # Clutch: regular season games with a play-by-play.
         g = regular[(regular.home == team) | (regular.away == team)].join(ex, how="inner")
