@@ -69,7 +69,7 @@
     {% for g in upcoming %}
       <tr class="link" data-href="{{ root }}games/{{ g.slug }}/">
         <td class="l">{{ m.when(g.utc) }}</td>
-        <td class="l"><a href="{{ root }}games/{{ g.slug }}/">{{ info[g.away].short }} @ {{ info[g.home].short }}</a></td>
+        <td class="l"><a href="{{ root }}games/{{ g.slug }}/"><span class="nm-full">{{ info[g.away].short }} @ {{ info[g.home].short }}</span><span class="nm-short">{{ info[g.away].code }} @ {{ info[g.home].code }}</span></a></td>
         <td>{{ m.fav(info, g.home, g.away, g.pred.p_home, True) }}{% if g.adjust %}<span class="adjmark" title="Adjusted for players who missed their team's last game">*</span>{% endif %}</td>
         <td>{{ g.pred.a_pts | round | int }}–{{ g.pred.h_pts | round | int }}</td>
       </tr>
