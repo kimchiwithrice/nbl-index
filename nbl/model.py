@@ -263,6 +263,8 @@ STAT_DEFS = [
     ("float_r", "Floaters", None, "sp", "pct"), ("jumper_r", "2pt jumpers", None, "sp", "pct"),
     ("jumper", "Jumper FG%", True, "sp", "pct"), ("astd", "Assisted", None, "sp", "pct"),
     ("d_rim_r", "Opp layups", False, "sp", "pct"), ("d_rim", "Opp layup FG%", False, "sp", "pct"),
+    ("sq", "Shot quality", True, "sq", "1"), ("sm", "Shot making", True, "sq", "sgn"),
+    ("d_sq", "Shot quality allowed", False, "sq", "1"), ("d_sm", "Opp shooting luck", False, "sq", "sgn"),
     ("c_min", "Clutch minutes", None, "cl", "1"), ("c_net", "Clutch net/100", True, "cl", "1"),
 ]
 
