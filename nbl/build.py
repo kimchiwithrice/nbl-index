@@ -329,6 +329,31 @@ def week_end(sched, cur, now):
     return end
 
 
+POTW_VERSION = 2      # bump to redo the saved player of the week picks
+POTW_PULL = 100       # possessions' worth of pull toward average, so a short burst can't win it
+POTW_MIN_PPG = 12     # a player of the week has to be scoring
+
+
+def player_of_week(pb, match_ids, weights, avg_impact):
+    """Points added over an average player across the week's games. 20+ minutes in every game and
+    12+ points a game. Small samples are pulled toward average, like Impact; tested on every week
+    since 2016-17."""
+    wk = pb[pb.match_id.isin(match_ids)]
+    agg = wk.groupby(["player", "team"])[impact.STATS + ["on_poss", "min"]].sum()
+    agg["games"] = wk.groupby(["player", "team"]).match_id.nunique()
+    agg = agg[(agg["min"] >= 20 * agg.games) & (agg.pts >= POTW_MIN_PPG * agg.games)]
+    if agg.empty:
+        return None
+    rates = agg[impact.STATS].div(agg.on_poss.clip(lower=1), axis=0) * 100
+    c = weights["coef"]
+    value = weights["intercept"] + sum(c[k] * rates[k] for k in impact.STATS) + c["team_net"] * weights["team_mean"]
+    added = (value - avg_impact) * agg.on_poss / 100 * agg.on_poss / (agg.on_poss + POTW_PULL)
+    (player, team) = added.idxmax()
+    r = agg.loc[(player, team)]
+    return {"player": player, "team": team, "added": float(added.max()), "games": int(r.games), "min": float(r["min"]),
+            "pts": int(r.pts), "reb": int(r.orb + r.drb), "ast": int(r.ast)}
+
+
 def week_block(games, sched, teams, cal, cur, pb, weights, avg_impact, start, end, n_sims):
     """One week's movers, finals race, best offense and defense and player of the week. Everything
     is worked out as of the Monday before and the Monday after, so it reads the same later on."""
@@ -380,21 +405,7 @@ def week_block(games, sched, teams, cal, cur, pb, weights, avg_impact, start, en
         "o": np.average(d.o, weights=d.poss), "d": np.average(d.d, weights=d.poss), "n": len(d)}))
     best_o, best_d = by_team.o.idxmax(), by_team.d.idxmin()
 
-    # Player of the week: points added above an average player over the week's games.
-    wk = pb[pb.match_id.isin(week.match_id)]
-    agg = wk.groupby(["player", "team"])[impact.STATS + ["on_poss", "min"]].sum()
-    agg["games"] = wk.groupby(["player", "team"]).match_id.nunique()
-    agg = agg[agg["min"] >= 20 * agg.games]
-    potw = None
-    if len(agg):
-        rates = agg[impact.STATS].div(agg.on_poss.clip(lower=1), axis=0) * 100
-        c = weights["coef"]
-        value = weights["intercept"] + sum(c[k] * rates[k] for k in impact.STATS) + c["team_net"] * weights["team_mean"]
-        added = (value - avg_impact) * agg.on_poss / 100
-        (player, team) = added.idxmax()
-        r = agg.loc[(player, team)]
-        potw = {"player": player, "team": team, "added": float(added.max()), "games": int(r.games), "min": float(r["min"]),
-                "pts": int(r.pts), "reb": int(r.orb + r.drb), "ast": int(r.ast)}
+    potw = player_of_week(pb, week.match_id, weights, avg_impact)
 
     local = start.tz_convert(SYDNEY)
     last = (end - pd.Timedelta(days=1)).tz_convert(SYDNEY)
@@ -435,7 +446,12 @@ def week_history(path, games, sched, teams, cal, cur, pb, weights, avg_impact, n
             w = week_block(games, sched, teams, cal, cur, pb, weights, avg_impact, start, end, n_sims)
             if w:
                 w["model"] = model.VERSION
+                w["potw_v"] = POTW_VERSION
                 log(f"  week of {w['label']} added to the weekly history")
+        elif w.get("potw_v") != POTW_VERSION:
+            w["potw"] = player_of_week(pb, season[(season.utc >= start) & (season.utc < end)].match_id,
+                                       weights, avg_impact)
+            w["potw_v"] = POTW_VERSION
         if w:
             weeks.append(w)
         start = end
