@@ -347,6 +347,64 @@
     "ast": 4
    },
    "model": 2
+  },
+  {
+   "start": "2026-10-25T14:00:00+00:00",
+   "label": "26 Oct–1 Nov",
+   "round": "Round 7",
+   "games": 8,
+   "scheduled": 8,
+   "riser": {
+    "team": "Tasmania JackJumpers",
+    "from": 1.6780317576618407,
+    "to": 2.6529092391132436,
+    "diff": 0.974877481451403,
+    "rk_from": 4,
+    "rk_to": 3
+   },
+   "faller": {
+    "team": "New Zealand Breakers",
+    "from": 1.4368822694058883,
+    "to": 0.3493634544069427,
+    "diff": -1.0875188149989454,
+    "rk_from": 5,
+    "rk_to": 5
+   },
+   "race": [
+    {
+     "team": "New Zealand Breakers",
+     "from": 0.6775,
+     "to": 0.56
+    },
+    {
+     "team": "Perth Wildcats",
+     "from": 0.7694,
+     "to": 0.6667
+    }
+   ],
+   "best_o": {
+    "team": "New Zealand Breakers",
+    "o": 134.10272859441204,
+    "d": 145.45947459590363,
+    "n": 1.0
+   },
+   "best_d": {
+    "team": "Tasmania JackJumpers",
+    "o": 109.71532933037733,
+    "d": 100.89483447333129,
+    "n": 2.0
+   },
+   "potw": {
+    "player": "Jonah Bolden",
+    "team": "Cairns Taipans",
+    "added": 9.693722677386178,
+    "games": 2,
+    "min": 45.91666666666667,
+    "pts": 14,
+    "reb": 20,
+    "ast": 6
+   },
+   "model": 2
   }
  ]
 }
