@@ -49,14 +49,15 @@
    "potw": {
     "player": "Tanner Krebs",
     "team": "South East Melbourne Phoenix",
-    "added": 9.179600723788267,
+    "added": 3.3262890044297317,
     "games": 1,
     "min": 28.0,
     "pts": 25,
     "reb": 1,
     "ast": 4
    },
-   "model": 2
+   "model": 2,
+   "potw_v": 2
   },
   {
    "start": "2026-09-20T14:00:00+00:00",
@@ -107,14 +108,15 @@
    "potw": {
     "player": "Bryce Cotton",
     "team": "Adelaide 36ers",
-    "added": 13.29669093226699,
+    "added": 7.762164665058743,
     "games": 2,
     "min": 76.65,
     "pts": 62,
     "reb": 3,
     "ast": 13
    },
-   "model": 2
+   "model": 2,
+   "potw_v": 2
   },
   {
    "start": "2026-09-27T14:00:00+00:00",
@@ -165,14 +167,15 @@
    "potw": {
     "player": "Parker Jackson-Cartwright",
     "team": "New Zealand Breakers",
-    "added": 15.726850805788548,
+    "added": 9.08158636288867,
     "games": 2,
     "min": 74.73333333333333,
     "pts": 54,
     "reb": 11,
     "ast": 20
    },
-   "model": 2
+   "model": 2,
+   "potw_v": 2
   },
   {
    "start": "2026-10-04T14:00:00+00:00",
@@ -223,14 +226,15 @@
    "potw": {
     "player": "Jonah Bolden",
     "team": "Cairns Taipans",
-    "added": 17.60064455841353,
+    "added": 8.999381253760252,
     "games": 2,
     "min": 50.11666666666667,
     "pts": 36,
     "reb": 17,
     "ast": 1
    },
-   "model": 2
+   "model": 2,
+   "potw_v": 2
   },
   {
    "start": "2026-10-11T14:00:00+00:00",
@@ -281,14 +285,15 @@
    "potw": {
     "player": "Carlin Davison",
     "team": "New Zealand Breakers",
-    "added": 14.14328358691639,
+    "added": 7.911266208176323,
     "games": 2,
     "min": 64.73333333333333,
     "pts": 37,
     "reb": 6,
     "ast": 25
    },
-   "model": 2
+   "model": 2,
+   "potw_v": 2
   },
   {
    "start": "2026-10-18T14:00:00+00:00",
@@ -339,14 +344,15 @@
    "potw": {
     "player": "Torrey Craig",
     "team": "Sydney Kings",
-    "added": 15.805421371884059,
+    "added": 8.14231885969635,
     "games": 2,
     "min": 52.36666666666667,
     "pts": 44,
     "reb": 19,
     "ast": 4
    },
-   "model": 2
+   "model": 2,
+   "potw_v": 2
   },
   {
    "start": "2026-10-25T14:00:00+00:00",
@@ -395,16 +401,17 @@
     "n": 2.0
    },
    "potw": {
-    "player": "Jonah Bolden",
-    "team": "Cairns Taipans",
-    "added": 9.693722677386178,
+    "player": "Dakota Mathias",
+    "team": "Tasmania JackJumpers",
+    "added": 5.440180442769828,
     "games": 2,
-    "min": 45.91666666666667,
-    "pts": 14,
-    "reb": 20,
-    "ast": 6
+    "min": 76.48333333333333,
+    "pts": 42,
+    "reb": 10,
+    "ast": 9
    },
-   "model": 2
+   "model": 2,
+   "potw_v": 2
   }
  ]
 }
