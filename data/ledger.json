@@ -396,10 +396,10 @@
   "home": "New Zealand Breakers",
   "away": "Brisbane Bullets",
   "slug": "2026-11-13-brisbane-bullets-at-new-zealand-breakers",
-  "p_home": 0.637,
+  "p_home": 0.636,
   "margin": 4.8,
   "total": 187.2,
-  "logged": "2026-11-01T10:34:55.530258+00:00"
+  "logged": "2026-11-01T21:14:36.413535+00:00"
  },
  "3746d2f5-58ad-11f1-9032-1138b8cb68ba": {
   "utc": "2026-11-13T08:30:00+00:00",
@@ -448,8 +448,8 @@
   "slug": "2026-11-15-tasmania-jackjumpers-at-brisbane-bullets",
   "p_home": 0.358,
   "margin": -5.0,
-  "total": 184.6,
-  "logged": "2026-11-01T17:10:18.949066+00:00"
+  "total": 184.7,
+  "logged": "2026-11-01T21:14:36.413535+00:00"
  },
  "3748f8f0-58ad-11f1-bb02-b15d4ea6aed8": {
   "utc": "2026-11-18T06:30:00+00:00",
@@ -597,9 +597,9 @@
   "away": "Perth Wildcats",
   "slug": "2026-12-06-perth-wildcats-at-sydney-kings",
   "p_home": 0.69,
-  "margin": 6.9,
+  "margin": 6.8,
   "total": 188.1,
-  "logged": "2026-11-01T10:34:55.530258+00:00"
+  "logged": "2026-11-01T21:14:36.413535+00:00"
  },
  "3747bba2-58ad-11f1-b586-c9fe4bf38829": {
   "utc": "2026-12-09T07:30:00+00:00",
@@ -726,10 +726,10 @@
   "home": "Illawarra Hawks",
   "away": "Melbourne United",
   "slug": "2026-12-20-melbourne-united-at-illawarra-hawks",
-  "p_home": 0.338,
+  "p_home": 0.339,
   "margin": -5.7,
   "total": 197.5,
-  "logged": "2026-11-01T10:34:55.530258+00:00"
+  "logged": "2026-11-01T21:14:36.413535+00:00"
  },
  "3757e2b3-58ad-11f1-801d-e3b03d7fb141": {
   "utc": "2026-12-20T06:00:00+00:00",
@@ -756,10 +756,10 @@
   "home": "New Zealand Breakers",
   "away": "Brisbane Bullets",
   "slug": "2026-12-22-brisbane-bullets-at-new-zealand-breakers",
-  "p_home": 0.637,
+  "p_home": 0.636,
   "margin": 4.8,
   "total": 187.2,
-  "logged": "2026-11-01T10:34:55.530258+00:00"
+  "logged": "2026-11-01T21:14:36.413535+00:00"
  },
  "3759b81c-58ad-11f1-a957-a93048d70593": {
   "utc": "2026-12-23T09:00:00+00:00",
@@ -1248,8 +1248,8 @@
   "slug": "2027-01-31-brisbane-bullets-at-tasmania-jackjumpers",
   "p_home": 0.682,
   "margin": 6.5,
-  "total": 184.6,
-  "logged": "2026-11-01T10:34:55.530258+00:00"
+  "total": 184.7,
+  "logged": "2026-11-01T21:14:36.413535+00:00"
  },
  "379682fb-58ad-11f1-bbe4-a9a6cbaba447": {
   "utc": "2027-02-04T08:30:00+00:00",
