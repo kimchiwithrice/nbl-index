@@ -23,6 +23,8 @@
   function slug(s) {
     return s.normalize("NFKD").replace(/[̀-ͯ]/g, "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
   }
+  // The feed sometimes adds or drops Jr, III and so on (list_key in build.py)
+  function key(s) { return slug(s).replace(/-(jr|sr|ii|iii|iv)$/, ""); }
   function esc(s) { return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
   function sgn(x) { return (x >= 0 ? "+" : "") + x.toFixed(1); }
 
@@ -42,10 +44,10 @@
 
   function show(named) {
     var all = predict(d.players);
-    var keep = d.players.filter(function (p) { return !named[slug(p.name)]; });
+    var keep = d.players.filter(function (p) { return !named[key(p.name)]; });
     var now = predict(keep);
     var rows = d.players.map(function (p, i) {
-      var green = !!named[slug(p.name)];
+      var green = !!named[key(p.name)];
       var text = green ? "<b>Expected to play</b>. Named in the team list, so no penalty (would have been " + sgn(-all.pts[i]) + " pts)"
         : "<b>Out</b>. Not in the team list, " + sgn(-now.pts[keep.indexOf(p)]) + " pts";
       return '<br><span class="light ' + (green ? "green" : "red") + '" title="' + TIPS[green ? "green" : "red"] + '"></span>' +
@@ -72,9 +74,10 @@
   fetch(d.url + "?id=" + encodeURIComponent(d.id))
     .then(function (r) { return r.ok ? r.json() : null; })
     .then(function (list) {
-      if (!list || !list.players || !list.players.length) return;
+      // A list can fill in over a few minutes, so wait until it looks complete (as LIST_MIN in build.py).
+      if (!list || !list.players || list.players.length < 20) return;
       var named = {};
-      list.players.forEach(function (p) { named[slug(p.name)] = true; });
+      list.players.forEach(function (p) { named[key(p.name)] = true; });
       show(named);
     })
     .catch(function () {});

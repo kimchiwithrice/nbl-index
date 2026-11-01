@@ -307,6 +307,7 @@ def asset_version():
 
 SITEMAP_AHEAD = pd.Timedelta(days=7)  # how far ahead game pages go in the sitemap
 LIST_HOURS = 3  # check the feed for team lists for games this close to tip
+LIST_MIN = 20  # names before a game's list counts as out; it can fill in over a few minutes
 WEEK_WAIT = pd.Timedelta(hours=33)  # Monday midnight to Tuesday 9am: the longest a late result is waited for
 
 
@@ -846,6 +847,11 @@ def write_data_js(out_dir, ratings, cal, info, teams, season, betting=False):
         f.write("window.NBL=" + json.dumps(payload, separators=(",", ":"), default=float) + ";")
 
 
+def list_key(name):
+    """Name for matching against the team list. The feed sometimes adds or drops Jr, III and so on."""
+    return re.sub(r"-(jr|sr|ii|iii|iv)$", "", slugify(name))
+
+
 def adjust_for_absences(all_games, absences, cal, lists=None):
     """Move each team's next prediction for regulars who missed its last game.
 
@@ -864,8 +870,10 @@ def adjust_for_absences(all_games, absences, cal, lists=None):
                for side in ("home", "away")}
         if not out["home"] and not out["away"]:
             continue
-        named = {slugify(n) for n in lists.get(g["id"], ())}
-        out = {side: [{**a, "light": ("green" if slugify(a["player"]) in named else "red") if named else "yellow"}
+        named = {list_key(n) for n in lists.get(g["id"], ())}
+        if len(named) < LIST_MIN:
+            named = set()
+        out = {side: [{**a, "light": ("green" if list_key(a["player"]) in named else "red") if named else "yellow"}
                       for a in out[side]] for side in out}
         base = {k: g["pred"][k] for k in ("margin", "total")}
         if any(a["light"] == "green" for side in out for a in out[side]):
