@@ -317,9 +317,9 @@
   "slug": "2026-11-06-new-zealand-breakers-at-tasmania-jackjumpers",
   "p_home": 0.461,
   "margin": -1.3,
-  "total": 183.5,
+  "total": 183.6,
   "adj": -3.77,
-  "logged": "2026-11-01T10:34:55.530258+00:00"
+  "logged": "2026-11-01T18:09:02.999505+00:00"
  },
  "37256511-58ad-11f1-b841-b5c487635207": {
   "utc": "2026-11-07T06:30:00+00:00",
@@ -698,8 +698,8 @@
   "slug": "2026-12-18-tasmania-jackjumpers-at-new-zealand-breakers",
   "p_home": 0.472,
   "margin": -1.0,
-  "total": 183.5,
-  "logged": "2026-11-01T10:34:55.530258+00:00"
+  "total": 183.6,
+  "logged": "2026-11-01T18:09:02.999505+00:00"
  },
  "375a042e-58ad-11f1-a652-5bbfc6dce39b": {
   "utc": "2026-12-19T06:30:00+00:00",
@@ -916,10 +916,10 @@
   "home": "Sydney Kings",
   "away": "Tasmania JackJumpers",
   "slug": "2027-01-04-tasmania-jackjumpers-at-sydney-kings",
-  "p_home": 0.628,
+  "p_home": 0.627,
   "margin": 4.5,
   "total": 184.1,
-  "logged": "2026-11-01T10:34:55.530258+00:00"
+  "logged": "2026-11-01T18:09:02.999505+00:00"
  },
  "377af928-58ad-11f1-af79-ad562dad26a0": {
   "utc": "2027-01-06T06:30:00+00:00",
@@ -1318,8 +1318,8 @@
   "slug": "2027-02-07-tasmania-jackjumpers-at-new-zealand-breakers",
   "p_home": 0.472,
   "margin": -1.0,
-  "total": 183.5,
-  "logged": "2026-11-01T10:34:55.530258+00:00"
+  "total": 183.6,
+  "logged": "2026-11-01T18:09:02.999505+00:00"
  },
  "37995628-58ad-11f1-a2d1-491075c94f1a": {
   "utc": "2027-02-07T06:00:00+00:00",
@@ -1396,10 +1396,10 @@
   "home": "Sydney Kings",
   "away": "Tasmania JackJumpers",
   "slug": "2027-02-13-tasmania-jackjumpers-at-sydney-kings",
-  "p_home": 0.628,
+  "p_home": 0.627,
   "margin": 4.5,
   "total": 184.1,
-  "logged": "2026-11-01T10:34:55.530258+00:00"
+  "logged": "2026-11-01T18:09:02.999505+00:00"
  },
  "379eac2d-58ad-11f1-90d4-d98e318e0a1e": {
   "utc": "2027-02-14T04:00:00+00:00",
