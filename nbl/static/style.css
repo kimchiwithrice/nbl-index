@@ -16,6 +16,7 @@
   --orange:#e0702a; --orange-text:#a84d1a;
   /* top-3 / bottom-3 rank badges */
   --good:#0d5ea8; --good-wash:#e2edf9; --bad:#b0322c; --bad-wash:#fbe6e3;
+  color-scheme:light dark;
   --font:"Archivo",system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
 }
 @media (prefers-color-scheme: dark){
@@ -27,7 +28,9 @@
     --good:#7db6f2; --good-wash:#1c2c42; --bad:#f2867c; --bad-wash:#3b2326;
   }
 }
+:root[data-theme="light"]{color-scheme:light}
 :root[data-theme="dark"]{
+  color-scheme:dark;
   --paper:#171c24; --wash:#1f2630; --rule:#2a323e; --rule-strong:#3a4452;
   --ink:#e4e8ee; --soft:#a8b1bd; --faint:#8b95a3;
   --accent:#72aef0; --up:#5cc58a; --down:#f07a70; --bar-up:#72aef0; --bar-down:#f07a70;
@@ -199,7 +202,7 @@ tr.dayh td{text-align:left;font-weight:700;font-size:13px;color:var(--soft);padd
 tbody tr.dayh:first-child td{padding-top:6px}
 td.l a .rk{min-width:0}
 .sep{border-left:1px solid var(--rule)}
-.rk{display:inline-block;min-width:19px;padding:0 3px;margin-left:5px;border-radius:9px;line-height:17px;font-size:11.5px;text-align:center;background:var(--wash);color:var(--soft)}
+.rk{display:inline-block;min-width:20px;padding:0 4px;margin-left:5px;border-radius:9px;line-height:18px;font-size:12.5px;text-align:center;background:var(--wash);color:var(--soft)}
 .rk.c.t,.rk.c.b{font-weight:700}
 .rk.c.t{background:var(--good-wash);color:var(--good)}
 .rk.c.b{background:var(--bad-wash);color:var(--bad)}
