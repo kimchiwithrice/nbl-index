@@ -388,10 +388,10 @@
   "home": "Perth Wildcats",
   "away": "Tasmania JackJumpers",
   "slug": "2026-11-12-tasmania-jackjumpers-at-perth-wildcats",
-  "p_home": 0.459,
+  "p_home": 0.46,
   "margin": -1.4,
   "total": 185.3,
-  "logged": "2026-11-02T12:19:50.807196+00:00"
+  "logged": "2026-11-02T18:29:21.997844+00:00"
  },
  "374d40eb-58ad-11f1-926c-d7c956f67204": {
   "utc": "2026-11-13T06:30:00+00:00",
@@ -809,9 +809,9 @@
   "away": "New Zealand Breakers",
   "slug": "2026-12-27-new-zealand-breakers-at-illawarra-hawks",
   "p_home": 0.429,
-  "margin": -2.5,
+  "margin": -2.4,
   "total": 195.1,
-  "logged": "2026-11-02T12:19:50.807196+00:00"
+  "logged": "2026-11-02T18:29:21.997844+00:00"
  },
  "379201a1-58ad-11f1-a7bf-ede76c1d904d": {
   "utc": "2026-12-27T06:00:00+00:00",
@@ -1079,9 +1079,9 @@
   "away": "New Zealand Breakers",
   "slug": "2027-01-20-new-zealand-breakers-at-illawarra-hawks",
   "p_home": 0.429,
-  "margin": -2.5,
+  "margin": -2.4,
   "total": 195.1,
-  "logged": "2026-11-02T12:19:50.807196+00:00"
+  "logged": "2026-11-02T18:29:21.997844+00:00"
  },
  "37b85f23-58ad-11f1-9eb0-2bbb920071b5": {
   "utc": "2027-01-21T08:30:00+00:00",
