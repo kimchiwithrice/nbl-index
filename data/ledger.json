@@ -536,10 +536,10 @@
   "home": "Brisbane Bullets",
   "away": "Perth Wildcats",
   "slug": "2026-12-03-perth-wildcats-at-brisbane-bullets",
-  "p_home": 0.42,
+  "p_home": 0.421,
   "margin": -2.8,
   "total": 188.6,
-  "logged": "2026-11-01T10:34:55.530258+00:00"
+  "logged": "2026-11-02T00:52:36.661060+00:00"
  },
  "37509e79-58ad-11f1-9e3b-fbbd24deadd3": {
   "utc": "2026-12-04T06:30:00+00:00",
@@ -1097,9 +1097,9 @@
   "away": "Cairns Taipans",
   "slug": "2027-01-22-cairns-taipans-at-tasmania-jackjumpers",
   "p_home": 0.68,
-  "margin": 6.5,
+  "margin": 6.4,
   "total": 185.6,
-  "logged": "2026-11-01T10:34:55.530258+00:00"
+  "logged": "2026-11-02T00:52:36.661060+00:00"
  },
  "37b72cf1-58ad-11f1-9c01-6775645a7b9a": {
   "utc": "2027-01-22T10:30:00+00:00",
