@@ -76,8 +76,20 @@
     {% endfor %}
     </tbody>
   </table></div>
-  <p class="note"><a href="{{ root }}schedule/">All upcoming games</a></p>
   {% else %}<p>No upcoming games.</p>{% endif %}
+  <div data-pendbox{% if not pending %} hidden{% endif %}>
+  <h3>Result pending</h3>
+  <div class="tw"><table class="dense"><tbody data-pend data-keep="0,1,2">
+    {% for g in pending %}
+      <tr class="link" data-href="{{ root }}games/{{ g.slug }}/">
+        <td class="l">{{ m.when(g.utc) }}</td>
+        <td class="l"><a href="{{ root }}games/{{ g.slug }}/"><span class="nm-full">{{ info[g.away].short }} @ {{ info[g.home].short }}</span><span class="nm-short">{{ info[g.away].code }} @ {{ info[g.home].code }}</span></a></td>
+        <td>{{ m.fav(info, g.home, g.away, g.pred.p_home, True) }}</td>
+      </tr>
+    {% endfor %}
+  </tbody></table></div>
+  </div>
+  <p class="note"><a href="{{ root }}schedule/">All upcoming games</a></p>
 </section>
 <section>
   <h2>Title race</h2>

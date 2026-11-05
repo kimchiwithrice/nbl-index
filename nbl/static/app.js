@@ -40,13 +40,28 @@
     btn.onclick = function(){ open = !open; set(); };
   });
 
-  // Upcoming games come off the list at tip-off, without waiting for the next build
+  // Upcoming games come off the list at tip-off, without waiting for the next build, and go into
+  // the page's "result pending" list (if it has one) until the result is in the data
+  var pend = document.querySelector("tbody[data-pend]");
+  function toPending(tr){
+    if(!pend) return;
+    var row = tr.cloneNode(false), cells = tr.children;
+    row.hidden = false;
+    pend.dataset.keep.split(",").forEach(function(i){ if(cells[+i]) row.appendChild(cells[+i].cloneNode(true)); });
+    row.querySelectorAll(".adjmark").forEach(function(a){ a.remove(); });
+    if(pend.dataset.nork !== undefined) row.querySelectorAll(".rk").forEach(function(a){ a.remove(); });
+    (pend.dataset.tail ? pend.dataset.tail.split("|") : []).forEach(function(t){
+      var td = document.createElement("td"); td.className = "mut"; td.textContent = t; row.appendChild(td);
+    });
+    pend.appendChild(row);
+    var box = pend.closest("[data-pendbox]"); if(box) box.hidden = false;
+  }
   function dropStarted(){
     var now = Date.now(), changed = false;
     document.querySelectorAll(".tw[data-future]").forEach(function(tw){
       tw.querySelectorAll("tbody tr").forEach(function(tr){
         var t = tr.querySelector(".t[data-utc]"), d = t && Date.parse(t.dataset.utc);
-        if(d && d <= now){ tr.remove(); changed = true; }
+        if(d && d <= now){ toPending(tr); tr.remove(); changed = true; }
       });
       // Round headings with no games left under them
       tw.querySelectorAll("tbody tr.dayh").forEach(function(h){
@@ -106,8 +121,9 @@
   });
 
   // Make whole table rows clickable
-  document.querySelectorAll("tr.link[data-href]").forEach(function(tr){
-    tr.addEventListener("click", function(e){ if(!e.target.closest("a") && !(root.dataset.sp === "hide" && e.target.closest(".sp"))) location.href = tr.dataset.href; });
+  document.addEventListener("click", function(e){
+    var tr = e.target.closest && e.target.closest("tr.link[data-href]");
+    if(tr && !e.target.closest("a") && !(root.dataset.sp === "hide" && e.target.closest(".sp"))) location.href = tr.dataset.href;
   });
 
   // Long tables: if a table fits its box, its header sticks to the top of the screen as you scroll.

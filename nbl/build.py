@@ -277,7 +277,7 @@ def game_list(sched, games, info, ratings, cal, cur, teams, now):
             game["pred"] = model.predict(ratings, cal, row.home, row.away, row.neutral)
             game["hype"] = hype(net[row.home], net[row.away], game["pred"]["p_home"], net_sd)
         # Started, but the result isn't in the data yet.
-        game["pending"] = not game["done"] and game["utc"] < now + pd.Timedelta(minutes=10)
+        game["pending"] = not game["done"] and game["utc"] <= now
         out.append(game)
     return out, net_sd
 
@@ -759,7 +759,7 @@ def build(cfg, data_dir, out_dir, refresh=False, n_sims=sim.N_SIMS, log=print, l
     site = Site(cfg, out_dir, common)
 
     em_max = max(abs(info[t]["net"]) for t in teams) or 1
-    site.page("", "index.html", upcoming=upcoming[:12], em_max=em_max, S=season_sim)
+    site.page("", "index.html", upcoming=upcoming[:12], pending=pending, em_max=em_max, S=season_sim)
     site.page("schedule/", "schedule.html", upcoming=upcoming, completed=completed[::-1], pending=pending,
               net_sd=net_sd)
     site.page("ladder/", "ladder.html", S=season_sim, standings=standings, projected=projected, n_games=n_games)

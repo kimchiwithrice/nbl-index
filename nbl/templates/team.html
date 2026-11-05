@@ -92,7 +92,7 @@
   <h3>Played</h3>
   <div class="tw snug"><table class="dense">
     <thead><tr><th class="l">Date</th><th class="l">Opponent</th><th>Win %</th><th>Proj</th><th class="sp-col">Result</th><th>Drama</th></tr></thead>
-    <tbody>
+    <tbody data-pend data-keep="0,1,2,3" data-tail="awaiting result|–">
     {% for g in played | sort(attribute='utc') %}{% set home = g.home == t %}{% set opp = g.away if home else g.home %}
       {% set p = g.pred.p_home if home else 1 - g.pred.p_home %}
       <tr class="link" data-href="{{ root }}games/{{ g.slug }}/">
