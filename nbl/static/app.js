@@ -24,18 +24,50 @@
   });
 
   // Long game lists: show the first few, with a button for the rest (all rows stay without JS)
+  var clips = [];
   document.querySelectorAll(".tw[data-clip]").forEach(function(tw){
     var n = +tw.dataset.clip, btn = tw.nextElementSibling && tw.nextElementSibling.querySelector(".showall");
     if(!btn) return;
-    var rows = tw.querySelectorAll("tbody tr");
-    function set(open){
+    var open = false;
+    function set(){
+      var rows = tw.querySelectorAll("tbody tr");
       rows.forEach(function(r, i){ r.hidden = !open && i >= n; });
-      btn.textContent = open ? "Show next " + n + " only" : "Show all " + btn.dataset.n + " games";
+      btn.hidden = rows.length <= n;
+      btn.textContent = open ? "Show next " + n + " only" : "Show all " + rows.length + " games";
       if(window.fitTables) window.fitTables();
     }
-    var open = false; set(open); btn.hidden = false;
-    btn.onclick = function(){ open = !open; set(open); };
+    clips.push(set);
+    btn.onclick = function(){ open = !open; set(); };
   });
+
+  // Upcoming games come off the list at tip-off, without waiting for the next build
+  function dropStarted(){
+    var now = Date.now(), changed = false;
+    document.querySelectorAll(".tw[data-future]").forEach(function(tw){
+      tw.querySelectorAll("tbody tr").forEach(function(tr){
+        var t = tr.querySelector(".t[data-utc]"), d = t && Date.parse(t.dataset.utc);
+        if(d && d <= now){ tr.remove(); changed = true; }
+      });
+      // Round headings with no games left under them
+      tw.querySelectorAll("tbody tr.dayh").forEach(function(h){
+        var nx = h.nextElementSibling;
+        if(!nx || nx.classList.contains("dayh")) h.remove();
+      });
+      var rows = tw.querySelectorAll("tbody tr"), show = +tw.dataset.future;
+      if(show) rows.forEach(function(r, i){ r.hidden = i >= show; });
+      if(!rows.length && !tw.dataset.empty){
+        tw.dataset.empty = 1; tw.hidden = true;
+        var p = document.createElement("p"); p.textContent = "No upcoming games.";
+        tw.after(p);
+      }
+    });
+    return changed;
+  }
+  dropStarted();
+  clips.forEach(function(set){ set(); });
+  setInterval(function(){
+    if(dropStarted()){ clips.forEach(function(set){ set(); }); if(window.fitTables) window.fitTables(); }
+  }, 60000);
 
   // Light/dark theme
   var th = document.getElementById("th-btn");

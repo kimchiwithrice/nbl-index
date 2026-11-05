@@ -9,7 +9,7 @@
 
 <h2>Upcoming</h2>
 {% if upcoming %}
-<div class="tw snug"><table class="dense">
+<div class="tw snug" data-future><table class="dense">
   <thead><tr><th class="l">When</th><th class="l">Game</th><th title="The favourite and their chance of winning">Favourite</th><th>Proj</th><th>Margin</th><th>Total</th>{% if cfg.show_betting_tools %}<th>Fair ML</th>{% endif %}<th>Hype</th></tr></thead>
   <tbody>
   {% set ns = namespace(r=None) %}
