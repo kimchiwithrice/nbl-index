@@ -32,13 +32,15 @@
 {% else %}<p>No upcoming games.</p>{% endif %}
 {{ m.ad(cfg) }}
 
-{% if pending %}
-<h2>Awaiting results</h2>
+<div data-pendbox{% if not pending %} hidden{% endif %}>
+<h2>Result pending</h2>
 <p class="note">Played, but not in the data yet. These usually turn up overnight.</p>
-<div class="tw snug"><table class="dense"><tbody>
-{% for g in pending %}<tr><td class="l">{{ m.when(g.utc) }}</td><td class="l"><a href="{{ root }}games/{{ g.slug }}/">{{ info[g.away].short }} @ {{ info[g.home].short }}</a></td><td>Model favoured {{ m.fav(info, g.home, g.away, g.pred.p_home) }}</td></tr>{% endfor %}
+<div class="tw snug"><table class="dense">
+  <thead><tr><th class="l">When</th><th class="l">Game</th><th title="Who the model picked before tip-off">Model favoured</th></tr></thead>
+  <tbody data-pend data-keep="0,1,2" data-nork>
+{% for g in pending %}<tr class="link" data-href="{{ root }}games/{{ g.slug }}/"><td class="l">{{ m.when(g.utc) }}</td><td class="l"><a href="{{ root }}games/{{ g.slug }}/">{{ info[g.away].short }} @ {{ info[g.home].short }}</a></td><td>{{ m.fav(info, g.home, g.away, g.pred.p_home, True) }}</td></tr>{% endfor %}
 </tbody></table></div>
-{% endif %}
+</div>
 
 <h2>Played</h2>
 <p class="note">Scores show by default. Hit <b>Hide scores</b> at the top if you're catching up on replays, and you'll just see the Drama scores. The favourite is who the model picked before tip-off.</p>
