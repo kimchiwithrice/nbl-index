@@ -167,7 +167,7 @@
   {% if roster %}
   <div class="tw"><table class="dense sortable">
     <thead><tr><th class="l" data-sort="text">Player</th><th data-sort="num">GP</th><th data-sort="num">MPG</th><th data-sort="num">PPG</th><th data-sort="num">RPG</th><th data-sort="num">APG</th>
-      <th data-sort="num">Impact</th><th data-sort="num" title="True shooting %">TS%</th><th data-sort="num" title="Share of team possessions used while on court">USG%</th><th data-sort="num">AST%</th><th data-sort="num">REB%</th><th data-sort="num" title="Points per 100 possessions used">ORtg</th><th data-sort="num" title="Plus-minus per 40 minutes">+/- 40</th></tr></thead>
+      <th data-sort="num">Impact</th><th data-sort="num" title="True shooting %">TS%</th><th data-sort="num" title="Share of team plays he finishes while on court">USG%</th><th data-sort="num">AST%</th><th data-sort="num">REB%</th><th data-sort="num" title="Points per 100 of his plays">ORtg</th><th data-sort="num" title="Plus-minus per 40 minutes">+/- 40</th></tr></thead>
     <tbody>
     {% for p in roster %}
       <tr><td class="l"><a href="{{ root }}players/{{ p.slug }}/">{{ p.player }}</a> <small class="mut">{{ p.pos }}</small></td>
