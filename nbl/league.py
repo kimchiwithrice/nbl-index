@@ -7,7 +7,7 @@ from . import data
 
 # (key, label, format, tooltip)
 TRENDS = [
-    ("ortg", "Points per 100 possessions", "1", "League-wide scoring efficiency: all points ÷ all possessions × 100."),
+    ("ortg", "Points per 100 possessions", "1", "Points scored per 100 possessions, across every game in the league."),
     ("pace", "Pace", "1", "Possessions per 40 minutes, averaged over every game."),
     ("fg3r", "3PA rate", "pct", "Share of all field-goal attempts that were threes."),
     ("home", "Home win %", "pct", "Share of games won by the home team."),
