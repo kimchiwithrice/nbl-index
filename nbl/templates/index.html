@@ -63,11 +63,11 @@
 <section>
   <h2>Next games</h2>
   {% if upcoming %}
-  <div class="tw"><table class="dense">
+  <div class="tw" data-future="6"><table class="dense">
     <thead><tr><th class="l">When</th><th class="l">Game</th><th title="The favourite and their chance of winning">Favourite</th><th>Proj</th></tr></thead>
     <tbody>
     {% for g in upcoming %}
-      <tr class="link" data-href="{{ root }}games/{{ g.slug }}/">
+      <tr class="link" data-href="{{ root }}games/{{ g.slug }}/"{% if loop.index > 6 %} hidden{% endif %}>
         <td class="l">{{ m.when(g.utc) }}</td>
         <td class="l"><a href="{{ root }}games/{{ g.slug }}/"><span class="nm-full">{{ info[g.away].short }} @ {{ info[g.home].short }}</span><span class="nm-short">{{ info[g.away].code }} @ {{ info[g.home].code }}</span></a></td>
         <td>{{ m.fav(info, g.home, g.away, g.pred.p_home, True) }}{% if g.adjust %}<span class="adjmark" title="Adjusted for players who missed their team's last game">*</span>{% endif %}</td>
