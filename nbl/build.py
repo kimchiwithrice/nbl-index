@@ -594,7 +594,7 @@ PERCENTILE_STATS = [
     ("Rebound %", "reb_pct", True, "pct", "Share of available rebounds the player grabbed while on court (offensive and defensive averaged)."),
     ("Steal %", "stl_pct", True, "pct", "Share of opponent possessions that end in his steal, while he's on court."),
     ("Block %", "blk_pct", True, "pct", "Share of opponents' two-point shots he blocks while on court."),
-    ("Turnover %", "tov_pct", False, "pct", "Share of his plays (shots, trips to the line, turnovers) that end in a turnover."),
+    ("Turnover %", "tov_pct", False, "pct", "When he finishes a possession himself (with a shot, a trip to the line or a turnover), the share that end in a turnover."),
 ]
 
 
