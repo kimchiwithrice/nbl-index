@@ -591,8 +591,8 @@ PERCENTILE_STATS = [
      "Share of the team's possessions the player finishes themself while on court. Around 20% is average, 30% is a go-to scorer."),
     ("Assist %", "ast_pct", True, "pct", "Share of teammates' made baskets the player assisted while on court."),
     ("Rebound %", "reb_pct", True, "pct", "Share of available rebounds the player grabbed while on court (offensive and defensive averaged)."),
-    ("Steal %", "stl_pct", True, "pct", "Share of opponent possessions that end in his steal, while he's on court."),
-    ("Block %", "blk_pct", True, "pct", "Share of opponents' two-point shots he blocks while on court."),
+    ("Steal %", "stl_pct", True, "pct", "Share of opponent possessions that end in a steal by the player while on court."),
+    ("Block %", "blk_pct", True, "pct", "Share of opponents' two-point shots the player blocks while on court."),
     ("Turnover %", "tov_pct", False, "pct", "Share of the times the player finishes a possession themself that end in a turnover."),
 ]
 
