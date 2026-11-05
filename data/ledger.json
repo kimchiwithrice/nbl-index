@@ -361,10 +361,10 @@
   "home": "Perth Wildcats",
   "away": "Cairns Taipans",
   "slug": "2026-11-08-cairns-taipans-at-perth-wildcats",
-  "p_home": 0.611,
+  "p_home": 0.61,
   "margin": 3.9,
   "total": 191.4,
-  "logged": "2026-11-04T15:30:13.176939+00:00"
+  "logged": "2026-11-05T02:31:32.773635+00:00"
  },
  "37541928-58ad-11f1-86bd-87c06d92085a": {
   "utc": "2026-11-11T08:30:00+00:00",
@@ -621,10 +621,10 @@
   "home": "Illawarra Hawks",
   "away": "Tasmania JackJumpers",
   "slug": "2026-12-10-tasmania-jackjumpers-at-illawarra-hawks",
-  "p_home": 0.363,
+  "p_home": 0.364,
   "margin": -4.8,
   "total": 193.4,
-  "logged": "2026-11-04T15:30:13.176939+00:00"
+  "logged": "2026-11-05T02:31:32.773635+00:00"
  },
  "37788a52-58ad-11f1-b28e-b7b6f460181f": {
   "utc": "2026-12-11T06:30:00+00:00",
@@ -1291,10 +1291,10 @@
   "home": "Perth Wildcats",
   "away": "Cairns Taipans",
   "slug": "2027-02-05-cairns-taipans-at-perth-wildcats",
-  "p_home": 0.611,
+  "p_home": 0.61,
   "margin": 3.9,
   "total": 191.4,
-  "logged": "2026-11-04T15:30:13.176939+00:00"
+  "logged": "2026-11-05T02:31:32.773635+00:00"
  },
  "37bd67c8-58ad-11f1-9904-6d6fb61b331b": {
   "utc": "2027-02-06T06:30:00+00:00",
