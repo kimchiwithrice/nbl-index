@@ -690,10 +690,12 @@ def build(cfg, data_dir, out_dir, refresh=False, n_sims=sim.N_SIMS, log=print, l
     sanity_check(games, teams, ratings, cur)
     preseason = model.fit(games, sched.utc.min() - pd.Timedelta(hours=1), cur, teams)
     week_ago = model.fit(games, now - pd.Timedelta(days=7), cur, teams)
-    stats = model.team_stats(games, cur, teams)
     player_box = data.load_players(paths)
     log("Lineups and shots from the play-by-play ...")
     deep = pbp.season_tables(paths["pbp"], games, player_box, cur, teams, log) if paths.get("pbp") else None
+    if deep:
+        games = pbp.fill_box(games, deep["box"])
+    stats = model.team_stats(games, cur, teams)
     for team in teams:
         if stats.get(team) and deep:
             stats[team].update(deep["stats"].get(team, {}))
@@ -793,11 +795,28 @@ def build(cfg, data_dir, out_dir, refresh=False, n_sims=sim.N_SIMS, log=print, l
         log_rows, splits = scouting[team]
         site.page(f"teams/{info[team]['slug']}/lineups/", "lineups.html", t=team, x=info[team], L=(deep or {}).get("teams", {}).get(team),
                   deep=deep, log_rows=log_rows, splits=splits, shots=((deep or {}).get("teams", {}).get(team) or {}).get("chart"), slugs={r["player"]: r["slug"] for r in rosters[team]})
+    played = games[games.start == cur].set_index("match_id")
+    box_rows = player_box[player_box.match_id.isin(set(played.index))]
+    box_rows = {mid: rows for mid, rows in box_rows.groupby("match_id")}
+    details = (deep or {}).get("game_pages", {})
     for game in all_games:
+        if game["done"] and game["id"] in played.index:
+            h, a = info[game["home"]], info[game["away"]]
+            row = played.loc[game["id"]]
+            rows = box_rows.get(game["id"])
+            detail = details.get(game["id"])
+            game["box"] = {
+                "teams": game_team_stats(row),
+                "players": {"a": box_score(rows, game["away"], slugs), "h": box_score(rows, game["home"], slugs)} if rows is not None else None,
+                "quarters": detail["quarters"] if detail else None,
+                "flow": game_flow_svg(detail, h, a) if detail else None,
+                "dots": detail["dots"] if detail else {},
+            }
         # games more than a week away are almost empty, so keep them out of the sitemap until then
         site.page(f"games/{game['slug']}/", "game.html", listed=game["utc"] < now + SITEMAP_AHEAD, g=game, h=info[game["home"]], a=info[game["away"]],
                   defs=model.STAT_DEFS, ld=event_ld(game, info[game["home"]], info[game["away"]], cfg, cfg.get("base_path", "/")),
-                  impact_cap=impact.MAX_TEAM_PTS, S=season_sim)
+                  impact_cap=impact.MAX_TEAM_PTS, S=season_sim,
+                  box_stats=BOX_STATS, box_tips=BOX_TIPS, game_tips=GAME_TIPS)
     site.page("history/", "history.html", views=rating_views(history, past, teams, season))
     for page in player_pages(seasons, cur, pb, info, (deep or {}).get("players", {}), comps).values():
         site.page(f"players/{page['slug']}/", "player.html", p=page)
@@ -942,6 +961,101 @@ def event_ld(game, home, away, cfg, root):
         "awayTeam": {"@type": "SportsTeam", "name": away["name"]},
         "competitor": [{"@type": "SportsTeam", "name": home["name"]}, {"@type": "SportsTeam", "name": away["name"]}],
     }
+
+
+def game_flow_svg(detail, h, a, width=480, height=170):
+    """The score margin through one game: shaded up in the home team's colour while they lead and
+    down in the away team's colour while the away team leads."""
+    flow, end = detail["flow"], detail["end"]
+    left, right, top, bottom = 30, 8, 16, 22
+    peak = max(10, math.ceil(max(abs(m) for _, m in flow) / 5) * 5)
+    x = lambda t: left + (width - left - right) * t / end  # noqa: E731
+    y = lambda m: top + (height - top - bottom) * (peak - m) / (2 * peak)  # noqa: E731
+    steps = []
+    for (t, m), (t_next, _) in zip(flow, flow[1:] + [flow[-1]]):
+        steps += [(t, m), (t_next, m)]
+    svg = [f'<svg viewBox="0 0 {width} {height}" class="chart gflow" role="img" '
+           f'aria-label="Score margin through the game">']
+    for v in sorted({-peak, -peak // 2, 0, peak // 2, peak}):
+        svg.append(f'<line x1="{left}" x2="{width - right}" y1="{y(v):.1f}" y2="{y(v):.1f}" class="{"zero" if v == 0 else "grid"}"/>'
+                   f'<text x="{left - 6}" y="{y(v) + 4:.1f}" class="ax" text-anchor="end">{abs(v)}</text>')
+    for q in range(1, len(detail["quarters"]) + 1):
+        t = 600 * q if q <= 4 else 2400 + 300 * (q - 4)
+        label = detail["quarters"][q - 1]["label"]
+        svg.append(f'<text x="{(x(t) + x(600 * (q - 1) if q <= 4 else 2400 + 300 * (q - 5))) / 2:.1f}" y="{height - 6}" class="ax" text-anchor="middle">{label}</text>')
+        if t < end:
+            svg.append(f'<line x1="{x(t):.1f}" x2="{x(t):.1f}" y1="{top}" y2="{height - bottom}" class="grid"/>')
+    for team, sign in ((h, 1), (a, -1)):
+        pts = " ".join(f"{x(t):.1f},{y(max(0, m * sign) * sign):.1f}" for t, m in steps)
+        svg.append(f'<g style="--c:{team["colours"][0]};--cd:{team["colours"][1]}">'
+                   f'<polygon points="{x(0):.1f},{y(0):.1f} {pts} {x(end):.1f},{y(0):.1f}"/></g>')
+    svg.append(f'<text x="{left + 6}" y="{top + 10}" class="lab">{h["code"]} ahead</text>'
+               f'<text x="{left + 6}" y="{height - bottom - 4}" class="lab">{a["code"]} ahead</text>')
+    svg.append("</svg>")
+    return "".join(svg)
+
+
+BOX_STATS = [("min", "MIN"), ("pts", "PTS"), ("reb", "REB"), ("ast", "AST"), ("stl", "STL"), ("blk", "BLK"),
+             ("tov", "TO"), ("fg", "FG"), ("fg3", "3P"), ("ft", "FT"), ("pm", "+/-")]
+
+
+BOX_TIPS = {"min": "Minutes played.", "pts": "Points.", "reb": "Rebounds, offensive and defensive.", "ast": "Assists.",
+            "stl": "Steals.", "blk": "Blocks.", "tov": "Turnovers. Lower is better.", "fg": "Field goals made-attempted.",
+            "fg3": "3-pointers made-attempted.", "ft": "Free throws made-attempted.",
+            "pm": "Team points scored minus allowed with the player on court. Plus is better."}
+GAME_TIPS = {"eFG%": "Field-goal %, with 3-pointers counted as 1.5 makes. Higher is better.",
+             "Turnover %": "Share of possessions ending in a turnover. Lower is better.",
+             "Off. rebound %": "Share of the team's missed shots it rebounded. Higher is better.",
+             "FT rate": "Free-throw attempts per field-goal attempt. Higher is better.",
+             "3P": "3-pointers made-attempted.",
+             "Paint pts": "Points from 2-point baskets inside the key. Higher is better.",
+             "2nd-chance pts": "Points scored after an offensive rebound. Higher is better.",
+             "Pts off turnovers": "Points scored after the other team turned it over. Higher is better.",
+             "Bench pts": "Points by players who didn't start.",
+             "Possessions": "Possessions in the game, averaged over both teams."}
+
+
+def box_score(rows, team, slugs):
+    """One team's player box score for one game, starters first, then by minutes."""
+    rows = rows[rows.team == team].copy()
+    rows["st"] = pd.to_numeric(rows.starter, errors="coerce").fillna(0)
+    out = []
+    for r in rows.sort_values(["st", "min"], ascending=False).itertuples():
+        out.append({"player": r.player, "slug": slugs.get((r.player, team)), "starter": bool(r.st),
+                    "min": r.min, "pts": int(r.points), "reb": int(r.rebounds_offensive + r.rebounds_defensive),
+                    "ast": int(r.assists), "stl": int(r.steals), "blk": int(r.blocks), "tov": int(r.turnovers),
+                    "fg": f"{int(r.field_goals_made)}-{int(r.field_goals_attempted)}",
+                    "fg3": f"{int(r.three_pointers_made)}-{int(r.three_pointers_attempted)}",
+                    "ft": f"{int(r.free_throws_made)}-{int(r.free_throws_attempted)}",
+                    "pm": int(r.plus_minus_points)})
+    return out
+
+
+def game_team_stats(row):
+    """Both teams' numbers for one game, as (label, away, home, format, higher is better)."""
+    out = []
+
+    def add(label, fn, fmt, good=True):
+        try:
+            hv, av = fn("h", "a"), fn("a", "h")
+        except (ZeroDivisionError, TypeError):
+            return
+        if hv is None or av is None or hv != hv or av != av:
+            return
+        out.append((label, av, hv, fmt, good))
+
+    g = lambda s, k: getattr(row, f"{s}_{k}")  # noqa: E731
+    add("eFG%", lambda s, o: (g(s, "fgm") + 0.5 * g(s, "fg3m")) / g(s, "fga"), "pct")
+    add("Turnover %", lambda s, o: g(s, "tov") / g(s, "poss"), "pct", False)
+    add("Off. rebound %", lambda s, o: g(s, "orb") / (g(s, "orb") + g(o, "drb")), "pct")
+    add("FT rate", lambda s, o: g(s, "fta") / g(s, "fga"), "pct")
+    add("3P", lambda s, o: f"{int(g(s, 'fg3m'))}-{int(g(s, 'fg3a'))}", "txt", None)
+    add("Paint pts", lambda s, o: g(s, "paint"), "int")
+    add("2nd-chance pts", lambda s, o: g(s, "scp"), "int")
+    add("Pts off turnovers", lambda s, o: g(s, "pot"), "int")
+    add("Bench pts", lambda s, o: g(s, "bench"), "int", None)
+    add("Possessions", lambda s, o: row.poss, "1", None)
+    return out
 
 
 def history_svg(history, team, teams, width=680, height=250):

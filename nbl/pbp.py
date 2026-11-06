@@ -35,6 +35,23 @@ FLOATERS = {"floatingjumpshot", "hookshot"}
 KINDS = [("rim", "Layups & dunks"), ("float", "Floaters & hooks"), ("jumper", "2-point jumpers"), ("three", "3-pointers")]
 ZONES = [("rim", "At the rim"), ("short", "Short (1.5-3 m)"), ("mid", "Mid-range"), ("corner", "Corner 3"),
          ("above", "Above-the-break 3")]
+# Finer shot types, still as the scorers log them. 95% of made "jump shot" 3s are assisted, so
+# those are catch-and-shoot.
+DETAIL_2 = {"dunk": "dunk", "alleyoop": "dunk", "alleyoopdunk": "dunk", "tipindunk": "dunk",
+            "drivinglayup": "drive", "eurostep": "drive", "layup": "layup", "reverselayup": "layup",
+            "tipin": "tip", "tipinlayup": "tip", "floatingjumpshot": "floater", "hookshot": "hook",
+            "pullupjumpshot": "pullup2", "stepbackjumpshot": "pullup2", "fadeaway": "fade",
+            "turnaroundjumpshot": "fade", "jumpshot": "jumper2"}
+DETAIL_3 = {"jumpshot": "catch3", "pullupjumpshot": "pullup3", "stepbackjumpshot": "step3"}
+DETAILS = [("dunk", "Dunks & alley-oops"), ("drive", "Driving layups"), ("layup", "Other layups"),
+           ("tip", "Tip-ins"), ("floater", "Floaters"), ("hook", "Hook shots"),
+           ("pullup2", "Pull-up & stepback 2s"), ("fade", "Fadeaways & turnarounds"), ("jumper2", "Other 2-pt jumpers"),
+           ("catch3", "Catch-and-shoot 3s"), ("pullup3", "Pull-up 3s"), ("step3", "Stepback 3s"), ("other3", "Other 3s")]
+# Turnovers as the scorers log them.
+TURNOVERS = {"badpass": "pass", "ballhandling": "handle", "offensive": "foul", "travel": "travel",
+             "outofbounds": "oob", "24sec": "clock", "shotclock": "clock"}
+TURNOVER_KINDS = [("pass", "Bad pass"), ("handle", "Lost ball"), ("foul", "Offensive foul"), ("travel", "Travelling"),
+                  ("oob", "Stepped out of bounds"), ("clock", "Shot clock"), ("other", "Other violations")]
 CLUTCH_SECS = 300    # last five minutes of the fourth quarter and overtime ...
 CLUTCH_MARGIN = 5    # ... with the score within five
 
@@ -264,6 +281,7 @@ def shots(events):
                 u, v = shotchart.half_court(x, y)
                 row = {"match_id": match_id, "side": side, "player": player, "three": act == "3pt", "made": made,
                        "kind": _kind(act, sub), "zone": _zone(x, y, act), "assisted": False, "t": t,
+                       "detail": DETAIL_3.get(sub, "other3") if act == "3pt" else DETAIL_2.get(sub, "jumper2"),
                        "u": u, "v": v, "zone10": shotchart.zone(u, v, act == "3pt")}
                 out.append(row)
                 if made:
@@ -312,6 +330,118 @@ def game_extras(events):
                 r[f"{side}_c_tov"] += 1
         rows[match_id] = r
     return pd.DataFrame.from_dict(rows, orient="index").rename_axis("match_id").reset_index()
+
+
+# Game pages
+
+def game_details(events, sh, games):
+    """Per finished game: points by quarter, the score margin through the game and each team's
+    shot dots (from 2025-26). Games whose play-by-play doesn't add up to the final score get none."""
+    final = games.set_index("match_id")[["h_pts", "a_pts", "home", "away"]]
+    out = {}
+    for match_id, g in events.groupby("match_id", sort=False):
+        if match_id not in final.index:
+            continue
+        scored = g[(g.pts > 0) & g.side.isin(["h", "a"])]
+        h = scored.pts.where(scored.side == "h", 0)
+        a = scored.pts.where(scored.side == "a", 0)
+        f = final.loc[match_id]
+        if h.sum() != f.h_pts or a.sum() != f.a_pts:
+            continue
+        quarters = []
+        for q in range(1, int(max(4, g.q.max())) + 1):
+            in_q = scored.q == q
+            quarters.append({"label": f"Q{q}" if q <= 4 else ("OT" if g.q.max() == 5 else f"OT{q - 4}"),
+                             "h": int(h[in_q].sum()), "a": int(a[in_q].sum())})
+        margin = (h.cumsum() - a.cumsum()).to_numpy()
+        flow = [(0.0, 0)] + [(float(t), int(m)) for t, m in zip(scored.t, margin)]
+        end = 2400 + 300 * max(0, int(g.q.max()) - 4)
+        flow.append((float(end), flow[-1][1]))
+        charts = {}
+        if not sh.empty:
+            mine = sh[sh.match_id == match_id]
+            if mine.u.notna().any():
+                charts = {side: shotchart.dots(mine[mine.side == side], f"{f.home if side == 'h' else f.away} shots")
+                          for side in ("h", "a")}
+        out[match_id] = {"quarters": quarters, "flow": flow, "end": end, "dots": charts}
+    return out
+
+
+# Box score splits the feed stopped sending
+
+LAST_FT = {"1of1", "2of2", "3of3"}
+# The key (the painted area) is 4.9 m wide and runs 5.8 m out from the baseline.
+KEY_DEPTH, KEY_HALF_WIDTH = 5.8, 2.45
+
+
+def in_key(x, y):
+    """Whether a shot came from inside the key. x and y are percentages of a 28 x 15 m court."""
+    along = x / 100 * 28
+    return (np.minimum(along, 28 - along) <= KEY_DEPTH) & (np.abs(y / 100 * 15 - 7.5) <= KEY_HALF_WIDTH)
+
+
+def box_extras(events):
+    """Per game and side: points in the paint, second-chance points and points off turnovers.
+
+    The official box scores have these up to 2024-25 only. Rebuilt from the play-by-play they match
+    the official numbers closely (2019-20 to 2024-25: second-chance points exact in 90% of team
+    games, points off turnovers in 84%; season averages within 0.4 a game for every team).
+    Second-chance points are scored after an offensive rebound, points off turnovers after the other
+    team turns it over, both until the other team next has the ball. Paint points need shot
+    positions, so they start in 2025-26; games with any made 2 missing its position are left blank.
+    """
+    rows = {}
+    opp = {"h": "a", "a": "h"}
+    for match_id, g in events.groupby("match_id", sort=False):
+        r = {f"{s}_{k}": 0 for s in "ha" for k in ("scp", "pot", "paint")}
+        flags, q_now, last_shot = {"h": set(), "a": set()}, None, None
+        for q, side, act, sub, made, pts, x, y in zip(g.q, g.side, g.act, g["sub"], g.made, g.pts, g.x, g.y):
+            if q != q_now:  # a new period starts a new possession
+                flags, q_now = {"h": set(), "a": set()}, q
+            if not side and act == "rebound" and last_shot:
+                # Newer games log team rebounds without a team: it's the shooting team's if offensive.
+                side = last_shot if sub.startswith("offensive") else opp[last_shot]
+            if not side:
+                continue
+            if act in POINTS:
+                last_shot = side
+                if pts:
+                    if "2nd" in flags[side]:
+                        r[f"{side}_scp"] += pts
+                    if "to" in flags[side]:
+                        r[f"{side}_pot"] += pts
+                    if act == "2pt":
+                        xf, yf = pd.to_numeric(x, errors="coerce"), pd.to_numeric(y, errors="coerce")
+                        if xf != xf or yf != yf:
+                            r[f"{side}_paint"] = np.nan
+                        elif in_key(xf, yf):
+                            r[f"{side}_paint"] += 2
+                if made and (act != "freethrow" or sub in LAST_FT):
+                    flags[opp[side]] = set()  # the other team has the ball now
+            elif act == "rebound":
+                if sub == "offensive":
+                    flags[side].add("2nd")
+                elif sub == "defensive":
+                    flags[side] = set()
+            elif act == "turnover":
+                flags[opp[side]] = {"to"}
+        rows[match_id] = r
+    out = pd.DataFrame.from_dict(rows, orient="index").rename_axis("match_id").reset_index()
+    has_xy = events.groupby("match_id").x.apply(lambda s: pd.to_numeric(s, errors="coerce").notna().any())
+    out.loc[~out.match_id.map(has_xy).fillna(False).astype(bool), ["h_paint", "a_paint"]] = np.nan
+    return out
+
+
+def fill_box(games, extras):
+    """Fill the paint, second-chance and off-turnover points the box scores left blank."""
+    if extras is None or extras.empty:
+        return games
+    games = games.copy()
+    ex = extras.set_index("match_id")
+    for col in ex.columns:
+        rebuilt = games.match_id.map(ex[col])
+        games[col] = games[col].fillna(rebuilt) if col in games else rebuilt
+    return games
 
 
 # Lineups
@@ -396,6 +526,21 @@ def _shot_rows(sh, key_col, keys):
     return rows
 
 
+def turnover_rows(events, season, team):
+    """Turnovers by type per 100 possessions, the team's own and the ones it forced."""
+    played = season[(season.home == team) | (season.away == team)]
+    played = played[played.match_id.isin(set(events.match_id))]
+    if played.empty:
+        return []
+    side = pd.Series(np.where(played.home == team, "h", "a"), index=played.match_id)
+    to = events[(events.act == "turnover") & events.match_id.isin(side.index) & events.side.isin(["h", "a"])]
+    kind = to["sub"].map(TURNOVERS).fillna("other")
+    mine = to.side == to.match_id.map(side)
+    poss = played.poss.sum()
+    return [{"key": key, "label": label, "mine": 100 * ((kind == key) & mine).sum() / poss,
+             "theirs": 100 * ((kind == key) & ~mine).sum() / poss} for key, label in TURNOVER_KINDS]
+
+
 def season_tables(path, games, player_box, cur, teams, log=print):
     """Team stats, team page tables and player page numbers built from this season's play-by-play.
     Returns None if the play-by-play can't be read."""
@@ -424,7 +569,8 @@ def season_tables(path, games, player_box, cur, teams, log=print):
         sh["pts"] = np.where(sh.made, np.where(sh.three, 3, 2), 0)
         sh["xpts"] = sh.zone10.map(sh.dropna(subset=["zone10"]).groupby("zone10").pts.mean())
 
-    out = {"stats": {}, "teams": {}, "players": {}, "games": ok_games, "of": len(season),
+    out = {"stats": {}, "teams": {}, "players": {}, "games": ok_games, "of": len(season), "box": box_extras(events),
+           "game_pages": game_details(events, sh, season),
            "pbp_games": int(events.match_id.nunique()), "zones": bool(has_zones)}
     regular = sides[~sides.finals.astype(bool)]
     for team in teams:
@@ -473,6 +619,8 @@ def season_tables(path, games, player_box, cur, teams, log=print):
         out["teams"][team] = {
             "lineups": lineups,
             "kinds": list(zip(_shot_rows(all_mine, "kind", KINDS), _shot_rows(all_theirs, "kind", KINDS))) if len(all_mine) else [],
+            "details": list(zip(_shot_rows(all_mine, "detail", DETAILS), _shot_rows(all_theirs, "detail", DETAILS))) if len(all_mine) else [],
+            "turnovers": turnover_rows(events, season, team),
             "zones": list(zip(_shot_rows(all_mine, "zone", ZONES), _shot_rows(all_theirs, "zone", ZONES))) if has_zones and len(all_mine) else [],
             "chart": {"mine": shotchart.svg(all_mine, league, 1, f"{team} shots"),
                       "theirs": shotchart.svg(all_theirs, league, -1, f"Opponents' shots against {team}"),
@@ -486,7 +634,7 @@ def season_tables(path, games, player_box, cur, teams, log=print):
             makes = mine[mine.made]
             lt = out["teams"].get(team, {}).get("lineups")
             out["players"][(player, team)] = {
-                "fga": len(mine), "kinds": _shot_rows(mine, "kind", KINDS),
+                "fga": len(mine), "kinds": _shot_rows(mine, "kind", KINDS), "details": _shot_rows(mine, "detail", DETAILS),
                 "zones": _shot_rows(mine, "zone", ZONES) if mine.zone.notna().any() else [],
                 "astd": makes.assisted.mean() if len(makes) else None,
                 "astd3": makes[makes.three].assisted.mean() if makes.three.any() else None,
@@ -495,7 +643,7 @@ def season_tables(path, games, player_box, cur, teams, log=print):
     # Players who were on the floor but never took a shot still get their on/off numbers.
     for team, tables in out["teams"].items():
         for player, onoff in ((tables["lineups"] or {}).get("onoff") or {}).items():
-            out["players"].setdefault((player, team), {"fga": 0, "kinds": [], "zones": [], "astd": None,
+            out["players"].setdefault((player, team), {"fga": 0, "kinds": [], "details": [], "zones": [], "astd": None,
                                                        "astd3": None, "onoff": onoff})
     # League rank on on/off, among players with enough minutes both on and off the court.
     ranked = [r for t in out["teams"].values() if t["lineups"] for r in t["lineups"]["onoff"].values()

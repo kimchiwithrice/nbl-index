@@ -283,8 +283,9 @@ def team_stats(games, cur_start, teams):
         poss = tot.poss
 
         def per100(col):
-            # Some splits are missing from the feed in recent seasons.
-            return None if mine[col].isna().all() else 100 * tot[col] / poss
+            # Some splits are missing from the feed in recent seasons, so only count games that have them.
+            have = mine[col].notna()
+            return None if not have.any() else 100 * mine.loc[have, col].sum() / mine.loc[have, "poss"].sum()
 
         s = {
             "efg": (tot.o_fgm + 0.5 * tot.o_fg3m) / tot.o_fga,
