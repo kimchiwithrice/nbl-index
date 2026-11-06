@@ -400,10 +400,11 @@
   "home": "Perth Wildcats",
   "away": "Tasmania JackJumpers",
   "slug": "2026-11-12-tasmania-jackjumpers-at-perth-wildcats",
-  "p_home": 0.446,
-  "margin": -1.9,
+  "p_home": 0.501,
+  "margin": 0.0,
   "total": 186.9,
-  "logged": "2026-11-05T11:04:36.079922+00:00"
+  "adj": 1.9,
+  "logged": "2026-11-06T08:43:29.163316+00:00"
  },
  "374d40eb-58ad-11f1-926c-d7c956f67204": {
   "utc": "2026-11-13T06:30:00+00:00",
