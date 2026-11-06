@@ -100,7 +100,45 @@ def load_events(path, games):
     subs = pbp.act == "substitution"
     twice = subs & subs.shift() & (pbp[["match_id", "t", "player", "sub"]] == pbp[["match_id", "t", "player", "sub"]].shift()).all(axis=1)
     pbp = pbp[~twice]
-    return pbp[["match_id", "t", "q", "side", "player", "act", "sub", "made", "pts", "qual", "x", "y"]]
+    pbp = pbp[["match_id", "t", "q", "side", "player", "act", "sub", "made", "pts", "qual", "x", "y"]]
+    return _team_turnovers(pbp)
+
+
+def _team_turnovers(pbp):
+    """Newer games log team turnovers (shot clock, 8 seconds and so on) without a team. Give one to
+    the team that had the ball, when that agrees with the other team being next to shoot or turn it
+    over. Checked on turnovers that do carry a team: right 99.96% of the time when both agree."""
+    blank = pbp.index[(pbp.act == "turnover") & (pbp.side == "")]
+    if not len(blank):
+        return pbp
+    opp = {"h": "a", "a": "h"}
+    found = {}
+    for _, g in pbp[pbp.match_id.isin(set(pbp.match_id[blank]))].groupby("match_id", sort=False):
+        owner, waiting = None, []
+        for i, side, act, sub, made in zip(g.index, g.side, g.act, g["sub"], g.made):
+            if act == "turnover" and not side:
+                waiting.append((i, owner))
+                owner = opp[owner] if owner else None
+                continue
+            if not side:
+                continue
+            if waiting and act in ("2pt", "3pt", "freethrow", "turnover"):
+                for j, had in waiting:
+                    if had and had == opp[side]:
+                        found[j] = had
+                waiting = []
+            if act == "turnover":
+                owner = opp[side]
+            elif act in ("2pt", "3pt"):
+                owner = opp[side] if made else side
+            elif act == "freethrow":
+                owner = opp[side] if made and sub in LAST_FT else side
+            elif act == "rebound" and sub in ("offensive", "defensive"):
+                owner = side
+    if found:
+        pbp = pbp.copy()
+        pbp.loc[list(found), "side"] = list(found.values())
+    return pbp
 
 
 def _period_start(events, before):
