@@ -82,8 +82,9 @@ def _unwrap(data):
 def team_lists(match_ids, log=print):
     """Game-day team lists for games about to start: {match id: set of player names}.
 
-    The feed fills in each game's list about an hour before tip. Games with no list yet, or where
-    the feed fails, are left out, so they count as unknown."""
+    The feed fills in each game's list about an hour before tip. It can also list the whole squad,
+    with the players left out of the game-day list marked active: false, so those are dropped.
+    Games with no list yet, or where the feed fails, are left out, so they count as unknown."""
     lists = {}
     session = requests.Session()
     for mid in match_ids:
@@ -95,7 +96,7 @@ def team_lists(match_ids, log=print):
             log(f"  team list for {mid}: skipped ({e})")
             continue
         names = {f"{_field(r, 'player', 'first_name') or ''} {_field(r, 'player', 'last_name') or _field(r, 'player', 'family_name') or ''}".strip()
-                 for r in rows if str(r.get("period", "0")) in ("0", "None")}
+                 for r in rows if str(r.get("period", "0")) in ("0", "None") and r.get("active") is not False}
         names.discard("")
         if names:
             lists[mid] = names

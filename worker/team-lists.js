@@ -41,7 +41,8 @@ export default {
 
     // Only the names: the page needs nothing else, and this keeps any scores out.
     let players = (data.player_match_statistics || [])
-      .filter((r) => String(r.period ?? "0") === "0")
+      // The feed can list the whole squad: players left out of the game-day list have active: false.
+      .filter((r) => String(r.period ?? "0") === "0" && r.active !== false)
       .map((r) => {
         const p = r.player || r;
         return { name: [p.first_name, p.last_name || p.family_name].filter(Boolean).join(" ") };
