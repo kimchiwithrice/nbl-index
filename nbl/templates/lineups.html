@@ -24,6 +24,9 @@
   "net_on": "Team points scored minus allowed per 100 possessions with the player on the floor.",
   "net_off": "Team points scored minus allowed per 100 possessions with the player on the bench.",
   "kind": "How the official scorers logged the shot.",
+  "to_kind": "How the official scorers logged the turnover.",
+  "to_mine": "The team's turnovers of this kind per 100 possessions. Lower is better.",
+  "to_theirs": "Opponents' turnovers of this kind per 100 possessions. Higher is better.",
   "where": "Where the shot was taken from, from the court position the feed logs (2025-26 on).",
   "share": "Share of the team's field-goal attempts.",
   "fg": "How many of those shots went in.",
@@ -156,6 +159,16 @@
     {% endfor %}
     </tbody>
   </table></div>
+  {% if L.details %}
+  <div class="tw"><table class="dense">
+    <thead><tr><th class="l" data-explain="{{ X.kind }}">Shot types in detail</th><th data-explain="{{ X.share }}">% of shots</th><th data-explain="{{ X.fg }}">Made %</th><th data-explain="{{ X.opp_share }}">Opp % of shots</th><th data-explain="{{ X.opp_fg }}">Opp made %</th></tr></thead>
+    <tbody>
+    {% for mine, theirs in L.details if mine.fga or theirs.fga %}
+      <tr><td class="l">{{ mine.label }}</td><td>{{ mine.share | pct }}</td><td>{{ mine.pct | pct }}</td><td>{{ theirs.share | pct }}</td><td>{{ theirs.pct | pct }}</td></tr>
+    {% endfor %}
+    </tbody>
+  </table></div>
+  {% endif %}
   {% if L.zones %}
   <div class="tw"><table class="dense">
     <thead><tr><th class="l" data-explain="{{ X.where }}">Where from</th><th data-explain="{{ X.share }}">% of shots</th><th data-explain="{{ X.fg }}">Made %</th><th data-explain="{{ X.opp_share }}">Opp % of shots</th><th data-explain="{{ X.opp_fg }}">Opp made %</th></tr></thead>
@@ -166,8 +179,18 @@
     </tbody>
   </table></div>
   {% endif %}
+  {% if L.turnovers %}
+  <div class="tw snug"><table class="dense">
+    <thead><tr><th class="l" data-explain="{{ X.to_kind }}">Turnovers</th><th data-explain="{{ X.to_mine }}">Per 100 poss</th><th data-explain="{{ X.to_theirs }}">Forced per 100</th></tr></thead>
+    <tbody>
+    {% for r in L.turnovers %}
+      <tr><td class="l">{{ r.label }}</td><td>{{ r.mine | f1 }}</td><td>{{ r.theirs | f1 }}</td></tr>
+    {% endfor %}
+    </tbody>
+  </table></div>
+  {% endif %}
   <details class="how"><summary>About these numbers</summary>
-    <p>"% of shots" is how much of the team's shooting comes from each kind of shot, and "made %" is how often those shots go in. Free throws aren't included. Shot types are as the official scorers log them; floaters and hooks are mostly from 2 to 3 metres. {% if L.zones %}Locations are logged from 2025-26 on: at the rim is within 1.5 m of the basket, short is 1.5 to 3 m, and corner 3s are taken within 3 m of the baseline.{% endif %} Includes finals.</p>
+    <p>"% of shots" is how much of the team's shooting comes from each kind of shot, and "made %" is how often those shots go in. Free throws aren't included. Shot types are as the official scorers log them; floaters and hooks are mostly from 2 to 3 metres. Catch-and-shoot 3s are the ones logged as plain jump shots (95% of them are assisted). {% if L.zones %}Locations are logged from 2025-26 on: at the rim is within 1.5 m of the basket, short is 1.5 to 3 m, and corner 3s are taken within 3 m of the baseline.{% endif %} Includes finals.</p>
   </details>
 </section>
 {% endif %}

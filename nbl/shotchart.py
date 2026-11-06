@@ -120,3 +120,18 @@ def svg(shots, league, good=1, title=""):
                      f'<text y="1">{big}</text><text class="s" y="10.5">{small}</text></g>')
     parts.append("</svg>")
     return "".join(parts)
+
+
+def dots(shots, title=""):
+    """One game's shots for one team: a filled dot for each make, a ring for each miss."""
+    sh = shots.dropna(subset=["u"])
+    sh = sh[sh.v < DEPTH]
+    if sh.empty:
+        return None
+    parts = [f'<svg class="shotchart dots" viewBox="-2 -2 {WIDTH * PX + 4:.0f} {DEPTH * PX + 4:.0f}" role="img" aria-label="{title}">',
+             _court()]
+    for made in (False, True):  # makes drawn last so they sit on top
+        for u, v in zip(sh.u[sh.made == made], sh.v[sh.made == made]):
+            parts.append(f'<circle class="{"in" if made else "out"}" cx="{u * PX:.1f}" cy="{v * PX:.1f}" r="5"/>')
+    parts.append("</svg>")
+    return "".join(parts)

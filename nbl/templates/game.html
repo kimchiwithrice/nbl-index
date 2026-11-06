@@ -76,5 +76,56 @@
   <p class="note">Bold is the better of the two. Team pages: <a href="{{ root }}teams/{{ a.slug }}/">{{ a.name }}</a>, <a href="{{ root }}teams/{{ h.slug }}/">{{ h.name }}</a>.</p>
 </section>
 </div>
+
+{% if g.done and g.box %}{% set B = g.box %}
+{% macro boxrows(rows) -%}
+{% for r in rows %}<tr{% if loop.index0 and r.starter != rows[loop.index0 - 1].starter %} class="brk"{% endif %}><td class="l">{% if r.slug %}<a href="{{ root }}players/{{ r.slug }}/">{{ r.player }}</a>{% else %}{{ r.player }}{% endif %}</td>
+{% for key, label in box_stats %}<td>{% if key == "min" %}{{ r.min | round | int }}{% elif key == "pm" %}{{ "%+d" | format(r.pm) }}{% else %}{{ r[key] }}{% endif %}</td>{% endfor %}</tr>
+{% endfor %}
+{%- endmacro %}
+<div class="spblock gbox">
+<h2>Box score</h2>
+<button type="button" class="sp-reveal">Scores are hidden. Show the box score</button>
+{% if B.quarters %}
+<div class="tw snug"><table class="dense">
+  <thead><tr><th class="l"></th>{% for q in B.quarters %}<th>{{ q.label }}</th>{% endfor %}<th>Final</th></tr></thead>
+  <tbody>
+    <tr><td class="l">{{ a.short }}</td>{% for q in B.quarters %}<td>{{ q.a }}</td>{% endfor %}<td><b>{{ g.as }}</b></td></tr>
+    <tr><td class="l">{{ h.short }}</td>{% for q in B.quarters %}<td>{{ q.h }}</td>{% endfor %}<td><b>{{ g.hs }}</b></td></tr>
+  </tbody>
+</table></div>
+{% endif %}
+{% if B.flow %}
+<div class="tw flow"><h3>Margin through the game</h3>{{ B.flow | safe }}</div>
+{% endif %}
+{% if B.teams %}
+<div class="tw snug"><table class="dense">
+  <thead><tr><th class="l">Team stats</th><th>{{ a.code }}</th><th>{{ h.code }}</th></tr></thead>
+  <tbody>
+  {% for label, av, hv, fmt, good in B.teams %}
+    {% set better = none if good is none or av == hv else ((av > hv) == good) %}
+    <tr><td class="l" data-explain="{{ game_tips.get(label, '') }}">{{ label }}</td>
+    {% for v, mine in ((av, better == true), (hv, better == false)) %}<td class="{{ 'adv' if mine and good is not none else '' }}">{% if fmt == "pct" %}{{ v | pct }}{% elif fmt == "int" %}{{ v | int }}{% elif fmt == "1" %}{{ v | f1 }}{% else %}{{ v }}{% endif %}</td>{% endfor %}</tr>
+  {% endfor %}
+  </tbody>
+</table></div>
+{% endif %}
+{% if B.players %}
+{% for side, team in (("a", a), ("h", h)) %}{% if B.players[side] %}
+<div class="tw"><table class="dense box">
+  <thead><tr><th class="l">{{ team.name }}</th>{% for key, label in box_stats %}<th data-explain="{{ box_tips[key] }}">{{ label }}</th>{% endfor %}</tr></thead>
+  <tbody>{{ boxrows(B.players[side]) }}</tbody>
+</table></div>
+{% endif %}{% endfor %}
+{% endif %}
+{% if B.dots and (B.dots.a or B.dots.h) %}
+<div class="tw"><div class="gdots">
+  {% for side, team in (("a", a), ("h", h)) %}{% if B.dots[side] %}<div><h3>{{ team.short }} shots</h3>{{ B.dots[side] | safe }}</div>{% endif %}{% endfor %}
+</div><p class="note dotkey"><span class="dk in"></span>made <span class="dk out"></span>missed. Free throws not shown.</p></div>
+{% endif %}
+<p class="note">Starters first. Paint, 2nd-chance and points off turnovers are counted from the play-by-play this season. Bold is the better of the two.</p>
+</div>
+{% endif %}
+
 {{ m.ad(cfg) }}
 {% endblock %}

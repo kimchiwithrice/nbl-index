@@ -397,7 +397,7 @@ html[data-sp="hide"] .spblock:not(.open) .sp-reveal{display:block}
   td .t .h{display:block;color:var(--soft)}
   td .t{display:inline-block;line-height:1.3}
   th,td{padding-left:6px;padding-right:6px}
-  .chartbox{overflow-x:auto} svg.chart{min-width:560px} svg.rmap,svg.trend{min-width:0}
+  .chartbox{overflow-x:auto} svg.chart{min-width:560px} svg.rmap,svg.trend,svg.gflow{min-width:0}
   .nm-full{display:none} .nm-short{display:inline!important}
   h1{font-size:25px} .final span{font-size:36px}
   td.tm small,td.l small{display:none}
@@ -471,3 +471,31 @@ svg.shotchart.key{display:inline-block;width:44px;background:none}
 /* "Show all" under a shortened game list */
 button.showall{font:inherit;color:var(--accent);background:none;border:0;padding:0;cursor:pointer}
 button.showall:hover{text-decoration:underline;text-underline-offset:2px}
+
+/* Game pages: box score, margin chart and shot dots (all hidden while scores are hidden) */
+.gbox{margin-top:28px}
+.gbox .tw{margin-top:12px}
+.gbox h3{margin:0 0 4px;font-size:14px}
+.tw.flow{padding:10px 12px 6px}
+svg.gflow{display:block;width:100%;height:auto}
+svg.gflow g{--tc:var(--c)}
+:root[data-theme="dark"] svg.gflow g{--tc:var(--cd)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) svg.gflow g{--tc:var(--cd)}}
+svg.gflow polygon{fill:var(--tc);fill-opacity:.75}
+svg.gflow .grid{stroke:var(--rule);stroke-width:1}
+svg.gflow .zero{stroke:var(--rule-strong);stroke-width:1}
+svg.gflow .ax{fill:var(--faint);font-size:11px}
+svg.gflow .lab{fill:var(--soft);font-size:12px;font-weight:600}
+.tw.flow{max-width:600px}
+table.box td,table.box th{white-space:nowrap}
+table.box tr.brk td{border-top:2px solid var(--rule-strong)}
+.gdots{display:grid;grid-template-columns:1fr 1fr;gap:20px;padding:10px 12px 0}
+@media (max-width:700px){.gdots{grid-template-columns:1fr}}
+svg.shotchart.dots circle.in{fill:#2e9e4f;stroke:var(--paper);stroke-width:1}
+svg.shotchart.dots circle.out{fill:none;stroke:#c0392b;stroke-width:1.6}
+.dotkey{padding:0 12px 10px}
+.dk{display:inline-block;width:10px;height:10px;border-radius:50%;vertical-align:-1px;margin:0 4px 0 6px}
+.dk.in{background:#2e9e4f}
+.dk.out{border:1.6px solid #c0392b}
+
+@media (max-width:500px){svg.gflow .ax{font-size:15px} svg.gflow .lab{font-size:16px}}
