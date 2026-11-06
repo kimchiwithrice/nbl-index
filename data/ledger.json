@@ -414,10 +414,10 @@
   "home": "Cairns Taipans",
   "away": "Sydney Kings",
   "slug": "2026-11-13-sydney-kings-at-cairns-taipans",
-  "p_home": 0.253,
+  "p_home": 0.254,
   "margin": -9.1,
   "total": 188.8,
-  "logged": "2026-11-05T18:48:33.280454+00:00"
+  "logged": "2026-11-06T00:22:41.647675+00:00"
  },
  "377ccd38-58ad-11f1-9384-d30081aaf8c6": {
   "utc": "2026-11-14T08:30:00+00:00",
@@ -455,9 +455,9 @@
   "away": "Tasmania JackJumpers",
   "slug": "2026-11-15-tasmania-jackjumpers-at-brisbane-bullets",
   "p_home": 0.373,
-  "margin": -4.5,
+  "margin": -4.4,
   "total": 186.3,
-  "logged": "2026-11-05T11:04:36.079922+00:00"
+  "logged": "2026-11-06T00:22:41.647675+00:00"
  },
  "3748f8f0-58ad-11f1-bb02-b15d4ea6aed8": {
   "utc": "2026-11-18T06:30:00+00:00",
@@ -625,9 +625,9 @@
   "away": "Tasmania JackJumpers",
   "slug": "2026-12-10-tasmania-jackjumpers-at-illawarra-hawks",
   "p_home": 0.373,
-  "margin": -4.5,
+  "margin": -4.4,
   "total": 193.8,
-  "logged": "2026-11-05T11:04:36.079922+00:00"
+  "logged": "2026-11-06T00:22:41.647675+00:00"
  },
  "37788a52-58ad-11f1-b28e-b7b6f460181f": {
   "utc": "2026-12-11T06:30:00+00:00",
@@ -926,8 +926,8 @@
   "slug": "2027-01-04-tasmania-jackjumpers-at-sydney-kings",
   "p_home": 0.628,
   "margin": 4.5,
-  "total": 184.0,
-  "logged": "2026-11-05T11:04:36.079922+00:00"
+  "total": 184.1,
+  "logged": "2026-11-06T00:22:41.647675+00:00"
  },
  "377af928-58ad-11f1-af79-ad562dad26a0": {
   "utc": "2027-01-06T06:30:00+00:00",
@@ -1184,10 +1184,10 @@
   "home": "Cairns Taipans",
   "away": "Sydney Kings",
   "slug": "2027-01-27-sydney-kings-at-cairns-taipans",
-  "p_home": 0.253,
+  "p_home": 0.254,
   "margin": -9.1,
   "total": 188.8,
-  "logged": "2026-11-05T18:48:33.280454+00:00"
+  "logged": "2026-11-06T00:22:41.647675+00:00"
  },
  "37947616-58ad-11f1-a290-8da1c4ae1ac0": {
   "utc": "2027-01-28T08:30:00+00:00",
@@ -1406,8 +1406,8 @@
   "slug": "2027-02-13-tasmania-jackjumpers-at-sydney-kings",
   "p_home": 0.628,
   "margin": 4.5,
-  "total": 184.0,
-  "logged": "2026-11-05T11:04:36.079922+00:00"
+  "total": 184.1,
+  "logged": "2026-11-06T00:22:41.647675+00:00"
  },
  "379eac2d-58ad-11f1-90d4-d98e318e0a1e": {
   "utc": "2027-02-14T04:00:00+00:00",
