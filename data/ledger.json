@@ -533,10 +533,10 @@
   "home": "Brisbane Bullets",
   "away": "Sydney Kings",
   "slug": "2026-11-22-sydney-kings-at-brisbane-bullets",
-  "p_home": 0.274,
+  "p_home": 0.275,
   "margin": -8.3,
   "total": 189.0,
-  "logged": "2026-11-06T11:39:04.157773+00:00"
+  "logged": "2026-11-06T15:59:13.022078+00:00"
  },
  "374bfa7a-58ad-11f1-80a5-a590ae8a6049": {
   "utc": "2026-12-02T08:30:00+00:00",
@@ -914,19 +914,19 @@
   "away": "Perth Wildcats",
   "slug": "2027-01-03-perth-wildcats-at-new-zealand-breakers",
   "p_home": 0.533,
-  "margin": 1.1,
+  "margin": 1.2,
   "total": 186.9,
-  "logged": "2026-11-06T11:39:04.157773+00:00"
+  "logged": "2026-11-06T15:59:13.022078+00:00"
  },
  "377c8615-58ad-11f1-9f3b-1fa229f84a5e": {
   "utc": "2027-01-03T06:00:00+00:00",
   "home": "Brisbane Bullets",
   "away": "Melbourne United",
   "slug": "2027-01-03-melbourne-united-at-brisbane-bullets",
-  "p_home": 0.34,
+  "p_home": 0.341,
   "margin": -5.7,
   "total": 189.2,
-  "logged": "2026-11-06T11:39:04.157773+00:00"
+  "logged": "2026-11-06T15:59:13.022078+00:00"
  },
  "3778a221-58ad-11f1-93c2-61e38b2284ba": {
   "utc": "2027-01-04T08:30:00+00:00",
@@ -983,10 +983,10 @@
   "home": "Brisbane Bullets",
   "away": "Sydney Kings",
   "slug": "2027-01-08-sydney-kings-at-brisbane-bullets",
-  "p_home": 0.274,
+  "p_home": 0.275,
   "margin": -8.3,
   "total": 189.0,
-  "logged": "2026-11-06T11:39:04.157773+00:00"
+  "logged": "2026-11-06T15:59:13.022078+00:00"
  },
  "37811115-58ad-11f1-8a48-93b9302663c0": {
   "utc": "2027-01-09T06:30:00+00:00",
@@ -1143,10 +1143,10 @@
   "home": "Brisbane Bullets",
   "away": "Melbourne United",
   "slug": "2027-01-23-melbourne-united-at-brisbane-bullets",
-  "p_home": 0.34,
+  "p_home": 0.341,
   "margin": -5.7,
   "total": 189.2,
-  "logged": "2026-11-06T11:39:04.157773+00:00"
+  "logged": "2026-11-06T15:59:13.022078+00:00"
  },
  "378b3988-58ad-11f1-a999-cb5b62df0525": {
   "utc": "2027-01-24T04:00:00+00:00",
