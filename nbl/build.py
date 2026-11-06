@@ -588,13 +588,12 @@ PERCENTILE_STATS = [
     ("True shooting", "ts", True, "pct",
      "Scoring efficiency: points per shot, counting threes and free throws."),
     ("Usage", "usg", None, "pct",
-     "How much of the offense runs through the player: the share of team possessions they finish with a shot, "
-     "free throws or a turnover while on court. Around 20% is average, 30% is a go-to scorer."),
+     "Share of the team's possessions the player finishes themself while on court. Around 20% is average, 30% is a go-to scorer."),
     ("Assist %", "ast_pct", True, "pct", "Share of teammates' made baskets the player assisted while on court."),
     ("Rebound %", "reb_pct", True, "pct", "Share of available rebounds the player grabbed while on court (offensive and defensive averaged)."),
-    ("Steal %", "stl_pct", True, "pct", "Steals per opponent possession while on court."),
-    ("Block %", "blk_pct", True, "pct", "Blocks per opponent two-point attempt while on court."),
-    ("Turnover %", "tov_pct", False, "pct", "How often the player's possessions end in a turnover."),
+    ("Steal %", "stl_pct", True, "pct", "Share of opponent possessions that end in a steal by the player while on court."),
+    ("Block %", "blk_pct", True, "pct", "Share of opponents' two-point shots the player blocks while on court."),
+    ("Turnover %", "tov_pct", False, "pct", "Share of the times the player finishes a possession themself that end in a turnover."),
 ]
 
 
