@@ -464,9 +464,9 @@
   "away": "Tasmania JackJumpers",
   "slug": "2026-11-15-tasmania-jackjumpers-at-brisbane-bullets",
   "p_home": 0.376,
-  "margin": -4.4,
+  "margin": -4.3,
   "total": 185.1,
-  "logged": "2026-11-06T11:39:04.157773+00:00"
+  "logged": "2026-11-07T01:59:20.844376+00:00"
  },
  "3748f8f0-58ad-11f1-bb02-b15d4ea6aed8": {
   "utc": "2026-11-18T06:30:00+00:00",
@@ -534,9 +534,9 @@
   "away": "Sydney Kings",
   "slug": "2026-11-22-sydney-kings-at-brisbane-bullets",
   "p_home": 0.275,
-  "margin": -8.3,
+  "margin": -8.2,
   "total": 189.0,
-  "logged": "2026-11-06T15:59:13.022078+00:00"
+  "logged": "2026-11-07T01:59:20.844376+00:00"
  },
  "374bfa7a-58ad-11f1-80a5-a590ae8a6049": {
   "utc": "2026-12-02T08:30:00+00:00",
@@ -573,10 +573,10 @@
   "home": "Illawarra Hawks",
   "away": "Sydney Kings",
   "slug": "2026-12-04-sydney-kings-at-illawarra-hawks",
-  "p_home": 0.273,
+  "p_home": 0.274,
   "margin": -8.3,
   "total": 196.6,
-  "logged": "2026-11-06T11:39:04.157773+00:00"
+  "logged": "2026-11-07T01:59:20.844376+00:00"
  },
  "37770bc1-58ad-11f1-a93a-ebcda8a5e5b1": {
   "utc": "2026-12-05T06:30:00+00:00",
@@ -843,10 +843,10 @@
   "home": "Sydney Kings",
   "away": "Melbourne United",
   "slug": "2026-12-29-melbourne-united-at-sydney-kings",
-  "p_home": 0.604,
+  "p_home": 0.603,
   "margin": 3.6,
   "total": 187.0,
-  "logged": "2026-11-06T11:39:04.157773+00:00"
+  "logged": "2026-11-07T01:59:20.844376+00:00"
  },
  "376b0d82-58ad-11f1-ba1c-11cc539397b9": {
   "utc": "2026-12-30T08:30:00+00:00",
@@ -984,9 +984,9 @@
   "away": "Sydney Kings",
   "slug": "2027-01-08-sydney-kings-at-brisbane-bullets",
   "p_home": 0.275,
-  "margin": -8.3,
+  "margin": -8.2,
   "total": 189.0,
-  "logged": "2026-11-06T15:59:13.022078+00:00"
+  "logged": "2026-11-07T01:59:20.844376+00:00"
  },
  "37811115-58ad-11f1-8a48-93b9302663c0": {
   "utc": "2027-01-09T06:30:00+00:00",
@@ -1013,20 +1013,20 @@
   "home": "South East Melbourne Phoenix",
   "away": "New Zealand Breakers",
   "slug": "2027-01-10-new-zealand-breakers-at-south-east-melbourne-phoenix",
-  "p_home": 0.594,
+  "p_home": 0.593,
   "margin": 3.3,
   "total": 189.3,
-  "logged": "2026-11-06T11:39:04.157773+00:00"
+  "logged": "2026-11-07T01:59:20.844376+00:00"
  },
  "3784d7da-58ad-11f1-88d9-53622f199a68": {
   "utc": "2027-01-10T06:00:00+00:00",
   "home": "Sydney Kings",
   "away": "Melbourne United",
   "slug": "2027-01-10-melbourne-united-at-sydney-kings",
-  "p_home": 0.604,
+  "p_home": 0.603,
   "margin": 3.6,
   "total": 187.0,
-  "logged": "2026-11-06T11:39:04.157773+00:00"
+  "logged": "2026-11-07T01:59:20.844376+00:00"
  },
  "37a7ea49-58ad-11f1-903e-c9ba3efad88d": {
   "utc": "2027-01-13T10:30:00+00:00",
