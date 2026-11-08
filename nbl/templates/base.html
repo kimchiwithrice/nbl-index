@@ -48,7 +48,8 @@
   "eye": "M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12zM12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6z",
   "moon": "M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z",
   "sun": "M12 16.5a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9zM12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4",
-  "cup": "M4 8h13v6a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5zM17 10h1.5a2.5 2.5 0 0 1 0 5H17M8 2.5v2.5M12 2.5v2.5"} %}
+  "cup": "M4 8h13v6a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5zM17 10h1.5a2.5 2.5 0 0 1 0 5H17M8 2.5v2.5M12 2.5v2.5",
+  "mail": "M3 5.5h18v13H3zM3.5 6l8.5 7 8.5-7"} %}
 {% macro icon(name) %}<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="{{ icons[name] }}"/></svg>{% endmacro %}
 <aside class="side">
   <div class="sidetop">
@@ -85,6 +86,7 @@
     {% if cfg.kofi_url %}<p>{{ cfg.site_name }} is free and run by one person. If you get something out of it, you can <a href="{{ cfg.kofi_url }}" rel="noopener">donate</a> to help cover the hosting.</p>{% endif %}
     <p>Updated {{ updated }}. Data: the NBL's official stats feed via the <a href="https://github.com/JaseZiv/nblR" rel="noopener">nblR</a> project. Not affiliated with the NBL. The predictions are a model's best guess, not betting advice.
     <a href="{{ root }}about/">About</a>, <a href="{{ root }}model/">how it works</a>, <a href="{{ root }}glossary/">glossary</a>.</p>
+    {% if cfg.contact_key %}<p><a class="cbtn" href="{{ root }}contact/">{{ icon("mail") }}Contact</a></p>{% endif %}
   </div>
 </footer>
 </div>

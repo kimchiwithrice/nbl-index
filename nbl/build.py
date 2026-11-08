@@ -797,6 +797,8 @@ def build(cfg, data_dir, out_dir, refresh=False, n_sims=sim.N_SIMS, log=print, l
               now=trend_rows[-1], n_regular=len(sched[~sched.finals]), weeks=weeks, ahead=coming_up(all_games, teams, info, now),
               venue=venue, venue_best=venue_leaders(venue))
     site.page("about/", "about.html")
+    if cfg.get("contact_key"):
+        site.page("contact/", "contact.html")
     site.page("glossary/", "glossary.html")
     for team in teams:
         site.page(f"teams/{info[team]['slug']}/", "team.html", t=team, x=info[team],
