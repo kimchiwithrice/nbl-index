@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% import "macros.html" as m %}
-{% set title = t ~ " Advanced Stats & Ratings " ~ season %}
+{% set title = t ~ " advanced stats and ratings " ~ season %}
 {% set desc = t ~ " " ~ season ~ ": ranked #" ~ x.rk.net ~ " of " ~ N ~ " by " ~ rating ~ " (" ~ (x.net | sgn) ~ " per 100 possessions). Adjusted offense, defense, tempo, four factors, finals odds, schedule predictions and player stats." %}
 {% block head %}
 <script type="application/ld+json">{{ {"@context": "https://schema.org", "@type": "SportsTeam", "name": t, "sport": "Basketball", "memberOf": {"@type": "SportsOrganization", "name": "National Basketball League"}} | tojson }}</script>

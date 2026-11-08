@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% import "macros.html" as m %}
-{% set title = t ~ " Lineups, On/Off & Shot Chart " ~ season %}
+{% set title = t ~ " lineups, on/off and shot chart " ~ season %}
 {% set desc = t ~ " " ~ season ~ ": most-used lineups and pairs, player on/off, shot chart, shot profile and game-by-game adjusted efficiency." %}
 {% macro who(name) -%}
 {% if name in slugs %}<a href="{{ root }}players/{{ slugs[name] }}/">{{ name | surname }}</a>{% else %}{{ name | surname }}{% endif %}

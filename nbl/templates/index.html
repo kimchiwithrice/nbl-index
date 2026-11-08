@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% import "macros.html" as m %}
-{% set title = "NBL Power Rankings & Team Ratings " ~ season ~ " – Adjusted Efficiency" %}
+{% set title = "NBL power rankings and team ratings " ~ season %}
 {% set desc = "NBL power rankings and advanced stats for " ~ season ~ ", from adjusted team ratings: offense, defense and tempo for every team, weekly rank moves, game predictions, finals odds and player stats." %}
 {% block head %}
 <script type="application/ld+json">{{ {"@context": "https://schema.org", "@type": "WebSite", "name": cfg.site_name, "alternateName": ["nblindex", "nblindex.com"], "url": cfg.base_url | trim('/') ~ "/"} | tojson }}</script>

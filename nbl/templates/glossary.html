@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% set title = "NBL Advanced Stats Glossary – AdjEM, Four Factors, True Shooting, Usage and More" %}
+{% set title = "NBL advanced stats glossary: AdjEM, four factors, true shooting, usage and more" %}
 {% set desc = "Plain-English definitions and formulas for every stat on " ~ cfg.site_name ~ ": adjusted efficiency, tempo, the four factors, true shooting, usage rate, win probability and more." %}
 {% set groups = [
   ("ratings", "Team ratings", [
@@ -61,8 +61,8 @@
     ("assisted", "Assisted share", "The share of made baskets that came straight off a teammate's pass. Players who create their own shots have a low number; finishers and spot-up shooters a high one. FIBA also gives assists on passes that lead to free throws, which aren't counted here."),
     ("shot-quality", "Shot quality", "How good a team's shots are, judged only by where they're taken from. Every spot on the court is worth a set number of points per shot, based on how often the whole league scores from there this season (roughly 1.3 points for a layup, 1.1 for a corner 3 and 0.8 for a long 2). Add those up over a team's shots and scale to 100 shots: 108 means an average shooter would score 108 points from 100 of those shots. Free throws aren't counted. Shot locations are logged from 2025-26 on."),
     ("shot-making", "Shot making", "How many more (+) or fewer (−) points per 100 shots a team scored than an average shooter would from the same spots. Some of it is real skill (in 2025-26, good shooting teams and players mostly stayed good) and some is a hot or cold run."),
-    ("shot-quality-allowed", "Shot quality allowed", "Shot quality for the shots a team's opponents take: what an average shooter would score from those spots, per 100 shots. Lower is better. In 2025-26 this stayed steady all season and said more about how many points a defense would give up later than its actual results did."),
-    ("opp-shooting-luck", "Opp shooting luck", "Shot quality allowed minus the points per 100 shots opponents actually scored. Plus means opponents missed more than an average shooter would from the same spots, which is good luck for the team. In 2025-26 it didn't carry on from one half of the season to the next, so it's luck rather than defense."),
+    ("shot-quality-allowed", "Shot quality allowed", "Shot quality for the shots a team's opponents take: what an average shooter would score from those spots, per 100 shots. Lower is better. In 2025-26 this held up all season and said more about how many points a defense would give up later than its actual results did."),
+    ("opp-shooting-luck", "Opp shooting luck", "Shot quality allowed minus the points per 100 shots opponents actually scored. Plus means opponents missed more than an average shooter would from the same spots, which is good luck for the team. In 2025-26 it didn't carry on from one half of the season to the next, so it looks like luck. The defense has little control over it."),
     ("past-ratings", "Past ratings", "The ratings exactly as the model had them after any match day this season, or at the end of a past season, using only the games played by then."),
     ("similar", "Similar players", "Past NBL seasons closest in role and style: minutes per game, points and assists per 40 minutes, usage, true shooting, three-point rate, free-throw rate, and assist, rebound, steal, block and turnover rates."),
   ]),
@@ -85,12 +85,12 @@
     ("proj-score", "Projected score", "The expected score from both teams' adjusted offense, defense and tempo."),
     ("margin", "Projected margin", "How many points the model expects the winner to win by."),
     ("total", "Total", "The projected combined points of both teams."),
-    ("availability", "Players likely out", "If a regular (3 of the team's last 5 games, 12+ minutes) didn't play the team's most recent game, the model assumes the player will miss the next one too. It checks who took those minutes in that game and moves the prediction by how much better the missing player is. It only uses the box scores, so it can't know about a brand-new injury until a game has been missed. It's capped at 4 points per team per game. Tested on past seasons, it made predictions noticeably better when a key player was out. About an hour before tip the NBL publishes each team's game-day list, and the game page shows a light next to each of these players: green (expected to play) means the player is named, so the penalty comes off; red (out) means not named; yellow (questionable) means the list isn't out yet, so the player counts as out for now. These come from the team list, not from an injury report."),
+    ("availability", "Players likely out", "If a regular (3 of the team's last 5 games, 12+ minutes) didn't play the team's most recent game, the model assumes the player will miss the next one too. It checks who took those minutes in that game and moves the prediction by how much better the missing player is. It only uses the box scores, so it can't know about a brand-new injury until a game has been missed. It's capped at 4 points per team per game. Tested on past seasons, it made predictions noticeably better when a key player was out. About an hour before tip the NBL publishes each team's game-day list, and the game page shows a light next to each of these players: green (expected to play) means the player is named, so the penalty comes off; red (out) means not named; yellow (questionable) means the list isn't out yet, so the player counts as out for now. They come from the team list. There's no injury report behind them."),
     ("hype", "Hype", "A 0–100 guide to how watchable a game should be, worked out before tip-off: mostly how evenly matched the two teams are, plus a little for how good they are. Any close matchup scores well, even near the bottom of the ladder, and top-of-the-table coin flips score highest. Lopsided games score low however good the favourite is."),
     ("drama", "Drama", "A 0–100 score for how a game actually played out: mostly how close the final margin was, plus a bump for overtime, the quality of both teams and the scoring. It never hints at who won, so it's safe with scores hidden. A one-possession finish lands around 70, overtime games 90 or more, a 25-point blowout under 20."),
   ]),
   ("ladder", "Ladder and finals", [
-    ("simulation", "Simulated season", "The rest of the regular season and the finals played out 10,000 times from the ratings. Each run nudges every team's strength a bit at random, because the ratings are estimates, not facts."),
+    ("simulation", "Simulated season", "The rest of the regular season and the finals played out 10,000 times from the ratings. Each run nudges every team's strength a bit at random, because the ratings are only estimates."),
     ("proj-record", "Projected record", "Average wins and losses across all the simulated seasons."),
     ("top-2", "Top 2", "Chance of finishing first or second, which goes straight to the semi-finals."),
     ("top-6", "Top 6", "Chance of making the finals."),
@@ -98,7 +98,7 @@
     ("finish-grid", "Finish position", "The share of simulated seasons a team finished in each ladder position, 1st on the left. The outlined square is the most likely finish."),
   ]),
   ("model", "Model accuracy", [
-    ("backtest", "Backtest", "Replaying past seasons with the model only ever seeing games played before each prediction. It's the honest way to see how it would have done."),
+    ("backtest", "Backtest", "Replaying past seasons with the model only ever seeing games played before each prediction. It shows how the model would have done without the benefit of hindsight."),
     ("log-loss", "Log loss", "A score for probability predictions that punishes confident misses hard. Lower is better; a coin flip scores 0.693."),
     ("calibration", "Calibration", "Whether the probabilities mean what they say: teams given a 65% chance should win about 65% of the time."),
     ("week-in-review", "Week in review", "On League today. Each Monday the week just finished (Monday to Sunday, Sydney time) is added, and every earlier week of the season stays in the dropdown as it first read. Starts fresh each season."),
@@ -108,7 +108,7 @@
     ("toughest-schedule", "Toughest upcoming schedule", "The team whose next three opponents have the highest average " ~ rating ~ "."),
     ("home-away", "Home net / Road net", "How many points per 100 possessions better than its opponents a team has been at home or on the road this season, after adjusting for how good each opponent was and for the home edge every team gets. On the same scale, so a team that plays the same everywhere has about the same number in both. It describes this season: on past seasons it barely carried over to the next year."),
     ("home-win", "Home win %", "The share of games won by the home team, league-wide."),
-    ("ledger", "Prediction ledger", "Every prediction saved before tip-off and marked afterwards, so the track record can't be quietly rewritten."),
+    ("ledger", "Prediction ledger", "Every prediction saved before tip-off and marked afterwards, so the track record can't be changed later."),
   ]),
 ] %}
 {% block head %}
