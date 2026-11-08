@@ -1,6 +1,6 @@
 {
 "": [
-"9e2938725bbe",
+"d34dec11109e",
 "2026-11-08"
 ],
 "about/": [
@@ -252,7 +252,7 @@
 "2026-11-08"
 ],
 "games/2026-11-12-tasmania-jackjumpers-at-perth-wildcats/": [
-"7ec322fc3f0f",
+"d16b12afedf4",
 "2026-11-08"
 ],
 "games/2026-11-13-brisbane-bullets-at-new-zealand-breakers/": [
@@ -260,7 +260,7 @@
 "2026-11-08"
 ],
 "games/2026-11-13-sydney-kings-at-cairns-taipans/": [
-"a3b89f64339c",
+"ee58549a3920",
 "2026-11-08"
 ],
 "games/2026-11-14-illawarra-hawks-at-perth-wildcats/": [
@@ -288,11 +288,11 @@
 "2026-11-08"
 ],
 "ladder/": [
-"6e1066c1aca0",
+"c70a61926255",
 "2026-11-08"
 ],
 "league/": [
-"270b0eed4659",
+"b34fd2edaaaa",
 "2026-11-08"
 ],
 "matchup/": [
@@ -2948,15 +2948,15 @@
 "2026-11-08"
 ],
 "schedule/": [
-"0e8b0c885f4e",
+"fa1bca89c0a8",
 "2026-11-08"
 ],
 "stats/": [
-"2f1eae612f55",
+"34dd2a318966",
 "2026-11-08"
 ],
 "teams/adelaide-36ers/": [
-"0d0e03c0b7c6",
+"2cbd736f54fc",
 "2026-11-08"
 ],
 "teams/adelaide-36ers/lineups/": [
@@ -2964,7 +2964,7 @@
 "2026-11-08"
 ],
 "teams/brisbane-bullets/": [
-"1f4ea22b690d",
+"40bd25e021f9",
 "2026-11-08"
 ],
 "teams/brisbane-bullets/lineups/": [
@@ -2972,7 +2972,7 @@
 "2026-11-08"
 ],
 "teams/cairns-taipans/": [
-"8c1d4a053331",
+"2179ee85ee7f",
 "2026-11-08"
 ],
 "teams/cairns-taipans/lineups/": [
@@ -2980,7 +2980,7 @@
 "2026-11-08"
 ],
 "teams/illawarra-hawks/": [
-"3cdf21991376",
+"14e53af9ec2a",
 "2026-11-08"
 ],
 "teams/illawarra-hawks/lineups/": [
@@ -2988,15 +2988,15 @@
 "2026-11-08"
 ],
 "teams/melbourne-united/": [
-"fe115d858edf",
+"44dce278dd66",
 "2026-11-08"
 ],
 "teams/melbourne-united/lineups/": [
-"ba19e0f64a90",
+"6fdc701d6490",
 "2026-11-08"
 ],
 "teams/new-zealand-breakers/": [
-"47387d25b474",
+"ace489b23ff0",
 "2026-11-08"
 ],
 "teams/new-zealand-breakers/lineups/": [
@@ -3004,7 +3004,7 @@
 "2026-11-08"
 ],
 "teams/perth-wildcats/": [
-"88eff53a57cf",
+"6209616a801d",
 "2026-11-08"
 ],
 "teams/perth-wildcats/lineups/": [
@@ -3012,15 +3012,15 @@
 "2026-11-08"
 ],
 "teams/south-east-melbourne-phoenix/": [
-"96dfc9c7f335",
+"1ffbb1eb8f68",
 "2026-11-08"
 ],
 "teams/south-east-melbourne-phoenix/lineups/": [
-"e9725c3268f0",
+"a8119a58e675",
 "2026-11-08"
 ],
 "teams/sydney-kings/": [
-"764084c8870b",
+"8b48d755be99",
 "2026-11-08"
 ],
 "teams/sydney-kings/lineups/": [
@@ -3028,7 +3028,7 @@
 "2026-11-08"
 ],
 "teams/tasmania-jackjumpers/": [
-"76d294a07b1d",
+"79a086390aed",
 "2026-11-08"
 ],
 "teams/tasmania-jackjumpers/lineups/": [
