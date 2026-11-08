@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% import "macros.html" as m %}
 {% set last = p.rows[-1] %}
-{% set title = p.name ~ " NBL Stats – Advanced Stats & Career" %}
+{% set title = p.name ~ " NBL stats: advanced stats and career" %}
 {% if p.current %}
 {% set desc = p.name ~ " (" ~ p.team ~ ") NBL stats " ~ season ~ ": " ~ (last.ppg | f1) ~ " points, " ~ (last.rpg | f1) ~ " rebounds and " ~ (last.apg | f1) ~ " assists a game, " ~ (last.ts | pct) ~ " true shooting. Game log, on/off, advanced stats and career." %}
 {% else %}
@@ -44,7 +44,7 @@
     <div class="card"><b data-explain="On court minus on bench. Positive means {{ tm }} have done better with {{ sn }} playing.">Difference</b>{% if d.onoff.diff is not none %}<span class="sp">{{ d.onoff.diff | sgn }}</span>{% else %}<span class="na">Not yet</span>{% endif %}{% if d.onoff.rank %}<em class="sp" data-explain="Where {{ sn }}'s difference ranks in the league, among the {{ d.onoff.rank_n }} players with 100+ minutes on court and 20+ on the bench. 1st is the biggest gain with them on court.">{{ d.onoff.rank }}{{ d.onoff.rank | suffix }} of {{ d.onoff.rank_n }}</em>{% elif d.onoff.diff is none %}<em>needs 20+ bench min</em>{% else %}<em>per 100 poss</em>{% endif %}</div>
   </div>
   <details class="how"><summary>What is on/off?</summary>
-    <p>How {{ tm }} do with {{ sn }} on the court against how they do with {{ sn }} on the bench, measured as scoring margin: points scored minus points allowed for every 100 times the team has the ball. A positive difference means {{ tm }} have outscored opponents by more with {{ sn }} playing. It also depends on teammates and on who comes in instead, so treat it as a hint, not a verdict, especially early in the season. <a href="{{ root }}glossary/#on-off">Glossary</a>.</p>
+    <p>How {{ tm }} do with {{ sn }} on the court against how they do with {{ sn }} on the bench, measured as scoring margin: points scored minus points allowed for every 100 times the team has the ball. A positive difference means {{ tm }} have outscored opponents by more with {{ sn }} playing. It also depends on teammates and on who comes in instead, so don't read too much into it, especially early in the season. <a href="{{ root }}glossary/#on-off">Glossary</a>.</p>
   </details>
 </section>
 {% endif %}
@@ -77,14 +77,14 @@
   {% endfor %}
   </div>
   <details class="how"><summary>How to read this</summary>
-    <p>Percentile among the {{ p.pool_n }} players averaging 10+ minutes this season. The centre line is the league middle (50th): bars go right in blue when better than most, left in red when worse. For turnovers, fewer counts as better. Usage stays grey: it measures role, not quality.</p>
+    <p>Percentile among the {{ p.pool_n }} players averaging 10+ minutes this season. The centre line is the league middle (50th): bars go right in blue when better than most, left in red when worse. For turnovers, fewer counts as better. Usage stays grey, as a high or low number only tells you the player's role.</p>
   </details>
 </section>
 {% endif %}
 {% if d and d.fga %}
 <section>
   <h2>{{ sn }}'s shots</h2>
-  {% if d.astd is not none %}<p class="note"><span data-explain="Share of made baskets that came straight off a teammate's pass. The rest the player created alone.">Assisted</span>: {{ d.astd | pct(0) }} of made baskets{% if d.astd3 is not none %}, {{ d.astd3 | pct(0) }} of made threes{% endif %}.</p>{% endif %}
+  {% if d.astd is not none %}<p class="note"><span data-explain="Share of made baskets that came off a teammate's pass. The player made the rest unassisted.">Assisted</span>: {{ d.astd | pct(0) }} of made baskets{% if d.astd3 is not none %}, {{ d.astd3 | pct(0) }} of made threes{% endif %}.</p>{% endif %}
   <div class="tw"><table class="dense">
     <thead><tr><th class="l" data-explain="How the official scorers logged the shot.">Type of shot</th><th data-explain="Shots taken this season (free throws not included).">Shots</th><th data-explain="Share of all {{ sn }}'s shots.">% of shots</th><th data-explain="How many of those shots went in.">Made %</th></tr></thead>
     <tbody>

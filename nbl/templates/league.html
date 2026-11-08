@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% set title = "The NBL League Today " ~ season ~ " – Team Styles & Trends" %}
+{% set title = "NBL league today " ~ season ~ ": team styles and trends" %}
 {% set desc = "Every NBL team mapped by adjusted offense and defense, and league scoring, pace, three-point and home-court trends since 2015-16." %}
 {% block main %}
 <h1>The league today</h1>
@@ -25,7 +25,7 @@
 <h2>Coming up</h2>
 <div class="cards wk up">
   <div class="card"><b data-explain="The highest Hype game in the next 7 days.">Game to watch</b>{% if ahead.watch %}{% set g = ahead.watch %}<div><i><a href="{{ root }}games/{{ g.slug }}/">{{ info[g.away].code }} @ {{ info[g.home].code }}</a></i><span>{{ g.hype }}</span><em>Hype, {{ g.utc | syd("%a %d %b") }}</em></div>{% else %}<em>–</em>{% endif %}</div>
-  <div class="card"><b data-explain="Average AdjEM of a team's next three opponents. The hardest stretch in the league.">Toughest upcoming schedule</b>{% if ahead.tough %}<div><i>{{ tm(ahead.tough.team) }}</i><span>{{ ahead.tough.avg | sgn }}</span><em>next: {% for o in ahead.tough.opps %}{{ info[o].code }}{{ ", " if not loop.last }}{% endfor %}</em></div>{% else %}<em>–</em>{% endif %}</div>
+  <div class="card"><b data-explain="Average AdjEM of the team's next three opponents. The highest of any team right now.">Toughest upcoming schedule</b>{% if ahead.tough %}<div><i>{{ tm(ahead.tough.team) }}</i><span>{{ ahead.tough.avg | sgn }}</span><em>next: {% for o in ahead.tough.opps %}{{ info[o].code }}{{ ", " if not loop.last }}{% endfor %}</em></div>{% else %}<em>–</em>{% endif %}</div>
 </div>
 
 {% if venue_best %}
