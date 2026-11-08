@@ -84,7 +84,7 @@
 {% if d and d.fga %}
 <section>
   <h2>{{ sn }}'s shots</h2>
-  {% if d.astd is not none %}<p class="note"><span data-explain="Share of made baskets that came straight off a teammate's pass. The rest the player created alone.">Assisted</span>: {{ d.astd | pct(0) }} of made baskets{% if d.astd3 is not none %}, {{ d.astd3 | pct(0) }} of made threes{% endif %}.</p>{% endif %}
+  {% if d.astd is not none %}<p class="note"><span data-explain="Share of made baskets that came off a teammate's pass. The player made the rest unassisted.">Assisted</span>: {{ d.astd | pct(0) }} of made baskets{% if d.astd3 is not none %}, {{ d.astd3 | pct(0) }} of made threes{% endif %}.</p>{% endif %}
   <div class="tw"><table class="dense">
     <thead><tr><th class="l" data-explain="How the official scorers logged the shot.">Type of shot</th><th data-explain="Shots taken this season (free throws not included).">Shots</th><th data-explain="Share of all {{ sn }}'s shots.">% of shots</th><th data-explain="How many of those shots went in.">Made %</th></tr></thead>
     <tbody>
