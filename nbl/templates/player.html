@@ -108,14 +108,15 @@
 {% set c = p.career %}{% macro yr(y) %}{{ y }}-{{ '%02d' % ((y + 1) % 100) }}{% endmacro %}
 <p class="career">{% if c.first <= 2015 %}Since 2015-16, {% endif %}{{ p.name | surname }} {{ 'has played' if p.current else 'played' }} {{ c.gp }} NBL game{{ 's' if c.gp != 1 }} {% if c.seasons > 1 %}over {{ c.seasons }} seasons ({{ yr(c.first) }} to {{ yr(c.last) }}){% else %}in {{ yr(c.first) }}{% endif %} for {% for t in c.teams %}{{ m.team(info, t, root) if t in info else t }}{{ ' and ' if loop.revindex == 2 else (', ' if not loop.last) }}{% endfor %}, averaging {{ c.ppg | f1 }} points, {{ c.rpg | f1 }} rebounds and {{ c.apg | f1 }} assists a game.{% if c.best and c.seasons > 1 %} Best season by <a href="{{ root }}glossary/#impact">Impact</a>: {{ yr(c.best.start | int) }} with {{ info[c.best.team].short if c.best.team in info else c.best.team }}, {{ c.best.impact | sgn }} ({{ c.best.rank | int }}{{ c.best.rank | int | suffix }} of {{ c.best.of | int }} regulars).{% elif c.best %} That ranked {{ c.best.rank | int }}{{ c.best.rank | int | suffix }} of {{ c.best.of | int }} regulars by <a href="{{ root }}glossary/#impact">Impact</a>.{% endif %}</p>
 <div class="tw"><table class="dense">
-  <thead><tr><th class="l">Season</th><th class="l">Team</th><th>GP</th><th>MPG</th><th>PTS</th><th>REB</th><th>AST</th><th>Impact</th><th>TS%</th><th>eFG%</th><th>3P%</th><th>3PA</th><th>FT%</th><th>USG%</th><th>AST%</th><th>ORB%</th><th>DRB%</th><th>STL%</th><th>BLK%</th><th>TOV%</th><th>ORtg</th></tr></thead>
+  <thead><tr><th class="l">Season</th><th class="l">Team</th><th>GP</th><th>MPG</th><th>PTS</th><th>REB</th><th>AST</th><th>Impact</th><th>TS%</th><th>eFG%</th><th>3P%</th><th>3PA</th><th>FT%</th><th>USG%</th><th>AST%</th><th>ORB%</th><th>DRB%</th><th>STL%</th><th>BLK%</th><th>TOV%</th><th>ORtg</th><th>PF/40</th><th>Foul trouble</th></tr></thead>
   <tbody>
   {% for r in p.rows %}
     <tr><td class="l">{{ r.start }}-{{ '%02d' % ((r.start + 1) % 100) }}</td>
       <td class="l">{{ m.team(info, r.team, root, False) if r.team in info else r.team }}</td>
       <td>{{ r.gp }}</td><td>{{ r.mpg | f1 }}</td><td>{{ r.ppg | f1 }}</td><td>{{ r.rpg | f1 }}</td><td>{{ r.apg | f1 }}</td><td class="b">{{ r.impact | sgn if r.impact == r.impact else '–' }}</td>
       <td>{{ r.ts | pct }}</td><td>{{ r.efg | pct }}</td><td>{{ r.fg3 | pct }}</td><td>{{ r.fg3a | int }}</td><td>{{ r.ft | pct }}</td>
-      <td>{{ r.usg | pct }}</td><td>{{ r.ast_pct | pct }}</td><td>{{ r.orb_pct | pct }}</td><td>{{ r.drb_pct | pct }}</td><td>{{ r.stl_pct | pct }}</td><td>{{ r.blk_pct | pct }}</td><td>{{ r.tov_pct | pct }}</td><td>{{ r.ortg | f1 }}</td></tr>
+      <td>{{ r.usg | pct }}</td><td>{{ r.ast_pct | pct }}</td><td>{{ r.orb_pct | pct }}</td><td>{{ r.drb_pct | pct }}</td><td>{{ r.stl_pct | pct }}</td><td>{{ r.blk_pct | pct }}</td><td>{{ r.tov_pct | pct }}</td><td>{{ r.ortg | f1 }}</td>
+      <td>{{ r.pf40 | f1 }}</td><td>{{ r.trouble_pct | pct(0) }}</td></tr>
   {% endfor %}
   </tbody>
 </table></div>

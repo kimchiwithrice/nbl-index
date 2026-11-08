@@ -691,6 +691,11 @@ def build(cfg, data_dir, out_dir, refresh=False, n_sims=sim.N_SIMS, log=print, l
     preseason = model.fit(games, sched.utc.min() - pd.Timedelta(hours=1), cur, teams)
     week_ago = model.fit(games, now - pd.Timedelta(days=7), cur, teams)
     player_box = data.load_players(paths)
+    if paths.get("pbp"):
+        try:
+            player_box = players.add_fouls(player_box, *pbp.player_fouls(paths["pbp"], games))
+        except Exception as e:
+            log(f"  couldn't read fouls from the play-by-play ({e}); using box score fouls")
     log("Lineups and shots from the play-by-play ...")
     deep = pbp.season_tables(paths["pbp"], games, player_box, cur, teams, log) if paths.get("pbp") else None
     if deep:
