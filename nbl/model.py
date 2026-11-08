@@ -337,9 +337,11 @@ def results_table(games, cur_start, ratings, cal, teams):
     luck = wins - wins expected from the ratings for the games played
     waa  = wins - wins an average team would expect against the same opponents and venues
     cw/cl = record in close games (decided by 5 points or less)
+    streak = current run of wins or losses, e.g. "W3"
     """
-    played = games[(games.start == cur_start) & ~games.finals]
-    out = {t: {"w": 0, "l": 0, "pf": 0, "pa": 0, "exp_w": 0.0, "avg_w": 0.0, "cw": 0, "cl": 0} for t in teams}
+    played = games[(games.start == cur_start) & ~games.finals].sort_values("utc")
+    out = {t: {"w": 0, "l": 0, "pf": 0, "pa": 0, "exp_w": 0.0, "avg_w": 0.0, "cw": 0, "cl": 0, "form": []}
+           for t in teams}
     for row in played.itertuples():
         for team, opp, pf, pa, home in ((row.home, row.away, row.h_pts, row.a_pts, True),
                                         (row.away, row.home, row.a_pts, row.h_pts, False)):
@@ -347,6 +349,7 @@ def results_table(games, cur_start, ratings, cal, teams):
                 continue
             rec = out[team]
             rec["w" if pf > pa else "l"] += 1
+            rec["form"].append("W" if pf > pa else "L")
             rec["pf"] += pf
             rec["pa"] += pa
             if abs(pf - pa) <= CLOSE_GAME:
@@ -363,6 +366,8 @@ def results_table(games, cur_start, ratings, cal, teams):
         rec["luck"] = rec["w"] - rec["exp_w"]
         rec["waa"] = rec["w"] - rec["avg_w"]
         rec["gp"] = rec["w"] + rec["l"]
+        form = "".join(rec.pop("form"))
+        rec["streak"] = f"{form[-1]}{len(form) - len(form.rstrip(form[-1]))}" if form else ""
     return out
 
 

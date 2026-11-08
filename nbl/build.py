@@ -214,7 +214,7 @@ def team_summaries(teams, ratings, preseason, week_ago, results, stats, season_s
             "t": ratings["t_mu"] + ratings["tempo"][i],
             "pre": (preseason["off"][i] - preseason["def"][i]) if preseason else None,
             "wk": (week_ago["off"][i] - week_ago["def"][i]) if week_ago else None,
-            **{k: results[team][k] for k in ("w", "l", "pf", "pa", "luck", "waa", "gp", "cw", "cl")},
+            **{k: results[team][k] for k in ("w", "l", "pf", "pa", "luck", "waa", "gp", "cw", "cl", "streak")},
             "sim": season_sim["teams"][team],
             "stats": stats.get(team),
         }
@@ -750,6 +750,11 @@ def build(cfg, data_dir, out_dir, refresh=False, n_sims=sim.N_SIMS, log=print, l
         info[team]["proj_rec"] = f"{round(wins)}-{n_games - round(wins)}"
         info[team]["likely"] = int(np.argmax(info[team]["sim"]["pos_dist"])) + 1
     standings = sorted(teams, key=lambda t: (-info[t]["w"], info[t]["l"], -info[t]["pf"] / max(info[t]["pa"], 1)))
+    lead = info[standings[0]]
+    for team in teams:
+        x = info[team]
+        x["gb"] = ((lead["w"] - x["w"]) + (x["l"] - lead["l"])) / 2
+        x["pts_pct"] = x["pf"] / x["pa"] if x["pa"] else None
     projected = sorted(teams, key=lambda t: (-info[t]["sim"]["wins"], info[t]["sim"]["pos"]))
     missing_stats = [k for k, *_ in model.STAT_DEFS if all((stats[t] or {}).get(k) is None for t in teams)]
 
