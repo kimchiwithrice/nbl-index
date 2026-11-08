@@ -13,6 +13,16 @@ def slugify(text):
     return re.sub(r"[^a-z0-9]+", "-", text.lower()).strip("-")
 
 
+def add_fouls(player_box, fouls, pbp_games):
+    """Adds pf_all (personal fouls, from the play-by-play where the game has one, else the box
+    score) and trouble (1/0 got into foul trouble, blank without a play-by-play) to the player box."""
+    pb = player_box.merge(fouls, on=["match_id", "team", "player"], how="left")
+    has_pbp = pb.match_id.isin(pbp_games)
+    pb["pf_all"] = np.where(has_pbp, pb.pf.fillna(0), pd.to_numeric(pb.fouls_personal, errors="coerce"))
+    pb["trouble"] = np.where(has_pbp, pb.trouble.fillna(False).astype(float), np.nan)
+    return pb.drop(columns="pf")
+
+
 def player_seasons(player_box, games):
     """One row per player per team per season, with totals, per-game numbers and rates.
 
@@ -22,6 +32,8 @@ def player_seasons(player_box, games):
     team_totals = team_games(games)[["match_id", "team", "minutes", "poss", "o_fga", "o_fta", "o_tov", "o_fgm",
                                      "o_orb", "o_drb", "d_orb", "d_drb", "d_fg2a", "d_fga", "d_fta", "d_tov",
                                      "o_pts"]]
+    if "pf_all" not in player_box:
+        player_box = player_box.assign(pf_all=pd.to_numeric(player_box.fouls_personal, errors="coerce"), trouble=np.nan)
     rows = player_box.merge(team_totals, on=["match_id", "team"], how="inner")
     # Both tables have a "minutes" column; the team one (minutes_y) is game length.
     rows["tm_min"] = rows.minutes_y * 5 if "minutes_y" in rows else rows["minutes"] * 5
@@ -35,6 +47,7 @@ def player_seasons(player_box, games):
         ftm=("free_throws_made", "sum"), fta=("free_throws_attempted", "sum"),
         orb=("rebounds_offensive", "sum"), drb=("rebounds_defensive", "sum"), ast=("assists", "sum"),
         tov=("turnovers", "sum"), stl=("steals", "sum"), blk=("blocks", "sum"), pf=("fouls_personal", "sum"),
+        pf_all=("pf_all", "sum"), trouble=("trouble", "sum"), trouble_gp=("trouble", "count"),
         pm=("plus_minus_points", "sum"),
         tm_min=("tm_min", "sum"), tm_fga=("o_fga", "sum"), tm_fta=("o_fta", "sum"), tm_tov=("o_tov", "sum"),
         tm_fgm=("o_fgm", "sum"), tm_orb=("o_orb", "sum"), tm_drb=("o_drb", "sum"),
@@ -70,6 +83,8 @@ def player_seasons(player_box, games):
     s["tov_pct"] = s.tov / safe(used)
     s["pm40"] = 40 * s.pm / minutes
     s["ortg"] = 100 * s.pts / safe(used)  # points per 100 possessions used
+    s["pf40"] = 40 * s.pf_all / minutes
+    s["trouble_pct"] = s.trouble / safe(s.trouble_gp)  # games without a play-by-play don't count
     s["slug"] = s.player.map(slugify)
     return s
 

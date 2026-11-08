@@ -245,6 +245,8 @@
     "BLK%": "Share of opponents' two-point shots the player blocked while on court. Higher is better.",
     "TOV%": "Share of the times the player finishes a possession themself that end in a turnover. Lower is better.",
     "ORtg": "Points scored per 100 times the player finishes a possession themself. Higher is better.",
+    "PF/40": "Personal fouls per 40 minutes on court. Lower is better.",
+    "Foul trouble": "Share of games the player got into foul trouble: 2 fouls in the 1st quarter, 3 by half-time, 4 by the end of the 3rd, or fouled out. Lower is better.",
     "P/40": "Points per 40 minutes.",
     "Impact": "Estimated points per 100 possessions a player adds compared with an average NBL player, from the box score.",
     "+/- 40": "Team point margin while the player was on court, per 40 minutes.",
