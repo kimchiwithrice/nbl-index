@@ -391,9 +391,9 @@
   "away": "Illawarra Hawks",
   "slug": "2026-11-11-illawarra-hawks-at-south-east-melbourne-phoenix",
   "p_home": 0.713,
-  "margin": 7.8,
+  "margin": 7.7,
   "total": 202.3,
-  "logged": "2026-11-08T13:34:16.529612+00:00"
+  "logged": "2026-11-08T18:53:16.675607+00:00"
  },
  "375813e7-58ad-11f1-8c9c-2572c13c410b": {
   "utc": "2026-11-12T08:30:00+00:00",
@@ -442,10 +442,10 @@
   "home": "Melbourne United",
   "away": "South East Melbourne Phoenix",
   "slug": "2026-11-14-south-east-melbourne-phoenix-at-melbourne-united",
-  "p_home": 0.622,
+  "p_home": 0.621,
   "margin": 4.3,
   "total": 194.6,
-  "logged": "2026-11-08T13:34:16.529612+00:00"
+  "logged": "2026-11-08T18:53:16.675607+00:00"
  },
  "3743885e-58ad-11f1-b2f7-c9ba3efad88d": {
   "utc": "2026-11-14T10:30:00+00:00",
@@ -464,8 +464,8 @@
   "slug": "2026-11-15-new-zealand-breakers-at-sydney-kings",
   "p_home": 0.706,
   "margin": 7.5,
-  "total": 185.0,
-  "logged": "2026-11-08T13:34:16.529612+00:00"
+  "total": 185.1,
+  "logged": "2026-11-08T18:53:16.675607+00:00"
  },
  "37470d73-58ad-11f1-9bf1-130129845108": {
   "utc": "2026-11-15T06:00:00+00:00",
@@ -523,9 +523,9 @@
   "away": "New Zealand Breakers",
   "slug": "2026-11-21-new-zealand-breakers-at-melbourne-united",
   "p_home": 0.664,
-  "margin": 5.9,
-  "total": 185.7,
-  "logged": "2026-11-08T13:34:16.529612+00:00"
+  "margin": 5.8,
+  "total": 185.8,
+  "logged": "2026-11-08T18:53:16.675607+00:00"
  },
  "37514d45-58ad-11f1-917b-0f009f2e4d02": {
   "utc": "2026-11-22T04:00:00+00:00",
@@ -553,9 +553,9 @@
   "away": "South East Melbourne Phoenix",
   "slug": "2026-12-02-south-east-melbourne-phoenix-at-adelaide-36ers",
   "p_home": 0.513,
-  "margin": 0.4,
+  "margin": 0.5,
   "total": 192.3,
-  "logged": "2026-11-08T13:34:16.529612+00:00"
+  "logged": "2026-11-08T18:53:16.675607+00:00"
  },
  "3748a57b-58ad-11f1-a4fa-fb9d3a8baf78": {
   "utc": "2026-12-03T08:30:00+00:00",
@@ -574,8 +574,8 @@
   "slug": "2026-12-04-melbourne-united-at-new-zealand-breakers",
   "p_home": 0.421,
   "margin": -2.7,
-  "total": 185.7,
-  "logged": "2026-11-08T13:34:16.529612+00:00"
+  "total": 185.8,
+  "logged": "2026-11-08T18:53:16.675607+00:00"
  },
  "3751fcc5-58ad-11f1-a32f-279e256f2655": {
   "utc": "2026-12-04T08:30:00+00:00",
@@ -583,9 +583,9 @@
   "away": "Sydney Kings",
   "slug": "2026-12-04-sydney-kings-at-illawarra-hawks",
   "p_home": 0.263,
-  "margin": -8.8,
+  "margin": -8.7,
   "total": 197.0,
-  "logged": "2026-11-08T13:34:16.529612+00:00"
+  "logged": "2026-11-08T18:53:16.675607+00:00"
  },
  "37770bc1-58ad-11f1-a93a-ebcda8a5e5b1": {
   "utc": "2026-12-05T06:30:00+00:00",
@@ -654,8 +654,8 @@
   "slug": "2026-12-11-sydney-kings-at-new-zealand-breakers",
   "p_home": 0.375,
   "margin": -4.4,
-  "total": 185.0,
-  "logged": "2026-11-08T13:34:16.529612+00:00"
+  "total": 185.1,
+  "logged": "2026-11-08T18:53:16.675607+00:00"
  },
  "37510e22-58ad-11f1-b8d1-0361ae94d7e7": {
   "utc": "2026-12-12T06:30:00+00:00",
@@ -694,8 +694,8 @@
   "slug": "2026-12-13-perth-wildcats-at-south-east-melbourne-phoenix",
   "p_home": 0.638,
   "margin": 4.9,
-  "total": 196.2,
-  "logged": "2026-11-08T13:34:16.529612+00:00"
+  "total": 196.1,
+  "logged": "2026-11-08T18:53:16.675607+00:00"
  },
  "3755d06f-58ad-11f1-9b2c-679c79eacdbc": {
   "utc": "2026-12-16T10:30:00+00:00",
@@ -754,8 +754,8 @@
   "slug": "2026-12-20-melbourne-united-at-illawarra-hawks",
   "p_home": 0.304,
   "margin": -7.1,
-  "total": 197.7,
-  "logged": "2026-11-08T13:34:16.529612+00:00"
+  "total": 197.6,
+  "logged": "2026-11-08T18:53:16.675607+00:00"
  },
  "3757e2b3-58ad-11f1-801d-e3b03d7fb141": {
   "utc": "2026-12-20T06:00:00+00:00",
@@ -913,9 +913,9 @@
   "away": "South East Melbourne Phoenix",
   "slug": "2027-01-02-south-east-melbourne-phoenix-at-adelaide-36ers",
   "p_home": 0.513,
-  "margin": 0.4,
+  "margin": 0.5,
   "total": 192.3,
-  "logged": "2026-11-08T13:34:16.529612+00:00"
+  "logged": "2026-11-08T18:53:16.675607+00:00"
  },
  "377a706f-58ad-11f1-9081-95101c4b3f9d": {
   "utc": "2027-01-03T04:00:00+00:00",
@@ -1143,9 +1143,9 @@
   "away": "Illawarra Hawks",
   "slug": "2027-01-23-illawarra-hawks-at-adelaide-36ers",
   "p_home": 0.675,
-  "margin": 6.3,
+  "margin": 6.2,
   "total": 195.1,
-  "logged": "2026-11-08T13:34:16.529612+00:00"
+  "logged": "2026-11-08T18:53:16.675607+00:00"
  },
  "3794465d-58ad-11f1-a534-cb26a6dd9fe9": {
   "utc": "2027-01-23T08:30:00+00:00",
@@ -1174,8 +1174,8 @@
   "slug": "2027-01-24-perth-wildcats-at-south-east-melbourne-phoenix",
   "p_home": 0.638,
   "margin": 4.9,
-  "total": 196.2,
-  "logged": "2026-11-08T13:34:16.529612+00:00"
+  "total": 196.1,
+  "logged": "2026-11-08T18:53:16.675607+00:00"
  },
  "37b5f457-58ad-11f1-bb17-2d4587dc1484": {
   "utc": "2027-01-25T08:30:00+00:00",
@@ -1234,8 +1234,8 @@
   "slug": "2027-01-29-melbourne-united-at-new-zealand-breakers",
   "p_home": 0.421,
   "margin": -2.7,
-  "total": 185.7,
-  "logged": "2026-11-08T13:34:16.529612+00:00"
+  "total": 185.8,
+  "logged": "2026-11-08T18:53:16.675607+00:00"
  },
  "37912f47-58ad-11f1-a905-9b50298fb358": {
   "utc": "2027-01-30T06:30:00+00:00",
@@ -1374,18 +1374,18 @@
   "slug": "2027-02-11-sydney-kings-at-new-zealand-breakers",
   "p_home": 0.375,
   "margin": -4.4,
-  "total": 185.0,
-  "logged": "2026-11-08T13:34:16.529612+00:00"
+  "total": 185.1,
+  "logged": "2026-11-08T18:53:16.675607+00:00"
  },
  "3797f6e3-58ad-11f1-87a8-fbbd24deadd3": {
   "utc": "2027-02-11T08:30:00+00:00",
   "home": "Melbourne United",
   "away": "South East Melbourne Phoenix",
   "slug": "2027-02-11-south-east-melbourne-phoenix-at-melbourne-united",
-  "p_home": 0.622,
+  "p_home": 0.621,
   "margin": 4.3,
   "total": 194.6,
-  "logged": "2026-11-08T13:34:16.529612+00:00"
+  "logged": "2026-11-08T18:53:16.675607+00:00"
  },
  "37974b51-58ad-11f1-85a6-d3f8eb4e543c": {
   "utc": "2027-02-12T08:30:00+00:00",
@@ -1414,8 +1414,8 @@
   "slug": "2027-02-13-illawarra-hawks-at-melbourne-united",
   "p_home": 0.773,
   "margin": 10.3,
-  "total": 197.7,
-  "logged": "2026-11-08T13:34:16.529612+00:00"
+  "total": 197.6,
+  "logged": "2026-11-08T18:53:16.675607+00:00"
  },
  "37c1c5ea-58ad-11f1-956b-892c4438c413": {
   "utc": "2027-02-13T08:30:00+00:00",
