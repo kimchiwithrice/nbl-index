@@ -690,3 +690,40 @@ def season_tables(path, games, player_box, cur, teams, log=print):
     for i, r in enumerate(ranked):
         r["rank"], r["rank_n"] = i + 1, len(ranked)
     return out
+
+
+# Fouls
+
+# Fouls charged to a player (technicals count towards the five, as in FIBA rules; coach and bench
+# technicals have no player and drop out).
+PLAYER_FOULS = {"", "personal", "offensive", "unsportsmanlike", "disqualifying", "flagrant", "throwin", "disruptive",
+                "technical", "categoryonetechnical", "categorytwotechnical"}
+# Foul trouble: this many fouls before this many seconds into the game (2 in the first quarter,
+# 3 by half-time, 4 by the end of the third), or fouling out.
+TROUBLE = {2: 600, 3: 1200, 4: 1800}
+FOUL_OUT = 5
+
+
+def player_fouls(path, games):
+    """Personal fouls per player per game from the play-by-play, and whether the player got into
+    foul trouble. Returns (rows, match ids that have a play-by-play): one row per (match_id, team,
+    player) with pf and trouble; players with no fouls aren't listed. Up to 2024-25 the totals match the box scores exactly; from 2025-26 the box
+    scores leave out offensive fouls, so the play-by-play is the one to use."""
+    ev = rds.read_frame(path, ["match_id", "team_name", "period", "period_type", "gt", "action_type", "sub_type",
+                               "first_name", "family_name"])
+    ev["match_id"] = ev.match_id.astype(str)
+    ev = ev[ev.match_id.isin(set(games.match_id)) & (ev.period >= 1)]
+    games_with = ev.match_id.unique()
+    ev = ev[(_norm(ev.action_type) == "foul") & _norm(ev.sub_type).isin(PLAYER_FOULS)].copy()
+    ev["player"] = (ev.first_name.fillna("").astype(str).str.strip() + " "
+                    + ev.family_name.fillna("").astype(str).str.strip()).str.strip()
+    ev["team"] = ev.team_name.map(data.clean_name)
+    ev = ev[(ev.player != "") & ev.team.notna() & ev["gt"].notna()]
+    clock = ev["gt"].str.split(":", expand=True).astype(float)
+    ot = ev.period_type.eq("OVERTIME")
+    ev["t"] = np.where(ot, 2400 + ev.period * 300, ev.period * 600) - (clock[0] * 60 + clock[1])
+    ev = ev.sort_values(["match_id", "t"], kind="stable")
+    ev["n"] = ev.groupby(["match_id", "team", "player"]).cumcount() + 1
+    ev["trouble"] = (ev.n >= FOUL_OUT) | (ev.t < ev.n.map(TROUBLE).fillna(-1))
+    out = ev.groupby(["match_id", "team", "player"]).agg(pf=("n", "max"), trouble=("trouble", "any")).reset_index()
+    return out, set(games_with)
