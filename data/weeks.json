@@ -412,6 +412,65 @@
    },
    "model": 2,
    "potw_v": 2
+  },
+  {
+   "start": "2026-11-01T14:00:00+00:00",
+   "label": "2–8 Nov",
+   "round": "Rounds 7–8",
+   "games": 8,
+   "scheduled": 8,
+   "riser": {
+    "team": "Melbourne United",
+    "from": 3.0177785952322957,
+    "to": 5.214966270028551,
+    "diff": 2.1971876747962553,
+    "rk_from": 2,
+    "rk_to": 2
+   },
+   "faller": {
+    "team": "Perth Wildcats",
+    "from": -0.36180274457933914,
+    "to": -2.173978663192954,
+    "diff": -1.8121759186136148,
+    "rk_from": 6,
+    "rk_to": 7
+   },
+   "race": [
+    {
+     "team": "Perth Wildcats",
+     "from": 0.6669,
+     "to": 0.4615
+    },
+    {
+     "team": "Adelaide 36ers",
+     "from": 0.5556,
+     "to": 0.7211
+    }
+   ],
+   "best_o": {
+    "team": "Melbourne United",
+    "o": 125.55723619934872,
+    "d": 101.84183815626024,
+    "n": 2.0
+   },
+   "best_d": {
+    "team": "Adelaide 36ers",
+    "o": 123.62492648996049,
+    "d": 96.89659665368616,
+    "n": 1.0
+   },
+   "potw": {
+    "player": "Jack McVeigh",
+    "team": "Cairns Taipans",
+    "added": 9.352743486387455,
+    "games": 2,
+    "min": 71.93333333333334,
+    "pts": 56,
+    "reb": 8,
+    "ast": 11
+   },
+   "model": 2,
+   "potw_v": 2
   }
  ]
 }
