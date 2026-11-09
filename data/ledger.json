@@ -422,9 +422,9 @@
   "away": "Brisbane Bullets",
   "slug": "2026-11-13-brisbane-bullets-at-new-zealand-breakers",
   "p_home": 0.651,
-  "margin": 5.4,
+  "margin": 5.3,
   "total": 187.7,
-  "logged": "2026-11-08T13:34:16.529612+00:00"
+  "logged": "2026-11-09T02:43:10.970407+00:00"
  },
  "3746d2f5-58ad-11f1-9032-1138b8cb68ba": {
   "utc": "2026-11-13T08:30:00+00:00",
@@ -612,10 +612,10 @@
   "home": "Melbourne United",
   "away": "Brisbane Bullets",
   "slug": "2026-12-06-brisbane-bullets-at-melbourne-united",
-  "p_home": 0.767,
+  "p_home": 0.766,
   "margin": 10.0,
   "total": 192.1,
-  "logged": "2026-11-08T13:34:16.529612+00:00"
+  "logged": "2026-11-09T02:43:10.970407+00:00"
  },
  "3752cf25-58ad-11f1-9654-2942781e7154": {
   "utc": "2026-12-06T06:00:00+00:00",
@@ -783,9 +783,9 @@
   "away": "Brisbane Bullets",
   "slug": "2026-12-22-brisbane-bullets-at-new-zealand-breakers",
   "p_home": 0.651,
-  "margin": 5.4,
+  "margin": 5.3,
   "total": 187.7,
-  "logged": "2026-11-08T13:34:16.529612+00:00"
+  "logged": "2026-11-09T02:43:10.970407+00:00"
  },
  "3759b81c-58ad-11f1-a957-a93048d70593": {
   "utc": "2026-12-23T09:00:00+00:00",
@@ -812,10 +812,10 @@
   "home": "Sydney Kings",
   "away": "Illawarra Hawks",
   "slug": "2026-12-25-illawarra-hawks-at-sydney-kings",
-  "p_home": 0.807,
+  "p_home": 0.806,
   "margin": 11.9,
   "total": 197.0,
-  "logged": "2026-11-08T13:34:16.529612+00:00"
+  "logged": "2026-11-09T02:43:10.970407+00:00"
  },
  "3763a871-58ad-11f1-bb01-15ea51636534": {
   "utc": "2026-12-26T08:30:00+00:00",
@@ -862,10 +862,10 @@
   "home": "Brisbane Bullets",
   "away": "Adelaide 36ers",
   "slug": "2026-12-30-adelaide-36ers-at-brisbane-bullets",
-  "p_home": 0.416,
+  "p_home": 0.417,
   "margin": -2.9,
   "total": 189.8,
-  "logged": "2026-11-08T13:34:16.529612+00:00"
+  "logged": "2026-11-09T02:43:10.970407+00:00"
  },
  "376b1b7d-58ad-11f1-9638-61e4f965035a": {
   "utc": "2026-12-31T06:30:00+00:00",
@@ -1322,10 +1322,10 @@
   "home": "Brisbane Bullets",
   "away": "Adelaide 36ers",
   "slug": "2027-02-06-adelaide-36ers-at-brisbane-bullets",
-  "p_home": 0.416,
+  "p_home": 0.417,
   "margin": -2.9,
   "total": 189.8,
-  "logged": "2026-11-08T13:34:16.529612+00:00"
+  "logged": "2026-11-09T02:43:10.970407+00:00"
  },
  "379c3809-58ad-11f1-a3c5-0919017f2391": {
   "utc": "2027-02-06T08:30:00+00:00",
