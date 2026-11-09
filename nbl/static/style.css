@@ -364,6 +364,23 @@ footer .in{max-width:1280px;padding:18px 28px 36px}
 footer p{margin:0 0 6px;max-width:100ch}
 footer a{color:var(--soft);text-decoration:underline;text-underline-offset:2px}
 footer .news{color:var(--ink)}
+footer a.cbtn{display:inline-flex;align-items:center;gap:6px;margin-top:6px;padding:5px 12px;border:1px solid var(--rule-strong);border-radius:999px;color:var(--ink);text-decoration:none;font-weight:600}
+footer a.cbtn:hover{border-color:var(--ink)}
+footer a.cbtn .ic{width:15px;height:15px}
+
+/* Contact form */
+.cform{display:grid;gap:4px;max-width:520px}
+.cform label{font-size:13px;color:var(--soft);margin-top:10px}
+.cform label span{color:var(--faint)}
+.cform input,.cform textarea{width:100%;font-size:16px}
+.cform textarea{font:inherit;font-size:16px;color:var(--ink);background:var(--paper);border:1px solid var(--rule-strong);border-radius:3px;padding:7px 9px;resize:vertical}
+.cform textarea:focus{border-color:var(--ink);outline:none}
+.cform .hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+.cform button{justify-self:start;margin-top:14px;font:inherit;font-size:14px;font-weight:600;color:var(--paper);background:var(--ink);border:0;border-radius:999px;padding:8px 22px;cursor:pointer}
+.cform button:disabled{opacity:.5;cursor:default}
+.cform .cnote{margin:8px 0 0;font-size:14px;min-height:1.4em}
+.cform .cnote.ok{color:var(--up)}
+.cform .cnote.bad{color:var(--down)}
 
 /* Ladder */
 .ladder tr.cut2 td{border-bottom:1px solid var(--ink)}

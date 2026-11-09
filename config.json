@@ -7,6 +7,7 @@
   "kofi_url": "https://ko-fi.com/nblindex",
   "newsletter_url": "",
   "contact": "",
+  "contact_key": "3d09c8c9-c02e-4aba-8bad-6b097d6ad838",
   "ad_html": "",
   "head_html": "<script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{\"token\": \"3baf99161d5d46a5a433f77b21c490b7\"}'></script>",
   "show_betting_tools": false,

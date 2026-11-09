@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% set title = "Contact" %}
+{% set desc = "Send a question, idea or correction to " ~ cfg.site_name ~ "." %}
+{% block main %}
+<div class="prose">
+<h1>Contact</h1>
+<p>Questions, ideas or spotted a wrong number? Send a message. Leave your email if you'd like a reply.</p>
+<form id="contact" class="cform" action="https://api.web3forms.com/submit" method="post">
+  <input type="hidden" name="access_key" value="{{ cfg.contact_key }}">
+  <input type="hidden" name="subject" value="{{ cfg.site_name }} message">
+  <input type="hidden" name="from_name" value="{{ cfg.site_name }} contact form">
+  <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+  <label for="c-name">Name <span>(optional)</span></label>
+  <input id="c-name" name="name" type="text" autocomplete="name" maxlength="100">
+  <label for="c-email">Email <span>(optional, only if you want a reply)</span></label>
+  <input id="c-email" name="email" type="email" autocomplete="email" maxlength="200">
+  <label for="c-msg">Message</label>
+  <textarea id="c-msg" name="message" rows="7" required maxlength="5000"></textarea>
+  <button type="submit">Send</button>
+  <p class="cnote" role="status" aria-live="polite"></p>
+</form>
+</div>
+{% endblock %}
+{% block scripts %}
+<script>
+(function(){
+  var f=document.getElementById("contact"), note=f.querySelector(".cnote"), btn=f.querySelector("button");
+  f.addEventListener("submit",function(e){
+    e.preventDefault();
+    if(f.botcheck.checked)return;
+    btn.disabled=true; note.className="cnote"; note.textContent="Sending...";
+    fetch(f.action,{method:"POST",headers:{"Content-Type":"application/json",Accept:"application/json"},
+      body:JSON.stringify(Object.fromEntries(new FormData(f)))})
+    .then(function(r){return r.json();})
+    .then(function(d){
+      if(!d.success)throw 0;
+      f.reset(); note.className="cnote ok"; note.textContent="Thanks, your message was sent.";
+    })
+    .catch(function(){note.className="cnote bad"; note.textContent="That didn't go through. Please try again in a minute.";})
+    .then(function(){btn.disabled=false;});
+  });
+})();
+</script>
+{% endblock %}
