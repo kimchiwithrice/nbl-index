@@ -932,10 +932,10 @@
   "home": "Brisbane Bullets",
   "away": "Melbourne United",
   "slug": "2027-01-03-melbourne-united-at-brisbane-bullets",
-  "p_home": 0.311,
+  "p_home": 0.312,
   "margin": -6.8,
   "total": 192.1,
-  "logged": "2026-11-08T13:34:16.529612+00:00"
+  "logged": "2026-11-10T15:31:15.360422+00:00"
  },
  "3778a221-58ad-11f1-93c2-61e38b2284ba": {
   "utc": "2027-01-04T08:30:00+00:00",
@@ -1052,10 +1052,10 @@
   "home": "Sydney Kings",
   "away": "South East Melbourne Phoenix",
   "slug": "2027-01-14-south-east-melbourne-phoenix-at-sydney-kings",
-  "p_home": 0.668,
+  "p_home": 0.667,
   "margin": 6.0,
   "total": 194.0,
-  "logged": "2026-11-08T13:34:16.529612+00:00"
+  "logged": "2026-11-10T15:31:15.360422+00:00"
  },
  "37b32cce-58ad-11f1-8d47-bd240d5ec994": {
   "utc": "2027-01-15T10:30:00+00:00",
@@ -1133,29 +1133,29 @@
   "away": "Sydney Kings",
   "slug": "2027-01-22-sydney-kings-at-perth-wildcats",
   "p_home": 0.336,
-  "margin": -5.9,
+  "margin": -5.8,
   "total": 190.9,
-  "logged": "2026-11-10T04:40:00.754559+00:00"
+  "logged": "2026-11-10T15:31:15.360422+00:00"
  },
  "378a267b-58ad-11f1-b1d5-67a8251482c3": {
   "utc": "2027-01-23T06:30:00+00:00",
   "home": "Adelaide 36ers",
   "away": "Illawarra Hawks",
   "slug": "2027-01-23-illawarra-hawks-at-adelaide-36ers",
-  "p_home": 0.675,
+  "p_home": 0.674,
   "margin": 6.2,
   "total": 195.1,
-  "logged": "2026-11-08T18:53:16.675607+00:00"
+  "logged": "2026-11-10T15:31:15.360422+00:00"
  },
  "3794465d-58ad-11f1-a534-cb26a6dd9fe9": {
   "utc": "2027-01-23T08:30:00+00:00",
   "home": "Brisbane Bullets",
   "away": "Melbourne United",
   "slug": "2027-01-23-melbourne-united-at-brisbane-bullets",
-  "p_home": 0.311,
+  "p_home": 0.312,
   "margin": -6.8,
   "total": 192.1,
-  "logged": "2026-11-08T13:34:16.529612+00:00"
+  "logged": "2026-11-10T15:31:15.360422+00:00"
  },
  "378b3988-58ad-11f1-a999-cb5b62df0525": {
   "utc": "2027-01-24T04:00:00+00:00",
@@ -1442,9 +1442,9 @@
   "home": "South East Melbourne Phoenix",
   "away": "Brisbane Bullets",
   "slug": "2027-02-14-brisbane-bullets-at-south-east-melbourne-phoenix",
-  "p_home": 0.706,
+  "p_home": 0.705,
   "margin": 7.4,
   "total": 196.7,
-  "logged": "2026-11-10T13:32:48.676670+00:00"
+  "logged": "2026-11-10T15:31:15.360422+00:00"
  }
 }
