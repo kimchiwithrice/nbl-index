@@ -7,7 +7,7 @@
 /* NBL Index styles */
 :root{
   --paper:#ffffff; --wash:#f2f5f9; --rule:#e0e5ec; --rule-strong:#c5cdd8;
-  --ink:#1b2230; --soft:#4f5b6c; --faint:#667285;
+  --ink:#1b2230; --soft:#4f5b6c; --faint:#5f6b7e;
   --accent:#0d5ea8; --up:#1b7343; --down:#b0322c;
   --bar-up:#0d5ea8; --bar-down:#b0322c;
   /* soft tints around the stats: page, menu, table headers, headings */
@@ -60,7 +60,7 @@ a:hover{text-decoration:underline;text-underline-offset:2px}
 .brand .star{display:none}
 .side nav{flex:1;min-height:0;overflow-y:auto;overflow-x:hidden;scrollbar-width:thin;display:flex;flex-direction:column;gap:8px;padding:10px 0 8px}
 .ngrp{display:flex;flex-direction:column}
-.cap{font-size:11.5px;font-weight:600;color:var(--orange-text);text-transform:uppercase;letter-spacing:.06em;padding:0 18px 2px;white-space:nowrap}
+.cap{font-size:12.5px;font-weight:700;color:var(--orange-text);padding:0 18px 2px;white-space:nowrap}
 .side nav a{display:flex;align-items:center;gap:11px;color:var(--soft);font-weight:500;line-height:1.35;padding:3px 18px 3px 15px;border-left:3px solid transparent;white-space:nowrap}
 .side nav a:hover{color:var(--ink);background:var(--side-on);text-decoration:none}
 .side nav a.on{color:var(--head);font-weight:700;border-left-color:var(--orange);background:var(--side-on)}
@@ -77,7 +77,7 @@ a:hover{text-decoration:underline;text-underline-offset:2px}
 .tools button.thb{flex:none;padding:6px;border-radius:4px}
 .tools button.thb:hover{background:var(--side-on)}
 .kofi{flex:none;padding:10px 18px 12px;border-top:1px solid var(--rule)}
-a.chip{display:inline-flex;align-items:center;gap:6px;color:#17191c;background:var(--orange);font-size:13px;font-weight:600;padding:5px 12px;border-radius:999px;line-height:1.2;white-space:nowrap}
+a.chip{display:inline-flex;align-items:center;gap:6px;color:#17191c;background:var(--orange);font-size:13px;font-weight:600;padding:5px 12px;border-radius:4px;line-height:1.2;white-space:nowrap}
 a.chip .ic{width:15px;height:15px;stroke-width:2}
 a.chip:hover{color:#17191c;text-decoration:none;filter:brightness(1.1)}
 html[data-sp="hide"] #sp-btn{color:var(--ink);font-weight:600}
@@ -123,14 +123,14 @@ html[data-sp="hide"] #sp-btn{color:var(--ink);font-weight:600}
   .side nav a:hover{background:none}
 }
 
-main{max-width:1280px;padding:28px 28px 56px}
+main{max-width:1280px;padding:32px 32px 64px}
 h1{color:var(--head);font-size:30px;line-height:1.15;font-weight:700;letter-spacing:-.015em;margin:0 0 8px}
-h2{color:var(--head);font-size:18px;font-weight:700;letter-spacing:-.01em;margin:40px 0 10px}
-section>h2:first-child{margin-top:28px}
-h3{font-size:15px;font-weight:700;margin:22px 0 8px}
-.lede{color:var(--soft);max-width:68ch;margin:0 0 22px}
-.stamp{color:var(--faint);font-size:13px;margin:-14px 0 22px}
-.sub{color:var(--soft);margin:0 0 20px}
+h2{color:var(--head);font-size:18px;font-weight:700;letter-spacing:-.01em;margin:40px 0 12px}
+section>h2:first-child{margin-top:32px}
+h3{font-size:15px;font-weight:700;margin:24px 0 8px}
+.lede{color:var(--soft);max-width:68ch;margin:0 0 24px}
+.stamp{color:var(--faint);font-size:13px;margin:-16px 0 24px}
+.sub{color:var(--soft);margin:0 0 24px}
 /* Overview / Lineups & shots tabs on team pages: the open tab is filled in the team's colour */
 .tabs{display:flex;gap:6px;border-bottom:3px solid var(--c);margin:-4px 0 20px}
 .tabs a{padding:9px 18px 8px;border:1px solid var(--rule);border-bottom:0;border-radius:6px 6px 0 0;background:var(--side);color:var(--soft);font-weight:600}
@@ -141,14 +141,14 @@ h3{font-size:15px;font-weight:700;margin:22px 0 8px}
 .crumb{font-size:13px;color:var(--faint);margin:0 0 6px}
 .crumb a{color:var(--soft)}
 /* "On this page" links under the intro on longer pages */
-.jump{display:flex;flex-wrap:wrap;align-items:center;gap:6px 8px;margin:-6px 0 22px;font-size:13.5px}
-.jump span{color:var(--faint);font-weight:600;margin-right:4px}
-.jump a{color:var(--soft);background:var(--paper);border:1px solid var(--rule);border-radius:999px;padding:3px 11px;line-height:1.4;white-space:nowrap}
-.jump a:hover{color:var(--head);border-color:var(--rule-strong);text-decoration:none}
+/* plain text links, so they read as a line of text and not a row of buttons */
+.jump{display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 18px;margin:-8px 0 24px;font-size:14px;line-height:1.5}
+.jump span{color:var(--faint);font-weight:600;margin-right:-6px}
+.jump a{white-space:nowrap}
 h2[id]{scroll-margin-top:16px}
-@media (max-width:600px){.jump{font-size:13px;gap:6px}.jump span{flex-basis:100%}.jump a{padding:2px 9px}}
+@media (max-width:600px){.jump span{flex-basis:100%}}
 html{scroll-behavior:smooth}
-.early{font-size:14px;color:var(--soft);max-width:90ch;margin:0 0 14px;padding:8px 0 8px 12px;border-left:3px solid var(--rule)}
+.early{font-size:14px;color:var(--soft);max-width:90ch;margin:0 0 16px;padding:8px 0 8px 12px;border-left:3px solid var(--rule)}
 .early b{color:var(--ink)}
 .light{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:6px;vertical-align:baseline}
 .light.green{background:#2e9e4f}
@@ -240,7 +240,7 @@ td.em .v{display:inline-block;min-width:38px}
 /* Cards sit in a grid: one row on wide screens, 3 or 2 across on smaller ones.
    Every card draws a line on its left and top; the box clips the ones on the outer edge,
    so dividers only show between cards whatever the column count. */
-.cards{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;overflow:hidden;background:var(--paper);border:1px solid var(--rule);border-radius:6px;margin:18px 0 6px}
+.cards{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;overflow:hidden;background:var(--paper);border:1px solid var(--rule);border-radius:6px;margin:16px 0 8px}
 .card{min-width:0;padding:12px 16px;margin:-1px 0 0 -1px;border-left:1px solid var(--rule);border-top:1px solid var(--rule)}
 .card b{display:block;font-size:13px;font-weight:500;color:var(--soft)}
 .card span{display:inline-block;font-size:28px;font-weight:700;letter-spacing:-.015em;line-height:1.2}
@@ -360,11 +360,11 @@ tr.hl td{background:color-mix(in srgb,var(--up) 10%,var(--paper))!important}
 .prose .jump{margin-top:0}
 .ad{margin:28px 0;min-height:90px;display:flex;justify-content:center;align-items:center}
 footer{border-top:1px solid var(--rule);color:var(--faint);font-size:13px}
-footer .in{max-width:1280px;padding:18px 28px 36px}
+footer .in{max-width:1280px;padding:16px 32px 40px}
 footer p{margin:0 0 6px;max-width:100ch}
 footer a{color:var(--soft);text-decoration:underline;text-underline-offset:2px}
 footer .news{color:var(--ink)}
-footer a.cbtn{display:inline-flex;align-items:center;gap:6px;margin-top:6px;padding:5px 12px;border:1px solid var(--rule-strong);border-radius:999px;color:var(--ink);text-decoration:none;font-weight:600}
+footer a.cbtn{display:inline-flex;align-items:center;gap:6px;margin-top:6px;padding:5px 12px;border:1px solid var(--rule-strong);border-radius:4px;color:var(--ink);text-decoration:none;font-weight:600}
 footer a.cbtn:hover{border-color:var(--ink)}
 footer a.cbtn .ic{width:15px;height:15px}
 
@@ -376,7 +376,9 @@ footer a.cbtn .ic{width:15px;height:15px}
 .cform textarea{font:inherit;font-size:16px;color:var(--ink);background:var(--paper);border:1px solid var(--rule-strong);border-radius:3px;padding:7px 9px;resize:vertical}
 .cform textarea:focus{border-color:var(--ink);outline:none}
 .cform .hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
-.cform button{justify-self:start;margin-top:14px;font:inherit;font-size:14px;font-weight:600;color:var(--paper);background:var(--ink);border:0;border-radius:999px;padding:8px 22px;cursor:pointer}
+.cform button{justify-self:start;margin-top:14px;font:inherit;font-size:14px;font-weight:600;color:var(--paper);background:var(--ink);border:0;border-radius:4px;padding:8px 22px;cursor:pointer}
+.cform button:hover{background:var(--head)}
+.cform button:active{transform:translateY(1px)}
 .cform button:disabled{opacity:.5;cursor:default}
 .cform .cnote{margin:8px 0 0;font-size:14px;min-height:1.4em}
 .cform .cnote.ok{color:var(--up)}
@@ -405,7 +407,7 @@ html[data-sp="hide"] .spblock:not(.open) .tw{display:none}
 html[data-sp="hide"] .spblock:not(.open) .sp-reveal{display:block}
 
 @media (max-width:600px){
-  main{padding:22px 20px 48px} footer .in{padding:18px 20px 36px}
+  main{padding:24px 20px 48px} footer .in{padding:16px 20px 40px}
   .sidetop{flex-basis:100%;padding-bottom:4px}
   .tools{margin-left:20px}
   .kofi{margin-left:auto}
