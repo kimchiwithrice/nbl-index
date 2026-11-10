@@ -2,7 +2,7 @@
 
 Ratings are points per 100 possessions against an average NBL team on a neutral court:
 
-    points per 100 (A vs B) = league average + A's offense + B's defense +/- home court
+    points per 100 (A vs B) = league average + A's offence + B's defence +/- home court
     possessions per 40 min  = league average + A's tempo + B's tempo
 
 All teams are fitted together with ridge regression, which adjusts every rating for the
@@ -70,8 +70,8 @@ def fit(games, asof, cur_start, teams, half_life=HALF_LIFE_DAYS):
     n_games = len(g)
     rows = np.arange(n_games)
 
-    # Efficiency: one row for each team's offense against the other team's defense.
-    # Columns: intercept, home court, offense ratings (n), defense ratings (n).
+    # Efficiency: one row for each team's offence against the other team's defence.
+    # Columns: intercept, home court, offence ratings (n), defence ratings (n).
     X = np.zeros((2 * n_games, 2 + 2 * n))
     X[:, 0] = 1
     X[:n_games, 1], X[n_games:, 1] = home_side, -home_side
