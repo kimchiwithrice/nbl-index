@@ -61,7 +61,7 @@
   <div class="tw"><table class="dense">
     <thead><tr><th class="l"></th><th>{{ a.code }}</th><th>{{ h.code }}</th></tr></thead>
     <tbody>
-      {% for key, label, d in [("net", rating, 1), ("o", "Adj. offense", 1), ("d", "Adj. defense", 1), ("t", "Adj. tempo", 1), ("sos", "Schedule strength", 1)] %}
+      {% for key, label, d in [("net", rating, 1), ("o", "Adj. offence", 1), ("d", "Adj. defence", 1), ("t", "Adj. tempo", 1), ("sos", "Schedule strength", 1)] %}
       <tr><td class="l">{{ label }}</td>
         <td class="{{ 'adv' if a.rk[key] < h.rk[key] else '' }}">{{ (a[key] | sgn) if key in ('net','sos') else (a[key] | f1) }}{{ m.rk(a.rk[key], N, key not in ('t', 'sos')) }}</td>
         <td class="{{ 'adv' if h.rk[key] < a.rk[key] else '' }}">{{ (h[key] | sgn) if key in ('net','sos') else (h[key] | f1) }}{{ m.rk(h.rk[key], N, key not in ('t', 'sos')) }}</td></tr>

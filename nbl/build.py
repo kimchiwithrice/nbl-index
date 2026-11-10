@@ -330,13 +330,13 @@ def week_end(sched, cur, now):
 
 
 POTW_VERSION = 2      # bump to redo the saved player of the week picks
-POTW_PULL = 100       # possessions' worth of pull toward average, so a short burst can't win it
+POTW_PULL = 100       # possessions' worth of pull towards average, so a short burst can't win it
 POTW_MIN_PPG = 12     # a player of the week has to be scoring
 
 
 def player_of_week(pb, match_ids, weights, avg_impact):
     """Points added over an average player across the week's games. 20+ minutes in every game and
-    12+ points a game. Small samples are pulled toward average, like Impact; tested on every week
+    12+ points a game. Small samples are pulled towards average, like Impact; tested on every week
     since 2016-17."""
     wk = pb[pb.match_id.isin(match_ids)]
     agg = wk.groupby(["player", "team"])[impact.STATS + ["on_poss", "min"]].sum()
@@ -355,7 +355,7 @@ def player_of_week(pb, match_ids, weights, avg_impact):
 
 
 def week_block(games, sched, teams, cal, cur, pb, weights, avg_impact, start, end, n_sims):
-    """One week's movers, finals race, best offense and defense and player of the week. Everything
+    """One week's movers, finals race, best offence and defence and player of the week. Everything
     is worked out as of the Monday before and the Monday after, so it reads the same later on."""
     season_sched = sched[sched.start == cur]
     due = season_sched[(season_sched.utc >= start) & (season_sched.utc < end)]
@@ -389,7 +389,7 @@ def week_block(games, sched, teams, cal, cur, pb, weights, avg_impact, start, en
     race = sorted(({"team": t, "from": o0[t]["top6"], "to": o1[t]["top6"]} for t in teams),
                   key=lambda r: -abs(r["to"] - r["from"]))[:2]
 
-    # Each team's offense and defense in the week's games, adjusted for opponent and venue.
+    # Each team's offence and defence in the week's games, adjusted for opponent and venue.
     played = []
     for row in week.itertuples():
         for team, opp, side, pf, pa in ((row.home, row.away, 1, row.h_pts, row.a_pts), (row.away, row.home, -1, row.a_pts, row.h_pts)):
@@ -479,7 +479,7 @@ def coming_up(all_games, teams, info, now):
 
 
 def scouting_log(team, all_games, games, ratings, info):
-    """This season's played games with each one's offense and defense adjusted for the opponent and
+    """This season's played games with each one's offence and defence adjusted for the opponent and
     venue, using the current ratings, plus the same numbers over a few splits."""
     poss = games.set_index("match_id").poss
     rows = []

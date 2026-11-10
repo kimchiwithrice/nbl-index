@@ -79,7 +79,7 @@ def trend_svg(rows, key, fmt, width=440, height=150):
 
 
 def ratings_map_svg(info, teams, mu, root="/", width=540, height=460):
-    """Every team placed by AdjO (across) and AdjD (up, flipped so better defense is higher).
+    """Every team placed by AdjO (across) and AdjD (up, flipped so better defence is higher).
 
     The dashed lines are the league average, so the four corners are the four kinds of team.
     """
@@ -97,7 +97,7 @@ def ratings_map_svg(info, teams, mu, root="/", width=540, height=460):
         return top + (height - top - bottom) * (v - lo) / (hi - lo)
 
     svg = [f'<svg viewBox="0 0 {width} {height}" class="chart rmap" role="img" '
-           f'aria-label="Every team by adjusted offense and adjusted defense">']
+           f'aria-label="Every team by adjusted offence and adjusted defence">']
     step = 2 if span <= 8 else 4
     first = math.ceil(lo / step) * step
     for v in range(int(first), int(hi) + 1, step):
@@ -112,8 +112,8 @@ def ratings_map_svg(info, teams, mu, root="/", width=540, height=460):
                f'transform="rotate(-90 14 {(top + height - bottom) / 2:.1f})">AdjD, points allowed per 100 (fewer is higher) →</text>')
     pad = 8
     for tx, ty, anchor, label in ((width - right - pad, top + 16, "end", "Good at both ends"),
-                                  (left + pad, top + 16, "start", "Defense first"),
-                                  (width - right - pad, height - bottom - pad, "end", "Offense first"),
+                                  (left + pad, top + 16, "start", "Defence first"),
+                                  (width - right - pad, height - bottom - pad, "end", "Offence first"),
                                   (left + pad, height - bottom - pad, "start", "Struggling at both ends")):
         svg.append(f'<text x="{tx}" y="{ty}" class="quad" text-anchor="{anchor}">{label}</text>')
 

@@ -2,7 +2,7 @@
 
 Impact: points per 100 possessions a player adds vs an average player, estimated from his box
 score. The stat weights are fitted to on-court plus-minus from 2016-17 to 2020-21; small samples
-are pulled toward bench level.
+are pulled towards bench level.
 
 Availability: a regular who missed his team's last game is assumed out for the next one. The
 prediction moves by how much worse the teammates who took his minutes in that game are. ADJ_SCALE
@@ -18,7 +18,7 @@ SOURCE = {"pts": "points", "fga": "field_goals_attempted", "fta": "free_throws_a
 COEF_SEASONS = (2016, 2017, 2018, 2019, 2020)
 RIDGE = 2000.0
 REPLACEMENT = -2.0    # a bench-level player, per 100 possessions on court
-PRIOR_POSS = 300      # possessions' worth of pull toward REPLACEMENT
+PRIOR_POSS = 300      # possessions' worth of pull towards REPLACEMENT
 ADJ_SCALE = 8.0       # how much the raw values move a game margin. Half the best fit: a player who missed
                       # the last game plays the next one 37% of the time, and half gave the same accuracy
                       # on 2017-18 onward with half the swing when the guess is wrong.

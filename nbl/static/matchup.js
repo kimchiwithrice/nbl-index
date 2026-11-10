@@ -139,7 +139,7 @@
     return '<h2 style="margin-top:0">Ratings</h2><div class="tw"><table class="dense"><thead><tr><th class="l"></th>' +
       '<th><a href="../teams/' + teams[away].slug + '/">' + teams[away].code + "</a></th>" +
       '<th><a href="../teams/' + teams[home].slug + '/">' + teams[home].code + "</a></th></tr></thead><tbody>" +
-      row("AdjEM", "net") + row("Adj. offense", "o") + row("Adj. defense", "d") + row("Adj. tempo", "t") +
+      row("AdjEM", "net") + row("Adj. offence", "o") + row("Adj. defence", "d") + row("Adj. tempo", "t") +
       "</tbody></table></div>";
   }
 
