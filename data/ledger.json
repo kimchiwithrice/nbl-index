@@ -493,9 +493,9 @@
   "away": "Adelaide 36ers",
   "slug": "2026-11-19-adelaide-36ers-at-illawarra-hawks",
   "p_home": 0.41,
-  "margin": -3.2,
+  "margin": -3.1,
   "total": 195.1,
-  "logged": "2026-11-10T13:32:48.676670+00:00"
+  "logged": "2026-11-10T20:52:56.362391+00:00"
  },
  "37779e30-58ad-11f1-a2d6-d729b42cc855": {
   "utc": "2026-11-20T08:30:00+00:00",
@@ -532,10 +532,10 @@
   "home": "South East Melbourne Phoenix",
   "away": "Cairns Taipans",
   "slug": "2026-11-22-cairns-taipans-at-south-east-melbourne-phoenix",
-  "p_home": 0.689,
+  "p_home": 0.688,
   "margin": 6.8,
   "total": 195.2,
-  "logged": "2026-11-08T13:34:16.529612+00:00"
+  "logged": "2026-11-10T20:52:56.362391+00:00"
  },
  "374c5a9d-58ad-11f1-8829-1daf76a0ede8": {
   "utc": "2026-11-22T06:00:00+00:00",
@@ -592,10 +592,10 @@
   "home": "Cairns Taipans",
   "away": "South East Melbourne Phoenix",
   "slug": "2026-12-05-south-east-melbourne-phoenix-at-cairns-taipans",
-  "p_home": 0.398,
+  "p_home": 0.399,
   "margin": -3.5,
   "total": 195.2,
-  "logged": "2026-11-10T13:32:48.676670+00:00"
+  "logged": "2026-11-10T20:52:56.362391+00:00"
  },
  "3747bbe2-58ad-11f1-a09d-892c4438c413": {
   "utc": "2026-12-05T08:30:00+00:00",
@@ -652,10 +652,10 @@
   "home": "New Zealand Breakers",
   "away": "Sydney Kings",
   "slug": "2026-12-11-sydney-kings-at-new-zealand-breakers",
-  "p_home": 0.375,
+  "p_home": 0.376,
   "margin": -4.4,
   "total": 185.1,
-  "logged": "2026-11-08T18:53:16.675607+00:00"
+  "logged": "2026-11-10T20:52:56.362391+00:00"
  },
  "37510e22-58ad-11f1-b8d1-0361ae94d7e7": {
   "utc": "2026-12-12T06:30:00+00:00",
@@ -752,10 +752,10 @@
   "home": "Illawarra Hawks",
   "away": "Melbourne United",
   "slug": "2026-12-20-melbourne-united-at-illawarra-hawks",
-  "p_home": 0.304,
-  "margin": -7.1,
+  "p_home": 0.305,
+  "margin": -7.0,
   "total": 197.6,
-  "logged": "2026-11-08T18:53:16.675607+00:00"
+  "logged": "2026-11-10T20:52:56.362391+00:00"
  },
  "3757e2b3-58ad-11f1-801d-e3b03d7fb141": {
   "utc": "2026-12-20T06:00:00+00:00",
@@ -792,10 +792,10 @@
   "home": "Melbourne United",
   "away": "Cairns Taipans",
   "slug": "2026-12-23-cairns-taipans-at-melbourne-united",
-  "p_home": 0.751,
+  "p_home": 0.75,
   "margin": 9.3,
   "total": 190.7,
-  "logged": "2026-11-08T13:34:16.529612+00:00"
+  "logged": "2026-11-10T20:52:56.362391+00:00"
  },
  "377fd891-58ad-11f1-a6fa-c1b6941c6419": {
   "utc": "2026-12-24T08:00:00+00:00",
@@ -1042,10 +1042,10 @@
   "home": "Melbourne United",
   "away": "Cairns Taipans",
   "slug": "2027-01-13-cairns-taipans-at-melbourne-united",
-  "p_home": 0.751,
+  "p_home": 0.75,
   "margin": 9.3,
   "total": 190.7,
-  "logged": "2026-11-08T13:34:16.529612+00:00"
+  "logged": "2026-11-10T20:52:56.362391+00:00"
  },
  "378cef96-58ad-11f1-a398-d95637fbed2b": {
   "utc": "2027-01-14T10:30:00+00:00",
@@ -1202,10 +1202,10 @@
   "home": "Cairns Taipans",
   "away": "Sydney Kings",
   "slug": "2027-01-27-sydney-kings-at-cairns-taipans",
-  "p_home": 0.286,
+  "p_home": 0.287,
   "margin": -7.8,
   "total": 190.0,
-  "logged": "2026-11-08T13:34:16.529612+00:00"
+  "logged": "2026-11-10T20:52:56.362391+00:00"
  },
  "37947616-58ad-11f1-a290-8da1c4ae1ac0": {
   "utc": "2027-01-28T08:30:00+00:00",
@@ -1262,10 +1262,10 @@
   "home": "Cairns Taipans",
   "away": "South East Melbourne Phoenix",
   "slug": "2027-01-31-south-east-melbourne-phoenix-at-cairns-taipans",
-  "p_home": 0.398,
+  "p_home": 0.399,
   "margin": -3.5,
   "total": 195.2,
-  "logged": "2026-11-10T13:32:48.676670+00:00"
+  "logged": "2026-11-10T20:52:56.362391+00:00"
  },
  "37931e61-58ad-11f1-982d-a93048d70593": {
   "utc": "2027-01-31T08:30:00+00:00",
@@ -1372,10 +1372,10 @@
   "home": "New Zealand Breakers",
   "away": "Sydney Kings",
   "slug": "2027-02-11-sydney-kings-at-new-zealand-breakers",
-  "p_home": 0.375,
+  "p_home": 0.376,
   "margin": -4.4,
   "total": 185.1,
-  "logged": "2026-11-08T18:53:16.675607+00:00"
+  "logged": "2026-11-10T20:52:56.362391+00:00"
  },
  "3797f6e3-58ad-11f1-87a8-fbbd24deadd3": {
   "utc": "2027-02-11T08:30:00+00:00",
