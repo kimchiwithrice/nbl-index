@@ -392,8 +392,8 @@
   "slug": "2026-11-11-illawarra-hawks-at-south-east-melbourne-phoenix",
   "p_home": 0.713,
   "margin": 7.7,
-  "total": 202.2,
-  "logged": "2026-11-10T07:48:49.234046+00:00"
+  "total": 202.3,
+  "logged": "2026-11-08T18:53:16.675607+00:00"
  },
  "375813e7-58ad-11f1-8c9c-2572c13c410b": {
   "utc": "2026-11-12T08:30:00+00:00",
@@ -454,8 +454,8 @@
   "slug": "2026-11-14-illawarra-hawks-at-perth-wildcats",
   "p_home": 0.62,
   "margin": 4.2,
-  "total": 198.9,
-  "logged": "2026-11-10T07:48:49.234046+00:00"
+  "total": 199.0,
+  "logged": "2026-11-08T13:34:16.529612+00:00"
  },
  "3746a5e8-58ad-11f1-8707-7d800a023985": {
   "utc": "2026-11-15T04:00:00+00:00",
@@ -874,8 +874,8 @@
   "slug": "2026-12-31-south-east-melbourne-phoenix-at-illawarra-hawks",
   "p_home": 0.373,
   "margin": -4.5,
-  "total": 202.2,
-  "logged": "2026-11-10T07:48:49.234046+00:00"
+  "total": 202.3,
+  "logged": "2026-11-09T21:44:19.945392+00:00"
  },
  "3769a2ba-58ad-11f1-ba9d-6f9744c8d3ab": {
   "utc": "2026-12-31T08:30:00+00:00",
@@ -964,8 +964,8 @@
   "slug": "2027-01-06-perth-wildcats-at-illawarra-hawks",
   "p_home": 0.469,
   "margin": -1.1,
-  "total": 198.9,
-  "logged": "2026-11-10T07:48:49.234046+00:00"
+  "total": 199.0,
+  "logged": "2026-11-08T13:34:16.529612+00:00"
  },
  "377cd763-58ad-11f1-8114-69c2b72ae0a9": {
   "utc": "2027-01-07T08:30:00+00:00",
@@ -1244,8 +1244,8 @@
   "slug": "2027-01-30-perth-wildcats-at-illawarra-hawks",
   "p_home": 0.469,
   "margin": -1.1,
-  "total": 198.9,
-  "logged": "2026-11-10T07:48:49.234046+00:00"
+  "total": 199.0,
+  "logged": "2026-11-08T13:34:16.529612+00:00"
  },
  "37927ea9-58ad-11f1-816a-db7d6019155e": {
   "utc": "2027-01-30T08:30:00+00:00",
@@ -1402,10 +1402,10 @@
   "home": "Perth Wildcats",
   "away": "Brisbane Bullets",
   "slug": "2027-02-12-brisbane-bullets-at-perth-wildcats",
-  "p_home": 0.612,
+  "p_home": 0.613,
   "margin": 3.9,
   "total": 193.6,
-  "logged": "2026-11-10T07:48:49.234046+00:00"
+  "logged": "2026-11-08T13:34:16.529612+00:00"
  },
  "379c1ff2-58ad-11f1-b2ec-411a11259918": {
   "utc": "2027-02-13T06:30:00+00:00",
