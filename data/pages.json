@@ -1,6 +1,6 @@
 {
 "": [
-"67647d40196c",
+"786177d057b6",
 "2026-11-13"
 ],
 "about/": [
@@ -12,299 +12,303 @@
 "2026-11-09"
 ],
 "games/2026-09-19-adelaide-36ers-at-melbourne-united/": [
-"772b2876ef74",
-"2026-11-12"
+"570f41a1295e",
+"2026-11-13"
 ],
 "games/2026-09-19-south-east-melbourne-phoenix-at-perth-wildcats/": [
-"0b9fccc8e8ab",
-"2026-11-12"
+"547c0725fc4c",
+"2026-11-13"
 ],
 "games/2026-09-20-cairns-taipans-at-sydney-kings/": [
-"ad940759bac8",
-"2026-11-12"
+"3f86c639ae73",
+"2026-11-13"
 ],
 "games/2026-09-20-illawarra-hawks-at-new-zealand-breakers/": [
-"3081d0692f1e",
-"2026-11-12"
+"111365c03a1f",
+"2026-11-13"
 ],
 "games/2026-09-21-south-east-melbourne-phoenix-at-tasmania-jackjumpers/": [
-"dc22a8a06a3d",
-"2026-11-12"
+"9ac570cc34c9",
+"2026-11-13"
 ],
 "games/2026-09-22-new-zealand-breakers-at-brisbane-bullets/": [
-"6d874befa6bf",
-"2026-11-12"
+"6a1efdca3aaf",
+"2026-11-13"
 ],
 "games/2026-09-23-tasmania-jackjumpers-at-cairns-taipans/": [
-"51de31a6832c",
-"2026-11-12"
+"e740e7de02f1",
+"2026-11-13"
 ],
 "games/2026-09-24-adelaide-36ers-at-perth-wildcats/": [
-"9747ec0313da",
-"2026-11-12"
+"d2276ad9fc2f",
+"2026-11-13"
 ],
 "games/2026-09-24-melbourne-united-at-south-east-melbourne-phoenix/": [
-"124a3da614bd",
-"2026-11-12"
+"5e0b5a704682",
+"2026-11-13"
 ],
 "games/2026-09-25-illawarra-hawks-at-brisbane-bullets/": [
-"74f05a7bc684",
-"2026-11-12"
+"15ff63d915d5",
+"2026-11-13"
 ],
 "games/2026-09-26-new-zealand-breakers-at-perth-wildcats/": [
-"4bc12cf9d79b",
-"2026-11-12"
+"b819f3a70a6f",
+"2026-11-13"
 ],
 "games/2026-09-27-cairns-taipans-at-adelaide-36ers/": [
-"7625108a6354",
-"2026-11-12"
+"a57b9f8345c9",
+"2026-11-13"
 ],
 "games/2026-09-27-illawarra-hawks-at-sydney-kings/": [
-"16162ae5470b",
+"8586ed06ffce",
 "2026-11-13"
 ],
 "games/2026-09-30-brisbane-bullets-at-sydney-kings/": [
-"d8bf834c3569",
-"2026-11-12"
+"2bc862cd36fc",
+"2026-11-13"
 ],
 "games/2026-09-30-cairns-taipans-at-new-zealand-breakers/": [
-"11c80fbece11",
-"2026-11-12"
+"ec63142ce800",
+"2026-11-13"
 ],
 "games/2026-10-01-melbourne-united-at-tasmania-jackjumpers/": [
-"bfe9c033c147",
-"2026-11-12"
+"82c59e55be39",
+"2026-11-13"
 ],
 "games/2026-10-02-adelaide-36ers-at-illawarra-hawks/": [
-"288c467630e6",
-"2026-11-12"
+"3c52713b20cc",
+"2026-11-13"
 ],
 "games/2026-10-02-south-east-melbourne-phoenix-at-perth-wildcats/": [
-"bff5a05971fa",
-"2026-11-12"
+"e994838bb4cf",
+"2026-11-13"
 ],
 "games/2026-10-03-cairns-taipans-at-melbourne-united/": [
-"e197c539689f",
-"2026-11-12"
+"ba1991e3d52f",
+"2026-11-13"
 ],
 "games/2026-10-03-tasmania-jackjumpers-at-brisbane-bullets/": [
-"280fc2b34afb",
-"2026-11-12"
+"96b833d097a2",
+"2026-11-13"
 ],
 "games/2026-10-04-illawarra-hawks-at-south-east-melbourne-phoenix/": [
-"f4ec09b7d636",
-"2026-11-12"
+"45771ecf3e09",
+"2026-11-13"
 ],
 "games/2026-10-04-new-zealand-breakers-at-adelaide-36ers/": [
-"9fd88e4e6b14",
-"2026-11-12"
+"d2f05a6e5518",
+"2026-11-13"
 ],
 "games/2026-10-07-melbourne-united-at-adelaide-36ers/": [
-"de8fcc1f0514",
-"2026-11-12"
+"ee8d4598c852",
+"2026-11-13"
 ],
 "games/2026-10-08-brisbane-bullets-at-cairns-taipans/": [
-"78db6d71ccf7",
-"2026-11-12"
+"7a15fc01f4ce",
+"2026-11-13"
 ],
 "games/2026-10-09-tasmania-jackjumpers-at-illawarra-hawks/": [
-"0628cf6f03c2",
-"2026-11-12"
+"1c49116523a2",
+"2026-11-13"
 ],
 "games/2026-10-10-melbourne-united-at-south-east-melbourne-phoenix/": [
-"734050c04611",
-"2026-11-12"
+"486fbbec5458",
+"2026-11-13"
 ],
 "games/2026-10-10-new-zealand-breakers-at-perth-wildcats/": [
-"fa94cab9ba67",
-"2026-11-12"
+"7a20d45b134d",
+"2026-11-13"
 ],
 "games/2026-10-11-adelaide-36ers-at-sydney-kings/": [
-"c6f29b629f15",
-"2026-11-12"
+"cdb3ccdede8a",
+"2026-11-13"
 ],
 "games/2026-10-11-cairns-taipans-at-illawarra-hawks/": [
-"8be625d4dabc",
-"2026-11-12"
+"c385228c9bc5",
+"2026-11-13"
 ],
 "games/2026-10-14-new-zealand-breakers-at-sydney-kings/": [
-"7d6b9a2b7afc",
-"2026-11-12"
+"46bc660daabb",
+"2026-11-13"
 ],
 "games/2026-10-15-south-east-melbourne-phoenix-at-brisbane-bullets/": [
-"d1e6d1d4f79f",
-"2026-11-12"
+"2849fb290c21",
+"2026-11-13"
 ],
 "games/2026-10-16-adelaide-36ers-at-tasmania-jackjumpers/": [
-"e8abeef17f54",
-"2026-11-12"
+"b38e09571928",
+"2026-11-13"
 ],
 "games/2026-10-17-cairns-taipans-at-south-east-melbourne-phoenix/": [
-"510a015d2018",
-"2026-11-12"
+"61bceb0478b4",
+"2026-11-13"
 ],
 "games/2026-10-17-perth-wildcats-at-sydney-kings/": [
-"659cf6f9ab5d",
-"2026-11-12"
+"b7c57f2a74c7",
+"2026-11-13"
 ],
 "games/2026-10-18-illawarra-hawks-at-melbourne-united/": [
-"cb06aad4cef9",
-"2026-11-12"
+"15a47eaebce1",
+"2026-11-13"
 ],
 "games/2026-10-18-new-zealand-breakers-at-tasmania-jackjumpers/": [
-"dc66a375bf4e",
-"2026-11-12"
+"afac198d3a0d",
+"2026-11-13"
 ],
 "games/2026-10-21-brisbane-bullets-at-tasmania-jackjumpers/": [
-"ed4f784727f1",
-"2026-11-12"
+"044414abb47e",
+"2026-11-13"
 ],
 "games/2026-10-22-sydney-kings-at-illawarra-hawks/": [
-"b6c606ad3642",
-"2026-11-12"
+"d1785690d470",
+"2026-11-13"
 ],
 "games/2026-10-23-melbourne-united-at-perth-wildcats/": [
-"e4bd4b15e3c3",
-"2026-11-12"
+"93ee29e05689",
+"2026-11-13"
 ],
 "games/2026-10-24-adelaide-36ers-at-south-east-melbourne-phoenix/": [
-"e7e6af0295d7",
-"2026-11-12"
+"cf72f1d1773c",
+"2026-11-13"
 ],
 "games/2026-10-24-brisbane-bullets-at-illawarra-hawks/": [
-"5acb59583569",
-"2026-11-12"
+"dca8d1f88e85",
+"2026-11-13"
 ],
 "games/2026-10-25-new-zealand-breakers-at-cairns-taipans/": [
-"532a01a60ce4",
-"2026-11-12"
+"ff8d08860bc4",
+"2026-11-13"
 ],
 "games/2026-10-25-sydney-kings-at-melbourne-united/": [
-"4a6bb339b129",
-"2026-11-12"
+"aa1219ec04bb",
+"2026-11-13"
 ],
 "games/2026-10-28-sydney-kings-at-perth-wildcats/": [
-"a4f57943193a",
-"2026-11-12"
+"1ae0f1061bc4",
+"2026-11-13"
 ],
 "games/2026-10-29-cairns-taipans-at-brisbane-bullets/": [
-"3a01e75e5447",
-"2026-11-12"
+"97376e43627b",
+"2026-11-13"
 ],
 "games/2026-10-30-adelaide-36ers-at-new-zealand-breakers/": [
-"64577d0c0b71",
-"2026-11-12"
+"5ea4c8456f17",
+"2026-11-13"
 ],
 "games/2026-10-30-sydney-kings-at-tasmania-jackjumpers/": [
-"4df76f89c0ea",
-"2026-11-12"
+"616ff1bd7eae",
+"2026-11-13"
 ],
 "games/2026-10-31-illawarra-hawks-at-perth-wildcats/": [
-"33abc79567b8",
-"2026-11-12"
+"3a41a6850a19",
+"2026-11-13"
 ],
 "games/2026-10-31-melbourne-united-at-cairns-taipans/": [
-"2ec621d916fd",
-"2026-11-12"
+"30adfb89b9a3",
+"2026-11-13"
 ],
 "games/2026-11-01-brisbane-bullets-at-adelaide-36ers/": [
-"28682ec2d6d7",
-"2026-11-12"
+"5943b8ec2f1e",
+"2026-11-13"
 ],
 "games/2026-11-01-tasmania-jackjumpers-at-south-east-melbourne-phoenix/": [
-"66e395bf00c9",
-"2026-11-12"
+"b71e46cd94cd",
+"2026-11-13"
 ],
 "games/2026-11-02-new-zealand-breakers-at-melbourne-united/": [
-"0aa14ec0a619",
-"2026-11-12"
+"34ca3f0a158e",
+"2026-11-13"
 ],
 "games/2026-11-04-perth-wildcats-at-brisbane-bullets/": [
-"db81d76cbd67",
-"2026-11-12"
+"c6f4e840dddd",
+"2026-11-13"
 ],
 "games/2026-11-05-illawarra-hawks-at-cairns-taipans/": [
-"6c49c0f42a8f",
-"2026-11-12"
+"ba64f0bb5c07",
+"2026-11-13"
 ],
 "games/2026-11-06-new-zealand-breakers-at-tasmania-jackjumpers/": [
-"353f4591aa1e",
-"2026-11-12"
+"6a25d4056186",
+"2026-11-13"
 ],
 "games/2026-11-07-brisbane-bullets-at-melbourne-united/": [
-"f4db1fbc67c2",
-"2026-11-12"
+"18966015c6ec",
+"2026-11-13"
 ],
 "games/2026-11-07-illawarra-hawks-at-adelaide-36ers/": [
-"2259511db3f0",
-"2026-11-12"
+"d5209bd9e977",
+"2026-11-13"
 ],
 "games/2026-11-08-cairns-taipans-at-perth-wildcats/": [
-"313c449c6475",
-"2026-11-12"
+"23a8aacec32e",
+"2026-11-13"
 ],
 "games/2026-11-08-south-east-melbourne-phoenix-at-sydney-kings/": [
-"9bbfa1bb093c",
-"2026-11-12"
+"9a6650f36c95",
+"2026-11-13"
 ],
 "games/2026-11-11-illawarra-hawks-at-south-east-melbourne-phoenix/": [
-"1448ef3ab8c1",
-"2026-11-12"
+"d3fc2cfaf651",
+"2026-11-13"
 ],
 "games/2026-11-12-melbourne-united-at-adelaide-36ers/": [
-"3e1f2eeee438",
-"2026-11-12"
+"d911e52f4915",
+"2026-11-13"
 ],
 "games/2026-11-12-tasmania-jackjumpers-at-perth-wildcats/": [
-"ba6220933df6",
-"2026-11-12"
+"5ad4f54711ef",
+"2026-11-13"
 ],
 "games/2026-11-13-brisbane-bullets-at-new-zealand-breakers/": [
-"729bd5bf3bc6",
-"2026-11-12"
+"9043900dd53b",
+"2026-11-13"
 ],
 "games/2026-11-13-sydney-kings-at-cairns-taipans/": [
-"3c8b8e4698d4",
+"6b78ff099fab",
 "2026-11-13"
 ],
 "games/2026-11-14-illawarra-hawks-at-perth-wildcats/": [
-"aa48070300b3",
-"2026-11-12"
+"6667adeafce5",
+"2026-11-13"
 ],
 "games/2026-11-14-south-east-melbourne-phoenix-at-melbourne-united/": [
-"76adc9e0beb4",
-"2026-11-12"
+"c455ad69d15b",
+"2026-11-13"
 ],
 "games/2026-11-15-new-zealand-breakers-at-sydney-kings/": [
-"9b0cf55c7faf",
-"2026-11-12"
+"81832027c45f",
+"2026-11-13"
 ],
 "games/2026-11-15-tasmania-jackjumpers-at-brisbane-bullets/": [
-"2f4cbc0f7ee0",
+"5f311a27928a",
 "2026-11-13"
 ],
 "games/2026-11-18-south-east-melbourne-phoenix-at-new-zealand-breakers/": [
-"e225de319110",
-"2026-11-12"
+"189079017938",
+"2026-11-13"
 ],
 "games/2026-11-19-adelaide-36ers-at-illawarra-hawks/": [
-"46e22978d794",
-"2026-11-12"
+"3d919bbcb067",
+"2026-11-13"
+],
+"games/2026-11-20-perth-wildcats-at-cairns-taipans/": [
+"7ae6ec2ed23b",
+"2026-11-13"
 ],
 "glossary/": [
 "d2691c0afb22",
 "2026-11-10"
 ],
 "history/": [
-"7ecca0c199a3",
-"2026-11-12"
+"958cfcf9ab9f",
+"2026-11-13"
 ],
 "ladder/": [
-"559c9f363c1e",
+"4449bf89474d",
 "2026-11-13"
 ],
 "league/": [
-"526eba6a9a35",
+"74269f05c1cc",
 "2026-11-13"
 ],
 "matchup/": [
@@ -312,12 +316,12 @@
 "2026-11-09"
 ],
 "model/": [
-"5abfe5955a5d",
-"2026-11-12"
+"69df1148809d",
+"2026-11-13"
 ],
 "players/": [
-"99ce435ff1e0",
-"2026-11-12"
+"ec86488592dc",
+"2026-11-13"
 ],
 "players/aaron-brooks/": [
 "0bfa1c9eef1e",
@@ -356,8 +360,8 @@
 "2026-11-09"
 ],
 "players/akech-aliir/": [
-"de61cae514ba",
-"2026-11-12"
+"c52e55544ee3",
+"2026-11-13"
 ],
 "players/akil-mitchell/": [
 "fe999364ce48",
@@ -388,8 +392,8 @@
 "2026-11-09"
 ],
 "players/alex-higgins-titsha/": [
-"fb632e214f97",
-"2026-11-12"
+"2023dd06baf8",
+"2026-11-13"
 ],
 "players/alex-loughton/": [
 "f55b13dc29e6",
@@ -444,8 +448,8 @@
 "2026-11-09"
 ],
 "players/andrew-carr/": [
-"a9d4ebf95b9f",
-"2026-11-12"
+"4175d9ac37db",
+"2026-11-13"
 ],
 "players/andrew-ogilvy/": [
 "8175253c5118",
@@ -456,16 +460,16 @@
 "2026-11-09"
 ],
 "players/angus-brandt/": [
-"366519ccdfac",
-"2026-11-12"
+"95dc81e1e0cc",
+"2026-11-13"
 ],
 "players/angus-glover/": [
-"18704fd2776e",
-"2026-11-12"
+"5a077a938283",
+"2026-11-13"
 ],
 "players/anthony-dell-orso/": [
-"d1ce998fa032",
-"2026-11-12"
+"5366ade764d5",
+"2026-11-13"
 ],
 "players/anthony-drmic/": [
 "0159b45c782b",
@@ -492,12 +496,12 @@
 "2026-11-09"
 ],
 "players/anzac-rissetto/": [
-"301bdec63171",
-"2026-11-12"
+"698624ceba6c",
+"2026-11-13"
 ],
 "players/archie-woodhill/": [
-"abf0fe1c199e",
-"2026-11-12"
+"f1a453eed373",
+"2026-11-13"
 ],
 "players/ariel-hukporti/": [
 "bde09267a4d5",
@@ -508,8 +512,8 @@
 "2026-11-09"
 ],
 "players/arnas-velicka/": [
-"dd4d9adad5ef",
-"2026-11-12"
+"c51a81ea3092",
+"2026-11-13"
 ],
 "players/aron-baynes/": [
 "5ef2a84d736c",
@@ -532,12 +536,12 @@
 "2026-11-09"
 ],
 "players/austin-shelley/": [
-"c9cd24da4bf5",
-"2026-11-12"
+"6c6d46f730c7",
+"2026-11-13"
 ],
 "players/bailey-hanson/": [
-"006a87de27ae",
-"2026-11-12"
+"7f6e9c492c4f",
+"2026-11-13"
 ],
 "players/banjo-talbot/": [
 "a26a78e14f80",
@@ -548,20 +552,20 @@
 "2026-11-09"
 ],
 "players/ben-ayre/": [
-"8270f62e0a28",
-"2026-11-12"
+"d0c6bbb17688",
+"2026-11-13"
 ],
 "players/ben-dixon/": [
 "00a85c413cb7",
 "2026-11-09"
 ],
 "players/ben-gold/": [
-"a50e5fe224e5",
-"2026-11-12"
+"8650926558a7",
+"2026-11-13"
 ],
 "players/ben-griscti/": [
-"a38e2cad0d4a",
-"2026-11-12"
+"22e694620f33",
+"2026-11-13"
 ],
 "players/ben-henshall/": [
 "819a803bb31e",
@@ -596,16 +600,16 @@
 "2026-11-09"
 ],
 "players/billy-mcrae/": [
-"a2fd09e4b31a",
-"2026-11-12"
+"6836d1aaa505",
+"2026-11-13"
 ],
 "players/billy-preston/": [
 "6f98fe3e685d",
 "2026-11-09"
 ],
 "players/biwali-bayles/": [
-"3c79b4c6f25a",
-"2026-11-12"
+"77ddc6a8a703",
+"2026-11-13"
 ],
 "players/bj-johnson/": [
 "89c371921736",
@@ -644,8 +648,8 @@
 "2026-11-09"
 ],
 "players/brandon-knight/": [
-"22fceacb49ca",
-"2026-11-12"
+"083e3e3b0eda",
+"2026-11-13"
 ],
 "players/brandon-paul/": [
 "63aa84eacb0c",
@@ -672,16 +676,16 @@
 "2026-11-09"
 ],
 "players/brodie-mcgregor/": [
-"26343cc49ffa",
-"2026-11-12"
+"9b8c3ac8eb3d",
+"2026-11-13"
 ],
 "players/brody-nunn/": [
-"15fb7bc3c808",
-"2026-11-12"
+"1b27c59dd401",
+"2026-11-13"
 ],
 "players/bryce-cotton/": [
-"b7e8c36245b6",
-"2026-11-12"
+"b01d0d309d72",
+"2026-11-13"
 ],
 "players/bryce-hamilton/": [
 "0144ba266984",
@@ -716,8 +720,8 @@
 "2026-11-09"
 ],
 "players/cameron-huefner/": [
-"0198bd0137e6",
-"2026-11-12"
+"4cb88c9211fe",
+"2026-11-13"
 ],
 "players/cameron-oliver/": [
 "02d4f0737bf3",
@@ -736,8 +740,8 @@
 "2026-11-09"
 ],
 "players/carlin-davison/": [
-"250762ad08f3",
-"2026-11-12"
+"6fd1e450e531",
+"2026-11-13"
 ],
 "players/carrick-felix/": [
 "908f57f8e19a",
@@ -756,8 +760,8 @@
 "2026-11-09"
 ],
 "players/charles-bediako/": [
-"ecc8647c0f4f",
-"2026-11-12"
+"8cbe2abd0d1a",
+"2026-11-13"
 ],
 "players/charles-jackson/": [
 "fb6b69d627f9",
@@ -776,8 +780,8 @@
 "2026-11-09"
 ],
 "players/chris-goulding/": [
-"9d96b27df672",
-"2026-11-12"
+"596b2b2e4139",
+"2026-11-13"
 ],
 "players/chris-patton/": [
 "64a44037e263",
@@ -788,8 +792,8 @@
 "2026-11-09"
 ],
 "players/christian-d-angelo/": [
-"bf3dbeac8235",
-"2026-11-12"
+"740b0ae2b400",
+"2026-11-13"
 ],
 "players/christian-jurlina/": [
 "205fd8075e4d",
@@ -816,8 +820,8 @@
 "2026-11-09"
 ],
 "players/cole-anthony/": [
-"0a950005cfaf",
-"2026-11-12"
+"33c6389534f6",
+"2026-11-13"
 ],
 "players/colton-iverson/": [
 "2198b5878699",
@@ -836,8 +840,8 @@
 "2026-11-09"
 ],
 "players/corey-webster/": [
-"cfc54deacb99",
-"2026-11-12"
+"2329b1c8fed9",
+"2026-11-13"
 ],
 "players/craig-moller/": [
 "b8c2ae6d0c90",
@@ -852,12 +856,12 @@
 "2026-11-09"
 ],
 "players/d-shawn-schwartz/": [
-"c6ecbe10e7d9",
-"2026-11-12"
+"ec6509c71e74",
+"2026-11-13"
 ],
 "players/dakota-mathias/": [
-"3f6175528246",
-"2026-11-12"
+"8a3483cc35fd",
+"2026-11-13"
 ],
 "players/damian-martin/": [
 "e67296ef130f",
@@ -884,16 +888,16 @@
 "2026-11-09"
 ],
 "players/daniel-foster/": [
-"9f7fefaf74ad",
-"2026-11-12"
+"c32484535fb8",
+"2026-11-13"
 ],
 "players/daniel-fotu/": [
 "39ef53a09e33",
 "2026-11-09"
 ],
 "players/daniel-grida/": [
-"398943b6c196",
-"2026-11-12"
+"8649eb0dacc9",
+"2026-11-13"
 ],
 "players/daniel-johnson/": [
 "a04eaf1c5d74",
@@ -924,12 +928,12 @@
 "2026-11-09"
 ],
 "players/darius-days/": [
-"ed488f7dcaf2",
-"2026-11-12"
+"43de634c4f4f",
+"2026-11-13"
 ],
 "players/dash-daniels/": [
-"a20fe83a56fa",
-"2026-11-12"
+"4e859d2dd969",
+"2026-11-13"
 ],
 "players/david-andersen/": [
 "7d0162176ef1",
@@ -944,8 +948,8 @@
 "2026-11-09"
 ],
 "players/david-johnson/": [
-"ca752709881b",
-"2026-11-12"
+"67db9c18986a",
+"2026-11-13"
 ],
 "players/david-kennedy/": [
 "0a420e67d067",
@@ -968,8 +972,8 @@
 "2026-11-09"
 ],
 "players/dejan-vasiljevic/": [
-"783e3c5e4ad0",
-"2026-11-12"
+"746ede709de9",
+"2026-11-13"
 ],
 "players/delvon-johnson/": [
 "44ec6c05717b",
@@ -1000,8 +1004,8 @@
 "2026-11-09"
 ],
 "players/deonte-williams/": [
-"c9befc2ac5a2",
-"2026-11-12"
+"0256344bd974",
+"2026-11-13"
 ],
 "players/derek-cooke-jr/": [
 "92f802fdab52",
@@ -1108,8 +1112,8 @@
 "2026-11-09"
 ],
 "players/dylan-windler/": [
-"b8f12295d0e0",
-"2026-11-12"
+"31f80076fedc",
+"2026-11-13"
 ],
 "players/ebi-ere/": [
 "bd08b42ff7b5",
@@ -1124,12 +1128,12 @@
 "2026-11-09"
 ],
 "players/elijah-pepper/": [
-"b6907b3b0474",
-"2026-11-12"
+"24483d52d043",
+"2026-11-13"
 ],
 "players/ellis-biggar/": [
-"fd14a7178439",
-"2026-11-12"
+"ac1cbae585cb",
+"2026-11-13"
 ],
 "players/emmanuel-golong/": [
 "4248e780ce9c",
@@ -1160,8 +1164,8 @@
 "2026-11-09"
 ],
 "players/fabijan-krslovic/": [
-"e4e06cb1c85d",
-"2026-11-12"
+"0532b75a632c",
+"2026-11-13"
 ],
 "players/felix-von-hofe/": [
 "ed1c1ca3d177",
@@ -1176,12 +1180,12 @@
 "2026-11-09"
 ],
 "players/fletcher-macdonald/": [
-"666d930b834c",
-"2026-11-12"
+"051519cb8b84",
+"2026-11-13"
 ],
 "players/flynn-cameron/": [
-"1d1dcfba208a",
-"2026-11-12"
+"3e377a03f442",
+"2026-11-13"
 ],
 "players/fraser-roxburgh/": [
 "3ee9bd519a8b",
@@ -1256,16 +1260,16 @@
 "2026-11-09"
 ],
 "players/harry-rouhliadeff/": [
-"c8efea83dd19",
-"2026-11-12"
+"d026c614f135",
+"2026-11-13"
 ],
 "players/harry-wessels/": [
-"ab1513e843af",
-"2026-11-12"
+"7c6df0b84a19",
+"2026-11-13"
 ],
 "players/harvey-white/": [
-"11a9c44fd0f2",
-"2026-11-12"
+"571c31e907e0",
+"2026-11-13"
 ],
 "players/hugo-besson/": [
 "62b613626b06",
@@ -1276,8 +1280,8 @@
 "2026-11-09"
 ],
 "players/hunter-goodrick/": [
-"18dadf11bbff",
-"2026-11-12"
+"17cae8e83236",
+"2026-11-13"
 ],
 "players/hunter-jack-madden/": [
 "7ed7be6b4fe7",
@@ -1328,8 +1332,8 @@
 "2026-11-09"
 ],
 "players/isaac-white/": [
-"d03ea2daa9e5",
-"2026-11-12"
+"5951a4396e86",
+"2026-11-13"
 ],
 "players/isaiah-moss/": [
 "cce6744d9de4",
@@ -1348,8 +1352,8 @@
 "2026-11-09"
 ],
 "players/izayah-le-afa-new-zealand-breakers/": [
-"8e8bb5b41e39",
-"2026-11-12"
+"93252e81461e",
+"2026-11-13"
 ],
 "players/izayah-le-afa-south-east-melbourne-phoenix/": [
 "4042a301b000",
@@ -1372,8 +1376,8 @@
 "2026-11-09"
 ],
 "players/jack-mcveigh-adelaide-36ers/": [
-"95919d603511",
-"2026-11-12"
+"8e1813da0be3",
+"2026-11-13"
 ],
 "players/jack-purchase/": [
 "fed69d4c4955",
@@ -1400,16 +1404,16 @@
 "2026-11-09"
 ],
 "players/jacob-holt/": [
-"4dacf6131392",
-"2026-11-12"
+"013379a6c0e3",
+"2026-11-13"
 ],
 "players/jacob-richards/": [
 "b5c4c4f4722a",
 "2026-11-09"
 ],
 "players/jacob-rigoni/": [
-"a677c5ebc539",
-"2026-11-12"
+"9d3415a74b25",
+"2026-11-13"
 ],
 "players/jacob-wiley/": [
 "62fa908c0f31",
@@ -1420,8 +1424,8 @@
 "2026-11-09"
 ],
 "players/jai-fa-ale/": [
-"b8530e917315",
-"2026-11-12"
+"06d8e4158cdf",
+"2026-11-13"
 ],
 "players/jamaal-brantley/": [
 "2b1576b14b9c",
@@ -1460,8 +1464,8 @@
 "2026-11-09"
 ],
 "players/jaron-rillie/": [
-"fb2267b7e3bf",
-"2026-11-12"
+"d3d3efa46df1",
+"2026-11-13"
 ],
 "players/jarrad-weeks/": [
 "598b9a77d8f9",
@@ -1484,8 +1488,8 @@
 "2026-11-09"
 ],
 "players/jason-spurgin/": [
-"b83335314fe1",
-"2026-11-12"
+"4b7cda43625f",
+"2026-11-13"
 ],
 "players/jasper-rentoy/": [
 "c2484685e912",
@@ -1508,8 +1512,8 @@
 "2026-11-09"
 ],
 "players/jayden-stone/": [
-"8322dfffe231",
-"2026-11-12"
+"ed6aa0216fbd",
+"2026-11-13"
 ],
 "players/jaye-crockett/": [
 "54e02c90e2a8",
@@ -1520,28 +1524,28 @@
 "2026-11-09"
 ],
 "players/jaylin-galloway/": [
-"821b673c18e0",
-"2026-11-12"
+"7f71224fc218",
+"2026-11-13"
 ],
 "players/jaylin-williams/": [
-"d9d889d2d97b",
-"2026-11-12"
+"f756395bd07e",
+"2026-11-13"
 ],
 "players/jaylon-brown/": [
-"7836ec3cf341",
-"2026-11-12"
+"9783bec4beb9",
+"2026-11-13"
 ],
 "players/jean-pierre-tokoto/": [
 "fc6cf8251b53",
 "2026-11-09"
 ],
 "players/jed-richardson/": [
-"15711e8e2e85",
-"2026-11-12"
+"73e55ccc1b17",
+"2026-11-13"
 ],
 "players/jensen-bradtke/": [
-"019a1f91e126",
-"2026-11-12"
+"5dca3be64600",
+"2026-11-13"
 ],
 "players/jeremiah-martin/": [
 "e140b5f8d805",
@@ -1576,16 +1580,16 @@
 "2026-11-09"
 ],
 "players/jesse-wagstaff/": [
-"a67c2490509f",
-"2026-11-12"
+"c4f830e4f214",
+"2026-11-13"
 ],
 "players/jimmy-whitt/": [
-"ebd26b630f39",
-"2026-11-12"
+"25848485b465",
+"2026-11-13"
 ],
 "players/jo-lual-acuil-jr/": [
-"8f40db7159e2",
-"2026-11-12"
+"a2974951d9be",
+"2026-11-13"
 ],
 "players/jo-lual-acuil-melbourne-united-2/": [
 "180b4159d444",
@@ -1604,8 +1608,8 @@
 "2026-11-09"
 ],
 "players/joe-ingles/": [
-"38d6c86c2173",
-"2026-11-12"
+"39e8e1445f6b",
+"2026-11-13"
 ],
 "players/joe-wieskamp/": [
 "84fede285d5e",
@@ -1620,8 +1624,8 @@
 "2026-11-09"
 ],
 "players/john-jenkins/": [
-"20e44f033236",
-"2026-11-12"
+"657deeadd428",
+"2026-11-13"
 ],
 "players/john-mooney/": [
 "5299728e9341",
@@ -1632,16 +1636,16 @@
 "2026-11-09"
 ],
 "players/johny-narkle/": [
-"3dbde74e3fde",
-"2026-11-12"
+"2edb1ae528ca",
+"2026-11-13"
 ],
 "players/jonah-antonio/": [
 "00bb70d36416",
 "2026-11-09"
 ],
 "players/jonah-bolden/": [
-"12748a4a8106",
-"2026-11-12"
+"a790ef4baf61",
+"2026-11-13"
 ],
 "players/jordair-jett/": [
 "ec4039f444d5",
@@ -1656,8 +1660,8 @@
 "2026-11-09"
 ],
 "players/jordan-hunter/": [
-"9ffb3f87d66a",
-"2026-11-12"
+"e1fd8c83c5b6",
+"2026-11-13"
 ],
 "players/jordan-ngatai/": [
 "5fefc45688fc",
@@ -1680,8 +1684,8 @@
 "2026-11-09"
 ],
 "players/josh-bannan/": [
-"ae82e88d5c56",
-"2026-11-12"
+"df7fcde8d644",
+"2026-11-13"
 ],
 "players/josh-boone/": [
 "1a9efb456a94",
@@ -1708,8 +1712,8 @@
 "2026-11-09"
 ],
 "players/josh-oduro/": [
-"a998e4fb663c",
-"2026-11-12"
+"7e47e9ce3f96",
+"2026-11-13"
 ],
 "players/josh-powell/": [
 "39e957c6154b",
@@ -1724,8 +1728,8 @@
 "2026-11-09"
 ],
 "players/joshua-duach/": [
-"dee84000765b",
-"2026-11-12"
+"bdff26ee58d9",
+"2026-11-13"
 ],
 "players/julian-khazzouh/": [
 "74c4b9c06e48",
@@ -1748,8 +1752,8 @@
 "2026-11-09"
 ],
 "players/kael-robinson/": [
-"bb5b4fd8de46",
-"2026-11-12"
+"810dc94b09b2",
+"2026-11-13"
 ],
 "players/kai-sotto/": [
 "745e5cb58c99",
@@ -1768,12 +1772,12 @@
 "2026-11-09"
 ],
 "players/keanu-pinder/": [
-"553ed18c3b8e",
-"2026-11-12"
+"aa4848f3f7f3",
+"2026-11-13"
 ],
 "players/keanu-rasmussen/": [
-"fe09f588ace2",
-"2026-11-12"
+"fa24c612b30e",
+"2026-11-13"
 ],
 "players/keifer-sykes/": [
 "93b8ca8fc526",
@@ -1784,8 +1788,8 @@
 "2026-11-09"
 ],
 "players/kelan-martin/": [
-"b99339b7ffa3",
-"2026-11-12"
+"55fecea2d2c7",
+"2026-11-13"
 ],
 "players/keli-leaupepe/": [
 "de82d5875d48",
@@ -1796,8 +1800,8 @@
 "2026-11-09"
 ],
 "players/kendric-davis/": [
-"a77bc25b1ce4",
-"2026-11-12"
+"d320df7638cf",
+"2026-11-13"
 ],
 "players/kenyon-mcneail/": [
 "02e58e7b8037",
@@ -1840,20 +1844,20 @@
 "2026-11-09"
 ],
 "players/kody-stattmann/": [
-"77fbcf2e5586",
-"2026-11-12"
+"873d6a7bfa13",
+"2026-11-13"
 ],
 "players/koen-sapwell/": [
 "ff130b310349",
 "2026-11-09"
 ],
 "players/kouat-noi/": [
-"31fdde0564d8",
-"2026-11-12"
+"9c08ca359f8e",
+"2026-11-13"
 ],
 "players/kristian-doolittle/": [
-"341a835054ba",
-"2026-11-12"
+"10895cd1cfec",
+"2026-11-13"
 ],
 "players/kruz-perrott-hunt/": [
 "a156388e3c46",
@@ -1868,20 +1872,20 @@
 "2026-11-09"
 ],
 "players/kyle-adnam/": [
-"853458a11e18",
-"2026-11-12"
+"2af7fa3025f7",
+"2026-11-13"
 ],
 "players/kyle-bowen/": [
-"53c21ce956d2",
-"2026-11-12"
+"b0e624d469ca",
+"2026-11-13"
 ],
 "players/kyle-zunic/": [
 "9ce4032b0a69",
 "2026-11-09"
 ],
 "players/kyrin-galloway/": [
-"9055c78a75f9",
-"2026-11-12"
+"39bfdf2f007a",
+"2026-11-13"
 ],
 "players/lachlan-anderson/": [
 "b0c42253fa3f",
@@ -1892,8 +1896,8 @@
 "2026-11-09"
 ],
 "players/lachlan-bofinger/": [
-"8c295a16767d",
-"2026-11-12"
+"6375df26acfb",
+"2026-11-13"
 ],
 "players/lachlan-dent/": [
 "1e60e0b3cd8b",
@@ -1904,8 +1908,8 @@
 "2026-11-09"
 ],
 "players/lamar-patterson/": [
-"dbee3efa8c6c",
-"2026-11-12"
+"0e17f570c60a",
+"2026-11-13"
 ],
 "players/lamelo-ball/": [
 "6ec1569ba498",
@@ -1920,8 +1924,8 @@
 "2026-11-09"
 ],
 "players/lat-mayen/": [
-"60b2b2f66ee6",
-"2026-11-12"
+"5edbfbfeb9d9",
+"2026-11-13"
 ],
 "players/leon-henry/": [
 "9d3e9ee6d7f9",
@@ -1936,8 +1940,8 @@
 "2026-11-09"
 ],
 "players/lloyd-mcveigh/": [
-"2a18c30bbf59",
-"2026-11-12"
+"6c3d51c268d5",
+"2026-11-13"
 ],
 "players/lochlan-cummings/": [
 "97eb3b593640",
@@ -1952,8 +1956,8 @@
 "2026-11-09"
 ],
 "players/luca-yates/": [
-"308f4376816b",
-"2026-11-12"
+"49a942565f98",
+"2026-11-13"
 ],
 "players/lucas-walker/": [
 "e21c4e607852",
@@ -1972,8 +1976,8 @@
 "2026-11-09"
 ],
 "players/luke-paul/": [
-"3fed42c7da11",
-"2026-11-12"
+"a1105c5939e8",
+"2026-11-13"
 ],
 "players/luke-rosendale/": [
 "b1b273df4e99",
@@ -1984,12 +1988,12 @@
 "2026-11-09"
 ],
 "players/luke-travers/": [
-"73cf01c407ef",
-"2026-11-12"
+"e62d0c54b868",
+"2026-11-13"
 ],
 "players/majok-deng/": [
-"fb92da17fc2e",
-"2026-11-12"
+"51c5fa5d3635",
+"2026-11-13"
 ],
 "players/majok-majok/": [
 "9b8a237bfa18",
@@ -2000,32 +2004,32 @@
 "2026-11-09"
 ],
 "players/makuach-maluach/": [
-"16f05d447225",
-"2026-11-12"
+"ac08c020236e",
+"2026-11-13"
 ],
 "players/makur-maker/": [
-"d6d61aac00e7",
-"2026-11-12"
+"9c74b544a73b",
+"2026-11-13"
 ],
 "players/malcolm-bernard/": [
 "72d8d1fbe592",
 "2026-11-09"
 ],
 "players/malique-lewis/": [
-"1a3c508423fb",
-"2026-11-12"
+"ad8e8f763b07",
+"2026-11-13"
 ],
 "players/malith-machar/": [
-"9c17e820d102",
-"2026-11-12"
+"eff594e2d42d",
+"2026-11-13"
 ],
 "players/malual-goc/": [
 "82a9788e8a30",
 "2026-11-09"
 ],
 "players/mangok-mathiang/": [
-"6e656462e379",
-"2026-11-12"
+"d8a74ce8899b",
+"2026-11-13"
 ],
 "players/mantas-rubstavicius/": [
 "9e704f6db15c",
@@ -2048,8 +2052,8 @@
 "2026-11-09"
 ],
 "players/marley-sam/": [
-"bde16ecceccb",
-"2026-11-12"
+"3731e2a30e7b",
+"2026-11-13"
 ],
 "players/marshall-nelson/": [
 "11451257bba4",
@@ -2068,24 +2072,24 @@
 "2026-11-09"
 ],
 "players/mason-peatling/": [
-"bcceb8e773e1",
-"2026-11-12"
+"72ac9146ca98",
+"2026-11-13"
 ],
 "players/matt-hurt/": [
 "0644119926aa",
 "2026-11-09"
 ],
 "players/matt-kenyon/": [
-"b6f0cde6b699",
-"2026-11-12"
+"556be7ffe000",
+"2026-11-13"
 ],
 "players/matthew-burston/": [
 "827ff156a4a9",
 "2026-11-09"
 ],
 "players/matthew-dellavedova/": [
-"1d307a04454d",
-"2026-11-12"
+"093a6d1f072a",
+"2026-11-13"
 ],
 "players/matthew-hodgson/": [
 "af4a4cb6eb25",
@@ -2112,16 +2116,16 @@
 "2026-11-09"
 ],
 "players/mawot-mag/": [
-"5f9be1e7c620",
-"2026-11-12"
+"094eda7181c4",
+"2026-11-13"
 ],
 "players/max-darling/": [
 "b358480d1cb0",
 "2026-11-09"
 ],
 "players/max-mackinnon/": [
-"d1d443652a68",
-"2026-11-12"
+"a40ad00fda08",
+"2026-11-13"
 ],
 "players/maxwell-de-geest/": [
 "5fac1a5a1b13",
@@ -2172,8 +2176,8 @@
 "2026-11-09"
 ],
 "players/milton-doyle/": [
-"651087e13c38",
-"2026-11-12"
+"660f3c2f0b87",
+"2026-11-13"
 ],
 "players/mirko-djeric/": [
 "1b18ca2feb6f",
@@ -2188,8 +2192,8 @@
 "2026-11-09"
 ],
 "players/mitch-norton/": [
-"8e91b0397118",
-"2026-11-12"
+"49ba967e361f",
+"2026-11-13"
 ],
 "players/mitchell-clarke/": [
 "2d7abce892a5",
@@ -2212,16 +2216,16 @@
 "2026-11-09"
 ],
 "players/mojave-king/": [
-"8d0992f24fce",
-"2026-11-12"
+"59ba3ec08f26",
+"2026-11-13"
 ],
 "players/montrezl-harrell/": [
 "465ddc65747b",
 "2026-11-09"
 ],
 "players/nate-hinton/": [
-"69a079456e06",
-"2026-11-12"
+"5d2b1edd14c1",
+"2026-11-13"
 ],
 "players/nate-tomlinson/": [
 "f9787698996f",
@@ -2232,8 +2236,8 @@
 "2026-11-09"
 ],
 "players/nathan-sobey/": [
-"e9264d787ec7",
-"2026-11-12"
+"4cc146be1548",
+"2026-11-13"
 ],
 "players/nelson-larkins-adelaide-36ers-2/": [
 "1c07a99855b4",
@@ -2244,8 +2248,8 @@
 "2026-11-09"
 ],
 "players/nelson-weidemann/": [
-"9b78d4706ccf",
-"2026-11-12"
+"c8f1a1b1fd6a",
+"2026-11-13"
 ],
 "players/nic-pozoglou/": [
 "932b8cb9728e",
@@ -2256,16 +2260,16 @@
 "2026-11-09"
 ],
 "players/nicholas-stoddart/": [
-"11bfe71b85b6",
-"2026-11-12"
+"83101df1d223",
+"2026-11-13"
 ],
 "players/nick-marshall/": [
-"c6a2041ab9d6",
-"2026-11-12"
+"0a65de9a1d04",
+"2026-11-13"
 ],
 "players/nick-rakocevic/": [
-"a8eae56269b1",
-"2026-11-12"
+"bc668e14cef4",
+"2026-11-13"
 ],
 "players/nicolas-tata/": [
 "9b5e7d4f992e",
@@ -2324,8 +2328,8 @@
 "2026-11-09"
 ],
 "players/parker-jackson-cartwright/": [
-"be63ca9e252f",
-"2026-11-12"
+"93fd93497d6f",
+"2026-11-13"
 ],
 "players/patrick-darcy/": [
 "8993f5fb0751",
@@ -2340,8 +2344,8 @@
 "2026-11-09"
 ],
 "players/patrick-ryan/": [
-"1f4e043453eb",
-"2026-11-12"
+"b539b7781d7f",
+"2026-11-13"
 ],
 "players/paul-carter/": [
 "754fa7537887",
@@ -2352,8 +2356,8 @@
 "2026-11-09"
 ],
 "players/peitok-machar/": [
-"6ffd744b719a",
-"2026-11-12"
+"f84f2e13674e",
+"2026-11-13"
 ],
 "players/perrin-buford/": [
 "28e7a95d848a",
@@ -2376,8 +2380,8 @@
 "2026-11-09"
 ],
 "players/raheim-brown/": [
-"4d282386b1fb",
-"2026-11-12"
+"04715509051b",
+"2026-11-13"
 ],
 "players/rakeem-christmas/": [
 "2cf54a579e61",
@@ -2396,8 +2400,8 @@
 "2026-11-09"
 ],
 "players/raul-neto/": [
-"1ca8cdf73a18",
-"2026-11-12"
+"cead1278c2b5",
+"2026-11-13"
 ],
 "players/ray-turner/": [
 "49790e76aa23",
@@ -2412,12 +2416,12 @@
 "2026-11-09"
 ],
 "players/reuben-te-rangi/": [
-"b5cb8e45ef11",
-"2026-11-12"
+"32c7895769d1",
+"2026-11-13"
 ],
 "players/reyne-smith/": [
-"32da9d09043c",
-"2026-11-12"
+"8494e1b65f39",
+"2026-11-13"
 ],
 "players/rhys-carter/": [
 "7f5f91cfc971",
@@ -2432,8 +2436,8 @@
 "2026-11-09"
 ],
 "players/rio-bruton/": [
-"7df699700c3d",
-"2026-11-12"
+"f28c617d976c",
+"2026-11-13"
 ],
 "players/rj-hampton/": [
 "f4431151ebeb",
@@ -2480,20 +2484,20 @@
 "2026-11-09"
 ],
 "players/ryley-haywood/": [
-"86ccaa446924",
-"2026-11-12"
+"48e697905e30",
+"2026-11-13"
 ],
 "players/sam-daly/": [
 "273332d229e7",
 "2026-11-09"
 ],
 "players/sam-davidson/": [
-"69eb1abd57ed",
-"2026-11-12"
+"31b3dbbe6e9e",
+"2026-11-13"
 ],
 "players/sam-froling/": [
-"f90c360d4ef5",
-"2026-11-12"
+"68ed351dee7f",
+"2026-11-13"
 ],
 "players/sam-johns/": [
 "4a687ae4e86d",
@@ -2504,12 +2508,12 @@
 "2026-11-09"
 ],
 "players/sam-mcdaniel-melbourne-united/": [
-"a98287b6f1b1",
-"2026-11-12"
+"1751cc9c0a92",
+"2026-11-13"
 ],
 "players/sam-mennenga/": [
-"aa4b0ff9f0e4",
-"2026-11-12"
+"42bd9efc75ac",
+"2026-11-13"
 ],
 "players/sam-short/": [
 "853fcc68b0db",
@@ -2520,8 +2524,8 @@
 "2026-11-09"
 ],
 "players/sam-waardenburg/": [
-"bf4dc9579845",
-"2026-11-12"
+"81a21aec44a1",
+"2026-11-13"
 ],
 "players/scott-machado/": [
 "98ffe1c9c114",
@@ -2560,8 +2564,8 @@
 "2026-11-09"
 ],
 "players/shaun-bruce/": [
-"d356d274b65f",
-"2026-11-12"
+"9cdc747163bf",
+"2026-11-13"
 ],
 "players/shawn-long/": [
 "3b1a7d31eb79",
@@ -2572,12 +2576,12 @@
 "2026-11-09"
 ],
 "players/shea-ili/": [
-"7644d3665fc7",
-"2026-11-12"
+"b205a5aa2c59",
+"2026-11-13"
 ],
 "players/skylar-mays/": [
-"021f554f6da2",
-"2026-11-12"
+"947833046bd5",
+"2026-11-13"
 ],
 "players/stanton-kidd/": [
 "649fbe8512f5",
@@ -2608,8 +2612,8 @@
 "2026-11-09"
 ],
 "players/sunday-dech/": [
-"38204b48fe5f",
-"2026-11-12"
+"3598ebe025f1",
+"2026-11-13"
 ],
 "players/taane-samuel/": [
 "30b0bc5d726c",
@@ -2640,28 +2644,28 @@
 "2026-11-09"
 ],
 "players/taine-murray/": [
-"db113bfb9dc5",
-"2026-11-12"
+"8cbacf6cfefb",
+"2026-11-13"
 ],
 "players/tamuri-wigness/": [
 "b5f0a14ad063",
 "2026-11-09"
 ],
 "players/tana-kopa/": [
-"a3a242a4b5f3",
-"2026-11-12"
+"3707886c668e",
+"2026-11-13"
 ],
 "players/tanner-groves/": [
 "a5955e276dec",
 "2026-11-09"
 ],
 "players/tanner-krebs/": [
-"2bc02ab78a67",
-"2026-11-12"
+"138fb3e78aec",
+"2026-11-13"
 ],
 "players/taran-armstrong/": [
-"f947f5c23941",
-"2026-11-12"
+"da224b95c2b0",
+"2026-11-13"
 ],
 "players/tashawn-thomas/": [
 "49fbfeb432b4",
@@ -2724,8 +2728,8 @@
 "2026-11-09"
 ],
 "players/todd-blanchfield/": [
-"0fec361def9a",
-"2026-11-12"
+"aaf05dd2fdfc",
+"2026-11-13"
 ],
 "players/todd-withers/": [
 "0d2df9fdcb22",
@@ -2768,8 +2772,8 @@
 "2026-11-09"
 ],
 "players/tom-wilson/": [
-"4dd69fafe1a3",
-"2026-11-12"
+"8a0612f06b13",
+"2026-11-13"
 ],
 "players/tony-crocker/": [
 "1e5d953cba48",
@@ -2784,8 +2788,8 @@
 "2026-11-09"
 ],
 "players/torrey-craig/": [
-"efe9088d9ebd",
-"2026-11-12"
+"a3adc4807df8",
+"2026-11-13"
 ],
 "players/travis-leslie/": [
 "94cba99f44e3",
@@ -2816,8 +2820,8 @@
 "2026-11-09"
 ],
 "players/tukaha-cooper/": [
-"8d87061ca683",
-"2026-11-12"
+"eb1c1b5ba027",
+"2026-11-13"
 ],
 "players/tyger-campbell/": [
 "6c01983f09ad",
@@ -2828,20 +2832,20 @@
 "2026-11-09"
 ],
 "players/tyler-harvey/": [
-"5ba60151969d",
-"2026-11-12"
+"37d8c055236a",
+"2026-11-13"
 ],
 "players/tyler-johnson/": [
 "d96f46704d1b",
 "2026-11-09"
 ],
 "players/tyler-robertson/": [
-"5fab7884cd6e",
-"2026-11-12"
+"51b5e1d783f3",
+"2026-11-13"
 ],
 "players/tyrell-harrison/": [
-"f597a8194134",
-"2026-11-12"
+"95c269effa8e",
+"2026-11-13"
 ],
 "players/tyson-demos/": [
 "408e4c813dbb",
@@ -2860,16 +2864,16 @@
 "2026-11-09"
 ],
 "players/walter-brown/": [
-"052b8c1aa475",
-"2026-11-12"
+"8341f8901c26",
+"2026-11-13"
 ],
 "players/wang-tong/": [
 "ba16307b0fe5",
 "2026-11-09"
 ],
 "players/wani-swaka-lo-buluk/": [
-"b67a701df403",
-"2026-11-12"
+"9dab87e0af4d",
+"2026-11-13"
 ],
 "players/wes-iwundu/": [
 "ff23ba640ebd",
@@ -2880,16 +2884,16 @@
 "2026-11-09"
 ],
 "players/will-hynes/": [
-"3e81c95efcf5",
-"2026-11-12"
+"8b18db500df8",
+"2026-11-13"
 ],
 "players/will-johnston/": [
-"2001a8ae6e83",
-"2026-11-12"
+"be093952fb02",
+"2026-11-13"
 ],
 "players/will-magnay/": [
-"ac8f7d0e652a",
-"2026-11-12"
+"4dc615ec896b",
+"2026-11-13"
 ],
 "players/will-mcdowell-white/": [
 "7d157edd4317",
@@ -2900,8 +2904,8 @@
 "2026-11-09"
 ],
 "players/william-hickey/": [
-"31e43cae184d",
-"2026-11-12"
+"1ac81e9df616",
+"2026-11-13"
 ],
 "players/william-mcdowell-white-new-zealand-breakers/": [
 "e7daf9ba722c",
@@ -2912,8 +2916,8 @@
 "2026-11-09"
 ],
 "players/xavier-cooks/": [
-"bbd295f2f352",
-"2026-11-12"
+"11107acc01de",
+"2026-11-13"
 ],
 "players/xavier-munford/": [
 "54fc988148e4",
@@ -2936,8 +2940,8 @@
 "2026-11-09"
 ],
 "players/yannis-morin/": [
-"e7a956b5294a",
-"2026-11-12"
+"1d2990d82012",
+"2026-11-13"
 ],
 "players/yudai-baba/": [
 "7681fe676e3f",
@@ -2956,95 +2960,95 @@
 "2026-11-09"
 ],
 "players/zylan-cheatham/": [
-"e5a585f44da4",
-"2026-11-12"
+"9523d8b34548",
+"2026-11-13"
 ],
 "schedule/": [
-"08052b3ecbb0",
+"41fc42066cdf",
 "2026-11-13"
 ],
 "stats/": [
-"75126c042b8a",
+"9235efadb924",
 "2026-11-13"
 ],
 "teams/adelaide-36ers/": [
-"9959bbe6c550",
+"96905d7e66da",
 "2026-11-13"
 ],
 "teams/adelaide-36ers/lineups/": [
-"b024f7e02942",
-"2026-11-12"
+"2011380e3699",
+"2026-11-13"
 ],
 "teams/brisbane-bullets/": [
-"8f6af6afd876",
+"3a4f8524f60b",
 "2026-11-13"
 ],
 "teams/brisbane-bullets/lineups/": [
-"f17863dbcd1a",
-"2026-11-12"
+"0f25bb13f6d6",
+"2026-11-13"
 ],
 "teams/cairns-taipans/": [
-"c758f84e8583",
+"7b15e39ef1b7",
 "2026-11-13"
 ],
 "teams/cairns-taipans/lineups/": [
-"c6446206ca24",
+"e324ffae5826",
 "2026-11-13"
 ],
 "teams/illawarra-hawks/": [
-"81840cfb5ce1",
+"343022e58d7c",
 "2026-11-13"
 ],
 "teams/illawarra-hawks/lineups/": [
-"03c2f7037488",
-"2026-11-12"
+"185a0c270f62",
+"2026-11-13"
 ],
 "teams/melbourne-united/": [
-"12501faa138e",
+"a85356325314",
 "2026-11-13"
 ],
 "teams/melbourne-united/lineups/": [
-"ce54557118ed",
-"2026-11-12"
+"981d5e87c144",
+"2026-11-13"
 ],
 "teams/new-zealand-breakers/": [
-"ac503d3024c9",
+"2b930b603b8c",
 "2026-11-13"
 ],
 "teams/new-zealand-breakers/lineups/": [
-"3e02159bf0df",
-"2026-11-12"
+"5d10cf855383",
+"2026-11-13"
 ],
 "teams/perth-wildcats/": [
-"2dbdab41d22e",
+"af8705905237",
 "2026-11-13"
 ],
 "teams/perth-wildcats/lineups/": [
-"718f36c2bdd9",
+"17bca4ff9b8d",
 "2026-11-13"
 ],
 "teams/south-east-melbourne-phoenix/": [
-"83b3a13cbcb4",
+"e197c6cff306",
 "2026-11-13"
 ],
 "teams/south-east-melbourne-phoenix/lineups/": [
-"8a32719ee172",
-"2026-11-12"
+"f4d86feeb2e2",
+"2026-11-13"
 ],
 "teams/sydney-kings/": [
-"0e904185bb5a",
+"3555b7f43794",
 "2026-11-13"
 ],
 "teams/sydney-kings/lineups/": [
-"f9901cbd0bb4",
+"c47cdef11183",
 "2026-11-13"
 ],
 "teams/tasmania-jackjumpers/": [
-"6d5d846dc178",
+"0a32a02a7416",
 "2026-11-13"
 ],
 "teams/tasmania-jackjumpers/lineups/": [
-"2ba8555e230f",
-"2026-11-12"
+"f80146a6f49b",
+"2026-11-13"
 ]
 }
