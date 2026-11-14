@@ -654,10 +654,10 @@
   "home": "Illawarra Hawks",
   "away": "Tasmania JackJumpers",
   "slug": "2026-12-10-tasmania-jackjumpers-at-illawarra-hawks",
-  "p_home": 0.409,
+  "p_home": 0.41,
   "margin": -3.2,
   "total": 194.0,
-  "logged": "2026-11-13T17:49:27.106693+00:00"
+  "logged": "2026-11-14T06:36:02.341507+00:00"
  },
  "37788a52-58ad-11f1-b28e-b7b6f460181f": {
   "utc": "2026-12-11T06:30:00+00:00",
@@ -714,10 +714,10 @@
   "home": "Perth Wildcats",
   "away": "Melbourne United",
   "slug": "2026-12-16-melbourne-united-at-perth-wildcats",
-  "p_home": 0.404,
+  "p_home": 0.405,
   "margin": -3.3,
   "total": 192.9,
-  "logged": "2026-11-13T17:49:27.106693+00:00"
+  "logged": "2026-11-14T06:36:02.341507+00:00"
  },
  "3754e87b-58ad-11f1-bcdd-c1f492925f49": {
   "utc": "2026-12-17T08:30:00+00:00",
@@ -884,10 +884,10 @@
   "home": "Illawarra Hawks",
   "away": "South East Melbourne Phoenix",
   "slug": "2026-12-31-south-east-melbourne-phoenix-at-illawarra-hawks",
-  "p_home": 0.431,
+  "p_home": 0.432,
   "margin": -2.4,
-  "total": 205.3,
-  "logged": "2026-11-13T17:49:27.106693+00:00"
+  "total": 205.2,
+  "logged": "2026-11-14T06:36:02.341507+00:00"
  },
  "3769a2ba-58ad-11f1-ba9d-6f9744c8d3ab": {
   "utc": "2026-12-31T08:30:00+00:00",
@@ -994,10 +994,10 @@
   "home": "New Zealand Breakers",
   "away": "Illawarra Hawks",
   "slug": "2027-01-08-illawarra-hawks-at-new-zealand-breakers",
-  "p_home": 0.643,
+  "p_home": 0.642,
   "margin": 5.0,
   "total": 193.4,
-  "logged": "2026-11-13T17:49:27.106693+00:00"
+  "logged": "2026-11-14T06:36:02.341507+00:00"
  },
  "377f12e2-58ad-11f1-a03f-e94b8c35b649": {
   "utc": "2027-01-08T08:30:00+00:00",
@@ -1214,10 +1214,10 @@
   "home": "Cairns Taipans",
   "away": "Sydney Kings",
   "slug": "2027-01-27-sydney-kings-at-cairns-taipans",
-  "p_home": 0.323,
+  "p_home": 0.324,
   "margin": -6.3,
   "total": 187.7,
-  "logged": "2026-11-13T17:49:27.106693+00:00"
+  "logged": "2026-11-14T06:36:02.341507+00:00"
  },
  "37947616-58ad-11f1-a290-8da1c4ae1ac0": {
   "utc": "2027-01-28T08:30:00+00:00",
